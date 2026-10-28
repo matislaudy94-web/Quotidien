@@ -716,12 +716,14 @@
       const gainJournal = dejaComptee ? PROG.calculer(PROG.lireJournal(profil()), jourParis()).detailParties.find(d => d.grille === grille.id) : null;
       cj.innerHTML = `<span class="etiquette">${DEMO ? "Grille de démonstration" : "La grille du jour"}</span>
         <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
-        <div class="meta"><span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>
+        <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>` : ""}
           <span class="tag">${terminee ? "Terminée" : etatLocal && etatLocal.debut ? "En cours" : "À jouer"}</span>
-          <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : `Jusqu'à ${xpMax} XP`}</span></div>
+          <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
         <p>${terminee ? "Tu as déjà joué cette grille." : "16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16."}</p>
-        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : etatLocal && etatLocal.debut ? "Reprendre la partie" : "Jouer maintenant"}</button>`;
+        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : etatLocal && etatLocal.debut ? "Reprendre la partie" : "Jouer maintenant"}</button>
+        ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
       $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; lancerGrille(); } else allerJouer(); });
+      if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
     }
 
     // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
@@ -880,7 +882,7 @@
   function htmlGroupe(gi, couleurIndex) {
     const g = grille.groupes[gi];
     return `<div class="group c${couleurIndex}${gi === groupeAnime ? " nouveau" : ""}">
-      <div class="lvl">${LIB_DIFF[g.difficulte]}</div>
+      ${DEMO ? `<div class="lvl">${LIB_DIFF[g.difficulte]}</div>` : ""}
       <div class="cat">${g.categorie}</div>
       <div class="words">${g.mots.join(", ")}</div>
       ${etat.fin ? `<div class="expl">${g.explication}</div>` : ""}</div>`;

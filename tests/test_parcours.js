@@ -134,6 +134,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pb.waitForSelector("#fin:not(.hidden)");
     ok(await pb.locator("#resume h2").innerText() === "Partie terminée", "défaite après 4 erreurs");
     ok((await pb.locator("#resume").innerText()).includes("1 groupe trouvé sur 4"), "résumé : 1 groupe sur 4 et solution révélée");
+    ok(await pb.locator("#solution .lvl").count() === 0, "participant : aucun niveau de groupe affiché dans la solution");
 
     console.log("4. Invitation : un nouveau joueur arrive par le lien de A");
     const { page: pi } = await nouveau({}, true);
@@ -207,7 +208,9 @@ async function jouer(page, groupesAJouer, faux = 0) {
     console.log("7. Mode démo : rien n'est enregistré");
     const avant = (await db()).evenements.length;
     const { page: pd } = await nouveau();
-    await aller(pd, `${BASE}/?demo=1&g=g2`); await pd.waitForSelector(".tile");
+    await aller(pd, `${BASE}/?demo=1&g=g2`, false); await pd.waitForSelector("#carte-jour");
+    ok(/Intermédiaire/.test(await pd.locator("#carte-jour").innerText()), "démo : la difficulté reste visible");
+    await pd.click("#btn-jouer"); await pd.waitForSelector(".tile");
     ok(await pd.getByRole("button", { name: "PIRATE", exact: true }).count() === 1, "la démo affiche la grille 2 demandée");
     await pd.locator(".tile").first().click(); await pd.waitForTimeout(300);
     ok((await db()).evenements.length === avant, "aucun événement enregistré en démo");
@@ -221,7 +224,9 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(/Niveau 1/i.test(txtXp) && /100 XP/.test(txtXp), "accueil de A : niveau 1, 100 XP → " + txtXp.replace(/\n/g, " | "));
     ok(/100 \/ 120 XP vers le niveau 2/.test(txtXp.replace(/\s+/g, " ")), "barre : 100 / 120 XP vers le niveau 2");
     const cj = (await pa.locator("#carte-jour").innerText()).replace(/\s+/g, " ");
-    ok(/À jouer/.test(cj) && /Jusqu'à 100 XP/.test(cj) && /Intermédiaire/.test(cj), "jour 2 : carte du jour = grille 2, à jouer, intermédiaire, jusqu'à 100 XP → " + cj);
+    ok(/À jouer/.test(cj) && /XP à gagner/.test(cj) && !/Intermédiaire|Facile|Difficile|Jusqu'à/.test(cj), "jour 2 : carte du jour à jouer, SANS difficulté ni maximum d'XP (participant) → " + cj);
+    await aller(pa, `${BASE}/?p=${A}`, true); await pa.waitForSelector(".tile");
+    await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-jour");
     const objs = await pa.locator("#accueil-objectifs .objectif").count();
     ok(objs === 3, "3 objectifs affichés sur l'accueil (" + objs + ")");
     ok((await pa.locator("#accueil-objectifs").innerText()).includes("Esprit logique") && !(await pa.locator("#accueil-objectifs").innerText()).includes("Premier défi"), "l'objectif réalisé (Premier défi) a laissé la place au suivant");

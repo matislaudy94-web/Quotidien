@@ -591,6 +591,7 @@
 <script src="api.js"></script>
 <script src="grilles.js"></script>
 <script src="entrainement.js"></script>
+<script src="variantes.js"></script>
 <script src="defi_banque.js"></script>
 <script src="defi.js"></script>
 <script src="progression.js"></script>
@@ -732,7 +733,7 @@
       const { deverrouillee, resolues } = etatDemo();
       const demandee = GRILLES.findIndex(g => g.id === params.get("g"));
       const iGrille = demandee >= 0 && deverrouillee(demandee) ? demandee : Math.max(0, GRILLES.findIndex((g, i) => deverrouillee(i) && !resolues.has(g.id)));
-      grille = GRILLES[iGrille >= 0 ? iGrille : 0];
+      grille = grilleDemo(GRILLES[iGrille >= 0 ? iGrille : 0].id);
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
       soumettreDefiInterrompu();
@@ -1312,10 +1313,28 @@
     const resolues = reussiesDemo();
     return { resolues, deverrouillee: (i) => i === 0 || resolues.has(GRILLES[i - 1].id) };
   }
-  function grilleSuivanteDemo(g) { const i = GRILLES.indexOf(g || grille); return i >= 0 && i + 1 < GRILLES.length ? GRILLES[i + 1] : null; }
+  function grilleSuivanteDemo(g) { const i = indexGrille(g || grille); return i >= 0 && i + 1 < GRILLES.length ? GRILLES[i + 1] : null; }
+  const indexGrille = (g) => g ? GRILLES.findIndex(x => x.id === g.id) : -1;
+
+  // ---------- Versions de rechange (démo) ----------
+  // Chaque grille de démo existe en 3 versions de même difficulté (l'originale + 2 de variantes.json), avec d'autres mots
+  // et d'autres groupes. Chaque partie terminée fait passer à la version suivante : réessayer après un échec ne
+  // remontre jamais la grille dont on vient de voir la solution. L'XP et le déblocage restent comptés par grille.
+  const VARIANTES = window.QUOTIDIEN_VARIANTES || {};
+  const CLE_VERSIONS_DEMO = "quotidien_demo_versions";
+  function versionsDe(id) { const o = GRILLES.find(x => x.id === id); return o ? [o].concat(VARIANTES[id] || []) : []; }
+  function numeroVersion(id) { const v = versionsDe(id).length; const n = (store.get(CLE_VERSIONS_DEMO) || {})[id] | 0; return v ? n % v : 0; }
+  function avancerVersion(id) { const t = store.get(CLE_VERSIONS_DEMO) || {}; t[id] = (t[id] | 0) + 1; store.set(CLE_VERSIONS_DEMO, t); }
+  function grilleDemo(id) {
+    const vs = versionsDe(id), k = numeroVersion(id), o = vs[0];
+    if (!o) return null;
+    if (k === 0) return Object.assign({}, o, { version: 1, nbVersions: vs.length });
+    // Une version de rechange porte l'identifiant de sa grille : XP, déblocage et carte des grilles restent par grille.
+    return Object.assign({}, vs[k], { id: o.id, titre: o.titre, niveau: o.niveau, idVersion: vs[k].id, version: k + 1, nbVersions: vs.length });
+  }
   // Change la grille de démo affichée ; si jouer = true, lance directement la partie.
   function choisirGrilleDemo(id, jouer) {
-    const g = GRILLES.find(x => x.id === id); if (!g) return;
+    const g = grilleDemo(id); if (!g) return;
     revenirJour();
     grille = g; etat = null; selection = []; fini = false; viderPlateau();
     // L'adresse reste « ?demo=1 » : au prochain chargement, l'accueil propose la première grille ouverte non réussie.
@@ -1378,11 +1397,11 @@
       const gainJournal = dejaComptee ? PROG.calculer(PROG.lireJournal(profil()), jourParis()).detailParties.find(d => d.grille === grille.id) : null;
       cj.innerHTML = `<span class="etiquette">${DEMO ? "Grille de démonstration" : "La grille du jour"}</span>
         <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
-        <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>` : ""}
+        <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>${grille.nbVersions > 1 && grille.version > 1 ? `<span class="tag">Version ${grille.version}/${grille.nbVersions}</span>` : ""}` : ""}
           <span class="tag ${reussieDemo ? "ok" : ""}">${reussieDemo ? "Réussie ✓" : DEMO && terminee ? "À réussir" : terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
           <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
-        <p>${reussieDemo ? (suivDemo ? `Bravo, grille réussie ! La grille ${GRILLES.indexOf(suivDemo) + 1} est débloquée.` : "Bravo, tu as réussi la dernière grille !") : DEMO && terminee ? "Pas encore réussie : retente ta chance pour débloquer la grille suivante." : terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
-        ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${GRILLES.indexOf(suivDemo) + 1} →</button>` : ""}
+        <p>${reussieDemo ? (suivDemo ? `Bravo, grille réussie ! La grille ${indexGrille(suivDemo) + 1} est débloquée.` : "Bravo, tu as réussi la dernière grille !") : DEMO && terminee ? `Pas encore réussie : retente ta chance pour débloquer la grille suivante${grille.nbVersions > 1 ? ", avec d'autres mots" : ""}.` : terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
+        ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${indexGrille(suivDemo) + 1} →</button>` : ""}
         <button class="btn ${suivDemo ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
       $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; viderPlateau(); lancerGrille(); } else allerJouer(); });
@@ -1590,7 +1609,7 @@
   function lancerGrille() {
     $("chargement").classList.add("hidden");
     cacherCta();
-    const num = GRILLES.indexOf(grille) + 1;
+    const num = indexGrille(grille) + 1;
     const tous = grille.groupes.flatMap(g => g.mots);
     const etatAvant = etat;
     if (mode === "entr") {
@@ -1601,7 +1620,7 @@
       const sauve = store.get(cleEtatEntr(grille.id));
       etat = (etatAvant && etatAvant.grilleId === grille.id && !etatAvant.fin) ? etatAvant : (sauve && !sauve.fin && sauve.grilleId === grille.id ? sauve : null);
     } else {
-      $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>` : `Grille du <b>${formatDate(jourParis())}</b>`;
+      $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>${grille.nbVersions > 1 ? ` · version ${grille.version}/${grille.nbVersions}` : ""}` : `Grille du <b>${formatDate(jourParis())}</b>`;
       $("tagline").textContent = "Retrouve les 4 groupes de 4 mots.";
       etat = (!DEMO && store.get(cle())) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
     }
@@ -1847,6 +1866,7 @@
     etat.trouvesParJoueur = trouvesParJoueur;
     sauver();
     if (DEMO && mode !== "entr" && gagne) marquerReussieDemo(grille.id);
+    if (DEMO && mode !== "entr") avancerVersion(grille.id);
     if (mode === "entr") journalEntr("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), indices: (etat.indices || []).length, tentative: etat.tentative });
     journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
       nb_groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), duree_brute_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length, indices: (etat.indices || []).length });
@@ -1974,14 +1994,15 @@
   // Démo : après une réussite, la grille suivante est débloquée et proposée tout de suite ; après un échec, réessayer.
   function rendreSuiteDemo() {
     const z = $("suite-demo"); if (!z) return;
-    const suiv = grilleSuivanteDemo(), n = suiv ? GRILLES.indexOf(suiv) + 1 : null;
+    const suiv = grilleSuivanteDemo(), n = suiv ? indexGrille(suiv) + 1 : null;
+    const prochaineVersion = (grille.version % (grille.nbVersions || 1)) + 1;
     if (etat.gagne) {
       z.innerHTML = `${suiv ? `<p class="debloque">🔓 Grille ${n} débloquée !</p>` : `<p class="debloque">🏁 Tu as réussi la dernière grille de la démo !</p>`}
         <div class="suite-rapide">${suiv ? `<button class="btn primary btn-large" id="demo-suivante">Jouer la grille ${n} →</button>` : ""}
-          <div class="rang"><button class="btn" id="demo-rejouer">Rejouer</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+          <div class="rang"><button class="btn" id="demo-rejouer">${grille.nbVersions > 1 ? "Rejouer (autres mots)" : "Rejouer"}</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
     } else {
-      z.innerHTML = `<p class="small" style="text-align:center;margin:10px 0 0">Réussis cette grille pour débloquer la suivante.</p>
-        <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">Réessayer la grille</button>
+      z.innerHTML = `<p class="small" style="text-align:center;margin:10px 0 0">Réussis cette grille pour débloquer la suivante.${grille.nbVersions > 1 ? ` Nouvel essai avec d'autres mots et d'autres groupes (version ${prochaineVersion}/${grille.nbVersions}).` : ""}</p>
+        <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">${grille.nbVersions > 1 ? "Réessayer avec d'autres mots" : "Réessayer la grille"}</button>
           <div class="rang"><button class="btn" id="demo-solution">Voir la solution</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
     }
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
@@ -1992,7 +2013,7 @@
     on("demo-carte", () => { ouvrirAccueil(); setTimeout(() => { const c = $("carte-grilles"); if (c) c.scrollIntoView({ behavior: "smooth", block: "center" }); }, 60); });
     const cible = $("demo-suivante") || $("demo-reessayer");
     if (suiv && etat.gagne) ctaCollant(cible, `🔓 Grille ${n} débloquée`, "Continue sur ta lancée", "Jouer →", () => choisirGrilleDemo(suiv.id, true));
-    else if (!etat.gagne) ctaCollant(cible, "Grille pas encore réussie", "Retente pour débloquer la suivante", "Réessayer", () => choisirGrilleDemo(grille.id, true));
+    else if (!etat.gagne) ctaCollant(cible, "Grille pas encore réussie", grille.nbVersions > 1 ? `Nouvel essai avec d'autres mots (version ${prochaineVersion}/${grille.nbVersions})` : "Retente pour débloquer la suivante", "Réessayer", () => choisirGrilleDemo(grille.id, true));
     else cacherCta();
   }
 

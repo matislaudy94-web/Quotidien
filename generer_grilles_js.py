@@ -21,3 +21,10 @@ if os.path.exists("defi.json"):
         "// Banque du Défi express : catégories, familles et incompatibilités (vérifiées par verifier_defi.py).\n"
         "window.QUOTIDIEN_DEFI = " + json.dumps(d, ensure_ascii=False, indent=1) + ";\n")
     print("defi_banque.js régénéré :", len(d["categories"]), "catégories,", sum(len(c["mots"]) for c in d["categories"]), "mots")
+# Versions de rechange des grilles de démo (variantes.json) : vide si le fichier n'existe pas encore.
+v = json.load(open("variantes.json")) if os.path.exists("variantes.json") else {}
+open("variantes.js", "w").write(
+    "// Fichier généré depuis variantes.json par : python3 generer_grilles_js.py\n"
+    "// Versions de rechange des grilles de démo (2 par grille), vérifiées par verifier_variantes.py.\n"
+    "window.QUOTIDIEN_VARIANTES = " + json.dumps(v, ensure_ascii=False, indent=1) + ";\n")
+print("variantes.js régénéré :", sum(len(x) for x in v.values()), "versions de rechange")

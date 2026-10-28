@@ -1,0 +1,188 @@
+[
+  {
+    "id": "g1",
+    "titre": "Grille 1",
+    "intention": "Première impression : deux groupes concrets, deux groupes d'expressions qui se croisent. MER et TÊTE semblent aller dans les deux expressions, mais une seule répartition utilise les 16 mots.",
+    "groupes": [
+      {
+        "categorie": "Instruments à cordes",
+        "difficulte": "facile",
+        "mots": [
+          "GUITARE",
+          "VIOLON",
+          "HARPE",
+          "BANJO"
+        ],
+        "explication": "Quatre instruments de musique à cordes."
+      },
+      {
+        "categorie": "Ils ont des dents",
+        "difficulte": "intermediaire",
+        "mots": [
+          "PEIGNE",
+          "SCIE",
+          "FOURCHETTE",
+          "RÂTEAU"
+        ],
+        "explication": "Des objets qui ont des dents : celles du peigne, de la scie, de la fourchette et du râteau."
+      },
+      {
+        "categorie": "Mal de ___",
+        "difficulte": "facile",
+        "mots": [
+          "MER",
+          "DOS",
+          "GORGE",
+          "TÊTE"
+        ],
+        "explication": "Mal de mer, mal de dos, mal de gorge, mal de tête."
+      },
+      {
+        "categorie": "Prendre la ___",
+        "difficulte": "difficile",
+        "mots": [
+          "PORTE",
+          "MOUCHE",
+          "FUITE",
+          "PAROLE"
+        ],
+        "explication": "Prendre la porte, prendre la mouche, prendre la fuite, prendre la parole. On dit aussi « prendre la mer » et « prendre la tête », mais ces deux mots sont indispensables au groupe « Mal de ___ »."
+      }
+    ],
+    "rattachements_plausibles": {
+      "MER": [
+        "Prendre la ___"
+      ],
+      "TÊTE": [
+        "Prendre la ___"
+      ]
+    }
+  },
+  {
+    "id": "g2",
+    "titre": "Grille 2",
+    "intention": "Grille de jeux de langue : un groupe de mots cachés. Mesure si ce type d'association est perçu comme juste.",
+    "groupes": [
+      {
+        "categorie": "Planètes du système solaire",
+        "difficulte": "facile",
+        "mots": [
+          "MARS",
+          "VÉNUS",
+          "SATURNE",
+          "JUPITER"
+        ],
+        "explication": "Quatre planètes."
+      },
+      {
+        "categorie": "Danses",
+        "difficulte": "intermediaire",
+        "mots": [
+          "SALSA",
+          "TANGO",
+          "VALSE",
+          "RUMBA"
+        ],
+        "explication": "Quatre danses de couple. Le blues est aussi une danse, mais il manque au groupe « Avoir le ___ »."
+      },
+      {
+        "categorie": "Avoir le ___ (être triste)",
+        "difficulte": "intermediaire",
+        "mots": [
+          "CAFARD",
+          "BOURDON",
+          "BLUES",
+          "SPLEEN"
+        ],
+        "explication": "Avoir le cafard, le bourdon, le blues, le spleen : quatre façons de dire qu'on n'a pas le moral."
+      },
+      {
+        "categorie": "Un animal caché dans le mot",
+        "difficulte": "difficile",
+        "mots": [
+          "BOUCHERIE",
+          "CHEVALET",
+          "LOUPE",
+          "PIRATE"
+        ],
+        "explication": "BOUC-herie, CHEVAL-et, LOUP-e, pi-RAT-e. Le cafard et le bourdon sont des animaux entiers, pas cachés : ils servent au groupe « Avoir le ___ »."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BLUES": [
+        "Danses"
+      ],
+      "CAFARD": [
+        "Un animal caché dans le mot"
+      ],
+      "BOURDON": [
+        "Un animal caché dans le mot"
+      ]
+    }
+  },
+  {
+    "id": "g3",
+    "titre": "Grille 3",
+    "intention": "Grille à piège : huit fruits sont visibles, mais quatre d'entre eux sont aussi des couleurs. Les pierres précieuses sont elles aussi des noms de couleurs. Le joueur doit trouver le critère qui sépare les fruits, pas seulement éliminer.",
+    "groupes": [
+      {
+        "categorie": "Fruits",
+        "difficulte": "intermediaire",
+        "mots": [
+          "ANANAS",
+          "POIRE",
+          "LITCHI",
+          "PASTÈQUE"
+        ],
+        "explication": "Quatre fruits qui ne désignent pas de couleur. Ils se trouvent une fois qu'on a compris ce qui distingue les quatre autres fruits."
+      },
+      {
+        "categorie": "Porte-___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "MONNAIE",
+          "CLÉ",
+          "BONHEUR",
+          "AVION"
+        ],
+        "explication": "Porte-monnaie, porte-clé, porte-bonheur, porte-avions."
+      },
+      {
+        "categorie": "Pierres qui sont aussi des couleurs",
+        "difficulte": "intermediaire",
+        "mots": [
+          "RUBIS",
+          "SAPHIR",
+          "ÉMERAUDE",
+          "TURQUOISE"
+        ],
+        "explication": "Rubis, saphir, émeraude, turquoise : quatre pierres qui ont donné leur nom à une couleur."
+      },
+      {
+        "categorie": "Fruits qui sont aussi des couleurs",
+        "difficulte": "difficile",
+        "mots": [
+          "ORANGE",
+          "CERISE",
+          "PRUNE",
+          "PÊCHE"
+        ],
+        "explication": "Orange, cerise, prune et pêche désignent un fruit et une couleur. Il y avait huit fruits : il fallait trouver ce qui sépare ces quatre-là des autres."
+      }
+    ],
+    "rattachements_plausibles": {
+      "ORANGE": [
+        "Fruits"
+      ],
+      "CERISE": [
+        "Fruits"
+      ],
+      "PRUNE": [
+        "Fruits"
+      ],
+      "PÊCHE": [
+        "Fruits"
+      ]
+    }
+  }
+]

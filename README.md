@@ -41,9 +41,9 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 
 ### Message type à envoyer aux testeurs
 
-> Salut ! Je teste un petit jeu de mots en français : 16 mots à classer en 4 groupes, environ 3 minutes. C'est anonyme, aucune inscription. Voici ton lien personnel : [lien]. Merci !
+> Salut ! Je teste un petit jeu de mots en français : 16 mots à classer en 4 groupes, environ 3 minutes. C'est anonyme, aucune inscription. Voici ton lien : [lien]. **Ce lien est personnel. Pour inviter quelqu'un à jouer, utilise le bouton de partage à la fin de la partie.** Merci !
 
-Ne pas présenter le jeu comme « le mien » si on veut des avis francs.
+Ce message est copiable d'un clic dans le tableau de bord. Ne pas présenter le jeu comme « le mien » si on veut des avis francs.
 
 ## Définitions des mesures (à lire avant d'interpréter)
 
@@ -61,6 +61,7 @@ Ne pas présenter le jeu comme « le mien » si on veut des avis francs.
 | A cliqué « Inviter » | Clic sur le bouton de partage (partage natif ou copie du message). Le joueur a **tenté** de partager ; on ne sait pas s'il a vraiment envoyé le message. |
 | **A fait venir un invité qui a joué** | Une personne est arrivée par son lien d'invitation et a commencé une partie. C'est le partage **effectif**. |
 | Organique | Personne arrivée sur l'adresse du jeu sans lien personnel ni invitation. |
+| ⚠ Appareils | Nombre de navigateurs différents ayant ouvert ce lien personnel (identifiant aléatoire par navigateur). 2 ou plus = lien transféré **ou** même personne sur deux appareils : impossible de trancher, à lire avec prudence. |
 
 Le classement des visites est fait **par la base**, pas par le navigateur du joueur.
 
@@ -82,18 +83,57 @@ Le séparateur est le point-virgule ; les fichiers s'ouvrent dans Excel ou Googl
 
 Aucun nom, e-mail, téléphone ou adresse. Pas de publicité, pas d'outil de suivi tiers. Les joueurs voient cette explication en bas de page.
 
-## Limites connues (honnêtes)
+## Limites de l'expérimentation (à lire avant d'interpréter les résultats)
 
-1. **Identification d'un joueur.** Un joueur est reconnu par son lien personnel (`?p=…`) ou par la mémoire de son navigateur.
-   - S'il revient depuis un autre appareil ou un autre navigateur **sans** son lien personnel, il apparaît comme un nouveau participant « organique ». Son retour spontané n'est alors pas compté : les chiffres de retour sont des **minimums**.
-   - Les navigateurs intégrés à Instagram ou Messenger ont leur propre mémoire. Le lien personnel affiché en fin de partie limite ce problème.
-2. **« Retour spontané » ne prouve pas l'absence de toute incitation.** Un testeur peut avoir été relancé par un ami, ou par un message de groupe que l'administrateur n'a pas enregistré. Seuls les rappels générés dans le tableau de bord sont connus.
-3. **Partage.** Le clic sur « Inviter » est mesuré, pas l'envoi réel. Seules les arrivées par le lien d'invitation prouvent un partage.
-4. **Solutions visibles dans le code de la page** pour un utilisateur averti. C'est sans conséquence pour un test de 30 personnes, mais à corriger avant un lancement public.
-5. **Abus.** La clé publique permet d'appeler les fonctions d'enregistrement. Des limites existent : 1 000 événements par participant, 300 arrivées invitées ou organiques par session. Un acteur malveillant pourrait néanmoins ajouter de faux événements. C'est acceptable pour un test privé, pas pour un lancement.
-6. **Projet Supabase gratuit.** Il est mis en pause après une période d'inactivité (environ une semaine, selon les conditions actuelles de Supabase). Il faut le réactiver depuis le tableau de bord Supabase avant un nouveau test.
-7. **Le code administrateur** est vérifié par la base (haché). Le changer nécessite une commande SQL : demander à Claude.
-8. **Mode démo.** Le bouton « Recommencer » n'existe qu'en mode démo, pour ne pas fausser les données des vrais testeurs.
+**Les grilles sont-elles présentées dans le même ordre à tout le monde ?**
+Oui : grille 1 le premier jour, grille 2 le deuxième, grille 3 le troisième, pour tous. Conséquence : on ne peut pas séparer « la grille 2 plaît moins » de « au deuxième jour, on revient moins ». Avec ~30 personnes, un tirage au sort de l'ordre n'aurait de toute façon pas assez de puissance. Un participant qui rate un jour joue la grille du jour, pas celle qu'il a manquée (sauf « grille forcée » par l'administrateur).
+
+**Comment distingue-t-on un retour spontané d'un retour après sollicitation ?**
+C'est la base qui classe chaque visite, pas le navigateur :
+- *retour après rappel* : la visite arrive par un lien de rappel généré dans le tableau de bord moins de 24 h avant ;
+- *retour rappel probable* : un rappel a été généré pour cette personne dans les 24 h, mais elle est venue sans cliquer dessus ;
+- *retour spontané* : visite un autre jour que la précédente, sans aucun rappel généré dans les 24 h.
+Le **compte à rebours** affiché en fin de partie fait partie du jeu : il n'est pas un rappel et ne change pas ce classement. En revanche, tout message envoyé au joueur en dehors du tableau de bord (un ami qui le relance, un message de groupe) est invisible pour le système : les retours « spontanés » peuvent inclure ces cas. Ne jamais envoyer de rappel au groupe S.
+
+**Comment sont comptabilisées les invitations ?**
+Deux niveaux : le clic sur « Inviter » (intention : partage natif ou copie du message) et l'*invitation effective* (une personne arrive par le lien `?inv=ID` du joueur et commence une partie). Seul le second prouve un partage. Un lien personnel transféré à la place du lien d'invitation n'est pas compté comme invitation ; il est signalé par la colonne ⚠ Appareils.
+
+**Comment éviter les doublons dans les statistiques ?**
+- Une personne = un identifiant, compté une seule fois par ligne de l'entonnoir.
+- Une partie terminée deux fois (rechargement) n'est comptée qu'une fois par grille (première fin).
+- Une revisite le même jour ne compte pas comme retour.
+- Le bouton « Réessayer » d'un chargement lent ne relance jamais une requête déjà en cours.
+- Reste un cas : si le joueur **recharge la page** pendant la toute première création de son identifiant, un identifiant orphelin (sans visite) peut être créé côté serveur. Il apparaît comme participant « organique » sans aucune visite et se repère donc facilement.
+
+**Les données sont-elles conservées entre plusieurs visites ?**
+Oui, côté serveur, par identifiant. Le navigateur garde aussi l'identifiant et l'état de la partie en cours. Si la personne revient depuis un **autre appareil ou un autre navigateur** (y compris le navigateur intégré d'Instagram ou de Messenger) **sans son lien personnel**, elle devient un nouveau participant « organique » : son retour n'est pas compté. Les chiffres de retour sont donc des **minimums**. Si elle revient **avec** son lien personnel, elle est reconnue, et le tableau de bord indique 2 appareils.
+
+**Que se passe-t-il si le chargement échoue ?**
+Après 8 s sans réponse : message + bouton « Réessayer » (qui attend la requête en cours plutôt que d'en lancer une autre). Après 20 s, la requête est abandonnée côté navigateur et une vraie relance devient possible. Les événements de jeu (essais, fin, questionnaire) sont mis en file d'attente dans le navigateur et renvoyés à la prochaine action ou visite : une coupure réseau pendant la partie ne les perd pas, sauf si le joueur efface les données de son navigateur avant qu'ils soient envoyés.
+
+**Quelles mesures sont réellement fiables avec ~30 participants ?**
+- Fiables : les comptes bruts (qui a commencé, terminé, résolu ; erreurs ; groupes trouvés ; essais faux les plus fréquents), les réponses écrites, et les écarts **très nets** (par exemple 0 retour spontané contre 8).
+- À lire comme des ordres de grandeur : tous les pourcentages. Avec 15 personnes par groupe, 4 retours sur 15 signifie en réalité « entre 11 % et 52 % ».
+- Non fiables : la comparaison fine groupe R / groupe S, la différence entre deux grilles, et tout ce qui repose sur moins de 10 personnes.
+- La durée de résolution ne compte que le temps entre le premier mot touché et la fin : une pause téléphone en poche l'allonge.
+
+**Autres limites**
+- Les solutions sont lisibles dans le code de la page par un utilisateur averti. Sans conséquence pour un test privé ; à corriger avant un lancement public.
+- La clé publique permet d'appeler les fonctions d'enregistrement. Limites en place : 1 000 événements par participant, 300 arrivées invitées/organiques par session. Un acteur malveillant pourrait quand même injecter de faux événements. Acceptable pour un test privé.
+- Le projet Supabase gratuit se met en pause après une période d'inactivité (environ une semaine) : le réactiver avant un test.
+- Le code administrateur est haché en base ; le changer demande une commande SQL (demander à Claude).
+- Le bouton « Recommencer » n'existe qu'en mode démo.
+- Le compte à rebours dépend de l'heure du téléphone : un téléphone très mal réglé afficherait une durée fausse. Le changement de fuseau n'a pas d'effet (minuit est calculé en heure de Paris).
+
+## Journal des changements de la logique de collecte
+
+Règle : aucune règle de comptabilisation ne change pendant un test. Tout changement est noté ici avec sa date.
+
+| Date | Changement | Effet sur la lecture des résultats |
+|---|---|---|
+| 28/10/2026 (avant tout test) | Ajout d'un identifiant d'appareil anonyme (aléatoire, par navigateur) envoyé avec chaque visite. Nouvelle colonne « Appareils » et ligne « ⚠ Lien ouvert sur 2 appareils ou plus ». | Permet de repérer les liens transférés. Aucun autre compteur modifié. |
+| 28/10/2026 (avant tout test) | Compte à rebours jusqu'à la prochaine grille (minuit, heure de Paris) en fin de partie. | Fait partie du jeu ; n'est pas un rappel ; le classement des visites est inchangé. |
+| 28/10/2026 (avant tout test) | Règles ouvertes automatiquement à la première visite (événement `regles` avec `auto: true`). | À distinguer des consultations volontaires des règles (`auto` absent). |
 
 ## Tests effectués
 
@@ -108,13 +148,18 @@ Aucun nom, e-mail, téléphone ou adresse. Pas de publicité, pas d'outil de sui
 - l'absence du groupe S dans les rappels ;
 - l'entonnoir, les résultats par grille et les deux exports CSV ;
 - le mode démo sans enregistrement ;
-- l'absence de débordement sur iPhone SE et iPhone 13.
+- l'absence de débordement sur iPhone SE et iPhone 13 ;
+- la barre de boutons toujours visible après 3 groupes trouvés, et les groupes en version compacte pendant la partie ;
+- le compte à rebours affiché et calé sur minuit heure de Paris ;
+- le chargement lent : message après 8 s, bouton « Réessayer » sans seconde requête ;
+- l'identifiant d'appareil enregistré, et le signalement d'un lien ouvert sur 2 appareils ;
+- l'avertissement « lien personnel » affiché au joueur.
 
 Le classement des visites et les droits d'accès ont été testés **directement sur la vraie base** :
 - spontané, après rappel et rappel probable ;
 - code faux refusé, tables illisibles, fonctions internes inaccessibles.
 
 **Reste à vérifier à la main après la mise en ligne** :
-- une partie sur un vrai iPhone (Safari) ;
+- une partie complète sur un vrai iPhone (Safari), y compris le compte à rebours au passage de minuit ;
 - l'ouverture d'un lien depuis WhatsApp ou Instagram ;
 - le partage natif (feuille de partage iOS).

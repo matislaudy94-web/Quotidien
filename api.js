@@ -3,8 +3,15 @@
 (function () {
   const cfg = window.QUOTIDIEN_CONFIG;
 
+  const DELAI_CLIENT_MS = 20000; // au-delà, la requête est abandonnée côté navigateur et l'appel échoue
+
   async function rpc(nom, params) {
-    const res = await fetch(cfg.supabaseUrl + "/rest/v1/rpc/" + nom, {
+    const ctrl = new AbortController();
+    const minuterie = setTimeout(() => ctrl.abort(), DELAI_CLIENT_MS);
+    let res;
+    try {
+      res = await fetch(cfg.supabaseUrl + "/rest/v1/rpc/" + nom, {
+      signal: ctrl.signal,
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -12,7 +19,8 @@
         Authorization: "Bearer " + cfg.supabaseKey,
       },
       body: JSON.stringify(params || {}),
-    });
+      });
+    } finally { clearTimeout(minuterie); }
     const texte = await res.text();
     let corps = null;
     try { corps = texte ? JSON.parse(texte) : null; } catch (e) { corps = texte; }

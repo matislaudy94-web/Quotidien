@@ -19,7 +19,7 @@
     --bg1: #2d2275; --bg2: #140f3a; --plate: #1c1552; --plate-edge: #100b33;
     --ink: #22184f; --ink-soft: #5f5694; --light: #f4f0ff; --muted: #bdb4ea;
     --cream: #fff8ea; --cream-edge: #dccaa6; --cream-hover: #fffdf6;
-    --sel: #ff9a2e; --sel-edge: #c4650a;
+    --sel: #ff8a1f; --sel-edge: #b85a05;
     /* Groupes (texte foncé sur toutes les couleurs pour la lisibilité) */
     --c0: #ffd23f; --c0e: #c99a00; --c1: #6fd96b; --c1e: #2f9a35; --c2: #5cb6f7; --c2e: #2273b8; --c3: #d08af5; --c3e: #8d45b8;
     --ok: #36c76a; --ok-edge: #1f8a47; --life: #ff5d8f; --warn: #ffb547; --focus: #ffe066;
@@ -56,7 +56,10 @@
   .tagline { color: var(--muted); font-size: 14px; font-weight: 700; margin: 2px 0 14px; text-align: center; }
   .banner { background: rgba(255,255,255,.08); border-radius: var(--r-m); padding: 8px 12px; font-size: 13px; font-weight: 700; margin-bottom: 12px; text-align: center; color: var(--muted); }
   .banner a { color: var(--focus); font-weight: 800; }
-  .chargement { text-align: center; color: var(--muted); font-weight: 700; padding: 40px 0; }
+  .chargement { text-align: center; color: var(--light); font-weight: 700; padding: 40px 0; line-height: 1.6; }
+  .small-clair { font-size: 13px; color: var(--muted); }
+  .spin { display: inline-block; width: 14px; height: 14px; border: 3px solid rgba(255,255,255,.25); border-top-color: var(--c0); border-radius: 50%; vertical-align: -2px; margin-right: 4px; animation: tourne .9s linear infinite; }
+  @keyframes tourne { to { transform: rotate(360deg); } }
 
   /* ---------- Plateau ---------- */
   .plateau-cadre { background: var(--plate); border-radius: var(--r-l); padding: 10px; box-shadow: inset 0 3px 10px rgba(0,0,0,.45), 0 5px 0 var(--plate-edge); }
@@ -67,6 +70,11 @@
   .group.c1 { background: var(--c1); box-shadow: inset 0 calc(-1 * var(--depth)) 0 var(--c1e); }
   .group.c2 { background: var(--c2); box-shadow: inset 0 calc(-1 * var(--depth)) 0 var(--c2e); }
   .group.c3 { background: var(--c3); box-shadow: inset 0 calc(-1 * var(--depth)) 0 var(--c3e); }
+  /* En cours de partie : version compacte (catégorie + mots), les explications attendent l'écran de fin */
+  .found.en-jeu .group { padding: 7px 10px 9px; }
+  .found.en-jeu .group .lvl, .found.en-jeu .group .expl { display: none; }
+  .found.en-jeu .group .cat { font-size: 15px; }
+  .found.en-jeu .group .words { font-size: 13px; }
   .group .lvl { display: inline-block; font-family: var(--title); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
     background: rgba(255,255,255,.45); border-radius: var(--pill); padding: 2px 8px; margin-bottom: 4px; }
   .group .cat { font-family: var(--title); font-weight: 700; font-size: 17px; line-height: 1.2; text-transform: uppercase; letter-spacing: .01em; }
@@ -88,13 +96,15 @@
   @media (max-width: 360px) { main { padding-left: 10px; padding-right: 10px; } .plateau-cadre { padding: 7px; } .board { gap: 6px; } .tile { padding: 0 1px; } }
   @media (hover: hover) { .tile:not(.sel):hover { background: var(--cream-hover); transform: translateY(-1px); box-shadow: 0 calc(var(--depth) + 1px) 0 var(--cream-edge); } }
   .tile:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--cream-edge); }
-  .tile.sel { background: var(--sel); color: #2b1300; box-shadow: 0 var(--depth) 0 var(--sel-edge), inset 0 0 0 3px rgba(255,255,255,.55); transform: translateY(-2px); }
+  .tile.sel { background: var(--sel); color: #2b1300; box-shadow: 0 var(--depth) 0 var(--sel-edge), inset 0 0 0 3px #fff; transform: translateY(-2px); }
+  .tile.sel::after { content: ""; position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; border-radius: 50%; background: #2b1300; opacity: .55; }
+  .tile { position: relative; }
   .tile.sel:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--sel-edge), inset 0 0 0 3px rgba(255,255,255,.55); }
   .tile.faux { animation: secoue .4s; }
   @keyframes secoue { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
 
   /* ---------- Retour de jeu (sous le plateau, ne masque rien) ---------- */
-  .retour { height: 40px; display: flex; align-items: center; justify-content: center; margin: 10px 0 2px; }
+  .retour { height: 38px; display: flex; align-items: center; justify-content: center; margin: 0 0 6px; }
   .bulle { font-family: var(--title); font-weight: 700; font-size: 16px; padding: 7px 16px; border-radius: var(--pill); white-space: nowrap;
     background: #fff; color: var(--ink); box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: bulle .22s cubic-bezier(.2,.9,.3,1.4); }
   .bulle.bon { background: var(--ok); color: #fff; box-shadow: 0 3px 0 var(--ok-edge); }
@@ -104,11 +114,13 @@
   @keyframes bulle { 0% { transform: translateY(8px) scale(.9); opacity: 0; } 100% { transform: none; opacity: 1; } }
 
   /* ---------- Progression ---------- */
-  .status { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 2px 12px; font-size: 13px; font-weight: 800; color: var(--muted); }
+  .status { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 2px 10px; font-size: 13px; font-weight: 800; color: var(--muted); }
   .status .bloc { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
   .prog { display: inline-flex; gap: 4px; }
   .prog i { width: 18px; height: 10px; border-radius: var(--pill); background: rgba(255,255,255,.14); }
   .prog i.c0 { background: var(--c0); } .prog i.c1 { background: var(--c1); } .prog i.c2 { background: var(--c2); } .prog i.c3 { background: var(--c3); }
+  .prog i[class] { position: relative; }
+  .prog i[class]::after { content: ""; position: absolute; left: 6px; top: 1px; width: 4px; height: 6px; border: solid var(--ink); border-width: 0 2px 2px 0; transform: rotate(45deg); }
   .dots { display: inline-flex; gap: 3px; align-items: center; }
   .coeur { width: 20px; height: 20px; display: block; }
   .coeur path { fill: var(--life); }
@@ -132,6 +144,9 @@
   .btn.pret { animation: pret .3s ease-out; }
   @keyframes pret { 50% { transform: scale(1.06); } }
   .actions-jeu { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 8px; }
+  /* Barre du bas (progression + boutons) : reste visible quand le plateau grandit, sans réduire les cartes */
+  .barre-bas { position: sticky; bottom: 0; z-index: 4; margin: 8px -14px 0; padding: 6px 14px calc(6px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg2) 75%, rgba(20,15,58,0)); }
   .actions-jeu .btn { padding: 10px 6px; white-space: nowrap; }
   .compteur { font-size: 13px; opacity: .85; margin-left: 5px; }
   .btn-large { width: 100%; }
@@ -161,6 +176,11 @@
   .small { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
   .lien-partage { text-align: center; margin-top: 8px !important; }
 
+  .compte { display: flex; flex-direction: column; align-items: center; gap: 2px; background: var(--plate); color: #fff; border-radius: var(--r-m); padding: 12px 10px; margin: 8px 0 10px; box-shadow: inset 0 3px 8px rgba(0,0,0,.4); }
+  .compte-lib { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .compte-chiffres { font-family: var(--title); font-weight: 700; font-size: 30px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--c0); }
+  .compte-chiffres small { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 1px; }
+  .compte .btn { margin: 0; }
   fieldset { border: 0; padding: 0; margin: 16px 0 0; }
   legend { font-weight: 800; font-size: 15px; margin-bottom: 8px; padding: 0; }
   .choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -175,6 +195,15 @@
   textarea:focus { outline: none; border-color: var(--sel); }
   .merci { text-align: center; font-family: var(--title); font-weight: 700; font-size: 18px; color: var(--ok-edge); margin: 6px 0 0; }
 
+  .regle-ligne { text-align: center; font-size: 16px !important; margin: 0 0 12px !important; }
+  .exemple { background: var(--plate); border-radius: var(--r-m); padding: 12px 10px; text-align: center; box-shadow: inset 0 3px 8px rgba(0,0,0,.4); }
+  .exemple-tuiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .exemple-tuiles span { background: var(--cream); color: var(--ink); border-radius: 10px; height: 44px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--title); font-weight: 600; font-size: 12.5px; box-shadow: 0 3px 0 var(--cream-edge); }
+  .exemple-fleche { color: var(--muted); font-size: 18px; line-height: 1; margin: 6px 0; }
+  .exemple-groupe { background: var(--c1); color: var(--ink); border-radius: 10px; padding: 7px; font-family: var(--title); font-weight: 700; font-size: 14px; text-transform: uppercase; box-shadow: inset 0 -4px 0 var(--c1e); }
+  .regles-courtes { margin: 14px 0 16px !important; padding-left: 18px !important; }
+  .regles-courtes li { font-size: 14.5px !important; margin-bottom: 7px !important; }
   dialog { border: 0; border-radius: var(--r-l); padding: 0; max-width: 440px; width: calc(100% - 32px); background: var(--cream); color: var(--ink); box-shadow: 0 5px 0 var(--cream-edge); }
   dialog::backdrop { background: rgba(10,6,35,.65); }
   .dlg { padding: 20px 18px; } .dlg h2 { font-family: var(--title); margin: 0 0 10px; font-size: 22px; }
@@ -184,6 +213,7 @@
   .linkbox .btn { min-height: 44px; padding: 8px 14px; }
   #erreur.panel { text-align: center; }
 
+  #jeu + footer, #jeu ~ footer { margin-top: 18px; }
   footer { margin-top: 26px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; font-weight: 600; }
   footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; font-weight: 800; }
   .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 5; }
@@ -210,6 +240,7 @@
       <div class="found" id="trouves"></div>
       <div class="board" id="plateau" role="group" aria-label="Mots"></div>
     </div>
+    <div class="barre-bas">
     <div class="retour" id="message" role="status" aria-live="polite"></div>
     <div class="status">
       <span class="bloc"><span>Groupes</span> <span class="prog" id="progression" aria-hidden="true"></span> <span class="nb" id="nb-groupes"></span></span>
@@ -219,6 +250,7 @@
       <button class="btn" id="btn-melanger">Mélanger</button>
       <button class="btn" id="btn-effacer" aria-label="Désélectionner">Effacer</button>
       <button class="btn primary" id="btn-valider" disabled>Valider</button>
+    </div>
     </div>
   </section>
 
@@ -264,15 +296,18 @@
 
 <dialog id="dlg-regles"><div class="dlg">
   <h2>Comment jouer</h2>
-  <ul>
-    <li>Trouve <strong>4 groupes de 4 mots</strong> qui ont un point commun.</li>
-    <li>Touche 4 mots, puis <strong>Valider</strong>. Touche à nouveau un mot pour le désélectionner.</li>
-    <li>Les groupes peuvent être des catégories (« fromages »), des expressions (« coup de… ») ou des jeux sur les mots.</li>
-    <li>Attention : certains mots semblent aller dans plusieurs groupes, mais une seule solution utilise les 16 mots.</li>
-    <li>Tu as droit à <strong>4 erreurs</strong>. Au-delà, la solution s'affiche avec les explications.</li>
-    <li>Une nouvelle grille chaque jour.</li>
+  <p class="regle-ligne"><b>16 mots</b>, <b>4 groupes</b> de 4 qui ont un point commun.</p>
+  <div class="exemple" aria-label="Exemple : quatre mots qui forment un groupe">
+    <div class="exemple-tuiles"><span>LUNDI</span><span>MARDI</span><span>JEUDI</span><span>SAMEDI</span></div>
+    <div class="exemple-fleche" aria-hidden="true">↓</div>
+    <div class="exemple-groupe">Jours de la semaine</div>
+  </div>
+  <ul class="regles-courtes">
+    <li>Touche 4 mots, puis <b>Valider</b>.</li>
+    <li>Tu as droit à <b>4 erreurs</b>. « Presque ! » = il n'y a qu'un mot à changer.</li>
+    <li>Méfie-toi : certains mots semblent aller dans deux groupes, mais une seule solution utilise les 16 mots.</li>
   </ul>
-  <div class="actions"><button class="btn primary" data-close>Compris, je joue !</button></div>
+  <div class="actions"><button class="btn primary btn-large" data-close>Compris, je joue !</button></div>
 </div></dialog>
 
 <dialog id="dlg-vie-privee"><div class="dlg">
@@ -317,6 +352,10 @@
   const token = (params.get("r") || "").replace(/[^a-f0-9]/gi, "") || null;
   const invParam = (params.get("inv") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
   const visiteId = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  // Identifiant d'appareil : aléatoire, propre à ce navigateur, sans lien avec la personne.
+  // Sert uniquement à signaler un lien personnel ouvert depuis plusieurs appareils.
+  let appareilId = null;
+  try { appareilId = localStorage.getItem("quotidien_appareil"); if (!appareilId) { appareilId = "a" + Math.random().toString(36).slice(2, 12); localStorage.setItem("quotidien_appareil", appareilId); } } catch (e) {}
 
   // ---------- État ----------
   let participant = null;   // { id, calendrier, grille_forcee }
@@ -353,7 +392,37 @@
   }
 
   // ---------- Démarrage ----------
-  async function demarrer() {
+  // ---------- Démarrage, avec gestion des chargements lents ----------
+  // Règle : tant qu'une tentative est en cours, « Réessayer » ne lance PAS de nouvelle requête (une seconde
+  // création de participant ferait un doublon) : il prolonge l'attente. Une nouvelle requête ne part que si
+  // la précédente a échoué (erreur réseau ou délai client dépassé).
+  let demarrageEnCours = null, minuterieLent = null;
+  const DELAI_LENT = 8000;
+  function afficherChargement(texte) {
+    const el = $("chargement"); el.classList.remove("hidden"); $("erreur").classList.add("hidden");
+    el.innerHTML = `<span class="spin" aria-hidden="true"></span> ${texte || "Chargement…"}`;
+  }
+  function afficherLent() {
+    const el = $("chargement");
+    el.innerHTML = `<span class="spin" aria-hidden="true"></span> Le serveur met plus de temps que prévu.<br>
+      <span class="small-clair">Ta connexion est peut-être lente. Tes données déjà enregistrées sont conservées.</span><br>
+      <button class="btn" id="btn-reessayer" style="margin-top:10px">Réessayer</button>`;
+    $("btn-reessayer").addEventListener("click", () => {
+      if (demarrageEnCours) { afficherChargement("Nouvelle tentative…"); armerMinuterie(); }
+      else demarrer();
+    });
+  }
+  function armerMinuterie() { clearTimeout(minuterieLent); minuterieLent = setTimeout(afficherLent, DELAI_LENT); }
+  function demarrer() {
+    if (demarrageEnCours) return demarrageEnCours;
+    afficherChargement(); armerMinuterie();
+    demarrageEnCours = _demarrer().catch(() => {
+      erreur("Impossible de joindre le serveur. Vérifie ta connexion, puis réessaie.", true);
+    }).finally(() => { demarrageEnCours = null; clearTimeout(minuterieLent); });
+    return demarrageEnCours;
+  }
+
+  async function _demarrer() {
     if (DEMO) {
       $("banniere-demo").classList.remove("hidden");
       const choix = GRILLES.map(g => `<a href="?demo=1&g=${g.id}">${g.titre}</a>`).join(" · ");
@@ -383,23 +452,63 @@
       history.replaceState(null, "", location.pathname + "?p=" + pid);
       const gid = participant.grille_forcee || participant.calendrier[jourParis()];
       grille = GRILLES.find(g => g.id === gid) || null;
-      API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null }).catch(() => {});
+      API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null, p_appareil: appareilId }).catch(() => {});
       viderFile();
       if (!grille) return pasDeGrille();
       lancerGrille();
     } catch (e) {
-      erreur("Impossible de joindre le serveur. Vérifie ta connexion puis recharge la page.");
+      throw e;
     }
   }
 
-  function erreur(texte) {
+  function erreur(texte, reessayable) {
     $("chargement").classList.add("hidden");
-    const el = $("erreur"); el.textContent = texte; el.classList.remove("hidden");
+    const el = $("erreur"); el.classList.remove("hidden");
+    el.textContent = texte;
+    if (reessayable) {
+      const b = document.createElement("button"); b.className = "btn"; b.style.marginTop = "12px"; b.textContent = "Réessayer";
+      b.addEventListener("click", () => demarrer());
+      el.appendChild(document.createElement("br")); el.appendChild(b);
+    }
   }
 
   function prochaineDate() {
     const auj = jourParis();
     return Object.keys(participant.calendrier || {}).filter(d => d > auj).sort()[0] || null;
+  }
+
+  // Instant (ms) de minuit, heure de Paris, à la date AAAA-MM-JJ donnée. Indépendant du fuseau du téléphone.
+  function minuitParis(iso) {
+    const [a, m, j] = iso.split("-").map(Number);
+    let t = Date.UTC(a, m - 1, j, 0, 0, 0);
+    for (let i = 0; i < 2; i++) { // deux passes pour absorber un changement d'heure
+      const parts = new Intl.DateTimeFormat("fr-FR", { timeZone: "Europe/Paris", hour12: false, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }).formatToParts(new Date(t));
+      const v = Object.fromEntries(parts.map(p => [p.type, p.value]));
+      const vuParis = Date.UTC(+v.year, +v.month - 1, +v.day, +v.hour % 24, +v.minute, +v.second);
+      t += Date.UTC(a, m - 1, j, 0, 0, 0) - vuParis;
+    }
+    return t;
+  }
+
+  // Compte à rebours jusqu'à la prochaine grille. Affichage uniquement : ce n'est pas un rappel envoyé au joueur,
+  // et il ne modifie en rien le classement des visites (spontané / après rappel).
+  let minuterieCompte = null;
+  function compteARebours(el, iso) {
+    clearInterval(minuterieCompte);
+    const cible = minuitParis(iso);
+    const tic = () => {
+      const reste = cible - Date.now();
+      if (reste <= 0) {
+        clearInterval(minuterieCompte);
+        el.innerHTML = `<button class="btn primary btn-large" id="btn-jouer-maintenant">La grille du jour est disponible !</button>`;
+        $("btn-jouer-maintenant").addEventListener("click", () => { location.href = lienPersonnel(); });
+        return;
+      }
+      const h = Math.floor(reste / 3600000), mn = Math.floor(reste / 60000) % 60, sec = Math.floor(reste / 1000) % 60;
+      el.innerHTML = `<span class="compte-lib">Prochaine grille dans</span><span class="compte-chiffres">${String(h).padStart(2, "0")}<small>h</small> ${String(mn).padStart(2, "0")}<small>min</small> ${String(sec).padStart(2, "0")}<small>s</small></span>`;
+    };
+    tic(); minuterieCompte = setInterval(tic, 1000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) tic(); });
   }
 
   function formatDate(iso) {
@@ -412,9 +521,10 @@
     const prochaine = prochaineDate();
     const el = $("erreur"); el.classList.remove("hidden");
     el.innerHTML = prochaine
-      ? `<h2 style="margin-top:0">Pas de grille aujourd'hui</h2><p>La prochaine grille sera disponible le <strong>${formatDate(prochaine)}</strong>.</p>${blocLienPersonnel()}`
+      ? `<h2 style="margin-top:0">Pas de grille aujourd'hui</h2><p>La prochaine grille sera disponible le <strong>${formatDate(prochaine)}</strong>.</p><div class="compte" id="compte-a-rebours"></div>${blocLienPersonnel()}`
       : `<h2 style="margin-top:0">Le test est terminé</h2><p>Merci d'avoir joué ! Il n'y a plus de nouvelle grille pour ce test.</p>`;
     brancherCopie(el);
+    if (prochaine) compteARebours($("compte-a-rebours"), prochaine);
   }
 
   // ---------- Partie ----------
@@ -465,6 +575,7 @@
   }
 
   function rendre() {
+    $("trouves").classList.add("en-jeu");
     $("trouves").innerHTML = etat.trouves.map(gi => htmlGroupe(gi, couleurDe(gi))).join("");
     groupeAnime = null;
     const restants = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
@@ -597,7 +708,7 @@
 
   function blocLienPersonnel() {
     if (!participant) return "";
-    return `<p class="small">Ton lien personnel (à mettre en favori pour retrouver tes parties) :</p>
+    return `<p class="small">Ton lien personnel, à mettre en favori pour retrouver tes parties. <b>Ne le transmets pas</b> : pour inviter quelqu'un, utilise le bouton « Inviter ».</p>
       <div class="linkbox"><input readonly value="${lienPersonnel()}" aria-label="Ton lien personnel"><button class="btn" data-copie>Copier</button></div>`;
   }
 
@@ -639,7 +750,8 @@
     if (DEMO) suite.innerHTML = `<h2>Prochaine grille</h2><p class="small">En mode démo, rien n'est enregistré.</p>`;
     else if (!prochaine) suite.innerHTML = `<h2>C'était la dernière grille du test</h2><p>Merci d'avoir joué !</p>`;
     else suite.innerHTML = `<h2>Une autre grille ?</h2>
-      <p>La prochaine sera disponible le <strong>${formatDate(prochaine)}</strong>, à la même adresse.</p>
+      <div class="compte" id="compte-a-rebours"></div>
+      <p class="small" style="text-align:center">Le <strong>${formatDate(prochaine)}</strong> à minuit, à la même adresse.</p>
       <div class="actions"><button class="btn primary btn-large" id="btn-demande" ${etat.demande ? "disabled" : ""}>${etat.demande ? "C'est noté !" : "Oui, je veux jouer la prochaine"}</button></div>
       <div id="apres-demande" class="${etat.demande ? "" : "hidden"}">${blocLienPersonnel()}</div>`;
     const bd = $("btn-demande");
@@ -648,6 +760,7 @@
       bd.disabled = true; bd.textContent = "C'est noté !"; $("apres-demande").classList.remove("hidden");
     });
     brancherCopie(suite);
+    if (!DEMO && prochaine) compteARebours($("compte-a-rebours"), prochaine);
 
     if (etat.questionnaire) { $("questionnaire").classList.add("hidden"); $("merci").classList.remove("hidden"); }
     $("actions-demo").classList.toggle("hidden", !DEMO);

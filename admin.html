@@ -96,6 +96,8 @@
         <span class="muted">Les groupes R et S sont attribués en alternance à la création.</span>
       </form>
       <p class="muted">Cliquez « Copier le lien » au moment où vous l'envoyez : cela enregistre « lien envoyé ». Un lien par personne, jamais le même lien à deux personnes.</p>
+      <div class="note"><strong>Message à envoyer avec le lien :</strong> « Salut ! Je teste un petit jeu de mots en français : 16 mots à classer en 4 groupes, environ 3 minutes, anonyme, sans inscription. Voici ton lien : [lien]. <strong>Ce lien est personnel. Pour inviter quelqu'un à jouer, utilise le bouton de partage à la fin de la partie.</strong> Merci ! »
+      <button class="mini sec" id="btn-copier-message">Copier le message</button></div>
       <div class="scroll"><table id="tab-participants"></table></div>
     </section>
 
@@ -167,6 +169,10 @@
     rendreTout();
   }
 
+  $("btn-copier-message").addEventListener("click", async (e) => {
+    const t = "Salut ! Je teste un petit jeu de mots en français : 16 mots à classer en 4 groupes, environ 3 minutes, anonyme, sans inscription. Voici ton lien : [lien]. Ce lien est personnel. Pour inviter quelqu'un à jouer, utilise le bouton de partage à la fin de la partie. Merci !";
+    try { await navigator.clipboard.writeText(t); e.target.textContent = "Copié"; } catch (err) { prompt("Copiez ce message :", t); }
+  });
   $("choix-session").addEventListener("change", (e) => { sessionId = e.target.value; charger(); });
   $("btn-actualiser").addEventListener("click", () => charger());
 
@@ -215,6 +221,7 @@
         retours_apres_rappel: cls("retour_apres_rappel").length,
         retours_rappel_probable: cls("retour_rappel_probable").length,
         partages: partages.length,
+        appareils: new Set(visites.map(v => v.donnees.appareil).filter(Boolean)).size,
         rappels_envoyes: rappels.length,
         derniere_visite: visites.length ? visites[visites.length - 1].created_at : null,
         visite_aujourdhui: visites.some(v => jourParis(v.created_at) === jourParis()),
@@ -249,6 +256,7 @@
       ["Revenu sans rappel 2 jours ou plus", x => x.retours_spontanes_jours >= 2],
       ["A cliqué sur « Inviter »", x => x.partages > 0],
       ["A fait venir un invité qui a joué", x => x.invites_actifs > 0],
+      ["⚠ Lien ouvert sur 2 appareils ou plus", x => x.appareils >= 2],
     ];
     let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
     for (const [lib, f, fort] of lignes) {
@@ -284,7 +292,7 @@
     const L = Object.values(M);
     if (!L.length) { $("tab-participants").innerHTML = `<tr><td class="muted">Aucun participant.</td></tr>`; return; }
     const opts = (sel) => `<option value="">calendrier</option>` + GRILLES.map(g => `<option value="${g.id}" ${sel === g.id ? "selected" : ""}>${g.titre}</option>`).join("");
-    $("tab-participants").innerHTML = `<tr><th>ID</th><th>Groupe</th><th>Lien personnel</th><th>Envoyé</th><th>Grille</th><th class="num">Visites</th><th>Commencées</th><th>Terminées</th><th>Demande</th><th class="num">Jours revenu sans rappel</th><th class="num">Retours après rappel</th><th class="num">Clics inviter</th><th class="num">Invités ayant joué</th><th>Dernière visite</th></tr>`
+    $("tab-participants").innerHTML = `<tr><th>ID</th><th>Groupe</th><th>Lien personnel</th><th>Envoyé</th><th>Grille</th><th class="num">Visites</th><th>Commencées</th><th>Terminées</th><th>Demande</th><th class="num">Jours revenu sans rappel</th><th class="num">Retours après rappel</th><th class="num">Clics inviter</th><th class="num">Invités ayant joué</th><th class="num" title="Nombre de navigateurs différents ayant ouvert ce lien">Appareils</th><th>Dernière visite</th></tr>`
       + L.map(x => `<tr>
         <td class="k">${x.id}</td><td>${x.groupe}${x.invite_par ? ` <span class="muted">par ${x.invite_par}</span>` : ""}</td>
         <td>${["R", "S"].includes(x.groupe) ? `<button class="mini sec" data-lien="${x.id}">Copier le lien</button>` : `<span class="muted">–</span>`}</td>
@@ -293,7 +301,7 @@
         <td class="num">${x.visites}</td><td>${x.grilles_commencees.join(", ")}</td>
         <td>${x.grilles_terminees.map(g => g + (x.grilles_gagnees.includes(g) ? " ✓" : " ✗")).join(", ")}</td>
         <td>${x.a_demande ? "oui" : ""}</td><td class="num">${x.retours_spontanes_jours}</td><td class="num">${x.retours_apres_rappel}${x.retours_rappel_probable ? ` <span class="muted">(+${x.retours_rappel_probable} probable)</span>` : ""}</td>
-        <td class="num">${x.partages}</td><td class="num">${x.invites_actifs}</td><td>${heure(x.derniere_visite)}</td></tr>`).join("");
+        <td class="num">${x.partages}</td><td class="num">${x.invites_actifs}</td><td class="num">${x.appareils}${x.appareils >= 2 ? ' <span class="err" title="Lien ouvert sur plusieurs appareils : lien transféré ou multi-appareils. À lire avec prudence.">⚠</span>' : ""}</td><td>${heure(x.derniere_visite)}</td></tr>`).join("");
     $("tab-participants").querySelectorAll("[data-lien]").forEach(b => b.addEventListener("click", async () => {
       const lien = lienPerso(b.dataset.lien);
       try { await navigator.clipboard.writeText(lien); b.textContent = "Copié"; } catch (e) { prompt("Copiez ce lien :", lien); }
@@ -366,15 +374,15 @@
   }
   $("btn-csv-participants").addEventListener("click", () => {
     if (!D) return; const M = calculer();
-    const t = [["id", "groupe", "invite_par", "lien_envoye_le", "visites", "a_commence", "grilles_commencees", "grilles_terminees", "grilles_resolues", "a_demande_autre_grille", "jours_revenu_sans_rappel", "retours_apres_rappel", "retours_rappel_probable", "clics_inviter", "invites_ayant_joue", "rappels_envoyes", "derniere_visite"]];
-    for (const x of Object.values(M)) t.push([x.id, x.groupe, x.invite_par, x.lien_envoye_le || "", x.visites, x.a_commence ? 1 : 0, x.grilles_commencees.join(" "), x.grilles_terminees.join(" "), x.grilles_gagnees.join(" "), x.a_demande ? 1 : 0, x.retours_spontanes_jours, x.retours_apres_rappel, x.retours_rappel_probable, x.partages, x.invites_actifs, x.rappels_envoyes, x.derniere_visite || ""]);
+    const t = [["id", "groupe", "invite_par", "lien_envoye_le", "visites", "a_commence", "grilles_commencees", "grilles_terminees", "grilles_resolues", "a_demande_autre_grille", "jours_revenu_sans_rappel", "retours_apres_rappel", "retours_rappel_probable", "clics_inviter", "invites_ayant_joue", "appareils_distincts", "rappels_envoyes", "derniere_visite"]];
+    for (const x of Object.values(M)) t.push([x.id, x.groupe, x.invite_par, x.lien_envoye_le || "", x.visites, x.a_commence ? 1 : 0, x.grilles_commencees.join(" "), x.grilles_terminees.join(" "), x.grilles_gagnees.join(" "), x.a_demande ? 1 : 0, x.retours_spontanes_jours, x.retours_apres_rappel, x.retours_rappel_probable, x.partages, x.invites_actifs, x.appareils, x.rappels_envoyes, x.derniere_visite || ""]);
     telecharger(`quotidien_participants_${sessionId}.csv`, csv(t));
   });
   $("btn-csv-evenements").addEventListener("click", () => {
     if (!D) return;
-    const t = [["id", "date_heure_utc", "jour_paris", "participant", "groupe", "visite", "grille", "type", "classe_visite", "entree", "correct", "erreurs", "gagne", "duree_s", "donnees_json"]];
+    const t = [["id", "date_heure_utc", "jour_paris", "participant", "groupe", "visite", "grille", "type", "classe_visite", "entree", "appareil", "correct", "erreurs", "gagne", "duree_s", "donnees_json"]];
     const grp = Object.fromEntries(D.participants.map(p => [p.id, p.groupe]));
-    for (const e of D.evenements) { const d = e.donnees || {}; t.push([e.id, e.created_at, jourParis(e.created_at), e.participant_id, grp[e.participant_id], e.visite_id, e.grille, e.type, d.classe || "", d.entree || "", d.correct == null ? "" : d.correct ? 1 : 0, d.erreurs == null ? "" : d.erreurs, d.gagne == null ? "" : d.gagne ? 1 : 0, d.duree_s == null ? "" : d.duree_s, d]); }
+    for (const e of D.evenements) { const d = e.donnees || {}; t.push([e.id, e.created_at, jourParis(e.created_at), e.participant_id, grp[e.participant_id], e.visite_id, e.grille, e.type, d.classe || "", d.entree || "", d.appareil || "", d.correct == null ? "" : d.correct ? 1 : 0, d.erreurs == null ? "" : d.erreurs, d.gagne == null ? "" : d.gagne ? 1 : 0, d.duree_s == null ? "" : d.duree_s, d]); }
     telecharger(`quotidien_evenements_${sessionId}.csv`, csv(t));
   });
 })();

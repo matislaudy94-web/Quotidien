@@ -16,13 +16,13 @@ const F = {
     const sid = inv ? inv.session_id : (db.sessions.filter(s => s.active).slice(-1)[0] || {}).id; if (!sid) return { ok: false };
     const p = { id: nid(), session_id: sid, groupe: inv ? "invite" : "organique", invite_par: inv ? inv.id : null, grille_forcee: null, lien_envoye_le: null, created_at: maintenant().toISOString() };
     db.participants.push(p); return { ok: true, id: p.id }; },
-  q_visite({ p_id, p_visite, p_entree, p_token, p_grille }) { const p = db.participants.find(x => x.id === p_id); if (!p) return { ok: false };
+  q_visite({ p_id, p_visite, p_entree, p_token, p_grille, p_appareil }) { const p = db.participants.find(x => x.id === p_id); if (!p) return { ok: false };
     const now = maintenant(); const vis = db.evenements.filter(e => e.participant_id === p.id && e.type === "visite");
     const recent = (r) => now - new Date(r.created_at) < 86400000;
     const tokOk = p_token && db.rappels.some(r => r.token === p_token && r.participant_id === p.id && recent(r));
     const rapRecent = db.rappels.some(r => r.participant_id === p.id && recent(r));
     const classe = !vis.length ? "premiere_visite" : vis.some(v => jour(v.created_at) === jour(now)) ? "revisite_meme_jour" : tokOk ? "retour_apres_rappel" : rapRecent ? "retour_rappel_probable" : "retour_spontane";
-    db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: "visite", donnees: { entree: p_entree, classe, token: !!p_token }, created_at: now.toISOString() });
+    db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: "visite", donnees: { entree: p_entree, classe, token: !!p_token, appareil: p_appareil || null }, created_at: now.toISOString() });
     return { ok: true, classe }; },
   q_evenement({ p_id, p_visite, p_grille, p_type, p_donnees }) { const p = db.participants.find(x => x.id === p_id); if (!p) return false;
     if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles"].includes(p_type)) return false;

@@ -73,12 +73,22 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.getByRole("button", { name: "Compris" }).click();
     await pa.getByRole("button", { name: "Règles" }).click(); await pa.waitForSelector("#dlg-regles[open]");
     await pa.getByRole("button", { name: "Compris" }).click();
-    await jouer(pa, [0, 1, 2, 3], 1);
+    await jouer(pa, [0, 1, 2], 1);
+    await pa.waitForTimeout(500);
+    const visible = await pa.evaluate(() => { const r = document.querySelector("#btn-valider").getBoundingClientRect(); return r.bottom <= window.innerHeight && r.top >= 0; });
+    ok(visible, "le bouton Valider reste visible à l'écran après 3 groupes trouvés (iPhone 13)");
+    ok(await pa.locator("#trouves .expl").count() === 0 && await pa.locator("#trouves .group").count() === 3, "groupes trouvés affichés en version compacte pendant la partie");
+    await jouer(pa, [3], 0);
     await pa.waitForSelector("#fin:not(.hidden)");
     ok(await pa.locator("#resume h2").innerText() === "Bravo !", "écran de victoire");
     ok((await pa.locator("#resume").innerText()).includes("1 erreur"), "résumé : 1 erreur");
     ok(await pa.locator("#solution .expl").count() === 4, "explications des 4 groupes affichées");
+    ok(/Prochaine grille dans\s+\d{2}h \d{2}min \d{2}s/i.test((await pa.locator("#compte-a-rebours").innerText()).replace(/\n/g, " ")), "compte à rebours affiché : " + (await pa.locator("#compte-a-rebours").innerText()).replace(/\n/g, " "));
+    const cible = await pa.evaluate(() => { const t = document.querySelector("#compte-a-rebours").innerText.match(/(\d{2})h (\d{2})min (\d{2})s/); return t ? (+t[1] * 3600 + +t[2] * 60 + +t[3]) : -1; });
+    const attendu = Math.round((new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })).setHours(24, 0, 0, 0) - new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" })).getTime()) / 1000);
+    ok(Math.abs(cible - attendu) < 90, `le compte à rebours vise minuit heure de Paris (écart ${Math.abs(cible - attendu)} s)`);
     await pa.click("#btn-demande"); await pa.waitForSelector("#apres-demande:not(.hidden)");
+    ok((await pa.locator("#apres-demande").innerText()).includes("Ne le transmets pas"), "avertissement « lien personnel » affiché");
     await pa.click("#btn-partager"); await pa.waitForSelector("#partage-ok:not(.hidden)");
     const presse = await pa.evaluate(() => navigator.clipboard.readText());
     ok(presse.includes("?inv=" + A) && presse.includes("🟨"), "texte de partage avec lien d'invitation et grille d'émojis");
@@ -127,6 +137,13 @@ async function jouer(page, groupesAJouer, faux = 0) {
     const invite = d.participants.find(p => p.invite_par === A);
     ok(invite && invite.groupe === "invite", "participant « invité » créé et rattaché à A");
     ok(d.evenements.some(e => e.participant_id === invite.id && e.type === "debut"), "l'invité a commencé une partie");
+    ok(d.evenements.filter(e => e.type === "visite" && e.participant_id === A).every(e => e.donnees.appareil), "identifiant d'appareil enregistré avec les visites");
+    console.log("4b. Lien personnel de A ouvert depuis un autre appareil");
+    const { page: px } = await nouveau({}, true);
+    await px.goto(`${BASE}/?p=${A}`); await px.waitForSelector("#fin:not(.hidden), .tile"); await px.waitForTimeout(400);
+    d = await db();
+    const appsA = new Set(d.evenements.filter(e => e.type === "visite" && e.participant_id === A).map(e => e.donnees.appareil));
+    ok(appsA.size === 2, "le lien de A apparaît sur 2 appareils distincts (détectable dans le tableau de bord)");
 
     console.log("5. Le lendemain : A revient par un lien de rappel, B revient seul");
     await fetch(BASE + "/__test/decaler?jours=1");
@@ -152,6 +169,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
     const ligne = (lib) => ent.split("\n").find(l => l.startsWith(lib)) || "";
     ok(/Revenu sans rappel \(au moins 1 jour\)\s+0.*\s1 \(/.test(ligne("Revenu sans rappel (au moins 1 jour)")), "entonnoir : R = 0, S = 1 retour sans rappel → « " + ligne("Revenu sans rappel (au moins 1 jour)").replace(/\s+/g, " ") + " »");
     ok(/A fait venir un invité qui a joué\s+1/.test(ligne("A fait venir un invité qui a joué")), "entonnoir : 1 invitation effective");
+    ok(/Lien ouvert sur 2 appareils ou plus\s+1/.test(ligne("⚠ Lien ouvert sur 2 appareils ou plus")), "entonnoir : 1 lien ouvert sur plusieurs appareils → " + ligne("⚠ Lien ouvert sur 2 appareils ou plus").replace(/\s+/g, " "));
+    ok((await adm.locator("#tab-participants").innerText()).includes("⚠"), "participant signalé ⚠ dans le tableau");
     const res = await adm.locator("#res-grille").innerText();
     ok(res.includes("Le groupe coup de était facile"), "commentaire libre visible dans les résultats de la grille 1");
     ok(/Ont terminé\s+2/.test(res), "grille 1 : 2 parties terminées");
@@ -160,6 +179,23 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(contenu.split("\r\n").length > 10 && contenu.includes("retour_spontane"), "export CSV des événements");
     const [dl2] = await Promise.all([adm.waitForEvent("download"), adm.click("#btn-csv-participants")]);
     ok(require("fs").readFileSync(await dl2.path(), "utf8").includes("jours_revenu_sans_rappel"), "export CSV des participants");
+
+    console.log("6b. Chargement lent");
+    const { page: pl } = await nouveau({}, true);
+    let appels = 0; let liberer;
+    const bloque = new Promise(r => liberer = r);
+    await pl.route("**/rest/v1/rpc/q_identifier", async (route) => { appels++; await bloque; await route.continue(); });
+    await pl.clock.install();
+    const navLente = pl.goto(`${BASE}/?p=${C}`);
+    await pl.waitForSelector("#chargement");
+    await pl.clock.runFor(8500);
+    ok((await pl.locator("#chargement").innerText()).includes("plus de temps que prévu"), "message après 8 s de chargement");
+    ok(await pl.locator("#btn-reessayer").count() === 1, "bouton Réessayer proposé");
+    await pl.click("#btn-reessayer"); await pl.clock.runFor(500);
+    ok(appels === 1, "Réessayer pendant une requête en cours n'envoie pas de 2e requête (appels = " + appels + ")");
+    liberer(); await navLente; await pl.waitForSelector(".tile, #fin:not(.hidden)", { timeout: 15000 });
+    ok(true, "la partie se charge quand le serveur répond enfin");
+    ok(await pl.locator("#dlg-regles[open]").count() === 0 && await pl.locator("#dlg-regles .exemple-tuiles span").count() === 4, "règles : exemple visuel à 4 mots présent");
 
     console.log("7. Mode démo : rien n'est enregistré");
     const avant = (await db()).evenements.length;

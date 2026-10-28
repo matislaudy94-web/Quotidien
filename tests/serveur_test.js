@@ -38,7 +38,7 @@ const F = {
   a_donnees({ code, p_session }) { admin(code); const P = db.participants.filter(p => p.session_id === p_session);
     return { participants: P, rappels: db.rappels.filter(r => P.some(p => p.id === r.participant_id)), evenements: db.evenements.filter(e => e.session_id === p_session) }; },
 };
-const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json" };
+const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json", ".woff2": "font/woff2", ".png": "image/png" };
 const serveur = http.createServer((req, res) => {
   const url = new URL(req.url, "http://x");
   if (url.pathname === "/__test/decaler") { decalageJours = Number(url.searchParams.get("jours")); res.end("ok"); return; }

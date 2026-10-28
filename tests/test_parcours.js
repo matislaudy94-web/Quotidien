@@ -72,7 +72,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.getByRole("button", { name: "Compris" }).click();
     await jouer(pa, [0, 1, 2, 3], 1);
     await pa.waitForSelector("#fin:not(.hidden)");
-    ok(await pa.locator("#resume h2").innerText() === "Bravo, grille résolue !", "écran de victoire");
+    ok(await pa.locator("#resume h2").innerText() === "Bravo !", "écran de victoire");
     ok((await pa.locator("#resume").innerText()).includes("1 erreur"), "résumé : 1 erreur");
     ok(await pa.locator("#resume .expl").count() === 4, "explications des 4 groupes affichées");
     await pa.click("#btn-demande"); await pa.waitForSelector("#apres-demande:not(.hidden)");

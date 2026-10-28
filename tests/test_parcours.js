@@ -30,6 +30,12 @@ async function jouer(page, groupesAJouer, faux = 0) {
   const browser = await chromium.launch();
   const erreursConsole = [];
   const iphone = devices["iPhone 13"];
+  // Ouvre une adresse puis, depuis l'accueil, lance la partie (ou affiche le résultat) via la carte du jour.
+  const aller = async (p, url, cliquer = true) => {
+    await p.goto(url);
+    await p.waitForSelector("#btn-jouer, #erreur:not(.hidden), #btn-reessayer", { timeout: 15000 }).catch(() => {});
+    if (cliquer && await p.locator("#btn-jouer").count()) await p.click("#btn-jouer");
+  };
   const nouveau = async (opts = {}, reglesVues = false) => {
     const ctx = await browser.newContext({ ...iphone, permissions: ["clipboard-read", "clipboard-write"], ...opts });
     if (reglesVues) await ctx.addInitScript(() => { try { localStorage.setItem("quotidien_regles_vues", "true"); } catch (e) {} });
@@ -62,7 +68,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
 
     console.log("2. Joueur A (groupe R) gagne avec 1 erreur");
     const { page: pa } = await nouveau();
-    await pa.goto(`${BASE}/?p=${A}`);
+    await aller(pa, `${BASE}/?p=${A}`);
     await pa.waitForSelector(".tile");
     ok(await pa.locator(".tile").count() === 16, "16 cartes affichées");
     const debord = await pa.evaluate(() => ({ page: document.documentElement.scrollWidth > window.innerWidth,
@@ -96,13 +102,14 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.fill("textarea[name=gene]", "Le groupe coup de était facile");
     await pa.click("#questionnaire button"); await pa.waitForSelector("#merci:not(.hidden)");
     ok(await pa.locator("#merci").isVisible(), "message de remerciement visible");
-    await pa.reload(); await pa.waitForSelector("#fin:not(.hidden)");
+    await aller(pa, pa.url()); await pa.waitForSelector("#fin:not(.hidden)");
     ok(await pa.locator("#merci:not(.hidden)").count() === 1, "après rechargement : partie terminée conservée, pas de nouvelle partie");
+    ok(await pa.locator("#bloc-recompenses").count() === 0, "après rechargement : les récompenses ne sont pas affichées (ni créditées) une 2e fois");
     ok(pa.url().endsWith("?p=" + A), "l'adresse affichée est le lien personnel (à mettre en favori)");
 
     console.log("3. Joueur B (groupe S) perd après 4 erreurs");
     const { page: pb } = await nouveau({}, true);
-    await pb.evaluate(() => {}).catch(() => {}); await pb.goto(`${BASE}/?p=${B}`); await pb.waitForSelector(".tile");
+    await aller(pb, `${BASE}/?p=${B}`); await pb.waitForSelector(".tile");
     await jouer(pb, [0], 0);
     // même essai deux fois : ne doit pas compter d'erreur
     const g = G[0];
@@ -130,7 +137,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
 
     console.log("4. Invitation : un nouveau joueur arrive par le lien de A");
     const { page: pi } = await nouveau({}, true);
-    await pi.evaluate(() => {}).catch(() => {}); await pi.goto(`${BASE}/?inv=${A}`); await pi.waitForSelector(".tile");
+    await aller(pi, `${BASE}/?inv=${A}`); await pi.waitForSelector(".tile");
     await pi.locator(".tile").first().click();
     await pi.waitForTimeout(400);
     d = await db();
@@ -140,7 +147,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(d.evenements.filter(e => e.type === "visite" && e.participant_id === A).every(e => e.donnees.appareil), "identifiant d'appareil enregistré avec les visites");
     console.log("4b. Lien personnel de A ouvert depuis un autre appareil");
     const { page: px } = await nouveau({}, true);
-    await px.goto(`${BASE}/?p=${A}`); await px.waitForSelector("#fin:not(.hidden), .tile"); await px.waitForTimeout(400);
+    await aller(px, `${BASE}/?p=${A}`, false); await px.waitForSelector("#carte-jour"); await px.waitForTimeout(400);
     d = await db();
     const appsA = new Set(d.evenements.filter(e => e.type === "visite" && e.participant_id === A).map(e => e.donnees.appareil));
     ok(appsA.size === 2, "le lien de A apparaît sur 2 appareils distincts (détectable dans le tableau de bord)");
@@ -153,8 +160,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(await adm.locator(`[data-rappel="${B}"]`).count() === 0, "B (groupe S) n'apparaît jamais dans les rappels");
     await adm.click(`[data-rappel="${A}"]`); await adm.waitForSelector("#tab-rappels [data-copier]");
     const lienRappel = await adm.locator("#tab-rappels [data-copier]").first().getAttribute("data-copier");
-    await pa.goto(lienRappel); await pa.waitForSelector("#fin:not(.hidden), .tile");
-    await pb.goto(`${BASE}/?p=${B}`); await pb.waitForSelector("#fin:not(.hidden), .tile");
+    await aller(pa, lienRappel); await pa.waitForSelector("#fin:not(.hidden), .tile");
+    await aller(pb, `${BASE}/?p=${B}`); await pb.waitForSelector("#fin:not(.hidden), .tile");
     // C n'a jamais reçu son lien : aucune visite
     await pa.waitForTimeout(400);
     d = await db();
@@ -193,19 +200,73 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(await pl.locator("#btn-reessayer").count() === 1, "bouton Réessayer proposé");
     await pl.click("#btn-reessayer"); await pl.clock.runFor(500);
     ok(appels === 1, "Réessayer pendant une requête en cours n'envoie pas de 2e requête (appels = " + appels + ")");
-    liberer(); await navLente; await pl.waitForSelector(".tile, #fin:not(.hidden)", { timeout: 15000 });
+    liberer(); await navLente; await pl.waitForSelector("#btn-jouer", { timeout: 15000 }); await pl.click("#btn-jouer"); await pl.waitForSelector(".tile, #fin:not(.hidden)", { timeout: 15000 });
     ok(true, "la partie se charge quand le serveur répond enfin");
     ok(await pl.locator("#dlg-regles[open]").count() === 0 && await pl.locator("#dlg-regles .exemple-tuiles span").count() === 4, "règles : exemple visuel à 4 mots présent");
 
     console.log("7. Mode démo : rien n'est enregistré");
     const avant = (await db()).evenements.length;
     const { page: pd } = await nouveau();
-    await pd.goto(`${BASE}/?demo=1&g=g2`); await pd.waitForSelector(".tile");
+    await aller(pd, `${BASE}/?demo=1&g=g2`); await pd.waitForSelector(".tile");
     ok(await pd.getByRole("button", { name: "PIRATE", exact: true }).count() === 1, "la démo affiche la grille 2 demandée");
     await pd.locator(".tile").first().click(); await pd.waitForTimeout(300);
     ok((await db()).evenements.length === avant, "aucun événement enregistré en démo");
 
+    console.log("9. Progression (XP, niveaux, objectifs, badges, stats, navigation)");
+    // A a résolu g1 (facile) avec 1 erreur en quelques secondes : 50 XP + objectif Premier défi 30 + badges Première grille et Éclair 20 = 100 XP, niveau 1.
+    // Même « lendemain » que le serveur pour la page de A.
+    await pa.clock.install({ time: new Date(Date.now() + 86400000) });
+    await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-xp");
+    const txtXp = await pa.locator("#carte-xp").innerText();
+    ok(/Niveau 1/i.test(txtXp) && /100 XP/.test(txtXp), "accueil de A : niveau 1, 100 XP → " + txtXp.replace(/\n/g, " | "));
+    ok(/100 \/ 120 XP vers le niveau 2/.test(txtXp.replace(/\s+/g, " ")), "barre : 100 / 120 XP vers le niveau 2");
+    const cj = (await pa.locator("#carte-jour").innerText()).replace(/\s+/g, " ");
+    ok(/À jouer/.test(cj) && /Jusqu'à 100 XP/.test(cj) && /Intermédiaire/.test(cj), "jour 2 : carte du jour = grille 2, à jouer, intermédiaire, jusqu'à 100 XP → " + cj);
+    const objs = await pa.locator("#accueil-objectifs .objectif").count();
+    ok(objs === 3, "3 objectifs affichés sur l'accueil (" + objs + ")");
+    ok((await pa.locator("#accueil-objectifs").innerText()).includes("Esprit logique") && !(await pa.locator("#accueil-objectifs").innerText()).includes("Premier défi"), "l'objectif réalisé (Premier défi) a laissé la place au suivant");
+    const navVisible = await pa.locator("#nav-bas:not(.hidden)").count() === 1;
+    ok(navVisible, "navigation basse visible sur l'accueil");
+    await pa.click('#nav-bas [data-ecran="parcours"]'); await pa.waitForSelector("#ecran-parcours:not(.hidden)");
+    const parc = (await pa.locator("#ecran-parcours").innerText()).replace(/\s+/g, " ");
+    ok(/Curieux.*Prochain.*il te manque 20 XP/.test(parc) && /Explorateur.*Verrouillé/.test(parc), "parcours : Curieux prochain (manque 20 XP), Explorateur verrouillé");
+    await pa.click('#nav-bas [data-ecran="badges"]'); await pa.waitForSelector("#ecran-badges:not(.hidden)");
+    ok((await pa.locator(".badge.obtenu").count()) === 2 && (await pa.locator(".badge.verrouille").count()) === 6, "badges : 2 obtenus (Première grille, Éclair), 6 à débloquer");
+    await pa.click('#nav-bas [data-ecran="stats"]'); await pa.waitForSelector("#ecran-stats:not(.hidden)");
+    const st = (await pa.locator("#ecran-stats").innerText()).replace(/\s+/g, " ");
+    ok(/1 Grilles terminées dont 1 résolue/i.test(st) && /100 % Taux de réussite/i.test(st) && /4 Groupes trouvés/i.test(st) && /1 Erreurs/i.test(st), "stats cohérentes avec la partie : 1 terminée, 1 résolue, 100 %, 4 groupes, 1 erreur → " + st.slice(0, 160));
+    await pa.click('#nav-bas [data-ecran="jeu"]'); await pa.waitForSelector(".tile");
+    ok(await pa.locator("#nav-bas.hidden").count() === 1, "pendant la partie, la navigation basse s'efface (barre de jeu seule)");
+    // Démo dans le même navigateur : progression séparée
+    await aller(pa, `${BASE}/?demo=1&g=g1`); await pa.waitForSelector(".tile");
+    await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
+    const rec = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
+    ok(/\+185 XP/.test(rec) && /Niveau supérieur/.test(rec) && /Curieux/.test(rec), "démo g1 sans faute et rapide : +185 XP (75 + 30 + 50 + 3 badges) et passage au niveau 2 → " + rec.slice(0, 120));
+    ok(/Objectif : Premier défi/.test(rec) && /Objectif : Esprit logique/.test(rec) && /Badge : Sans-faute/.test(rec), "récompenses détaillées : 2 objectifs, badges");
+    await aller(pa, `${BASE}/?demo=1&g=g1`, false); await pa.waitForSelector("#carte-xp");
+    ok(/185 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement");
+    ok(/Rejouer \(sans XP\)/.test(await pa.locator("#btn-jouer").innerText()), "démo : la grille déjà comptée propose « Rejouer (sans XP) »");
+    await pa.click("#btn-jouer"); await pa.waitForSelector(".tile"); await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#fin:not(.hidden)");
+    await pa.waitForTimeout(1200);
+    ok(await pa.locator("#bloc-recompenses").count() === 0, "rejouer la même grille ne crédite rien (pas de bloc récompenses)");
+    await aller(pa, `${BASE}/?demo=1`, false); await pa.waitForSelector("#carte-xp");
+    ok(/185 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : toujours 185 XP après la 2e partie");
+    await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-xp");
+    ok(/100 XP/.test(await pa.locator("#carte-xp").innerText()), "la progression réelle de A (100 XP) n'a pas été touchée par la démo");
+    // Réinitialisation démo
+    await aller(pa, `${BASE}/?demo=1`, false); await pa.click('#nav-bas [data-ecran="stats"]'); await pa.waitForSelector("#btn-reinit"); await pa.click("#btn-reinit");
+    await pa.waitForTimeout(300);
+    ok((await pa.locator("#ecran-stats").innerText()).includes("apparaîtront après ta première partie"), "démo : réinitialisation → état vide propre");
+    // Événement recompense tracé côté serveur pour A
+    d = await db();
+    const recA = d.evenements.filter(e => e.participant_id === A && e.type === "recompense");
+    ok(recA.length === 1 && recA[0].donnees.xp === 100 && recA[0].donnees.objectifs.includes("premier_defi") && recA[0].donnees.badges.includes("eclair"), "trace serveur : 1 événement « recompense » pour A, xp 100, objectif premier_defi, badge eclair");
+
     console.log("8. Captures d'écran");
+    await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-xp"); await pa.waitForTimeout(900);
+    await pa.screenshot({ path: path.join(__dirname, "capture_accueil_iphone.png"), fullPage: true });
+    await pa.click('#nav-bas [data-ecran="parcours"]'); await pa.waitForTimeout(300);
+    await pa.screenshot({ path: path.join(__dirname, "capture_parcours_iphone.png"), fullPage: true });
     await pi.screenshot({ path: path.join(__dirname, "capture_jeu_iphone.png") });
     await pa.screenshot({ path: path.join(__dirname, "capture_fin_iphone.png"), fullPage: true });
     await adm.setViewportSize({ width: 1200, height: 900 });

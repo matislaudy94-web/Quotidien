@@ -10,6 +10,7 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 | `admin.html` | Tableau de bord administrateur (protégé par un code). |
 | `grilles.json` | Les 30 grilles (source), 10 faciles / 10 intermédiaires / 10 difficiles, chacune avec un champ `niveau`. Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
 | `grilles.js` | Les grilles, générées depuis `grilles.json` (ne pas modifier à la main). |
+| `progression.js` | Progression du joueur : barème d'XP, niveaux, objectifs, badges, statistiques. Seule source de vérité, tout est recalculé depuis le journal local des parties terminées. |
 | `config.js` | Adresse de la base Supabase et clé **publique**. |
 | `api.js` | Appels à la base. |
 | `verifier_grilles.py` | Vérifie chaque grille : 16 mots distincts, 4×4, niveau renseigné, aucun mot répété d'une grille à l'autre, et **une seule solution** compte tenu des leurres déclarés (`rattachements_plausibles`). |
@@ -21,6 +22,46 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 - Chaque grille passe deux contrôles : le script `verifier_grilles.py` (structure, unicité de la solution en tenant compte des pièges déclarés, aucun mot réutilisé entre grilles) et une relecture indépendante (recherche d'une autre répartition défendable, expressions fausses ou rares, mots cachés involontaires, calibrage de la difficulté). Les grilles à mots cachés sont en plus passées à un scan automatique des 16 mots (notes, couleurs, pays, prénoms).
 - Ces contrôles réduisent fortement le risque d'injustice mais ne le suppriment pas : une grille jugée injuste par plusieurs testeurs (question « associations justes ? » et commentaires) doit être retirée ou corrigée **entre deux sessions**, jamais pendant.
 - Une grille à retirer : la supprimer du calendrier de la session plutôt que du fichier, pour garder la numérotation stable.
+
+## La progression du joueur (XP, niveaux, objectifs, badges)
+
+**Principe.** Le navigateur garde un *journal* des parties terminées : une entrée par grille, à la **première** partie terminée seulement. XP, niveau, objectifs, badges et statistiques sont **recalculés** à chaque affichage à partir de ce journal (`progression.js`). Conséquences : rejouer une grille ne rapporte rien ; recharger la page ne crédite rien deux fois ; un objectif ou un badge ne peut pas être validé deux fois ; le changement de jour ne déclenche aucune récompense. Il n'existe aucun compteur d'XP stocké séparément, donc rien à désynchroniser.
+
+**Barème d'XP** (par grille, une seule fois) :
+
+| Action | XP |
+|---|---|
+| Grille résolue (4 groupes trouvés) | facile 50 · intermédiaire 75 · difficile 100 |
+| Résolue sans aucune erreur | +25 |
+| Partie terminée sans résoudre (4 erreurs) | 15 |
+| Objectif réalisé | de 30 à 250 (voir ci-dessous) |
+| Badge débloqué | +10 |
+
+**Niveaux** (déblocage par XP uniquement, jamais par jours consécutifs ; la grille du jour reste accessible quel que soit le niveau) :
+
+| N° | Nom | XP requis |
+|---|---|---|
+| 1 | Débutant | 0 |
+| 2 | Curieux | 120 |
+| 3 | Explorateur | 350 |
+| 4 | Stratège | 700 |
+| 5 | Maître des mots | 1 200 |
+
+**Objectifs** (une seule fois chacun) : Premier défi (terminer 1 grille, 30 XP) · Esprit logique (résoudre 1 grille sans erreur, 50) · Fin limier (résoudre 3 grilles, 60) · Explorateur (terminer 5 grilles différentes, 80) · Trois sans-faute (résoudre 3 grilles sans erreur, 120) · Marathon (terminer 15 grilles, 150) · Grand chelem (résoudre 25 grilles, 250). L'accueil montre au plus 3 objectifs non réalisés.
+
+**Badges** (+10 XP chacun) : Première grille (terminer une partie) · Sans-faute (résoudre sans erreur) · Tête froide (résoudre après 3 erreurs) · Éclair (résoudre en moins de 90 s) · Costaud (résoudre une grille difficile) · Persévérant (terminer 10 grilles) · Collectionneur (résoudre 20 grilles) · Maître des mots (atteindre le niveau 5).
+
+**Pas de récompense liée à la connexion quotidienne.** La série de jours consécutifs est affichée dans les statistiques, mais ne rapporte ni XP ni badge : récompenser le retour quotidien rendrait la mesure du « retour spontané » ininterprétable.
+
+**Statistiques** : grilles terminées (dont résolues), taux de réussite = résolues ÷ terminées, groupes trouvés, erreurs, XP et niveau, meilleur résultat (grille résolue avec le moins d'erreurs, puis la plus rapide), série actuelle et record. Une partie seulement commencée n'entre dans aucune statistique.
+
+**Trace côté serveur.** À chaque crédit, un événement `recompense` est envoyé (xp gagnée, objectifs et badges débloqués, niveau avant/après, XP total). Il sert à l'analyse ; le calcul reste local.
+
+**Limites de la progression**
+- Stockage local (navigateur) : pas de synchronisation entre appareils ou navigateurs, pas de compte. Un joueur qui change d'appareil repart de zéro côté progression (ses parties restent dans la base de test). Effacer les données du navigateur efface la progression.
+- Le parcours ne propose pas de grilles supplémentaires : les 30 grilles sont réservées au calendrier quotidien. Pour ajouter un mode « entraînement », il faudra une **seconde banque de grilles** distincte du calendrier (même format `grilles.json`, vérifiée de la même façon), sinon les joueurs découvriraient la grille de demain en avance.
+- Le mode démo a sa propre progression (profil `demo`), réinitialisable depuis « Mes stats » ; elle ne touche jamais celle d'un participant.
+- La progression modifie l'expérience testée : à partir du 28/10, on teste « Quotidien avec progression », pas le jeu nu. La difficulté de la grille est affichée sur la carte du jour (demande produit) : cela peut influencer la réponse « difficulté ressentie » du questionnaire.
 
 ## Architecture (gratuite)
 
@@ -142,6 +183,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | 28/10/2026 (avant tout test) | Ajout d'un identifiant d'appareil anonyme (aléatoire, par navigateur) envoyé avec chaque visite. Nouvelle colonne « Appareils » et ligne « ⚠ Lien ouvert sur 2 appareils ou plus ». | Permet de repérer les liens transférés. Aucun autre compteur modifié. |
 | 28/10/2026 (avant tout test) | Compte à rebours jusqu'à la prochaine grille (minuit, heure de Paris) en fin de partie. | Fait partie du jeu ; n'est pas un rappel ; le classement des visites est inchangé. |
 | 28/10/2026 (avant tout test) | Règles ouvertes automatiquement à la première visite (événement `regles` avec `auto: true`). | À distinguer des consultations volontaires des règles (`auto` absent). |
+| 28/10/2026 (avant tout test) | Écran d'accueil avant la grille (carte du jour + bouton « Jouer maintenant »), progression locale (XP, niveaux, objectifs, badges), nouvel événement `recompense`. | « A ouvert la page » = visite de l'accueil ; « a commencé » = premier mot touché (inchangé). Le produit testé inclut désormais la progression ; aucune récompense n'est liée au retour quotidien. |
 
 ## Tests effectués
 
@@ -161,7 +203,8 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 - le compte à rebours affiché et calé sur minuit heure de Paris ;
 - le chargement lent : message après 8 s, bouton « Réessayer » sans seconde requête ;
 - l'identifiant d'appareil enregistré, et le signalement d'un lien ouvert sur 2 appareils ;
-- l'avertissement « lien personnel » affiché au joueur.
+- l'avertissement « lien personnel » affiché au joueur ;
+- la progression : XP crédités une seule fois par grille (rechargement et rejouer sans effet), objectifs et badges attribués, montée de niveau, persistance après rechargement, carte du jour au changement de jour, séparation démo / participant, cohérence des statistiques, navigation entre les écrans, événement `recompense` tracé côté serveur. Le module `progression.js` a aussi 15 tests unitaires (`node tests/test_progression.js`).
 
 Le classement des visites et les droits d'accès ont été testés **directement sur la vraie base** :
 - spontané, après rappel et rappel probable ;

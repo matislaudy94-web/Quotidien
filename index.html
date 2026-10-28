@@ -215,6 +215,110 @@
   #erreur.panel { text-align: center; }
 
   #jeu + footer, #jeu ~ footer { margin-top: 18px; }
+  /* ---------- Écrans et navigation ---------- */
+  .ecran { animation: fondu .18s ease-out; }
+  @keyframes fondu { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  main.avec-nav { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .nav-bas { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: grid; grid-template-columns: repeat(5, 1fr);
+    background: var(--plate); box-shadow: 0 -4px 0 var(--plate-edge), 0 -8px 24px rgba(0,0,0,.35); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
+  .nav-bas button { background: none; border: 0; color: var(--muted); font-family: var(--title); font-weight: 600; font-size: 11px; letter-spacing: .02em;
+    display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; border-radius: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .nav-bas button .ico { font-size: 20px; line-height: 1; filter: grayscale(1) opacity(.6); transition: transform .12s, filter .12s; }
+  .nav-bas button.on { color: #fff; } .nav-bas button.on .ico { filter: none; transform: translateY(-2px); }
+  .nav-bas button:active .ico { transform: scale(.9); }
+  .pill-niveau { display: inline-flex; align-items: center; gap: 6px; background: var(--c0); color: var(--ink); border-radius: var(--pill); padding: 6px 10px 7px;
+    font-family: var(--title); font-weight: 700; font-size: 13px; box-shadow: inset 0 -3px 0 var(--c0e); white-space: nowrap; cursor: pointer; border: 0; }
+  .pill-niveau b { background: var(--ink); color: var(--c0); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+  .titre-ecran { font-family: var(--title); font-weight: 700; font-size: 22px; color: #fff; margin: 14px 0 4px; }
+  .sous-ecran { color: var(--muted); font-size: 14px; font-weight: 700; margin: 0 0 14px; }
+
+  /* ---------- Accueil ---------- */
+  .carte-xp { background: var(--plate); border-radius: var(--r-l); padding: 14px 16px; margin-top: 14px; box-shadow: inset 0 3px 10px rgba(0,0,0,.45), 0 5px 0 var(--plate-edge); color: #fff; }
+  .carte-xp .ligne { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .carte-xp .niv { font-family: var(--title); font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .02em; }
+  .carte-xp .niv small { color: var(--c0); }
+  .carte-xp .xp-txt { font-size: 13px; font-weight: 800; color: var(--muted); white-space: nowrap; }
+  .barre { height: 14px; background: rgba(0,0,0,.35); border-radius: var(--pill); overflow: hidden; margin: 10px 0 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,.4); }
+  .barre i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--c1), var(--c0)); border-radius: var(--pill); box-shadow: inset 0 -4px 0 rgba(0,0,0,.15); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+  .carte-xp .sous { font-size: 12.5px; font-weight: 700; color: var(--muted); }
+  .carte-jour { background: var(--cream); color: var(--ink); border-radius: var(--r-l); padding: 16px; margin-top: 14px; box-shadow: 0 5px 0 var(--cream-edge); position: relative; overflow: hidden; }
+  .carte-jour::before { content: ""; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; background: var(--c0); opacity: .35; }
+  .carte-jour > * { position: relative; }
+  .carte-jour .etiquette { display: inline-block; font-family: var(--title); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+  .carte-jour h2 { font-family: var(--title); font-weight: 700; font-size: 24px; margin: 2px 0 6px; }
+  .carte-jour .meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+  .tag { display: inline-flex; align-items: center; gap: 4px; background: #ece5ff; color: var(--ink); border-radius: var(--pill); padding: 4px 10px; font-size: 12.5px; font-weight: 800; box-shadow: 0 2px 0 #c5b8f0; }
+  .tag.facile { background: var(--c1); box-shadow: 0 2px 0 var(--c1e); } .tag.intermediaire { background: var(--c0); box-shadow: 0 2px 0 var(--c0e); } .tag.difficile { background: var(--c3); box-shadow: 0 2px 0 var(--c3e); }
+  .tag.ok { background: var(--ok); color: #fff; box-shadow: 0 2px 0 var(--ok-edge); }
+  .carte-jour p { margin: 4px 0 10px; font-size: 14.5px; font-weight: 700; color: var(--ink-soft); }
+  .carte-jour .btn { width: 100%; }
+  .objectif { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9e1d0; }
+  .objectif:last-child { border-bottom: 0; }
+  .objectif .t { font-weight: 800; font-size: 15px; grid-column: 1; grid-row: 1; } .objectif .d { font-size: 13px; color: var(--ink-soft); font-weight: 700; grid-column: 1; }
+  .objectif .r { font-family: var(--title); font-weight: 700; color: var(--c0e); font-size: 14px; white-space: nowrap; grid-column: 2; grid-row: 1 / span 4; align-self: center; text-align: right; }
+  .objectif .r.fait { color: var(--ok-edge); }
+  .objectif .mini-barre { grid-column: 1; height: 8px; background: #e9e1d0; border-radius: var(--pill); overflow: hidden; margin-top: 2px; }
+  .objectif .mini-barre i { display: block; height: 100%; background: var(--c1); border-radius: var(--pill); }
+  .objectif .mini-barre i.plein { background: var(--ok); }
+  .objectif .p { font-size: 12px; font-weight: 800; color: var(--ink-soft); grid-column: 1; }
+  .raccourcis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .raccourcis button { background: var(--light); color: var(--ink); border: 0; border-radius: var(--r-m); padding: 12px 6px; font-family: var(--title); font-weight: 600; font-size: 13px;
+    box-shadow: 0 var(--depth) 0 #b4a9df; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .raccourcis button span { font-size: 22px; }
+  .raccourcis button:active { transform: translateY(3px); box-shadow: 0 1px 0 #b4a9df; }
+  .lien-texte { background: none; border: 0; color: var(--ink-soft); font: inherit; font-weight: 800; font-size: 13.5px; text-decoration: underline; cursor: pointer; padding: 0; margin-top: 8px; }
+
+  /* ---------- Parcours ---------- */
+  .parcours { display: grid; gap: 0; margin-top: 8px; }
+  .etape { display: grid; grid-template-columns: 44px 1fr; gap: 12px; position: relative; padding-bottom: 18px; }
+  .etape::before { content: ""; position: absolute; left: 21px; top: 44px; bottom: 0; width: 4px; background: rgba(255,255,255,.12); border-radius: 2px; }
+  .etape:last-child::before { display: none; }
+  .etape.termine::before { background: var(--c1); }
+  .etape .rond { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--title); font-weight: 700; font-size: 18px;
+    background: rgba(255,255,255,.1); color: var(--muted); box-shadow: inset 0 -4px 0 rgba(0,0,0,.25); }
+  .etape.termine .rond { background: var(--c1); color: var(--ink); box-shadow: inset 0 -4px 0 var(--c1e); }
+  .etape.en_cours .rond { background: var(--c0); color: var(--ink); box-shadow: inset 0 -4px 0 var(--c0e), 0 0 0 4px rgba(255,210,63,.25); }
+  .etape.accessible .rond { background: var(--cream); color: var(--ink); box-shadow: inset 0 -4px 0 var(--cream-edge); }
+  .etape .corps { background: var(--cream); color: var(--ink); border-radius: var(--r-m); padding: 12px 14px; box-shadow: 0 4px 0 var(--cream-edge); }
+  .etape.verrouille .corps { background: rgba(255,248,234,.75); }
+  .etape .corps h3 { margin: 0; font-family: var(--title); font-weight: 700; font-size: 17px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .etape .corps h3 .tag { font-size: 11px; padding: 3px 8px; }
+  .etape .corps p { margin: 4px 0 0; font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+  .etape .corps .cond { margin-top: 8px; font-size: 13px; font-weight: 800; color: var(--ink); }
+
+  /* ---------- Badges ---------- */
+  .grille-badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
+  .badge { background: var(--cream); color: var(--ink); border-radius: var(--r-m); padding: 14px 10px 12px; text-align: center; box-shadow: 0 4px 0 var(--cream-edge); }
+  .badge .ico { width: 56px; height: 56px; margin: 0 auto 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px;
+    background: var(--c0); box-shadow: inset 0 -5px 0 var(--c0e); }
+  .badge.verrouille .ico { background: #e4ddd0; box-shadow: inset 0 -5px 0 #cdc4b4; filter: grayscale(1); opacity: .7; }
+  .badge.verrouille { opacity: .85; }
+  .badge h3 { margin: 0; font-family: var(--title); font-weight: 700; font-size: 15px; }
+  .badge p { margin: 3px 0 0; font-size: 12.5px; font-weight: 700; color: var(--ink-soft); line-height: 1.3; }
+  .badge .etat { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ok-edge); }
+  .badge.verrouille .etat { color: var(--ink-soft); }
+
+  /* ---------- Statistiques ---------- */
+  .stats-grille { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
+  .stat-c { background: var(--cream); color: var(--ink); border-radius: var(--r-m); padding: 12px 12px 10px; box-shadow: 0 4px 0 var(--cream-edge); }
+  .stat-c .v { font-family: var(--title); font-weight: 700; font-size: 26px; line-height: 1.1; }
+  .stat-c .l { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-soft); margin-top: 2px; }
+  .stat-c .note { font-size: 11.5px; font-weight: 700; color: var(--ink-soft); margin-top: 4px; }
+  .vide { background: var(--cream); color: var(--ink); border-radius: var(--r-l); padding: 22px 16px; text-align: center; font-weight: 700; box-shadow: 0 5px 0 var(--cream-edge); margin-top: 8px; }
+  .vide .ico { font-size: 36px; margin-bottom: 6px; }
+
+  /* ---------- Récompenses de fin de partie ---------- */
+  .recompenses { background: var(--plate); color: #fff; border-radius: var(--r-l); padding: 14px 16px; margin-top: 16px; box-shadow: inset 0 3px 10px rgba(0,0,0,.45), 0 5px 0 var(--plate-edge); }
+  .recompenses .gain-xp { font-family: var(--title); font-weight: 700; font-size: 34px; color: var(--c0); text-align: center; line-height: 1; animation: pop-xp .5s cubic-bezier(.2,.9,.3,1.4); }
+  .recompenses .gain-xp small { font-size: 16px; color: var(--muted); }
+  @keyframes pop-xp { 0% { transform: scale(.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  .recompenses ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+  .recompenses li { background: rgba(255,255,255,.08); border-radius: var(--r-s); padding: 8px 10px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; animation: glisse .35s ease-out both; }
+  .recompenses li:nth-child(2) { animation-delay: .1s; } .recompenses li:nth-child(3) { animation-delay: .2s; } .recompenses li:nth-child(4) { animation-delay: .3s; }
+  .recompenses li .ico { font-size: 18px; } .recompenses li .plus { margin-left: auto; color: var(--c0); font-family: var(--title); }
+  @keyframes glisse { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+  .montee { text-align: center; margin: 10px 0 2px; font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; animation: pop-xp .6s cubic-bezier(.2,.9,.3,1.4) .2s both; }
+  .montee b { color: var(--c0); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; font-size: 24px; }
   footer { margin-top: 26px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; font-weight: 600; }
   footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; font-weight: 800; }
   .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 5; }
@@ -227,15 +331,34 @@
 <main>
   <header>
     <h1 class="logo" aria-label="Quotidien"><span>Q</span><span>U</span><span>O</span><span>T</span><span>I</span><span>D</span><span>I</span><span>E</span><span>N</span></h1>
-    <button class="icon-btn icon-rond" id="btn-regles" aria-haspopup="dialog" aria-label="Règles" title="Règles">?</button>
+    <div class="row-entete" style="display:flex;gap:8px;align-items:center">
+      <button class="icon-btn icon-rond" id="btn-regles" aria-haspopup="dialog" aria-label="Règles" title="Règles">?</button>
+    </div>
   </header>
-  <p class="date-grille" id="date-grille"></p>
-  <p class="tagline">Retrouve les 4 groupes de 4 mots.</p>
 
   <div id="banniere-demo" class="banner hidden">Mode démo : rien n'est enregistré. <span id="choix-grille-demo"></span></div>
   <div id="chargement" class="chargement">Chargement…</div>
   <div id="erreur" class="panel hidden"></div>
 
+  <section id="ecran-accueil" class="ecran hidden" aria-label="Accueil">
+    <div class="carte-xp" id="carte-xp"></div>
+    <div class="carte-jour" id="carte-jour"></div>
+    <div class="panel" id="accueil-objectifs"></div>
+    <div class="panel" id="accueil-parcours"></div>
+    <div class="raccourcis">
+      <button data-ecran="stats"><span>📊</span>Mes stats</button>
+      <button data-ecran="badges"><span>🏅</span>Mes badges</button>
+      <button data-ecran="badges" data-cible="objectifs"><span>🎯</span>Objectifs</button>
+    </div>
+  </section>
+
+  <section id="ecran-parcours" class="ecran hidden" aria-label="Mon parcours"></section>
+  <section id="ecran-badges" class="ecran hidden" aria-label="Mes badges et objectifs"></section>
+  <section id="ecran-stats" class="ecran hidden" aria-label="Mes statistiques"></section>
+
+  <section id="ecran-jeu" class="ecran hidden">
+  <p class="date-grille" id="date-grille"></p>
+  <p class="tagline">Retrouve les 4 groupes de 4 mots.</p>
   <section id="jeu" class="hidden" aria-label="Grille du jour">
     <div class="plateau-cadre">
       <div class="found" id="trouves"></div>
@@ -256,6 +379,7 @@
   </section>
 
   <section id="fin" class="hidden">
+    <div id="recompenses"></div>
     <div class="panel" id="resume"></div>
     <div class="panel" id="solution"></div>
     <div class="panel" id="suite"></div>
@@ -286,7 +410,9 @@
       </form>
       <p class="merci hidden" id="merci">Merci, c'est noté !</p>
     </div>
-    <div class="actions hidden" id="actions-demo" style="margin-top:16px"><button class="btn" id="btn-recommencer">Recommencer cette grille (démo)</button></div>
+    <div class="actions" style="margin-top:16px"><button class="btn btn-large" data-ecran="accueil">Retour à l'accueil</button></div>
+    <div class="actions hidden" id="actions-demo" style="margin-top:10px"><button class="btn" id="btn-recommencer">Recommencer cette grille (démo, sans XP)</button></div>
+  </section>
   </section>
 
   <footer>
@@ -294,6 +420,14 @@
     <button id="btn-vie-privee">En savoir plus</button>
   </footer>
 </main>
+
+<nav class="nav-bas hidden" id="nav-bas" aria-label="Navigation">
+  <button data-ecran="accueil"><span class="ico">🏠</span>Accueil</button>
+  <button data-ecran="jeu"><span class="ico">🧩</span>Jouer</button>
+  <button data-ecran="parcours"><span class="ico">🗺️</span>Parcours</button>
+  <button data-ecran="badges"><span class="ico">🏅</span>Badges</button>
+  <button data-ecran="stats"><span class="ico">📊</span>Stats</button>
+</nav>
 
 <dialog id="dlg-regles"><div class="dlg">
   <h2>Comment jouer</h2>
@@ -327,6 +461,7 @@
 <script src="config.js"></script>
 <script src="api.js"></script>
 <script src="grilles.js"></script>
+<script src="progression.js"></script>
 <script>
 (function () {
   "use strict";
@@ -337,6 +472,10 @@
   const ORDRE_DIFF = { facile: 0, intermediaire: 1, difficile: 2 };
   const LIB_DIFF = { facile: "Facile", intermediaire: "Intermédiaire", difficile: "Difficile" };
   const MAX_ERREURS = 4;
+  const PROG = window.QuotidienProgression;
+  const LIB_NIV = { facile: "Facile", intermediaire: "Intermédiaire", difficile: "Difficile" };
+  let dernierGain = null;     // récompenses de la partie qui vient d'être terminée (affichées une seule fois)
+  let ecranCourant = null;
   const $ = (id) => document.getElementById(id);
 
   // ---------- Stockage local (protégé : peut être indisponible) ----------
@@ -430,7 +569,9 @@
       grille = GRILLES.find(g => g.id === params.get("g")) || GRILLES[0];
       $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map(g => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""}>${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>`;
       $("select-demo").addEventListener("change", (e) => { location.href = "?demo=1&g=" + e.target.value; });
-      return lancerGrille();
+      $("chargement").classList.add("hidden");
+      ouvrirAccueil();
+      return;
     }
     let entree = token ? "rappel" : pParam ? "lien_personnel" : invParam ? "invitation" : "sans_lien";
     let pid = pParam || store.get("quotidien_pid");
@@ -456,8 +597,8 @@
       grille = GRILLES.find(g => g.id === gid) || null;
       API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null, p_appareil: appareilId }).catch(() => {});
       viderFile();
-      if (!grille) return pasDeGrille();
-      lancerGrille();
+      $("chargement").classList.add("hidden");
+      ouvrirAccueil();
     } catch (e) {
       throw e;
     }
@@ -503,7 +644,7 @@
       if (reste <= 0) {
         clearInterval(minuterieCompte);
         el.innerHTML = `<button class="btn primary btn-large" id="btn-jouer-maintenant">La grille du jour est disponible !</button>`;
-        $("btn-jouer-maintenant").addEventListener("click", () => { location.href = lienPersonnel(); });
+        $("btn-jouer-maintenant").addEventListener("click", () => { location.href = DEMO ? location.href : lienPersonnel(); });
         return;
       }
       const h = Math.floor(reste / 3600000), mn = Math.floor(reste / 60000) % 60, sec = Math.floor(reste / 1000) % 60;
@@ -518,15 +659,188 @@
     return new Date(Date.UTC(a, m - 1, j, 12)).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
   }
 
-  function pasDeGrille() {
-    $("chargement").classList.add("hidden");
-    const prochaine = prochaineDate();
-    const el = $("erreur"); el.classList.remove("hidden");
-    el.innerHTML = prochaine
-      ? `<h2 style="margin-top:0">Pas de grille aujourd'hui</h2><p>La prochaine grille sera disponible le <strong>${formatDate(prochaine)}</strong>.</p><div class="compte" id="compte-a-rebours"></div>${blocLienPersonnel()}`
-      : `<h2 style="margin-top:0">Le test est terminé</h2><p>Merci d'avoir joué ! Il n'y a plus de nouvelle grille pour ce test.</p>`;
-    brancherCopie(el);
-    if (prochaine) compteARebours($("compte-a-rebours"), prochaine);
+  // ---------- Écrans et navigation ----------
+  const profil = () => DEMO ? "demo" : (participant ? participant.id : "inconnu");
+  const progression = () => PROG.calculer(PROG.lireJournal(profil()), jourParis());
+
+  function afficherEcran(nom) {
+    ecranCourant = nom;
+    ["accueil", "jeu", "parcours", "badges", "stats"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
+    document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
+    // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
+    const partieEnCours = nom === "jeu" && !$("jeu").classList.contains("hidden");
+    $("nav-bas").classList.toggle("hidden", partieEnCours);
+    document.querySelector("main").classList.toggle("avec-nav", !partieEnCours);
+    window.scrollTo(0, 0);
+  }
+
+  function ouvrirAccueil() {
+    rendreEntete(); rendreAccueil(); afficherEcran("accueil");
+  }
+
+  function allerJouer() {
+    if (!grille) { afficherEcran("accueil"); return; }
+    if (etat && etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
+    lancerGrille();
+  }
+
+  function rendreEntete() { /* l'en-tête reste léger : le niveau est affiché dans la carte XP de l'accueil */ }
+
+  function barreXp(p) {
+    const pct = p.suivant ? Math.round(100 * p.xpDansNiveau / p.xpPourSuivant) : 100;
+    const txt = p.suivant ? `${p.xpDansNiveau} / ${p.xpPourSuivant} XP vers le niveau ${p.suivant.n}` : `${p.xp} XP · niveau maximal atteint`;
+    return { pct, txt };
+  }
+
+  function rendreAccueil() {
+    const p = progression();
+    const b = barreXp(p);
+    $("carte-xp").innerHTML = `
+      <div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
+      <div class="barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${b.pct}"><i style="width:0"></i></div>
+      <div class="ligne"><div class="sous">${b.txt}</div><button class="pill-niveau" data-ecran="badges" style="padding:4px 10px 5px;font-size:12px">🏅 ${p.badges.filter(x => x.obtenu).length}/${p.badges.length} badges</button></div>`;
+    requestAnimationFrame(() => requestAnimationFrame(() => { const i = $("carte-xp").querySelector(".barre i"); if (i) i.style.width = b.pct + "%"; }));
+
+    // Carte du jour
+    const cj = $("carte-jour");
+    const etatLocal = (!DEMO && grille) ? store.get(cle()) : null;
+    const dejaComptee = grille ? PROG.lireJournal(profil()).some(e => e.grille === grille.id) : false;
+    const terminee = !!(etatLocal && etatLocal.fin) || (DEMO && dejaComptee) || (grille && etat && etat.fin && etat.grilleId === grille.id);
+    const prochaine = participant ? prochaineDate() : null;
+    if (!grille) {
+      cj.innerHTML = `<span class="etiquette">La grille du jour</span><h2>Pas de grille aujourd'hui</h2>
+        ${prochaine ? `<p>La prochaine grille arrive le <strong>${formatDate(prochaine)}</strong>.</p><div class="compte" id="compte-a-rebours"></div>` : `<p>Le test est terminé. Merci d'avoir joué !</p>`}`;
+      if (prochaine) compteARebours($("compte-a-rebours"), prochaine);
+    } else {
+      const xpMax = PROG.BAREME.resolue[grille.niveau] + PROG.BAREME.sansFaute;
+      const gainJournal = dejaComptee ? PROG.calculer(PROG.lireJournal(profil()), jourParis()).detailParties.find(d => d.grille === grille.id) : null;
+      cj.innerHTML = `<span class="etiquette">${DEMO ? "Grille de démonstration" : "La grille du jour"}</span>
+        <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
+        <div class="meta"><span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>
+          <span class="tag">${terminee ? "Terminée" : etatLocal && etatLocal.debut ? "En cours" : "À jouer"}</span>
+          <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : `Jusqu'à ${xpMax} XP`}</span></div>
+        <p>${terminee ? "Tu as déjà joué cette grille." : "16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16."}</p>
+        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : etatLocal && etatLocal.debut ? "Reprendre la partie" : "Jouer maintenant"}</button>`;
+      $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; lancerGrille(); } else allerJouer(); });
+    }
+
+    // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
+    const restants = p.objectifs.filter(o => !o.termine).slice(0, 3);
+    $("accueil-objectifs").innerHTML = `<h2>Objectifs en cours</h2>` + (restants.length ? restants.map(htmlObjectif).join("") :
+      `<p class="small">Tous les objectifs sont réalisés. Bravo !</p>`) + `<button class="lien-texte" data-ecran="badges" data-cible="objectifs">Tous mes objectifs (${p.objectifs.filter(o => o.termine).length}/${p.objectifs.length} réalisés)</button>`;
+
+    // Parcours
+    const suiv = p.suivant;
+    $("accueil-parcours").innerHTML = `<h2>Mon parcours</h2>
+      <p><strong>Niveau ${p.niveau.n} — ${p.niveau.nom}.</strong> ${p.niveau.description}</p>
+      ${suiv ? `<p class="small"><strong>Prochaine étape :</strong> niveau ${suiv.n} — ${suiv.nom}. Il te manque <strong>${suiv.xp - p.xp} XP</strong>. ${suiv.cible}</p>` : `<p class="small">Tu as atteint le dernier niveau disponible.</p>`}
+      <button class="btn btn-large" data-ecran="parcours">Voir mon parcours</button>`;
+    brancherNav(document.querySelector("main"));
+  }
+
+  function htmlObjectif(o) {
+    const pct = Math.round(100 * o.actuel / o.cible);
+    return `<div class="objectif ${o.etat}"><div class="t">${o.titre}</div><div class="r ${o.termine ? "fait" : ""}">${o.termine ? "✓ +" : "+"}${o.xp} XP</div>
+      <div class="d">${o.description}</div>
+      <div class="mini-barre"><i class="${o.termine ? "plein" : ""}" style="width:${pct}%"></i></div>
+      <div class="p">${o.termine ? "Terminé" : o.actuel > 0 ? `En cours · ${o.actuel}/${o.cible}` : `À commencer · 0/${o.cible}`}</div></div>`;
+  }
+
+  function rendreParcours() {
+    const p = progression();
+    const lib = { termine: "Terminé", en_cours: "En cours", accessible: "Prochain", verrouille: "Verrouillé" };
+    $("ecran-parcours").innerHTML = `<h2 class="titre-ecran">Mon parcours</h2>
+      <p class="sous-ecran">Chaque grille du jour terminée rapporte de l'XP. Les niveaux se débloquent avec l'XP, sans condition de jours consécutifs. La grille du jour reste toujours accessible.</p>
+      <div class="carte-xp" style="margin-top:0"><div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
+        <div class="barre"><i style="width:${barreXp(p).pct}%"></i></div><div class="sous">${barreXp(p).txt}</div></div>
+      <div class="parcours" style="margin-top:16px">${p.niveaux.map(n => `<div class="etape ${n.etat}"><div class="rond">${n.etat === "termine" ? "✓" : n.etat === "verrouille" ? "🔒" : n.n}</div>
+        <div class="corps"><h3>${n.nom} <span class="tag ${n.etat === "termine" ? "ok" : ""}">${lib[n.etat]}</span></h3><p>${n.description}</p>
+        <div class="cond">${n.xp === 0 ? "Niveau de départ." : `Se débloque à ${n.xp} XP${n.etat === "accessible" || n.etat === "verrouille" ? ` · il te manque ${n.xp - p.xp} XP` : ""}.`}</div>
+        <p>${n.cible}</p></div></div>`).join("")}</div>
+      <div class="panel"><h2>Comment gagner de l'XP</h2>
+        <p>Grille résolue : <strong>${PROG.BAREME.resolue.facile}</strong> (facile), <strong>${PROG.BAREME.resolue.intermediaire}</strong> (intermédiaire) ou <strong>${PROG.BAREME.resolue.difficile}</strong> XP (difficile).</p>
+        <p>Résolue sans erreur : <strong>+${PROG.BAREME.sansFaute}</strong> XP. Partie terminée sans résoudre : <strong>${PROG.BAREME.terminee}</strong> XP.</p>
+        <p>Objectif réalisé : de 30 à 250 XP. Badge débloqué : <strong>+${PROG.BAREME.badge}</strong> XP.</p>
+        <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p></div>`;
+  }
+
+  function rendreBadges(cible) {
+    const p = progression();
+    const obtenus = p.badges.filter(b => b.obtenu).length;
+    $("ecran-badges").innerHTML = `<h2 class="titre-ecran">Mes badges</h2><p class="sous-ecran">${obtenus} sur ${p.badges.length} obtenus.</p>
+      <div class="grille-badges">${p.badges.map(b => `<div class="badge ${b.obtenu ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${b.obtenu ? "Obtenu" : "À débloquer"}</span></div>`).join("")}</div>
+      <h2 class="titre-ecran" id="objectifs">Mes objectifs</h2><p class="sous-ecran">${p.objectifs.filter(o => o.termine).length} sur ${p.objectifs.length} réalisés. Chaque objectif rapporte son XP une seule fois.</p>
+      <div class="panel" style="margin-top:0">${p.objectifs.map(htmlObjectif).join("")}</div>`;
+    if (cible === "objectifs") setTimeout(() => { const el = $("objectifs"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
+  }
+
+  function rendreStats() {
+    const p = progression(), s = p.stats;
+    const el = $("ecran-stats");
+    if (!s.terminees) {
+      el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><div class="vide"><div class="ico">📊</div>Tes statistiques apparaîtront après ta première partie.</div>${DEMO ? boutonReinit() : ""}`;
+      brancherReinit(); return;
+    }
+    const m = s.meilleure;
+    const fmt = (d) => d == null ? "–" : d >= 60 ? `${Math.floor(d / 60)} min ${d % 60} s` : `${d} s`;
+    el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><p class="sous-ecran">Calculées à partir des parties terminées sur cet appareil.</p>
+      <div class="stats-grille">
+        <div class="stat-c"><div class="v">${s.terminees}</div><div class="l">Grilles terminées</div><div class="note">dont ${s.resolues} résolue${s.resolues > 1 ? "s" : ""}</div></div>
+        <div class="stat-c"><div class="v">${s.taux == null ? "–" : Math.round(100 * s.taux) + " %"}</div><div class="l">Taux de réussite</div><div class="note">grilles résolues ÷ grilles terminées</div></div>
+        <div class="stat-c"><div class="v">${s.groupes}</div><div class="l">Groupes trouvés</div></div>
+        <div class="stat-c"><div class="v">${s.erreurs}</div><div class="l">Erreurs</div><div class="note">${s.terminees ? (s.erreurs / s.terminees).toFixed(1) + " par grille" : ""}</div></div>
+        <div class="stat-c"><div class="v">${p.xp}</div><div class="l">XP</div><div class="note">Niveau ${p.niveau.n} — ${p.niveau.nom}</div></div>
+        <div class="stat-c"><div class="v">${m ? m.erreurs + " err." : "–"}</div><div class="l">Meilleur résultat</div><div class="note">${m ? `${m.grille.replace("g", "grille ")} · ${fmt(m.duree_s)}` : "aucune grille résolue"}</div></div>
+        <div class="stat-c"><div class="v">${s.serie.actuelle}</div><div class="l">Série actuelle</div><div class="note">jours consécutifs avec une grille terminée</div></div>
+        <div class="stat-c"><div class="v">${s.serie.record}</div><div class="l">Record de série</div><div class="note">la série est affichée, pas récompensée</div></div>
+      </div>
+      <p class="small" style="color:var(--muted);margin-top:12px">La progression est enregistrée dans ce navigateur uniquement : elle ne se synchronise pas avec un autre appareil.</p>
+      ${DEMO ? boutonReinit() : ""}`;
+    brancherReinit();
+  }
+  function boutonReinit() { return `<div class="actions" style="margin-top:14px"><button class="btn" id="btn-reinit">Réinitialiser la progression (démo)</button></div>`; }
+  function brancherReinit() { const b = $("btn-reinit"); if (b) b.addEventListener("click", () => { PROG.reinitialiser("demo"); etat = null; rendreEntete(); rendreStats(); toastNav("Progression de démo remise à zéro."); }); }
+  function toastNav(texte) { const m = $("message"); m.innerHTML = ""; const b = document.createElement("span"); b.className = "bulle bon"; b.textContent = texte; b.style.position = "fixed"; b.style.left = "50%"; b.style.top = "70px"; b.style.transform = "translateX(-50%)"; b.style.zIndex = "9"; document.body.appendChild(b); setTimeout(() => b.remove(), 1800); }
+
+  function brancherNav(racine) {
+    racine.querySelectorAll("[data-ecran]").forEach(b => { if (b.dataset.branche) return; b.dataset.branche = "1";
+      b.addEventListener("click", () => naviguer(b.dataset.ecran, b.dataset.cible)); });
+  }
+  function naviguer(nom, cible) {
+    if (nom === "jeu") { allerJouer(); return; }
+    if (nom === "accueil") rendreAccueil();
+    if (nom === "parcours") rendreParcours();
+    if (nom === "badges") rendreBadges(cible);
+    if (nom === "stats") rendreStats();
+    rendreEntete();
+    afficherEcran(nom);
+  }
+  brancherNav(document);
+
+  // Crédite la progression pour la partie qui vient de se terminer. Idempotent : une grille déjà comptée ne rapporte rien.
+  function crediter() {
+    if (!grille || !etat || !etat.fin) return;
+    const tp = etat.trouvesParJoueur || [];
+    const res = PROG.enregistrerPartie(profil(), { grille: grille.id, niveau: grille.niveau, jour: jourParis(), gagne: !!etat.gagne,
+      erreurs: etat.erreurs, groupes: tp.length, duree_s: etat.debut ? Math.round((etat.fin - etat.debut) / 1000) : null }, jourParis());
+    if (res.deja) { dernierGain = null; return; }
+    dernierGain = res.gains;
+    // Trace serveur : quelle action a produit quelle récompense (sert à l'analyse, pas au calcul).
+    journal("recompense", { xp: res.gains.xp, xp_partie: res.gains.xpPartie, objectifs: res.gains.objectifs.map(o => o.id), badges: res.gains.badges.map(b => b.id),
+      niveau_avant: res.gains.niveauAvant.n, niveau_apres: res.gains.niveauApres.n, xp_total: res.apres.xp });
+  }
+
+  function htmlRecompenses(g) {
+    if (!g) return "";
+    const lignes = [];
+    lignes.push(`<li><span class="ico">${etat.gagne ? "✅" : "🧩"}</span>${etat.gagne ? "Grille résolue" : "Partie terminée"}${g.sansFaute ? " · sans faute" : ""}<span class="plus">+${g.xpPartie} XP</span></li>`);
+    g.objectifs.forEach(o => lignes.push(`<li><span class="ico">🎯</span>Objectif : ${o.titre}<span class="plus">+${o.xp} XP</span></li>`));
+    g.badges.forEach(b => lignes.push(`<li><span class="ico">${b.icone}</span>Badge : ${b.nom}<span class="plus">+${PROG.BAREME.badge} XP</span></li>`));
+    const p = progression(); const b = barreXp(p);
+    return `<div class="recompenses" id="bloc-recompenses"><div class="gain-xp">+${g.xp} <small>XP</small></div>
+      ${g.montee ? `<div class="montee">Niveau supérieur ! <b>${g.niveauApres.n} — ${g.niveauApres.nom}</b></div>` : ""}
+      <ul>${lignes.join("")}</ul>
+      <div class="barre" style="margin-top:12px"><i style="width:0"></i></div><div class="sous" style="font-size:12.5px;font-weight:700;color:var(--muted)">${b.txt}</div></div>`;
   }
 
   // ---------- Partie ----------
@@ -550,11 +864,13 @@
                trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false };
       sauver();
     }
-    selection = [];
-    if (etat.fin) return afficherFin();
+    etat.grilleId = grille.id;
+    selection = []; fini = false; tuilesFausses = [];
+    if (etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
     if (!DEMO && !store.get("quotidien_regles_vues")) { store.set("quotidien_regles_vues", true); $("dlg-regles").showModal(); journal("regles", { auto: true }); }
-    $("jeu").classList.remove("hidden");
+    $("jeu").classList.remove("hidden"); $("fin").classList.add("hidden");
     rendre();
+    afficherEcran("jeu");
   }
 
   function sauver() { if (!DEMO) store.set(cle(), etat); }
@@ -684,7 +1000,9 @@
     sauver();
     journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
       nb_groupes_trouves: trouvesParJoueur.length, duree_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length });
+    crediter();
     afficherFin();
+    afficherEcran("jeu");
     if (gagne) confettis();
   }
 
@@ -725,6 +1043,11 @@
   function afficherFin() {
     $("jeu").classList.add("hidden");
     $("fin").classList.remove("hidden");
+    $("recompenses").innerHTML = htmlRecompenses(dernierGain);
+    if (dernierGain) { const p = progression(), b = barreXp(p); requestAnimationFrame(() => requestAnimationFrame(() => { const i = document.querySelector("#bloc-recompenses .barre i"); if (i) i.style.width = b.pct + "%"; })); vibrer(20); }
+    dernierGain = null;
+    rendreEntete();
+    $("nav-bas").classList.remove("hidden"); document.querySelector("main").classList.add("avec-nav");
     const tp = etat.trouvesParJoueur || etat.trouves;
     const duree = etat.debut ? Math.round((etat.fin - etat.debut) / 1000) : null;
     const dureeTxt = duree == null ? "" : duree >= 60 ? `${Math.floor(duree / 60)} min ${duree % 60} s` : `${duree} s`;
@@ -800,7 +1123,7 @@
     for (let i = autres.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [autres[i], autres[j]] = [autres[j], autres[i]]; }
     etat.ordre = fixes.concat(autres); sauver(); rendre();
   });
-  $("btn-recommencer").addEventListener("click", () => { location.reload(); });
+  $("btn-recommencer").addEventListener("click", () => { etat = null; fini = false; lancerGrille(); });
   $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
   $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());
   document.querySelectorAll("dialog [data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog").close()));

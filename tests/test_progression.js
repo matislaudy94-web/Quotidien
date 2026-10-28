@@ -1,0 +1,33 @@
+// Tests unitaires du module de progression (sans navigateur)
+const mem = {}; global.localStorage = { getItem: k => (k in mem ? mem[k] : null), setItem: (k, v) => { mem[k] = String(v); }, removeItem: k => { delete mem[k]; } };
+global.window = {};
+require(require("path").join(__dirname, "..", "progression.js"));
+const P = window.QuotidienProgression;
+let ko = 0; const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) ko++; };
+const J = "2026-11-01";
+let r = P.enregistrerPartie("t", { grille: "g1", niveau: "facile", jour: J, gagne: true, erreurs: 0, groupes: 4, duree_s: 120 }, J);
+ok(!r.deja && r.gains.xpPartie === 75, "g1 facile sans faute : 50 + 25 = 75 XP de partie (" + r.gains.xpPartie + ")");
+ok(r.gains.objectifs.map(o => o.id).join() === "premier_defi,esprit_logique", "objectifs validés : premier_defi, esprit_logique");
+ok(r.gains.badges.map(b => b.id).join() === "premiere_grille,sans_faute", "badges : première grille, sans-faute");
+ok(r.gains.xp === 75 + 30 + 50 + 20, "XP total gagné = 175 (" + r.gains.xp + ")");
+ok(r.gains.montee && r.apres.niveau.n === 2, "passage au niveau 2 (Curieux) à 175 XP");
+let r2 = P.enregistrerPartie("t", { grille: "g1", niveau: "facile", jour: J, gagne: true, erreurs: 0, groupes: 4, duree_s: 50 }, J);
+ok(r2.deja && r2.apres.xp === 175, "rejouer g1 ne crédite rien (deja = true, XP inchangé)");
+let r3 = P.enregistrerPartie("t", { grille: "g2", niveau: "intermediaire", jour: "2026-11-02", gagne: false, erreurs: 4, groupes: 2, duree_s: 300 }, "2026-11-02");
+ok(r3.gains.xpPartie === 15 && r3.gains.xp === 15, "partie perdue : 15 XP, aucun objectif/badge");
+ok(r3.apres.stats.taux === 0.5 && r3.apres.stats.serie.actuelle === 2 && r3.apres.stats.serie.record === 2, "taux 50 %, série 2 jours");
+let r4 = P.enregistrerPartie("t", { grille: "g3", niveau: "difficile", jour: "2026-11-04", gagne: true, erreurs: 3, groupes: 4, duree_s: 80 }, "2026-11-04");
+ok(r4.gains.badges.map(b => b.id).sort().join() === "costaud,eclair,tete_froide", "badges costaud, éclair, tête froide (" + r4.gains.badges.map(b => b.id).join() + ")");
+ok(r4.apres.stats.serie.actuelle === 1 && r4.apres.stats.serie.record === 2, "jour manqué : série repart à 1, record 2 conservé");
+ok(r4.apres.stats.meilleure.grille === "g1", "meilleur résultat = g1 (0 erreur)");
+// niveau 5 et badge maître
+const prof = "u";
+for (let i = 1; i <= 14; i++) P.enregistrerPartie(prof, { grille: "x" + i, niveau: "difficile", jour: "2026-11-" + String(i).padStart(2, "0"), gagne: true, erreurs: 0, groupes: 4, duree_s: 200 }, "2026-11-14");
+const c = P.calculer(P.lireJournal(prof), "2026-11-14");
+ok(c.niveau.n === 5 && c.badges.find(b => b.id === "maitre").obtenu, "14 difficiles sans faute → niveau 5 + badge Maître (XP " + c.xp + ")");
+ok(c.niveaux.map(n => n.etat).join() === "termine,termine,termine,termine,termine", "états des niveaux au max : " + c.niveaux.map(n => n.etat).join());
+const c0 = P.calculer([], J);
+ok(c0.xp === 0 && c0.niveau.n === 1 && c0.stats.taux === null && c0.niveaux.map(n => n.etat).join() === "en_cours,accessible,verrouille,verrouille,verrouille", "profil vide : 0 XP, Débutant en cours, Curieux accessible, reste verrouillé");
+P.reinitialiser("t"); ok(P.lireJournal("t").length === 0, "réinitialisation");
+console.log(ko ? ko + " échec(s)" : "Module de progression : tous les tests passent.");
+process.exit(ko ? 1 : 0);

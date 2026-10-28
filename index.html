@@ -205,6 +205,11 @@
   .exemple-groupe { background: var(--c1); color: var(--ink); border-radius: 10px; padding: 7px; font-family: var(--title); font-weight: 700; font-size: 14px; text-transform: uppercase; box-shadow: inset 0 -4px 0 var(--c1e); }
   .regles-courtes { margin: 14px 0 16px !important; padding-left: 18px !important; }
   .regles-courtes li { font-size: 14.5px !important; margin-bottom: 7px !important; }
+  .tuto-num { font-family: var(--title); font-weight: 700; font-size: 12px; letter-spacing: .1em; color: var(--ink-soft); }
+  .tuto .regle-ligne { text-align: left; font-size: 15px !important; margin: 6px 0 10px !important; }
+  .exemple-tuiles span.piege { background: var(--sel); color: #2b1300; box-shadow: 0 3px 0 var(--sel-edge); }
+  .tuto .actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; }
+  .tuto .actions .btn { width: 100%; }
   dialog { border: 0; border-radius: var(--r-l); padding: 0; max-width: 440px; width: calc(100% - 32px); background: var(--cream); color: var(--ink); box-shadow: 0 5px 0 var(--cream-edge); }
   dialog::backdrop { background: rgba(10,6,35,.65); }
   .dlg { padding: 20px 18px; } .dlg h2 { font-family: var(--title); margin: 0 0 10px; font-size: 22px; }
@@ -332,6 +337,7 @@
   <header>
     <h1 class="logo" aria-label="Quotidien"><span>Q</span><span>U</span><span>O</span><span>T</span><span>I</span><span>D</span><span>I</span><span>E</span><span>N</span></h1>
     <div class="row-entete" style="display:flex;gap:8px;align-items:center">
+      <button class="icon-btn icon-rond hidden" id="btn-quitter" aria-label="Quitter la partie et revenir à l'accueil" title="Retour à l'accueil">←</button>
       <button class="icon-btn icon-rond" id="btn-regles" aria-haspopup="dialog" aria-label="Règles" title="Règles">?</button>
     </div>
   </header>
@@ -429,20 +435,42 @@
   <button data-ecran="stats"><span class="ico">📊</span>Stats</button>
 </nav>
 
-<dialog id="dlg-regles"><div class="dlg">
-  <h2>Comment jouer</h2>
-  <p class="regle-ligne"><b>16 mots</b>, <b>4 groupes</b> de 4 qui ont un point commun.</p>
-  <div class="exemple" aria-label="Exemple : quatre mots qui forment un groupe">
-    <div class="exemple-tuiles"><span>LUNDI</span><span>MARDI</span><span>JEUDI</span><span>SAMEDI</span></div>
-    <div class="exemple-fleche" aria-hidden="true">↓</div>
-    <div class="exemple-groupe">Jours de la semaine</div>
+<dialog id="dlg-regles"><div class="dlg tuto">
+  <div class="tuto-etape" data-etape="1">
+    <div class="tuto-num">1 / 3</div>
+    <h2>Le principe</h2>
+    <p class="regle-ligne"><b>16 mots</b> sont mélangés. Ils forment <b>4 groupes de 4</b> qui ont un point commun.</p>
+    <div class="exemple" aria-label="Exemple : quatre mots qui forment un groupe">
+      <div class="exemple-tuiles"><span>LUNDI</span><span>MARDI</span><span>JEUDI</span><span>SAMEDI</span></div>
+      <div class="exemple-fleche" aria-hidden="true">↓</div>
+      <div class="exemple-groupe">Jours de la semaine</div>
+    </div>
+    <p class="regle-ligne" style="margin-top:12px">Touche 4 mots, puis <b>Valider</b>. Si c'est un groupe, il se range en couleur.</p>
   </div>
-  <ul class="regles-courtes">
-    <li>Touche 4 mots, puis <b>Valider</b>.</li>
-    <li>Tu as droit à <b>4 erreurs</b>. « Presque ! » = il n'y a qu'un mot à changer.</li>
-    <li>Méfie-toi : certains mots semblent aller dans deux groupes, mais une seule solution utilise les 16 mots.</li>
-  </ul>
-  <div class="actions"><button class="btn primary btn-large" data-close>Compris, je joue !</button></div>
+  <div class="tuto-etape hidden" data-etape="2">
+    <div class="tuto-num">2 / 3</div>
+    <h2>Attention aux pièges</h2>
+    <p class="regle-ligne">Un mot peut sembler aller dans <b>deux groupes</b>. Ici, <b>MARRON</b> est une couleur… et un fruit à coque.</p>
+    <div class="exemple" aria-label="Exemple de piège">
+      <div class="exemple-tuiles"><span>BLEU</span><span>BEIGE</span><span>ROSE</span><span class="piege">MARRON</span></div>
+      <div class="exemple-tuiles" style="margin-top:6px"><span>NOISETTE</span><span>AMANDE</span><span>PISTACHE</span><span class="piege">MARRON</span></div>
+    </div>
+    <p class="regle-ligne" style="margin-top:12px">Il n'y a que <b>trois</b> couleurs sûres et <b>trois</b> fruits à coque sûrs : MARRON va avec ceux qu'il faut compléter. <b>Une seule solution</b> utilise les 16 mots.</p>
+  </div>
+  <div class="tuto-etape hidden" data-etape="3">
+    <div class="tuto-num">3 / 3</div>
+    <h2>Les erreurs</h2>
+    <p class="regle-ligne">Tu as droit à <b>4 erreurs</b>, représentées par des cœurs.</p>
+    <div class="exemple" style="text-align:left">
+      <p class="regle-ligne" style="margin:0 0 8px"><span class="bulle presque" style="display:inline-block;font-size:14px;padding:5px 12px">Presque !</span> = 3 mots sur 4 sont bons, un seul est à changer.</p>
+      <p class="regle-ligne" style="margin:0"><span class="bulle faux" style="display:inline-block;font-size:14px;padding:5px 12px">Ce n'est pas un groupe.</span> = au moins 2 mots sont à revoir.</p>
+    </div>
+    <p class="regle-ligne" style="margin-top:12px">Au bout de 4 erreurs, la solution s'affiche avec les explications. Une nouvelle grille chaque jour.</p>
+  </div>
+  <div class="actions" style="margin-top:14px">
+    <button class="btn" id="tuto-prec" type="button">Précédent</button>
+    <button class="btn primary" id="tuto-suiv" type="button">Suivant</button>
+  </div>
 </div></dialog>
 
 <dialog id="dlg-vie-privee"><div class="dlg">
@@ -566,8 +594,14 @@
     if (DEMO) {
       $("banniere-demo").classList.remove("hidden");
       const LIB_NIV = { facile: "facile", intermediaire: "intermédiaire", difficile: "difficile" };
-      grille = GRILLES.find(g => g.id === params.get("g")) || GRILLES[0];
-      $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map(g => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""}>${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>`;
+      // En démo, les grilles se débloquent dans l'ordre : la grille n+1 s'ouvre quand la grille n est résolue.
+      const resolues = new Set(PROG.lireJournal("demo").filter(e => e.gagne).map(e => e.grille));
+      const deverrouillee = (i) => i === 0 || resolues.has(GRILLES[i - 1].id);
+      const demandee = GRILLES.findIndex(g => g.id === params.get("g"));
+      const iGrille = demandee >= 0 && deverrouillee(demandee) ? demandee : Math.max(0, GRILLES.findIndex((g, i) => deverrouillee(i) && !resolues.has(g.id)));
+      grille = GRILLES[iGrille >= 0 ? iGrille : 0];
+      $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map((g, i) => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""} ${deverrouillee(i) ? "" : "disabled"}>${deverrouillee(i) ? (resolues.has(g.id) ? "✓ " : "") : "🔒 "}${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>
+        <div class="small-clair" style="margin-top:4px">Résous une grille pour débloquer la suivante.</div>`;
       $("select-demo").addEventListener("change", (e) => { location.href = "?demo=1&g=" + e.target.value; });
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
@@ -670,6 +704,9 @@
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
     const partieEnCours = nom === "jeu" && !$("jeu").classList.contains("hidden");
     $("nav-bas").classList.toggle("hidden", partieEnCours);
+    $("btn-quitter").classList.toggle("hidden", !partieEnCours);
+    // 2. En démo, le sélecteur de grille n'apparaît que sur l'accueil
+    if (DEMO) $("banniere-demo").classList.toggle("hidden", nom !== "accueil");
     document.querySelector("main").classList.toggle("avec-nav", !partieEnCours);
     window.scrollTo(0, 0);
   }
@@ -717,10 +754,10 @@
       cj.innerHTML = `<span class="etiquette">${DEMO ? "Grille de démonstration" : "La grille du jour"}</span>
         <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
         <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>` : ""}
-          <span class="tag">${terminee ? "Terminée" : etatLocal && etatLocal.debut ? "En cours" : "À jouer"}</span>
+          <span class="tag">${terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
           <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
         <p>${terminee ? "Tu as déjà joué cette grille." : "16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16."}</p>
-        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : etatLocal && etatLocal.debut ? "Reprendre la partie" : "Jouer maintenant"}</button>
+        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
       $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; lancerGrille(); } else allerJouer(); });
       if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
@@ -801,7 +838,7 @@
     brancherReinit();
   }
   function boutonReinit() { return `<div class="actions" style="margin-top:14px"><button class="btn" id="btn-reinit">Réinitialiser la progression (démo)</button></div>`; }
-  function brancherReinit() { const b = $("btn-reinit"); if (b) b.addEventListener("click", () => { PROG.reinitialiser("demo"); etat = null; rendreEntete(); rendreStats(); toastNav("Progression de démo remise à zéro."); }); }
+  function brancherReinit() { const b = $("btn-reinit"); if (b) b.addEventListener("click", () => { PROG.reinitialiser("demo"); etat = null; store.del("quotidien_regles_vues_demo"); rendreEntete(); rendreStats(); toastNav("Progression de démo remise à zéro."); }); }
   function toastNav(texte) { const m = $("message"); m.innerHTML = ""; const b = document.createElement("span"); b.className = "bulle bon"; b.textContent = texte; b.style.position = "fixed"; b.style.left = "50%"; b.style.top = "70px"; b.style.transform = "translateX(-50%)"; b.style.zIndex = "9"; document.body.appendChild(b); setTimeout(() => b.remove(), 1800); }
 
   function brancherNav(racine) {
@@ -860,19 +897,24 @@
     const num = GRILLES.indexOf(grille) + 1;
     $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>` : `Grille du <b>${formatDate(jourParis())}</b>`;
     const tous = grille.groupes.flatMap(g => g.mots);
-    etat = (!DEMO && store.get(cle())) || null;
+    const etatAvant = etat;
+    etat = (!DEMO && store.get(cle())) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
+    const etatRepris = !!(etat && etatAvant && etatAvant.grilleId === grille.id && !etat.fin);
     if (!etat) {
       etat = { ordre: melangeGraine(tous, (participant ? participant.id : "demo" + Math.random()) + grille.id),
                trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false };
       sauver();
     }
     etat.grilleId = grille.id;
-    selection = []; fini = false; tuilesFausses = [];
+    // Reprise d'une partie quittée : on garde la sélection en cours (mots encore sur le plateau)
+    selection = (etatRepris ? selection : []).filter(m => !etat.trouves.includes(groupeDe(m)));
+    fini = false; tuilesFausses = [];
     if (etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
-    if (!DEMO && !store.get("quotidien_regles_vues")) { store.set("quotidien_regles_vues", true); $("dlg-regles").showModal(); journal("regles", { auto: true }); }
+    const cleRegles = DEMO ? "quotidien_regles_vues_demo" : "quotidien_regles_vues";
+    if (!store.get(cleRegles)) { store.set(cleRegles, true); montrerEtape(1); $("dlg-regles").showModal(); journal("regles", { auto: true }); }
     $("jeu").classList.remove("hidden"); $("fin").classList.add("hidden");
+    afficherEcran("jeu");   // l'écran doit être visible avant de mesurer la largeur des cartes
     rendre();
-    afficherEcran("jeu");
   }
 
   function sauver() { if (!DEMO) store.set(cle(), etat); }
@@ -1126,6 +1168,19 @@
     etat.ordre = fixes.concat(autres); sauver(); rendre();
   });
   $("btn-recommencer").addEventListener("click", () => { etat = null; fini = false; lancerGrille(); });
+  // Tutoriel : 3 étapes, boutons Précédent / Suivant, « Compris, je joue ! » à la fin.
+  let etapeTuto = 1;
+  function montrerEtape(n) {
+    etapeTuto = Math.max(1, Math.min(3, n));
+    document.querySelectorAll(".tuto-etape").forEach(e => e.classList.toggle("hidden", +e.dataset.etape !== etapeTuto));
+    $("tuto-prec").style.visibility = etapeTuto === 1 ? "hidden" : "visible";
+    $("tuto-suiv").textContent = etapeTuto === 3 ? "Compris, je joue !" : "Suivant";
+  }
+  $("tuto-prec").addEventListener("click", () => montrerEtape(etapeTuto - 1));
+  $("tuto-suiv").addEventListener("click", () => { if (etapeTuto === 3) $("dlg-regles").close(); else montrerEtape(etapeTuto + 1); });
+  $("dlg-regles").addEventListener("close", () => montrerEtape(1));
+  montrerEtape(1);
+  $("btn-quitter").addEventListener("click", () => { sauver(); ouvrirAccueil(); });
   $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
   $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());
   document.querySelectorAll("dialog [data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog").close()));

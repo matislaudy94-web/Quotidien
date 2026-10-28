@@ -75,10 +75,22 @@ async function jouer(page, groupesAJouer, faux = 0) {
       cartes: [...document.querySelectorAll(".tile")].filter(t => { const a = t.firstElementChild.getBoundingClientRect(), b = t.getBoundingClientRect(); return a.left < b.left - 0.5 || a.right > b.right + 0.5; }).map(t => t.textContent) }));
     ok(!debord.page, "aucun défilement horizontal sur iPhone");
     ok(debord.cartes.length === 0, "aucun mot ne déborde de sa carte " + (debord.cartes.join(",") || ""));
-    ok(await pa.locator("#dlg-regles[open]").count() === 1, "première visite : les règles s'ouvrent automatiquement");
-    await pa.getByRole("button", { name: "Compris" }).click();
+    ok(await pa.locator("#dlg-regles[open]").count() === 1, "première visite : le tutoriel s'ouvre automatiquement");
+    ok((await pa.locator("#tuto-suiv").innerText()) === "Suivant" && (await pa.locator('.tuto-etape[data-etape="1"]:not(.hidden)').count()) === 1, "tutoriel : étape 1/3 affichée");
+    await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv");
+    ok((await pa.locator("#tuto-suiv").innerText()).startsWith("Compris") && (await pa.locator('.tuto-etape[data-etape="3"]:not(.hidden)').count()) === 1, "tutoriel : étape 3/3, bouton « Compris »");
+    await pa.click("#tuto-suiv"); await pa.waitForSelector("#dlg-regles:not([open])", { state: "attached" });
     await pa.getByRole("button", { name: "Règles" }).click(); await pa.waitForSelector("#dlg-regles[open]");
-    await pa.getByRole("button", { name: "Compris" }).click();
+    ok((await pa.locator('.tuto-etape[data-etape="1"]:not(.hidden)').count()) === 1, "le « ? » rouvre le tutoriel à l'étape 1");
+    await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv");
+    // Quitter une partie en cours et la reprendre
+    await pa.locator(".tile").first().click();
+    ok(await pa.locator("#btn-quitter:not(.hidden)").count() === 1, "bouton « ← Accueil » visible pendant la partie");
+    await pa.click("#btn-quitter"); await pa.waitForSelector("#ecran-accueil:not(.hidden)");
+    ok(/Reprendre la partie/.test(await pa.locator("#btn-jouer").innerText()) && /En cours/.test(await pa.locator("#carte-jour").innerText()), "après avoir quitté : carte « En cours », bouton « Reprendre la partie »");
+    await pa.click("#btn-jouer"); await pa.waitForSelector(".tile");
+    ok(await pa.locator(".tile.sel").count() === 1, "la sélection en cours est retrouvée");
+    await pa.getByRole("button", { name: "Désélectionner" }).click();
     await jouer(pa, [0, 1, 2], 1);
     await pa.waitForTimeout(500);
     const visible = await pa.evaluate(() => { const r = document.querySelector("#btn-valider").getBoundingClientRect(); return r.bottom <= window.innerHeight && r.top >= 0; });
@@ -203,15 +215,21 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(appels === 1, "Réessayer pendant une requête en cours n'envoie pas de 2e requête (appels = " + appels + ")");
     liberer(); await navLente; await pl.waitForSelector("#btn-jouer", { timeout: 15000 }); await pl.click("#btn-jouer"); await pl.waitForSelector(".tile, #fin:not(.hidden)", { timeout: 15000 });
     ok(true, "la partie se charge quand le serveur répond enfin");
-    ok(await pl.locator("#dlg-regles[open]").count() === 0 && await pl.locator("#dlg-regles .exemple-tuiles span").count() === 4, "règles : exemple visuel à 4 mots présent");
+    ok(await pl.locator("#dlg-regles[open]").count() === 0 && await pl.locator("#dlg-regles .exemple-tuiles span").count() === 12, "tutoriel : exemples visuels présents (3 étapes)");
 
     console.log("7. Mode démo : rien n'est enregistré");
     const avant = (await db()).evenements.length;
     const { page: pd } = await nouveau();
     await aller(pd, `${BASE}/?demo=1&g=g2`, false); await pd.waitForSelector("#carte-jour");
-    ok(/Intermédiaire/.test(await pd.locator("#carte-jour").innerText()), "démo : la difficulté reste visible");
+    ok(/Intermédiaire/.test(await pd.locator("#carte-jour").innerText()) === false && /Grille 1/.test(await pd.locator("#carte-jour").innerText()), "démo : la grille 2 est verrouillée tant que la 1 n'est pas résolue → la grille 1 est proposée");
+    ok(await pd.locator('#select-demo option[value="g2"][disabled]').count() === 1 && await pd.locator('#select-demo option[value="g1"]:not([disabled])').count() === 1, "démo : grille 2 désactivée dans le sélecteur, grille 1 active");
+    ok(/Facile/.test(await pd.locator("#carte-jour").innerText()), "démo : la difficulté reste visible");
+    await pd.click('#nav-bas [data-ecran="stats"]'); await pd.waitForTimeout(200);
+    ok(await pd.locator("#banniere-demo.hidden").count() === 1, "démo : le sélecteur de grille n'apparaît pas hors de l'accueil");
+    await pd.click('#nav-bas [data-ecran="accueil"]'); await pd.waitForTimeout(200);
     await pd.click("#btn-jouer"); await pd.waitForSelector(".tile");
-    ok(await pd.getByRole("button", { name: "PIRATE", exact: true }).count() === 1, "la démo affiche la grille 2 demandée");
+    if (await pd.locator("#dlg-regles[open]").count()) { await pd.click("#tuto-suiv"); await pd.click("#tuto-suiv"); await pd.click("#tuto-suiv"); }
+    ok(await pd.getByRole("button", { name: "GUITARE", exact: true }).count() === 1, "la démo affiche la grille 1");
     await pd.locator(".tile").first().click(); await pd.waitForTimeout(300);
     ok((await db()).evenements.length === avant, "aucun événement enregistré en démo");
 
@@ -244,12 +262,14 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(await pa.locator("#nav-bas.hidden").count() === 1, "pendant la partie, la navigation basse s'efface (barre de jeu seule)");
     // Démo dans le même navigateur : progression séparée
     await aller(pa, `${BASE}/?demo=1&g=g1`); await pa.waitForSelector(".tile");
+    if (await pa.locator("#dlg-regles[open]").count()) { await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv"); }
     await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
     const rec = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
     ok(/\+185 XP/.test(rec) && /Niveau supérieur/.test(rec) && /Curieux/.test(rec), "démo g1 sans faute et rapide : +185 XP (75 + 30 + 50 + 3 badges) et passage au niveau 2 → " + rec.slice(0, 120));
     ok(/Objectif : Premier défi/.test(rec) && /Objectif : Esprit logique/.test(rec) && /Badge : Sans-faute/.test(rec), "récompenses détaillées : 2 objectifs, badges");
     await aller(pa, `${BASE}/?demo=1&g=g1`, false); await pa.waitForSelector("#carte-xp");
     ok(/185 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement");
+    ok(await pa.locator('#select-demo option[value="g2"]:not([disabled])').count() === 1 && await pa.locator('#select-demo option[value="g3"][disabled]').count() === 1, "démo : grille 1 résolue → grille 2 débloquée, grille 3 encore verrouillée");
     ok(/Rejouer \(sans XP\)/.test(await pa.locator("#btn-jouer").innerText()), "démo : la grille déjà comptée propose « Rejouer (sans XP) »");
     await pa.click("#btn-jouer"); await pa.waitForSelector(".tile"); await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#fin:not(.hidden)");
     await pa.waitForTimeout(1200);

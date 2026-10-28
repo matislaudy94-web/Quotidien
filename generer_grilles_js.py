@@ -14,3 +14,10 @@ if os.path.exists("entrainement.json"):
         "// Banque d'entraînement, DISTINCTE du calendrier : aucun mot en commun (vérifié par verifier_grilles.py).\n"
         "window.QUOTIDIEN_ENTRAINEMENT = " + json.dumps(e, ensure_ascii=False, indent=1) + ";\n")
     print("entrainement.js régénéré :", len(e["grilles"]), "exercices,", len(e["chapitres"]), "chapitres")
+if os.path.exists("defi.json"):
+    d = json.load(open("defi.json"))
+    open("defi_banque.js", "w").write(
+        "// Fichier généré depuis defi.json par : python3 generer_grilles_js.py\n"
+        "// Banque du Défi express : catégories, familles et incompatibilités (vérifiées par verifier_defi.py).\n"
+        "window.QUOTIDIEN_DEFI = " + json.dumps(d, ensure_ascii=False, indent=1) + ";\n")
+    print("defi_banque.js régénéré :", len(d["categories"]), "catégories,", sum(len(c["mots"]) for c in d["categories"]), "mots")

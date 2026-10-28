@@ -262,11 +262,11 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok((await pa.locator("#accueil-objectifs").innerText()).includes("Esprit logique") && !(await pa.locator("#accueil-objectifs").innerText()).includes("Premier défi"), "l'objectif réalisé (Premier défi) a laissé la place au suivant");
     const navVisible = await pa.locator("#nav-bas:not(.hidden)").count() === 1;
     ok(navVisible, "navigation basse visible sur l'accueil");
-    await pa.click('#nav-bas [data-ecran="parcours"]'); await pa.waitForSelector("#ecran-parcours:not(.hidden)");
+    await pa.click('#nav-bas [data-ecran="accueil"]'); await pa.click('#accueil-parcours [data-ecran="parcours"]'); await pa.waitForSelector("#ecran-parcours:not(.hidden)");
     const parc = (await pa.locator("#ecran-parcours").innerText()).replace(/\s+/g, " ");
     ok(/Curieux.*Prochain.*il te manque 20 XP/.test(parc) && /Explorateur.*Verrouillé/.test(parc), "parcours : Curieux prochain (manque 20 XP), Explorateur verrouillé");
     await pa.click('#nav-bas [data-ecran="badges"]'); await pa.waitForSelector("#ecran-badges:not(.hidden)");
-    ok((await pa.locator(".badge.obtenu").count()) === 2 && (await pa.locator(".badge.verrouille").count()) === 6, "badges : 2 obtenus (Première grille, Éclair), 6 à débloquer");
+    ok((await pa.locator("#ecran-badges .grille-badges").first().locator(".badge.obtenu").count()) === 2 && (await pa.locator("#ecran-badges .grille-badges").first().locator(".badge.verrouille").count()) === 6, "badges : 2 obtenus (Première grille, Éclair), 6 à débloquer");
     await pa.click('#nav-bas [data-ecran="stats"]'); await pa.waitForSelector("#ecran-stats:not(.hidden)");
     const st = (await pa.locator("#ecran-stats").innerText()).replace(/\s+/g, " ");
     ok(/1 Grilles terminées dont 1 résolue/i.test(st) && /100 % Taux de réussite/i.test(st) && /4 Groupes trouvés/i.test(st) && /1 Erreurs/i.test(st), "stats cohérentes avec la partie : 1 terminée, 1 résolue, 100 %, 4 groupes, 1 erreur → " + st.slice(0, 160));
@@ -309,7 +309,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     console.log("8. Captures d'écran");
     await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-xp"); await pa.waitForTimeout(900);
     await pa.screenshot({ path: path.join(__dirname, "capture_accueil_iphone.png"), fullPage: true });
-    await pa.click('#nav-bas [data-ecran="parcours"]'); await pa.waitForTimeout(300);
+    await pa.click('#accueil-parcours [data-ecran="parcours"]'); await pa.waitForTimeout(300);
     await pa.screenshot({ path: path.join(__dirname, "capture_parcours_iphone.png"), fullPage: true });
     await pi.screenshot({ path: path.join(__dirname, "capture_jeu_iphone.png") });
     await pa.screenshot({ path: path.join(__dirname, "capture_fin_iphone.png"), fullPage: true });

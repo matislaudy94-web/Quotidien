@@ -7,4 +7,6 @@ window.QUOTIDIEN_CONFIG = {
   // Mode entraînement : "tous" (participants et démo), "demo" (démo seulement, le test reste limité à la grille du jour),
   // ou "aucun". Changer cette valeur change le produit testé : le noter dans le journal du README.
   entrainement: "tous",
+  // Défi express (jeu chronométré, salons entre amis) : "tous", "demo" ou "aucun". Même remarque.
+  defi: "tous",
 };

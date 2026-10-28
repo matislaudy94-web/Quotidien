@@ -10,6 +10,8 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 | `admin.html` | Tableau de bord administrateur (protégé par un code). |
 | `grilles.json` | Les 45 grilles (source), 15 faciles / 15 intermédiaires / 15 difficiles, chacune avec un champ `niveau`. Les grilles 31 à 45 sont dans `nouvelles_grilles.json` (copie de travail, même contenu). Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
 | `grilles.js` | Les grilles, générées depuis `grilles.json` (ne pas modifier à la main). |
+| `defi.json` | La banque du **Défi express** : 86 catégories simples réparties en 19 familles, et la liste des paires de catégories à ne jamais tirer ensemble. `defi_banque.js` est généré à partir d'elle. Vérification : `python3 verifier_defi.py`. |
+| `defi.js` | Moteur du Défi : tirage reproductible à partir d'une graine, paliers, classement, records et badges (sans XP). |
 | `entrainement.json` | La banque du **mode entraînement** : 20 exercices en 5 chapitres, distincte du calendrier (aucun mot en commun). `entrainement.js` est généré à partir d'elle par `python3 generer_grilles_js.py`. |
 | `progression.js` | Progression du joueur : barème d'XP, niveaux, objectifs, badges, statistiques. Seule source de vérité, tout est recalculé depuis le journal local des parties terminées. |
 | `config.js` | Adresse de la base Supabase et clé **publique**. |
@@ -43,6 +45,24 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 **Reprise.** Une partie d'entraînement quittée (bouton ←, fermeture, rechargement) reprend avec ses groupes trouvés, ses erreurs, sa sélection et son temps actif (le temps hors partie n'est pas compté). Une tentative terminée n'est jamais restaurée : rouvrir l'exercice lance une nouvelle tentative. Sauvegardes séparées : `quotidien_entr_<profil>_<exercice>` et `quotidien_entr_meta_<profil>` (tentatives, réussi, passé, solution vue) ; la grille du jour garde `quotidien_etat_…`.
 
 **Interrupteur.** Dans `config.js`, `entrainement: "tous"` (participants et démo, valeur actuelle), `"demo"` (démo seulement : le test reste limité à la grille du jour) ou `"aucun"`.
+
+## Le Défi express
+
+**Principe.** Jeu chronométré séparé de la grille du jour : à chaque palier, des mots de 2 à 4 catégories sont mélangés ; le joueur touche les mots d'un même groupe, la vérification est automatique. **30 secondes par palier**, chaque erreur retire **5 secondes**, la partie s'arrête quand le temps est écoulé (ou à l'abandon). Tailles : paliers 1–3 = 2 groupes de 2 mots, 4–7 = 2 × 3, 8–12 = 3 × 2, 13–18 = 3 × 3, 19–30 = 4 × 3. Le chrono ne s'arrête pas si on quitte l'écran (sinon on pourrait chercher les réponses).
+
+**Aléatoire.** Rien n'est écrit à l'avance : une *graine* (texte aléatoire) détermine toute la suite des paliers. En solo, une nouvelle graine à chaque partie. Règles du tirage : jamais deux catégories de la même famille, jamais deux catégories déclarées incompatibles (ex. Couleurs et Fruits, Planètes et Mois à cause de MARS), pas de catégorie déjà vue dans les 3 paliers précédents. Mesuré sur 90 000 paliers tirés (`node tests/test_defi.js`) : 0 violation de ces règles, 89 975 paliers différents ; au palier 13, 3 000 parties donnent 3 000 plateaux différents.
+
+**Banque.** 86 catégories simples (pas d'expressions à trou ni de mots cachés), chaque mot dans une seule catégorie. Deux relectures indépendantes le 28/10/2026 ont cherché les mots qui iraient dans une catégorie d'une autre famille : 19 mots ambigus et 11 mots trop difficiles remplacés, 60 paires de catégories déclarées incompatibles. Environ 250 mots du Défi existent aussi dans le calendrier : accepté, car le Défi ne montre que des catégories évidentes et ne révèle ni les pièges ni les expressions des grilles.
+
+**Défi entre amis (salons de 2 à 6).** « Défier des amis » crée un salon (code de 6 caractères, lien `?defi=CODE`, ouvert 7 jours). Tout le monde joue **le même tirage**, **une seule partie** par appareil ; le classement range par paliers réussis, puis par temps cumulé le plus court (comme au petit bac, le plus rapide l'emporte à égalité). Après une partie solo, « Défier mes amis sur ce tirage » crée un salon avec ce tirage et y inscrit le score déjà obtenu. Le tirage n'est donné au joueur qu'au début de sa partie (il n'apparaît pas dans le classement). Une partie interrompue (page fermée, rechargée) est enregistrée au dernier palier réussi.
+
+**Ami qui ne participe pas au test.** Il ouvre le lien de défi et joue **sans être inscrit au test** : aucun participant créé, aucune visite, aucun événement ; il ne voit que le Défi. Seuls son pseudo et son score sont enregistrés dans le salon.
+
+**Sans XP.** Le Défi n'écrit rien dans la progression. Il a son record personnel (paliers puis temps), son nombre de parties et 8 badges-trophées : Sur la lancée (5 paliers), Fusée (10), Inarrêtable (20), Sans limite (30), Main sûre (10 paliers d'affilée sans erreur), Réflexe (un palier en moins de 3 s), Duelliste (terminer un défi entre amis), Champion du salon (premier d'un salon où au moins 2 joueurs ont terminé).
+
+**Interrupteur.** `config.js` : `defi: "tous"` (valeur actuelle), `"demo"` ou `"aucun"`.
+
+**Stockage.** Base : tables `defi_salons` et `defi_scores` (séparées des tables du test, illisibles par la clé publique), fonctions `d_creer_salon`, `d_salon`, `d_commencer`, `d_score`. Navigateur : `quotidien_defi_<profil>` (record, badges, salons), `quotidien_defi_encours` (partie de salon en cours), `quotidien_pseudo`.
 
 ## La progression du joueur (XP, niveaux, objectifs, badges)
 
@@ -155,12 +175,15 @@ Le séparateur est le point-virgule ; les fichiers s'ouvrent dans Excel ou Googl
 - Visites (date, type d'entrée).
 - Essais (mots choisis), erreurs, groupes trouvés, durée.
 - Clics sur « inviter » et « prochaine grille ».
+- Défi express (participants seulement) : ouverture, fin de partie (paliers, temps, erreurs, solo ou salon), défi créé, défi d'un ami rejoint. Dans les salons : le **pseudo** choisi et le score, visibles des joueurs du salon pendant 7 jours.
 - Mode entraînement : ouverture, début, fin (réussi ou non, erreurs, durée, indices, numéro de tentative), solution consultée, exercice passé.
 - Réponses au questionnaire.
 
 Aucun nom, e-mail, téléphone ou adresse. Pas de publicité, pas d'outil de suivi tiers. Les joueurs voient cette explication en bas de page.
 
 ## Limites de l'expérimentation (à lire avant d'interpréter les résultats)
+
+- **Défi express** : sans compte, un joueur décidé peut tricher (navigation privée pour rejouer un salon, envoi d'un faux score par les outils du navigateur ; le serveur ne refuse que les scores invraisemblables). Acceptable pour un jeu entre amis, pas pour des récompenses. Le tirage d'un salon reste calculable par quelqu'un qui lit le code source après avoir commencé sa partie.
 
 **Les grilles sont-elles présentées dans le même ordre à tout le monde ?**
 Oui : grille 1 le premier jour, grille 2 le deuxième, grille 3 le troisième, pour tous. Conséquence : on ne peut pas séparer « la grille 2 plaît moins » de « au deuxième jour, on revient moins ». Avec ~30 personnes, un tirage au sort de l'ordre n'aurait de toute façon pas assez de puissance. Un participant qui rate un jour joue la grille du jour, pas celle qu'il a manquée (sauf « grille forcée » par l'administrateur).
@@ -209,6 +232,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | Date | Changement | Effet sur la lecture des résultats |
 |---|---|---|
 | 28/10/2026 (avant tout test) | Ajout d'un identifiant d'appareil anonyme (aléatoire, par navigateur) envoyé avec chaque visite. Nouvelle colonne « Appareils » et ligne « ⚠ Lien ouvert sur 2 appareils ou plus ». | Permet de repérer les liens transférés. Aucun autre compteur modifié. |
+| 28/10/2026 (avant tout test) | **Défi express** (jeu chronométré, salons de 2 à 6 amis). Nouvelle classe de visite **`retour_defi`** : un participant arrivé par le lien de Défi d'un ami (`entree = defi`) n'est **pas** compté comme retour spontané (ordre : première visite, même jour, rappel, **défi**, rappel probable, spontané). Nouvelle ligne de l'entonnoir « Revenu par le lien de Défi d'un ami ». Nouveau type d'événement `defi` (action : `ouverture`, `fin`, `salon_cree`, `salon_rejoint`) ; pendant le Défi aucun événement du test n'est envoyé. Un ami non participant qui ouvre un lien de défi n'est pas inscrit au test (avant : toute personne sans lien devenait participant « organique » ; ce n'est plus vrai pour les liens `?defi=`). Barre du bas : l'onglet « Parcours » devient « Défi » (le parcours reste accessible depuis l'accueil). | **Change le produit testé** : le Défi est un motif de revenir et un canal d'invitation. Les retours qu'il provoque sont isolés (`retour_defi`), mais un participant qui joue beaucoup au Défi peut revenir plus (ou moins) à la grille du jour. À garder en tête ; comparer si besoin à un test avec `defi: "demo"`. Le classement « retour spontané » reste défini comme avant pour toutes les autres entrées. |
 | 28/10/2026 (avant tout test) | **Mode entraînement** (banque distincte de 20 exercices). Nouveau type d'événement `entrainement` (champ `action` : `ouverture`, `debut`, `fin`, `solution`, `passe` ; `grille` = identifiant d'exercice e01…). Pendant l'entraînement, **aucun** événement du test n'est envoyé (`debut`, `essai`, `fin`, `indice`, `recompense`, `demande_suivante`, `questionnaire`, `partage`) et **aucune visite** n'est enregistrée (pas de rechargement de page) : « Exercice suivant » ne peut pas compter comme un retour. Seul `regles` peut partir pendant l'entraînement, alors sans grille. Le tableau de bord affiche l'entraînement dans un tableau séparé. Sur l'écran de fin de la grille du jour, une proposition « S'entraîner » est ajoutée **après** le questionnaire. Statistiques du joueur séparées (grilles du jour / entraînement / progression) ; série et taux de réussite calculés sur les grilles du jour seulement. | **Change le produit testé** : les participants peuvent jouer davantage le même jour, ce qui peut modifier le retour du lendemain (dans un sens ou dans l'autre) et la réponse à « Oui, je veux jouer la prochaine ». À garder en tête à la lecture, et à comparer à un test sans entraînement si besoin (`entrainement: "demo"` dans `config.js`). Les compteurs de l'entonnoir et le classement des visites sont inchangés. |
 | 28/10/2026 (avant tout test) | Seconde relecture indépendante des 45 grilles (3 lots). Corrections : g14 ACCOLADE → CROCHET (pas une ponctuation), BOUCHÉES → FORMES ; g27 SERVICE → HOMMAGE et CORDON → COURT (deux répartitions alternatives) ; g28 MERLE → MÉSANGE (Robert Merle, écrivain), SÈVE → PÉTALE ; g30 MESURER → EXPERTISER ; g39 PAIX → ZOO ; g42 FLEURISTE → MERCERIE ; catégories reformulées (g22, g29, g30) et explications corrigées (g14, g23, g35, g36, g38). | Aucun compteur modifié. |
 | 28/10/2026 (avant tout test) | Banque portée de 30 à 45 grilles (jours 31–45 du calendrier) ; corrections sans effet sur la solution des grilles 1–30 (g21 IRIS → PAPYRUS, leurres déclarés g9/g16/g27). Interface : cartes persistantes (sélection animée), envol des 4 cartes d'un groupe trouvé, mélange animé, changement de grille de démo sans rechargement. | Aucun compteur ni événement modifié. |
@@ -220,6 +244,8 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | 28/10/2026 (avant tout test) | Écran d'accueil avant la grille (carte du jour + bouton « Jouer maintenant »), progression locale (XP, niveaux, objectifs, badges), nouvel événement `recompense`. | « A ouvert la page » = visite de l'accueil ; « a commencé » = premier mot touché (inchangé). Le produit testé inclut désormais la progression ; aucune récompense n'est liée au retour quotidien. |
 
 ## Tests effectués
+
+`node tests/test_defi.js` (19 vérifications) : reproductibilité du tirage, règles de tirage sur 90 000 paliers, variété, vérification des sélections, classement, records et badges, aucune XP. `node tests/test_defi_parcours.js` (38 vérifications, iPhone 13 et SE) : partie solo (paliers, chrono, erreur −5 s, temps écoulé, record), nouveau tirage à chaque partie, salon créé, trois joueurs sur le même tirage, une seule tentative (y compris après rechargement), classement paliers puis temps, ami non participant non inscrit au test, visite `retour_defi`, mesures du test non contaminées, mode démo, lien invalide.
 
 `node tests/test_entrainement.js` (71 vérifications, iPhone 13 et iPhone SE) couvre le mode entraînement : accueil avec les deux modes, grille du jour inchangée, ouverture du parcours, réussite et « Exercice suivant », échec après 4 erreurs, « Réessayer » (remise à zéro de la tentative, chronomètre, progression intacte), « Comprendre la solution » (puis réussite sans XP), « Passer » sans XP, reprise après rechargement (groupes, erreurs, sélection, temps actif), absence de double crédit, statistiques séparées, mode démo indépendant, données du test non contaminées (seuls les événements de la grille du jour, visites non comptées comme retours, traces `entrainement` séparées), petits écrans (pas de défilement horizontal, zones tactiles ≥ 44 px, bouton Valider visible).
 

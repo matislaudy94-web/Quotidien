@@ -288,6 +288,41 @@
   .titre-stats { margin: 16px 0 8px; }
   .actions-fin { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   .actions-fin .rang { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* ---------- Défi express ---------- */
+  .carte-defi::before { background: var(--c3); }
+  .carte-defi h2 { font-size: 21px; }
+  .mode-badge.defi { background: var(--c3); box-shadow: 0 2px 0 var(--c3e); }
+  .defi-tete { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 0 8px; }
+  .defi-tete .palier { font-family: var(--title); font-weight: 700; font-size: 22px; }
+  .defi-tete .palier small { font-size: 14px; color: var(--muted); }
+  .defi-tete .format { font-size: 13px; font-weight: 800; color: var(--muted); text-align: right; }
+  .chrono-defi { position: relative; height: 22px; border-radius: var(--pill); background: rgba(255,255,255,.1); overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,.3); }
+  .chrono-defi i { position: absolute; inset: 0 auto 0 0; width: 100%; background: linear-gradient(90deg, var(--c1), var(--c0)); border-radius: var(--pill); }
+  .chrono-defi.urgent i { background: linear-gradient(90deg, #ff5d5d, #ff9a2e); }
+  .chrono-defi.urgent { animation: pret .5s infinite; }
+  .chrono-defi b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--title); font-weight: 700; font-size: 14px; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font-variant-numeric: tabular-nums; }
+  .defi-trouves { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; min-height: 0; }
+  .defi-trouves .puce { border-radius: var(--r-s); padding: 6px 10px; font-weight: 800; font-size: 12.5px; color: var(--ink); animation: arrivee .35s cubic-bezier(.2,.9,.3,1.3); }
+  .defi-trouves .puce b { font-family: var(--title); text-transform: uppercase; }
+  .defi-trouves .c0 { background: var(--c0); } .defi-trouves .c1 { background: var(--c1); } .defi-trouves .c2 { background: var(--c2); } .defi-trouves .c3 { background: var(--c3); }
+  .board.defi { margin-top: 12px; }
+  .board.defi.col2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .board.defi.col3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tile.td { white-space: normal; line-height: 1.1; height: auto; min-height: 64px; padding: 6px 4px; overflow-wrap: anywhere; }
+  .tile.td.l2 { font-size: 13.5px; } .tile.td.l3 { font-size: 12px; }
+  .defi-pied { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-weight: 800; color: var(--muted); font-size: 14px; }
+  .flottant { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: var(--title); font-weight: 700; font-size: 34px; color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,.35); pointer-events: none; z-index: 20; animation: flotte .8s ease-out forwards; text-align: center; }
+  .flottant.moins { color: #ff8080; font-size: 28px; top: 30%; }
+  .flottant small { display: block; font-size: 16px; color: var(--c0); }
+  @keyframes flotte { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.8); } 20% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } 100% { opacity: 0; transform: translate(-50%, -80%) scale(1); } }
+  .classement { width: 100%; border-collapse: collapse; margin-top: 8px; font-weight: 700; font-size: 14.5px; }
+  .classement td { padding: 9px 6px; border-bottom: 1px solid #e8e0d0; }
+  .classement tr.moi td { background: #fff3c4; }
+  .classement .rang { width: 34px; font-family: var(--title); font-size: 17px; text-align: center; }
+  .classement .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .champ { width: 100%; font: inherit; font-weight: 800; font-size: 16px; padding: 12px; border-radius: var(--r-s); border: 2px solid #d6cdf5; background: #fff; color: var(--ink); min-height: 48px; }
+  .regles-defi { margin: 6px 0 10px; padding-left: 18px; font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+  .regles-defi li { margin: 3px 0; }
+  .visiteur-defi { font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; margin: 0 0 8px; }
   .lien-discret { background: none; border: 0; color: var(--ink-soft); font-weight: 800; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 10px; min-height: 44px; }
   .carte-jour .btn { width: 100%; }
   .objectif { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9e1d0; }
@@ -383,6 +418,7 @@
     <div class="carte-xp" id="carte-xp"></div>
     <div class="carte-jour" id="carte-jour"></div>
     <div class="carte-jour carte-entr hidden" id="carte-entr"></div>
+    <div class="carte-jour carte-defi hidden" id="carte-defi"></div>
     <div class="panel" id="accueil-objectifs"></div>
     <div class="panel" id="accueil-parcours"></div>
     <div class="raccourcis">
@@ -394,6 +430,8 @@
 
   <section id="ecran-parcours" class="ecran hidden" aria-label="Mon parcours"></section>
   <section id="ecran-entrainement" class="ecran hidden" aria-label="Mode entraînement"></section>
+  <section id="ecran-defi" class="ecran hidden" aria-label="Défi express"></section>
+  <section id="ecran-defi-jeu" class="ecran hidden" aria-label="Défi express, partie en cours"></section>
   <section id="ecran-badges" class="ecran hidden" aria-label="Mes badges et objectifs"></section>
   <section id="ecran-stats" class="ecran hidden" aria-label="Mes statistiques"></section>
 
@@ -470,7 +508,7 @@
 <nav class="nav-bas hidden" id="nav-bas" aria-label="Navigation">
   <button data-ecran="accueil"><span class="ico">🏠</span>Accueil</button>
   <button data-ecran="jeu"><span class="ico">🧩</span>Jouer</button>
-  <button data-ecran="parcours"><span class="ico">🗺️</span>Parcours</button>
+  <button data-ecran="defi"><span class="ico">⚡</span>Défi</button>
   <button data-ecran="badges"><span class="ico">🏅</span>Badges</button>
   <button data-ecran="stats"><span class="ico">📊</span>Stats</button>
 </nav>
@@ -523,6 +561,7 @@
     <li>tes clics sur « partager » et « prochaine grille » ;</li>
     <li>tes réponses au questionnaire, si tu le remplis.</li>
   </ul>
+  <p><strong>Défi entre amis :</strong> le pseudo que tu choisis (16 caractères au plus) et ton score sont visibles par les joueurs du même défi, pendant 7 jours. Choisis un surnom plutôt que ton nom complet.</p>
   <p>Nous n'enregistrons ni nom, ni e-mail, ni téléphone, ni adresse. Aucune publicité, aucun outil de suivi externe. L'identifiant est aussi gardé dans ton navigateur pour reconnaître ta prochaine visite.</p>
   <div class="actions"><button class="btn primary" data-close>Fermer</button></div>
 </div></dialog>
@@ -531,6 +570,8 @@
 <script src="api.js"></script>
 <script src="grilles.js"></script>
 <script src="entrainement.js"></script>
+<script src="defi_banque.js"></script>
+<script src="defi.js"></script>
 <script src="progression.js"></script>
 <script>
 (function () {
@@ -561,6 +602,7 @@
   const pParam = (params.get("p") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
   const token = (params.get("r") || "").replace(/[^a-f0-9]/gi, "") || null;
   const invParam = (params.get("inv") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
+  const defiParam = (params.get("defi") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8) || null;
   const visiteId = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   // Identifiant d'appareil : aléatoire, propre à ce navigateur, sans lien avec la personne.
   // Sert uniquement à signaler un lien personnel ouvert depuis plusieurs appareils.
@@ -652,6 +694,17 @@
   }
 
   async function _demarrer() {
+    // Lien de Défi ouvert par quelqu'un qui ne participe pas au test : on ne l'inscrit PAS au test,
+    // il joue seulement au Défi (aucune visite, aucun participant créé).
+    if (defiParam && !DEMO && !pParam && !store.get("quotidien_pid")) {
+      visiteurDefi = true;
+      $("chargement").classList.add("hidden");
+      document.querySelector("footer").innerHTML = `Défi entre amis : ton pseudo et ton score sont visibles par les joueurs de ce défi pendant 7 jours. Aucune autre donnée n'est enregistrée. <button id="btn-vie-privee-defi">En savoir plus</button>`;
+      $("btn-vie-privee-defi").addEventListener("click", () => $("dlg-vie-privee").showModal());
+      soumettreDefiInterrompu();
+      ouvrirSalon(defiParam);
+      return;
+    }
     if (DEMO) {
       $("banniere-demo").classList.remove("hidden");
       // En démo, les grilles se débloquent dans l'ordre : la grille n+1 s'ouvre quand la grille n est résolue.
@@ -661,9 +714,12 @@
       grille = GRILLES[iGrille >= 0 ? iGrille : 0];
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
+      soumettreDefiInterrompu();
+      if (defiParam) ouvrirSalon(defiParam);
       return;
     }
-    let entree = token ? "rappel" : pParam ? "lien_personnel" : invParam ? "invitation" : "sans_lien";
+    // « defi » : arrivé par le lien de Défi d'un ami → visite classée « retour_defi », jamais « retour_spontane ».
+    let entree = token ? "rappel" : defiParam ? "defi" : pParam ? "lien_personnel" : invParam ? "invitation" : "sans_lien";
     let pid = pParam || store.get("quotidien_pid");
     try {
       if (!pid) {
@@ -689,6 +745,8 @@
       viderFile();
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
+      soumettreDefiInterrompu();
+      if (defiParam) ouvrirSalon(defiParam);
     } catch (e) {
       throw e;
     }
@@ -755,20 +813,270 @@
 
   function afficherEcran(nom) {
     ecranCourant = nom;
-    ["accueil", "jeu", "parcours", "badges", "stats", "entrainement"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
+    ["accueil", "jeu", "parcours", "badges", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
     document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
     const partieEnCours = nom === "jeu" && !$("jeu").classList.contains("hidden");
-    $("nav-bas").classList.toggle("hidden", partieEnCours);
+    $("nav-bas").classList.toggle("hidden", partieEnCours || nom === "defi-jeu" || visiteurDefi);
     $("btn-quitter").classList.toggle("hidden", !partieEnCours);
     // 2. En démo, le sélecteur de grille n'apparaît que sur l'accueil
     if (DEMO) $("banniere-demo").classList.toggle("hidden", nom !== "accueil");
-    document.querySelector("main").classList.toggle("avec-nav", !partieEnCours);
+    document.querySelector("main").classList.toggle("avec-nav", !partieEnCours && nom !== "defi-jeu" && !visiteurDefi);
     window.scrollTo(0, 0);
   }
 
   function ouvrirAccueil() {
     revenirJour(); rendreEntete(); rendreAccueil(); afficherEcran("accueil");
+  }
+
+  // ---------- Défi express ----------
+  // Jeu chronométré à part : aucune XP, aucun événement du test (seulement des traces « defi »), records et badges locaux.
+  const DF = window.QuotidienDefi;
+  let visiteurDefi = false;          // venu par un lien de défi sans participer au test
+  let partieDefi = null, minuterieDefi = null, defiOuvertTrace = false;
+  const defiActif = () => (CFG.defi || "tous") === "tous" || (CFG.defi === "demo" && DEMO) || visiteurDefi;
+  const profilDefi = () => DEMO ? "demo" : participant ? participant.id : "invite";
+  const joueurDefi = () => appareilId || "anonyme";
+  const CLE_ENCOURS = "quotidien_defi_encours";
+  function fmtDuree(ms) { const s = Math.round((ms || 0) / 1000); return s >= 60 ? `${Math.floor(s / 60)} min ${String(s % 60).padStart(2, "0")}` : `${s} s`; }
+  function journalDefi(action, donnees) { if (DEMO || !participant) return; envoyer("defi", null, Object.assign({ action }, donnees || {})); }
+  const lienDefi = (code) => location.origin + location.pathname + "?defi=" + code;
+  const esc = (t) => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function quitterJeuPrincipal() { if (ecranCourant === "jeu" && etat && !etat.fin) { chronoPause(); sauver(); } }
+
+  function ouvrirDefi() {
+    quitterJeuPrincipal();
+    if (!defiOuvertTrace) { defiOuvertTrace = true; journalDefi("ouverture", {}); }
+    rendreDefiAccueil(); afficherEcran("defi");
+  }
+
+  function rendreDefiAccueil() {
+    const ed = DF.lire(profilDefi()), el = $("ecran-defi");
+    el.innerHTML = `${visiteurDefi ? `<p class="visiteur-defi">Quotidien est un jeu de mots en cours de test. Ici, tu joues seulement au Défi.</p>` : ""}
+      <span class="mode-badge defi">Défi express</span><h2 class="titre-ecran" style="margin-top:4px">30 secondes par palier</h2>
+      <div class="panel" style="margin-top:8px"><ul class="regles-defi">
+        <li>Regroupe les mots par catégorie : touche les mots d'un même groupe, la vérification est automatique.</li>
+        <li>Chaque erreur coûte <strong>5 secondes</strong>.</li>
+        <li>Les paliers grandissent : de 2 groupes de 2 mots jusqu'à 4 groupes de 3 (30 paliers).</li>
+        <li>Les mots sont tirés au hasard à chaque partie. Le chrono ne s'arrête pas si tu quittes l'écran.</li></ul>
+        <div class="actions-fin"><button class="btn primary btn-large" id="defi-solo">Jouer en solo</button>
+        <button class="btn btn-large" id="defi-amis">Défier des amis (2 à 6 joueurs)</button></div></div>
+      <div class="carte-xp"><div class="ligne"><div class="niv">${ed.record ? `${ed.record.paliers} <small>palier${ed.record.paliers > 1 ? "s" : ""}</small>` : "– <small>pas encore de record</small>"}</div><div class="xp-txt">Record</div></div>
+        <div class="sous">${ed.record ? `en ${fmtDuree(ed.record.temps_ms)} · ` : ""}${ed.parties} partie${ed.parties > 1 ? "s" : ""} jouée${ed.parties > 1 ? "s" : ""}</div></div>
+      <div id="defi-form"></div>
+      ${ed.salons.length ? `<div class="panel"><h2>Mes défis entre amis</h2>${ed.salons.slice(0, 6).map(x => `<div class="actions" style="justify-content:space-between;align-items:center;margin:6px 0"><span><strong>${esc(x.code)}</strong> <span class="small">· ${esc(x.titre || "")}</span></span><button class="btn" data-salon="${esc(x.code)}">Classement</button></div>`).join("")}</div>` : ""}
+      <h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">Des trophées, sans XP.</p>
+      <div class="grille-badges">${DF.BADGES.map(b => `<div class="badge ${ed.badges[b.id] ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p></div>`).join("")}</div>
+      ${visiteurDefi ? "" : `<div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="accueil">Retour à l'accueil</button></div>`}`;
+    $("defi-solo").addEventListener("click", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
+    // Tirage choisi par le serveur et révélé seulement au début de la partie : même le créateur ne le connaît pas à l'avance.
+    $("defi-amis").addEventListener("click", () => formulairePseudo(async (pseudo) => creerSalon(pseudo, null, null)));
+    el.querySelectorAll("[data-salon]").forEach(b => b.addEventListener("click", () => ouvrirSalon(b.dataset.salon)));
+    brancherNav(el);
+  }
+
+  // Formulaire de pseudo (gardé dans le navigateur pour la prochaine fois).
+  function formulairePseudo(suite, cible) {
+    const zone = cible || $("defi-form");
+    zone.innerHTML = `<div class="panel"><h2>Ton pseudo</h2><p class="small">Visible par les joueurs du défi. Un surnom suffit (16 caractères au plus).</p>
+      <form id="form-pseudo"><input class="champ" id="champ-pseudo" maxlength="16" autocomplete="nickname" value="${esc(store.get("quotidien_pseudo") || "")}" placeholder="Ex. Mat" required>
+      <div class="actions" style="margin-top:10px"><button class="btn primary btn-large" type="submit">Continuer</button></div>
+      <p class="small" id="pseudo-err" style="color:#c0392b"></p></form></div>`;
+    zone.scrollIntoView({ behavior: "smooth", block: "center" });
+    const f = $("form-pseudo");
+    f.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const v = $("champ-pseudo").value.trim().replace(/[<>"&]/g, "").slice(0, 16);
+      if (!v) { $("pseudo-err").textContent = "Choisis un pseudo."; return; }
+      store.set("quotidien_pseudo", v);
+      const b = f.querySelector("button"); b.disabled = true; b.textContent = "Un instant…";
+      try { await suite(v); } catch (e) { $("pseudo-err").textContent = "Connexion impossible. Vérifie ta connexion puis réessaie."; b.disabled = false; b.textContent = "Continuer"; }
+    });
+  }
+
+  async function creerSalon(pseudo, graine, monScore) {
+    const r = await API.rpc("d_creer_salon", { p_joueur: joueurDefi(), p_pseudo: pseudo, p_graine: graine });
+    if (!r || !r.ok) throw new Error(r && r.raison);
+    DF.memoriserSalon(profilDefi(), { code: r.code, titre: "créé par toi", cree: new Date().toISOString() });
+    journalDefi("salon_cree", { avec_score: !!monScore });
+    if (monScore) { // défi lancé APRÈS une partie solo : ton score sur ce même tirage est enregistré d'office
+      await API.rpc("d_commencer", { p_code: r.code, p_joueur: joueurDefi(), p_pseudo: pseudo });
+      await API.rpc("d_score", { p_code: r.code, p_joueur: joueurDefi(), p_paliers: monScore.paliers, p_temps_ms: monScore.temps_ms });
+    }
+    await ouvrirSalon(r.code, true);
+  }
+
+  async function ouvrirSalon(code, vientDeCreer) {
+    quitterJeuPrincipal();
+    const el = $("ecran-defi");
+    afficherEcran("defi");
+    el.innerHTML = `<span class="mode-badge defi">Défi entre amis</span><div class="panel"><span class="spin" aria-hidden="true"></span> Chargement du défi…</div>`;
+    let s;
+    try { s = await API.rpc("d_salon", { p_code: code, p_joueur: joueurDefi() }); }
+    catch (e) { el.innerHTML = `<div class="panel"><h2>Connexion impossible</h2><p>Vérifie ta connexion, puis réessaie.</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-reessayer">Réessayer</button></div></div>`; $("salon-reessayer").addEventListener("click", () => ouvrirSalon(code)); return; }
+    if (!s || !s.existe) { el.innerHTML = `<div class="panel"><h2>Défi introuvable</h2><p>Ce lien de défi n'existe pas. Vérifie qu'il a été copié en entier.</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-retour">Jouer au Défi en solo</button></div></div>`; $("salon-retour").addEventListener("click", ouvrirDefi); return; }
+    DF.memoriserSalon(profilDefi(), { code: s.code, titre: "de " + s.createur_pseudo, cree: s.expire_le });
+    const fini = s.joueurs.filter(j => j.termine).sort(DF.comparer), enCours = s.joueurs.filter(j => !j.termine);
+    const peutJouer = !s.moi && s.ouvert && s.joueurs.length < s.max_joueurs;
+    if (s.moi && s.moi.paliers != null && fini.length >= 2 && fini[0].moi) { const b = DF.marquerChampion(profilDefi()); if (b) toastNav("Badge débloqué : " + b.icone + " " + b.nom); }
+    const jours = Math.max(0, Math.ceil((new Date(s.expire_le) - Date.now()) / 86400000));
+    el.innerHTML = `${visiteurDefi ? `<p class="visiteur-defi">Quotidien est un jeu de mots en cours de test. Ici, tu joues seulement au Défi.</p>` : ""}
+      <span class="mode-badge defi">Défi entre amis</span>
+      <h2 class="titre-ecran" style="margin-top:4px">Le défi de ${esc(s.createur_pseudo)}</h2>
+      <p class="sous-ecran">Code <strong>${esc(s.code)}</strong> · ${s.joueurs.length}/${s.max_joueurs} joueurs · ${s.ouvert ? `ouvert encore ${jours} jour${jours > 1 ? "s" : ""}` : "terminé"}. Même tirage pour tout le monde, une seule partie chacun. Le plus de paliers gagne, puis le plus rapide.</p>
+      ${vientDeCreer ? `<div class="panel" style="margin-top:8px"><h2>Invite tes amis</h2><p class="small">Envoie ce lien à 5 personnes au plus.</p><div class="linkbox"><input readonly value="${lienDefi(s.code)}" aria-label="Lien du défi"><button class="btn" data-copie>Copier</button></div></div>` : ""}
+      <div id="salon-action"></div>
+      <div class="panel"><h2>Classement</h2>
+        ${s.joueurs.length ? `<table class="classement">${fini.map((j, i) => `<tr class="${j.moi ? "moi" : ""}"><td class="rang">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td>${esc(j.pseudo)}${j.moi ? " (toi)" : ""}</td><td class="num">${j.paliers} palier${j.paliers > 1 ? "s" : ""}</td><td class="num small">${fmtDuree(j.temps_ms)}</td></tr>`).join("")}
+          ${enCours.map(j => `<tr class="${j.moi ? "moi" : ""}"><td class="rang">…</td><td>${esc(j.pseudo)}${j.moi ? " (toi)" : ""}</td><td class="num small" colspan="2">partie en cours</td></tr>`).join("")}</table>` : `<p class="small">Personne n'a encore joué.</p>`}
+        <div class="actions-fin"><div class="rang"><button class="btn" id="salon-partager">Partager le lien</button><button class="btn" id="salon-actualiser">Actualiser</button></div></div>
+        <p class="small lien-partage hidden" id="salon-copie">Lien copié : colle-le dans une conversation.</p></div>
+      <div class="actions" style="margin-top:16px"><button class="lien-discret" id="salon-retour">Retour au Défi</button></div>`;
+    const act = $("salon-action");
+    if (peutJouer) {
+      act.innerHTML = `<div class="panel"><h2>À toi de jouer</h2><p class="small">Une seule partie : si tu quittes en route, ton score s'arrête au dernier palier réussi.</p>
+        <div class="actions-fin"><button class="btn primary btn-large" id="salon-jouer">Jouer ma partie</button></div></div>`;
+      $("salon-jouer").addEventListener("click", () => formulairePseudo(async (pseudo) => {
+        const r = await API.rpc("d_commencer", { p_code: s.code, p_joueur: joueurDefi(), p_pseudo: pseudo });
+        if (!r || !r.ok) { const raisons = { deja_joue: "Tu as déjà joué ce défi sur cet appareil.", complet: "Ce défi est complet (6 joueurs).", ferme: "Ce défi est terminé." }; toastNav(raisons[r && r.raison] || "Impossible de rejoindre ce défi."); return ouvrirSalon(s.code); }
+        journalDefi("salon_rejoint", {});
+        lancerDefi({ graine: r.graine, salon: s.code, pseudo });
+      }, act));
+    } else if (!s.moi && !s.ouvert) act.innerHTML = `<div class="panel"><p>Ce défi est terminé : on ne peut plus y participer.</p></div>`;
+    else if (!s.moi) act.innerHTML = `<div class="panel"><p>Ce défi est complet (${s.max_joueurs} joueurs).</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-solo">Jouer en solo</button></div></div>`;
+    const so = $("salon-solo"); if (so) so.addEventListener("click", ouvrirDefi);
+    $("salon-actualiser").addEventListener("click", () => ouvrirSalon(s.code));
+    $("salon-retour").addEventListener("click", ouvrirDefi);
+    $("salon-partager").addEventListener("click", () => partagerDefi(s.code, s.moi && s.moi.paliers != null ? s.moi : null));
+    brancherCopie(el);
+  }
+
+  async function partagerDefi(code, score) {
+    const pseudo = store.get("quotidien_pseudo") || "Quelqu'un";
+    const texte = `⚡ DÉFI QUOTIDIEN — ${pseudo} te défie : regrouper des mots en 30 secondes par palier, jusqu'à 6 joueurs sur le même tirage.${score ? `
+Score à battre : ${score.paliers} palier${score.paliers > 1 ? "s" : ""} en ${fmtDuree(score.temps_ms)}.` : ""}
+${lienDefi(code)}`;
+    try { if (navigator.share) { await navigator.share({ text: texte }); return; } await navigator.clipboard.writeText(texte); }
+    catch (e) { if (e && e.name === "AbortError") return; try { await navigator.clipboard.writeText(texte); } catch (e2) {} }
+    const c = $("salon-copie") || $("defi-copie"); if (c) c.classList.remove("hidden");
+  }
+
+  // ---------- Partie de Défi ----------
+  function lancerDefi(opts) {
+    quitterJeuPrincipal();
+    partieDefi = { graine: opts.graine, salon: opts.salon || null, suite: DF.genererSuite(opts.graine), n: 1, temps: 0, erreurs: 0,
+      serie: 0, serieMax: 0, meilleur: null, fin: null };
+    if (partieDefi.salon) store.set(CLE_ENCOURS, { code: partieDefi.salon, paliers: 0, temps_ms: 0, profil: profilDefi() });
+    afficherEcran("defi-jeu");
+    demarrerPalier();
+  }
+  function demarrerPalier() {
+    const P = partieDefi; P.palier = P.suite[P.n - 1]; P.trouves = []; P.selection = []; P.penalite = 0; P.erreursPalier = 0; P.verrou = false;
+    P.debut = Date.now();
+    rendreDefiJeu();
+    clearInterval(minuterieDefi); minuterieDefi = setInterval(ticDefi, 100); ticDefi();
+  }
+  const resteDefi = () => DF.DUREE_MS - (Date.now() - partieDefi.debut) - partieDefi.penalite;
+  function ticDefi() {
+    const P = partieDefi; if (!P || P.fin || P.pause) return;
+    const r = resteDefi(), b = $("defi-chrono"); if (!b) return;
+    b.querySelector("i").style.width = Math.max(0, 100 * r / DF.DUREE_MS) + "%";
+    b.querySelector("b").textContent = Math.max(0, Math.ceil(r / 1000)) + " s";
+    b.classList.toggle("urgent", r < 8000);
+    if (r <= 0) finDefi("temps");
+  }
+  function rendreDefiJeu() {
+    const P = partieDefi, p = P.palier;
+    const restants = p.mots.filter(m => !P.trouves.some(gi => p.groupes[gi].mots.includes(m)));
+    const col = p.mots.length <= 4 ? "col2" : "col3";
+    $("ecran-defi-jeu").innerHTML = `<div class="defi-tete"><div><span class="mode-badge defi">${P.salon ? "Défi · " + esc(P.salon) : "Défi express"}</span><div class="palier">Palier ${P.n} <small>/ ${DF.MAX_PALIERS}</small></div></div>
+        <div class="format">${p.groupes.length} groupes<br>de ${p.taille} mots</div></div>
+      <div class="chrono-defi" id="defi-chrono" role="timer" aria-label="Temps restant"><i></i><b></b></div>
+      <div class="defi-trouves" id="defi-trouves">${P.trouves.map((gi, k) => `<span class="puce c${k % 4}"><b>${esc(p.groupes[gi].nom)}</b> · ${p.groupes[gi].mots.map(esc).join(", ")}</span>`).join("")}</div>
+      <div class="board defi ${col}" id="defi-plateau">${restants.map(m => `<button class="tile td ${m.length > 12 ? "l3" : m.length > 9 ? "l2" : ""} ${P.selection.includes(m) ? "sel" : ""}" data-mot="${esc(m)}" aria-pressed="${P.selection.includes(m)}"><span>${esc(m)}</span></button>`).join("")}</div>
+      <div class="defi-pied"><span>${P.temps ? `Temps cumulé : ${fmtDuree(P.temps)}` : "Touche les mots d'un même groupe"}</span><button class="lien-discret" id="defi-abandon">Abandonner</button></div>`;
+    $("defi-plateau").querySelectorAll("[data-mot]").forEach(b => b.addEventListener("click", () => toucherDefi(b.dataset.mot, b)));
+    const ab = $("defi-abandon");
+    ab.addEventListener("click", () => { if (ab.dataset.confirme) return finDefi("abandon"); ab.dataset.confirme = "1"; ab.textContent = "Confirmer l'abandon ?"; setTimeout(() => { if (ab.isConnected) { delete ab.dataset.confirme; ab.textContent = "Abandonner"; } }, 3000); });
+    ticDefi();
+  }
+  function flottant(html, classe) { const f = document.createElement("div"); f.className = "flottant " + (classe || ""); f.innerHTML = html; document.body.appendChild(f); setTimeout(() => f.remove(), 850); }
+  function toucherDefi(mot, bouton) {
+    const P = partieDefi; if (!P || P.fin || P.verrou) return;
+    P.selection = P.selection.includes(mot) ? P.selection.filter(m => m !== mot) : P.selection.concat([mot]);
+    bouton.classList.toggle("sel", P.selection.includes(mot)); bouton.setAttribute("aria-pressed", P.selection.includes(mot)); vibrer(8);
+    if (P.selection.length < P.palier.taille) return;
+    P.verrou = true;
+    setTimeout(() => { // laisse voir la sélection une fraction de seconde
+      const gi = DF.groupeDe(P.palier, P.selection);
+      if (gi >= 0) {
+        P.trouves.push(gi); P.selection = []; vibrer(25);
+        P.verrou = false;
+        if (P.trouves.length === P.palier.groupes.length) return palierReussi();
+        rendreDefiJeu();
+      } else {
+        P.penalite += DF.PENALITE_MS; P.erreurs++; P.erreursPalier++; vibrer([40, 30, 40]);
+        flottant("−5 s", "moins");
+        const fautes = P.selection.slice(); P.selection = [];
+        $("defi-plateau").querySelectorAll(".tile.sel").forEach(t => { t.classList.remove("sel"); t.classList.add("faux"); });
+        setTimeout(() => { P.verrou = false; if (!P.fin) rendreDefiJeu(); }, 380);
+        if (resteDefi() <= 0) finDefi("temps");
+      }
+    }, 140);
+  }
+  function palierReussi() {
+    const P = partieDefi; clearInterval(minuterieDefi);
+    const duree = Math.min(DF.DUREE_MS, Date.now() - P.debut + P.penalite);
+    P.temps += duree; P.meilleur = P.meilleur == null ? duree : Math.min(P.meilleur, duree);
+    P.serie = P.erreursPalier ? 0 : P.serie + 1; P.serieMax = Math.max(P.serieMax, P.serie);
+    if (P.salon) store.set(CLE_ENCOURS, { code: P.salon, paliers: P.n, temps_ms: P.temps, profil: profilDefi() });
+    rendreDefiJeu(); P.pause = true;
+    flottant(`Palier ${P.n} !<small>${(duree / 1000).toFixed(1).replace(".", ",")} s</small>`);
+    setTimeout(() => {
+      if (P.fin) return; P.pause = false;
+      if (P.n >= DF.MAX_PALIERS) return finDefi("complet");
+      P.n++; demarrerPalier();
+    }, 800);
+  }
+  async function finDefi(raison) {
+    const P = partieDefi; if (!P || P.fin) return;
+    P.fin = raison; clearInterval(minuterieDefi);
+    // Pendant l'animation « Palier réussi », le palier en cours est déjà gagné.
+    const paliers = raison === "complet" ? DF.MAX_PALIERS : (P.pause ? P.n : P.n - 1);
+    const res = DF.enregistrerPartie(profilDefi(), { paliers, temps_ms: P.temps, serieSansErreur: P.serieMax, meilleurPalierMs: P.meilleur, salon: P.salon });
+    journalDefi("fin", { paliers, temps_ms: P.temps, erreurs: P.erreurs, salon: !!P.salon, raison });
+    if (P.salon) { try { await API.rpc("d_score", { p_code: P.salon, p_joueur: joueurDefi(), p_paliers: paliers, p_temps_ms: Math.max(P.temps, paliers * 500) }); store.del(CLE_ENCOURS); } catch (e) { /* renvoyé au prochain chargement */ } }
+    if (raison === "temps") { flottant("Temps écoulé !"); await new Promise(r => setTimeout(r, 700)); }
+    if (res.nouveauRecord && paliers > 0) confettis();
+    rendreDefiFin(paliers, res, raison);
+  }
+  // Partie de salon interrompue (page fermée ou rechargée) : on enregistre le dernier palier réussi.
+  async function soumettreDefiInterrompu() {
+    const e = store.get(CLE_ENCOURS); if (!e || !e.code) return;
+    try { await API.rpc("d_score", { p_code: e.code, p_joueur: joueurDefi(), p_paliers: e.paliers | 0, p_temps_ms: Math.max(e.temps_ms | 0, (e.paliers | 0) * 500) }); DF.enregistrerPartie(e.profil || profilDefi(), { paliers: e.paliers | 0, temps_ms: e.temps_ms | 0, salon: e.code }); store.del(CLE_ENCOURS); } catch (x) {}
+  }
+  function rendreDefiFin(paliers, res, raison) {
+    const P = partieDefi, ed = res.etat;
+    const motif = { temps: `Temps écoulé au palier ${P.n}.`, abandon: `Partie abandonnée au palier ${P.n}.`, complet: "Les 30 paliers réussis, chapeau !" }[raison];
+    $("ecran-defi").innerHTML = `<span class="mode-badge defi">${P.salon ? "Défi entre amis" : "Défi express"}</span>
+      <div class="panel" style="text-align:center"><h2 class="titre-victoire ${paliers ? "gagne" : ""}" style="margin:4px 0">${paliers} palier${paliers > 1 ? "s" : ""}</h2>
+        <p>${motif}${paliers ? ` Temps cumulé : ${fmtDuree(P.temps)}.` : ""}</p>
+        <div class="stats"><div class="stat"><div class="v">${paliers}</div><div class="l">Paliers</div></div><div class="stat"><div class="v">${P.erreurs}</div><div class="l">Erreur${P.erreurs > 1 ? "s" : ""}</div></div><div class="stat"><div class="v">${ed.record ? ed.record.paliers : 0}</div><div class="l">Record</div></div></div>
+        ${res.nouveauRecord ? `<p style="font-family:var(--title);font-weight:700;font-size:20px;color:var(--c3e)">Nouveau record !</p>` : ""}
+        ${res.badges.length ? `<div class="recompenses" style="margin-top:10px"><ul>${res.badges.map(b => `<li><span class="ico">${b.icone}</span>Badge : ${b.nom}</li>`).join("")}</ul></div>` : ""}
+        <div class="actions-fin">${P.salon ? `<button class="btn primary btn-large" id="fin-classement">Voir le classement</button>`
+          : `<button class="btn primary btn-large" id="fin-rejouer">Rejouer (nouveau tirage)</button><button class="btn btn-large" id="fin-defier">Défier mes amis sur ce tirage</button>`}
+          <div class="rang"><button class="btn" id="fin-defi">Retour au Défi</button>${visiteurDefi ? `<button class="btn" id="fin-solo">Jouer en solo</button>` : `<button class="btn" data-ecran="accueil">Accueil</button>`}</div></div>
+        <p class="small lien-partage hidden" id="defi-copie">Lien copié : colle-le dans une conversation.</p></div>
+      <div id="defi-form"></div>`;
+    const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
+    on("fin-classement", () => ouvrirSalon(P.salon));
+    on("fin-rejouer", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
+    on("fin-defier", () => formulairePseudo(async (pseudo) => creerSalon(pseudo, P.graine, { paliers, temps_ms: Math.max(P.temps, paliers * 500) })));
+    on("fin-defi", ouvrirDefi); on("fin-solo", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
+    brancherNav($("ecran-defi"));
+    afficherEcran("defi");
   }
 
   // ---------- Mode entraînement ----------
@@ -933,6 +1241,19 @@
       $("btn-entr").addEventListener("click", ouvrirEntrainement);
     } else ce.classList.add("hidden");
 
+    // Carte « Défi express »
+    const cd = $("carte-defi");
+    if (defiActif()) {
+      const ed = DF.lire(profilDefi());
+      cd.classList.remove("hidden");
+      cd.innerHTML = `<span class="etiquette">Défi express</span>
+        <h2>30 secondes par palier</h2>
+        <div class="meta"><span class="tag">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span><span class="tag">Duel jusqu'à 6 amis</span></div>
+        <p>Des mots tirés au hasard à chaque partie. Défie tes amis sur le même tirage : le plus de paliers gagne, puis le plus rapide.</p>
+        <button class="btn btn-large" id="btn-defi">Jouer au Défi</button>`;
+      $("btn-defi").addEventListener("click", ouvrirDefi);
+    } else cd.classList.add("hidden");
+
     // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
     const restants = p.objectifs.filter(o => !o.termine).slice(0, 3);
     $("accueil-objectifs").innerHTML = `<h2>Objectifs en cours</h2>` + (restants.length ? restants.map(htmlObjectif).join("") :
@@ -982,13 +1303,18 @@
       <div class="grille-badges">${p.badges.map(b => `<div class="badge ${b.obtenu ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${b.obtenu ? "Obtenu" : "À débloquer"}</span></div>`).join("")}</div>
       <h2 class="titre-ecran" id="objectifs">Mes objectifs</h2><p class="sous-ecran">${p.objectifs.filter(o => o.termine).length} sur ${p.objectifs.length} réalisés. Chaque objectif rapporte son XP une seule fois.</p>
       <div class="panel" style="margin-top:0">${p.objectifs.map(htmlObjectif).join("")}</div>`;
+    if (defiActif()) {
+      const ed = DF.lire(profilDefi());
+      $("ecran-badges").insertAdjacentHTML("beforeend", `<h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">${DF.BADGES.filter(b => ed.badges[b.id]).length} sur ${DF.BADGES.length} obtenus. Ils ne rapportent pas d'XP : ce sont des trophées.</p>
+        <div class="grille-badges">${DF.BADGES.map(b => `<div class="badge ${ed.badges[b.id] ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${ed.badges[b.id] ? "Obtenu" : "À débloquer"}</span></div>`).join("")}</div>`);
+    }
     if (cible === "objectifs") setTimeout(() => { const el = $("objectifs"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
   }
 
   function rendreStats() {
     const p = progression(), s = p.stats;
     const el = $("ecran-stats");
-    if (!s.terminees) {
+    if (!s.terminees && !(defiActif() && DF.lire(profilDefi()).parties)) {
       el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><div class="vide"><div class="ico">📊</div>Tes statistiques apparaîtront après ta première partie.</div>${DEMO ? boutonReinit() : ""}`;
       brancherReinit(); return;
     }
@@ -1009,6 +1335,11 @@
         <div class="stat-c"><div class="v">${stE.filter(x => x === "reussi").length}/${ENTR.grilles.length}</div><div class="l">Exercices réussis</div><div class="note">${en.resolus} avec XP</div></div>
         <div class="stat-c"><div class="v">${stE.filter(x => x === "passe").length}</div><div class="l">Exercices passés</div><div class="note">à reprendre quand tu veux</div></div>
       </div>` : ""}
+      ${defiActif() ? (() => { const ed = DF.lire(profilDefi()); return `<h3 class="titre-stats"><span class="mode-badge defi">Défi express</span></h3>
+      <div class="stats-grille">
+        <div class="stat-c"><div class="v">${ed.record ? ed.record.paliers : "–"}</div><div class="l">Record de paliers</div><div class="note">${ed.record ? "en " + fmtDuree(ed.record.temps_ms) : "aucune partie"}</div></div>
+        <div class="stat-c"><div class="v">${ed.parties}</div><div class="l">Parties de Défi</div><div class="note">${DF.BADGES.filter(b => ed.badges[b.id]).length}/${DF.BADGES.length} badges du Défi</div></div>
+      </div>`; })() : ""}
       <h3 class="titre-stats"><span class="mode-badge" style="background:var(--c3);box-shadow:0 2px 0 var(--c3e)">Progression</span></h3>
       <div class="stats-grille">
         <div class="stat-c"><div class="v">${p.xp}</div><div class="l">XP</div><div class="note">Niveau ${p.niveau.n} — ${p.niveau.nom}</div></div>
@@ -1022,7 +1353,7 @@
   }
   function boutonReinit() { return `<div class="actions" style="margin-top:14px"><button class="btn" id="btn-reinit">Réinitialiser la progression (démo)</button></div>`; }
   function brancherReinit() { const b = $("btn-reinit"); if (b) b.addEventListener("click", () => { PROG.reinitialiser("demo"); etat = null; store.del("quotidien_regles_vues_demo"); rendreEntete(); rendreStats(); toastNav("Progression de démo remise à zéro."); }); }
-  function toastNav(texte) { const m = $("message"); m.innerHTML = ""; const b = document.createElement("span"); b.className = "bulle bon"; b.textContent = texte; b.style.position = "fixed"; b.style.left = "50%"; b.style.top = "70px"; b.style.transform = "translateX(-50%)"; b.style.zIndex = "9"; document.body.appendChild(b); setTimeout(() => b.remove(), 1800); }
+  function toastNav(texte) { const m = $("message"); m.innerHTML = ""; const b = document.createElement("span"); b.className = "bulle bon"; b.textContent = texte; b.style.position = "fixed"; b.style.left = "50%"; b.style.top = "70px"; b.style.transform = "translateX(-50%)"; b.style.zIndex = "9"; b.style.maxWidth = "calc(100vw - 32px)"; b.style.whiteSpace = "normal"; b.style.textAlign = "center"; document.body.appendChild(b); setTimeout(() => b.remove(), 1800); }
 
   function brancherNav(racine) {
     racine.querySelectorAll("[data-ecran]").forEach(b => { if (b.dataset.branche) return; b.dataset.branche = "1";
@@ -1031,6 +1362,7 @@
   function naviguer(nom, cible) {
     if (nom === "jeu") { allerJouer(); return; }
     if (nom === "entrainement") { ouvrirEntrainement(); return; }
+    if (nom === "defi") { ouvrirDefi(); return; }
     if (nom === "accueil") { revenirJour(); rendreAccueil(); }
     if (nom === "parcours") rendreParcours();
     if (nom === "badges") rendreBadges(cible);
@@ -1220,7 +1552,7 @@
   // Taille du texte par paliers (16 / 13,5 / 12 / 10,5 px) : le mot tient toujours sur une ligne, sans être coupé,
   // et les cartes gardent un aspect régulier.
   function ajusterTailles() {
-    document.querySelectorAll(".tile").forEach(t => {
+    $("plateau").querySelectorAll(".tile").forEach(t => {
       const span = t.firstElementChild;
       span.style.transform = "";
       t.classList.remove("t2", "t3", "t4", "t5");

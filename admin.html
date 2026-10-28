@@ -79,8 +79,8 @@
       <h2>Entonnoir de comportement</h2>
       <p class="muted">Une personne compte une seule fois par ligne. « Revenu sans rappel » exclut tout retour dans les 24 h suivant un lien de rappel envoyé à cette personne.</p>
       <div class="scroll"><table id="tab-entonnoir"></table></div>
-      <h3 style="margin:18px 0 4px">Mode entraînement <span class="muted" style="font-weight:400">(hors mesures du test)</span></h3>
-      <p class="muted" style="margin:0 0 6px;font-size:13px">Exercices supplémentaires, distincts du calendrier. Ces parties n'entrent dans aucune ligne de l'entonnoir ci-dessus (événements de type « entrainement » uniquement).</p>
+      <h3 style="margin:18px 0 4px">Entraînement et Défi express <span class="muted" style="font-weight:400">(hors mesures du test)</span></h3>
+      <p class="muted" style="margin:0 0 6px;font-size:13px">Exercices supplémentaires, distincts du calendrier. Ces parties n'entrent dans aucune ligne de l'entonnoir ci-dessus (événements de type « entrainement » et « defi » uniquement). Les amis non participants qui jouent un défi n'apparaissent nulle part ici.</p>
       <div class="scroll"><table id="tab-entrainement"></table></div>
       <div class="note">Lecture : <strong>R</strong> = reçoit un lien de rappel s'il le demande, <strong>S</strong> = aucun rappel, doit revenir seul ; <strong>invité</strong> = arrivé par le lien de partage d'un joueur ; <strong>organique</strong> = arrivé sur la page sans lien personnel ni invitation. Une ouverture de page n'est pas une preuve d'intérêt : regardez d'abord « a commencé », « a terminé » et « revenu sans rappel ».</div>
     </section>
@@ -226,6 +226,7 @@
         a_demande: ev.some(e => e.type === "demande_suivante"),
         retours_spontanes_jours: joursSpont.size,
         retours_apres_rappel: cls("retour_apres_rappel").length,
+        retours_defi: cls("retour_defi").length,
         retours_rappel_probable: cls("retour_rappel_probable").length,
         partages: partages.length,
         appareils: new Set(visites.map(v => v.donnees.appareil).filter(Boolean)).size,
@@ -260,6 +261,7 @@
       ["A demandé une autre grille", x => x.a_demande],
       ["Revenu après un rappel", x => x.retours_apres_rappel > 0],
       ["Revenu sans rappel (au moins 1 jour)", x => x.retours_spontanes_jours > 0, true],
+      ["Revenu par le lien de Défi d'un ami (pas compté comme spontané)", x => x.retours_defi > 0],
       ["Revenu sans rappel 2 jours ou plus", x => x.retours_spontanes_jours >= 2],
       ["A cliqué sur « Inviter »", x => x.partages > 0],
       ["A fait venir un invité qui a joué", x => x.invites_actifs > 0],
@@ -285,6 +287,10 @@
       ["A réussi 5 exercices ou plus", x => reussis(x) >= 5],
       ["A consulté une solution", x => tr(x).some(e => e.donnees.action === "solution")],
       ["A passé un exercice", x => tr(x).some(e => e.donnees.action === "passe")],
+      ["Défi express : a ouvert le Défi", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "ouverture")],
+      ["Défi express : a terminé au moins une partie", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "fin")],
+      ["Défi express : a créé un défi entre amis", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "salon_cree")],
+      ["Défi express : a joué le défi d'un ami", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "salon_rejoint")],
     ];
     let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
     for (const [lib, f] of lignes) h += `<tr><td>${lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n} <span class="muted">(${pct(n, s.length)})</span></td>`; }).join("")}</tr>`;

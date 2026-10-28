@@ -54,6 +54,12 @@
    "rattachements_plausibles": {
     "DUR": [
      "Pain ___"
+    ],
+    "MOLLET": [
+     "Pain ___"
+    ],
+    "COCOTTE": [
+     "Pain ___"
     ]
    }
   },
@@ -337,7 +343,7 @@
      "difficulte": "intermediaire",
      "mots": [
       "GÉRANIUM",
-      "HORTENSIA",
+      "PÉTUNIA",
       "TOURNESOL",
       "BÉGONIA"
      ],
@@ -545,7 +551,7 @@
    "intention": "Trois catégories concrètes et une expression courante.",
    "groupes": [
     {
-     "categorie": "Arts martiaux asiatiques",
+     "categorie": "Sports de combat asiatiques",
      "difficulte": "facile",
      "mots": [
       "TAEKWONDO",
@@ -1140,7 +1146,7 @@
    "intention": "Trois catégories concrètes et une expression courante.",
    "groupes": [
     {
-     "categorie": "Grands fleuves",
+     "categorie": "Fleuves",
      "difficulte": "facile",
      "mots": [
       "RHIN",
@@ -1312,7 +1318,7 @@
      "explication": "Quatre sortes d'habitations."
     },
     {
-     "categorie": "Cris d'animaux",
+     "categorie": "Verbes de cris d'animaux",
      "difficulte": "facile",
      "mots": [
       "MIAULER",

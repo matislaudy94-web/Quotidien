@@ -1279,7 +1279,7 @@
      "COLONEL",
      "GÉNÉRAL"
     ],
-    "explication": "Quatre grades. Le soldat n'en est pas un, et il cache une note."
+    "explication": "Quatre grades d'officiers et sous-officiers. Le soldat est au bas de l'échelle, et surtout il commence par une note."
    },
    {
     "categorie": "Dans la salle de bain",
@@ -1320,7 +1320,7 @@
   "id": "g24",
   "titre": "Grille 24",
   "niveau": "difficile",
-  "intention": "Quatre mots se prononcent comme une lettre. DÉ et HACHE attirent vers d'autres groupes.",
+  "intention": "Quatre mots se prononcent comme une lettre. DÉ, HACHE et CAS attirent vers d'autres groupes.",
   "groupes": [
    {
     "categorie": "Se prononcent comme une lettre",
@@ -1373,6 +1373,9 @@
    ],
    "HACHE": [
     "Armes du Moyen Âge"
+   ],
+   "CAS": [
+    "Au tribunal"
    ]
   }
  },
@@ -1383,7 +1386,7 @@
   "intention": "Trois pièges : CISEAUX, FIANÇAILLES, FUNÉRAILLES et MŒURS attirent ailleurs, mais ils partagent une particularité grammaticale.",
   "groupes": [
    {
-    "categorie": "Mots toujours au pluriel",
+    "categorie": "Ne s'emploient qu'au pluriel",
     "difficulte": "difficile",
     "mots": [
      "CISEAUX",
@@ -1391,7 +1394,7 @@
      "FUNÉRAILLES",
      "MŒURS"
     ],
-    "explication": "Ces mots n'existent pas au singulier."
+    "explication": "Des ciseaux, des fiançailles, des funérailles, les mœurs : on ne les emploie pas au singulier (le ciseau du sculpteur est un autre outil)."
    },
    {
     "categorie": "Fournitures scolaires",
@@ -1528,10 +1531,10 @@
     "mots": [
      "SOUFFLE",
      "HERBE",
-     "COURANT",
+     "CORDON",
      "SIFFLET"
     ],
-    "explication": "Couper le souffle, couper l'herbe sous le pied, couper le courant, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
+    "explication": "Couper le souffle, couper l'herbe sous le pied, couper le cordon, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
    },
    {
     "categorie": "Perdre ___",
@@ -1540,9 +1543,9 @@
      "NORD",
      "FACE",
      "PATIENCE",
-     "HALEINE"
+     "CONNAISSANCE"
     ],
-    "explication": "Perdre le nord, perdre la face, perdre patience, perdre haleine. On perd aussi son souffle, mais il faut le couper."
+    "explication": "Perdre le nord, perdre la face, perdre patience, perdre connaissance. On perd aussi son souffle et le compte, mais il faut couper l'un et tenir l'autre."
    },
    {
     "categorie": "Rendre ___",
@@ -1564,7 +1567,8 @@
     "Couper ___"
    ],
    "COMPTE": [
-    "Rendre ___"
+    "Rendre ___",
+    "Perdre ___"
    ]
   }
  },
@@ -1586,7 +1590,7 @@
     "explication": "Pierre Corneille, Jean Racine, André Gide, Louis-Ferdinand Céline."
    },
    {
-    "categorie": "Oiseaux noirs ou gris",
+    "categorie": "Oiseaux des jardins",
     "difficulte": "intermediaire",
     "mots": [
      "MERLE",
@@ -1594,7 +1598,7 @@
      "GEAI",
      "ÉTOURNEAU"
     ],
-    "explication": "Quatre oiseaux. La corneille aussi, mais c'est surtout un dramaturge ici."
+    "explication": "Quatre oiseaux communs. La corneille aussi, mais c'est surtout un dramaturge ici."
    },
    {
     "categorie": "Parties d'une plante",
@@ -1621,7 +1625,7 @@
   ],
   "rattachements_plausibles": {
    "CORNEILLE": [
-    "Oiseaux noirs ou gris"
+    "Oiseaux des jardins"
    ],
    "RACINE": [
     "Parties d'une plante"
@@ -1740,12 +1744,12 @@
     "categorie": "Juger la valeur",
     "difficulte": "intermediaire",
     "mots": [
-     "ESTIMER",
+     "MESURER",
      "NOTER",
      "JAUGER",
      "APPRÉCIER"
     ],
-    "explication": "Quatre verbes pour juger. Évaluer aussi, mais il cache un prénom."
+    "explication": "Quatre verbes pour juger une valeur. Évaluer aussi, mais il commence par un prénom."
    }
   ],
   "rattachements_plausibles": {

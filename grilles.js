@@ -4,54 +4,62 @@ window.QUOTIDIEN_GRILLES = [
  {
   "id": "g1",
   "titre": "Grille 1",
-  "intention": "Grille d'accueil : catégories concrètes, aucun leurre volontaire. Mesure le plancher de difficulté.",
+  "intention": "Première impression : deux groupes concrets, deux groupes d'expressions qui se croisent. MER et TÊTE semblent aller dans les deux expressions, mais une seule répartition utilise les 16 mots.",
   "groupes": [
    {
-    "categorie": "Fromages français",
+    "categorie": "Instruments à cordes",
     "difficulte": "facile",
     "mots": [
-     "BRIE",
-     "COMTÉ",
-     "ROQUEFORT",
-     "REBLOCHON"
+     "GUITARE",
+     "VIOLON",
+     "HARPE",
+     "BANJO"
     ],
-    "explication": "Quatre fromages français très connus."
+    "explication": "Quatre instruments de musique à cordes."
    },
    {
-    "categorie": "Ustensiles de cuisine",
-    "difficulte": "facile",
-    "mots": [
-     "LOUCHE",
-     "PASSOIRE",
-     "ÉCUMOIRE",
-     "MANDOLINE"
-    ],
-    "explication": "Objets de cuisine. La mandoline est aussi un instrument, mais ici c'est la râpe à lames."
-   },
-   {
-    "categorie": "___ de terre",
-    "difficulte": "facile",
-    "mots": [
-     "POMME",
-     "VER",
-     "TREMBLEMENT",
-     "MOTTE"
-    ],
-    "explication": "Pomme de terre, ver de terre, tremblement de terre, motte de terre."
-   },
-   {
-    "categorie": "Coup de ___",
+    "categorie": "Ils ont des dents",
     "difficulte": "intermediaire",
     "mots": [
-     "FOUDRE",
-     "POUCE",
-     "THÉÂTRE",
-     "SOLEIL"
+     "PEIGNE",
+     "SCIE",
+     "FOURCHETTE",
+     "RÂTEAU"
     ],
-    "explication": "Coup de foudre, coup de pouce, coup de théâtre, coup de soleil."
+    "explication": "Des objets qui ont des dents : celles du peigne, de la scie, de la fourchette et du râteau."
+   },
+   {
+    "categorie": "Mal de ___",
+    "difficulte": "facile",
+    "mots": [
+     "MER",
+     "DOS",
+     "GORGE",
+     "TÊTE"
+    ],
+    "explication": "Mal de mer, mal de dos, mal de gorge, mal de tête."
+   },
+   {
+    "categorie": "Prendre la ___",
+    "difficulte": "difficile",
+    "mots": [
+     "PORTE",
+     "MOUCHE",
+     "FUITE",
+     "PAROLE"
+    ],
+    "explication": "Prendre la porte, prendre la mouche, prendre la fuite, prendre la parole. On dit aussi « prendre la mer » et « prendre la tête », mais ces deux mots sont indispensables au groupe « Mal de ___ »."
    }
   ],
-  "rattachements_plausibles": {}
+  "rattachements_plausibles": {
+   "MER": [
+    "Prendre la ___"
+   ],
+   "TÊTE": [
+    "Prendre la ___"
+   ]
+  },
+  "niveau": "facile"
  },
  {
   "id": "g2",
@@ -67,7 +75,7 @@ window.QUOTIDIEN_GRILLES = [
      "SATURNE",
      "JUPITER"
     ],
-    "explication": "Quatre planètes. Mars est aussi un mois, sans autre groupe concerné ici."
+    "explication": "Quatre planètes."
    },
    {
     "categorie": "Danses",
@@ -76,20 +84,20 @@ window.QUOTIDIEN_GRILLES = [
      "SALSA",
      "TANGO",
      "VALSE",
-     "JAVA"
+     "RUMBA"
     ],
-    "explication": "La java est une danse de bal musette."
+    "explication": "Quatre danses de couple. Le blues est aussi une danse, mais il manque au groupe « Avoir le ___ »."
    },
    {
-    "categorie": "Avoir le ___ (un état d'âme)",
+    "categorie": "Avoir le ___ (être triste)",
     "difficulte": "intermediaire",
     "mots": [
      "CAFARD",
      "BOURDON",
      "BLUES",
-     "TRAC"
+     "SPLEEN"
     ],
-    "explication": "Avoir le cafard, le bourdon, le blues (être triste), le trac (avoir peur avant de se produire)."
+    "explication": "Avoir le cafard, le bourdon, le blues, le spleen : quatre façons de dire qu'on n'a pas le moral."
    },
    {
     "categorie": "Un animal caché dans le mot",
@@ -100,7 +108,7 @@ window.QUOTIDIEN_GRILLES = [
      "LOUPE",
      "PIRATE"
     ],
-    "explication": "BOUC-herie, CHEVAL-et, LOUP-e, pi-RAT-e."
+    "explication": "BOUC-herie, CHEVAL-et, LOUP-e, pi-RAT-e. Le cafard et le bourdon sont des animaux entiers, pas cachés : ils servent au groupe « Avoir le ___ »."
    }
   ],
   "rattachements_plausibles": {
@@ -108,76 +116,1655 @@ window.QUOTIDIEN_GRILLES = [
     "Danses"
    ],
    "CAFARD": [
-    "animal (au sens propre, pas caché)"
+    "Un animal caché dans le mot"
    ],
    "BOURDON": [
-    "animal (au sens propre, pas caché)"
+    "Un animal caché dans le mot"
    ]
-  }
+  },
+  "niveau": "intermediaire"
  },
  {
   "id": "g3",
   "titre": "Grille 3",
-  "intention": "Grille à leurre volontaire : plusieurs fruits rouges sont aussi des nuances de rouge. La solution reste unique. Mesure si un leurre est perçu comme astucieux ou injuste.",
+  "intention": "Grille à piège : huit fruits sont visibles, mais quatre d'entre eux sont aussi des couleurs. Les pierres précieuses sont elles aussi des noms de couleurs. Le joueur doit trouver le critère qui sépare les fruits, pas seulement éliminer.",
   "groupes": [
    {
-    "categorie": "Fruits rouges",
-    "difficulte": "facile",
+    "categorie": "Fruits",
+    "difficulte": "intermediaire",
     "mots": [
-     "FRAISE",
-     "FRAMBOISE",
-     "CERISE",
-     "GROSEILLE"
+     "ANANAS",
+     "POIRE",
+     "LITCHI",
+     "PASTÈQUE"
     ],
-    "explication": "Quatre fruits rouges."
-   },
-   {
-    "categorie": "Écrivains français",
-    "difficulte": "facile",
-    "mots": [
-     "HUGO",
-     "ZOLA",
-     "BALZAC",
-     "PROUST"
-    ],
-    "explication": "Victor Hugo, Émile Zola, Honoré de Balzac, Marcel Proust."
+    "explication": "Quatre fruits qui ne désignent pas de couleur. Ils se trouvent une fois qu'on a compris ce qui distingue les quatre autres fruits."
    },
    {
     "categorie": "Porte-___",
     "difficulte": "intermediaire",
     "mots": [
      "MONNAIE",
-     "CLÉS",
-     "PAROLE",
-     "BONHEUR"
+     "CLÉ",
+     "BONHEUR",
+     "AVION"
     ],
-    "explication": "Porte-monnaie, porte-clés, porte-parole, porte-bonheur."
+    "explication": "Porte-monnaie, porte-clé, porte-bonheur, porte-avions."
    },
    {
-    "categorie": "Nuances de rouge",
+    "categorie": "Pierres qui sont aussi des couleurs",
     "difficulte": "intermediaire",
     "mots": [
-     "BORDEAUX",
-     "CARMIN",
-     "GRENAT",
-     "VERMILLON"
+     "RUBIS",
+     "SAPHIR",
+     "ÉMERAUDE",
+     "TURQUOISE"
     ],
-    "explication": "Bordeaux, carmin, grenat, vermillon. Cerise, fraise, framboise et groseille sont aussi des couleurs, mais il faut les quatre fruits pour compléter l'autre groupe : le leurre est volontaire."
+    "explication": "Rubis, saphir, émeraude, turquoise : quatre pierres qui ont donné leur nom à une couleur."
+   },
+   {
+    "categorie": "Fruits qui sont aussi des couleurs",
+    "difficulte": "difficile",
+    "mots": [
+     "ORANGE",
+     "CERISE",
+     "PRUNE",
+     "PÊCHE"
+    ],
+    "explication": "Orange, cerise, prune et pêche désignent un fruit et une couleur. Il y avait huit fruits : il fallait trouver ce qui sépare ces quatre-là des autres."
    }
   ],
   "rattachements_plausibles": {
+   "ORANGE": [
+    "Fruits"
+   ],
    "CERISE": [
-    "Nuances de rouge"
+    "Fruits"
    ],
-   "FRAISE": [
-    "Nuances de rouge"
+   "PRUNE": [
+    "Fruits"
    ],
-   "FRAMBOISE": [
-    "Nuances de rouge"
-   ],
-   "GROSEILLE": [
-    "Nuances de rouge"
+   "PÊCHE": [
+    "Fruits"
    ]
+  },
+  "niveau": "difficile"
+ },
+ {
+  "id": "g4",
+  "titre": "Grille 4",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Légumes verts",
+    "difficulte": "facile",
+    "mots": [
+     "COURGETTE",
+     "ÉPINARD",
+     "BROCOLI",
+     "HARICOT"
+    ],
+    "explication": "Quatre légumes verts."
+   },
+   {
+    "categorie": "Pièces de la maison",
+    "difficulte": "facile",
+    "mots": [
+     "CUISINE",
+     "SALON",
+     "CHAMBRE",
+     "GRENIER"
+    ],
+    "explication": "Quatre pièces d'une maison."
+   },
+   {
+    "categorie": "Métiers de la santé",
+    "difficulte": "facile",
+    "mots": [
+     "MÉDECIN",
+     "INFIRMIER",
+     "DENTISTE",
+     "PHARMACIEN"
+    ],
+    "explication": "Quatre professions de santé."
+   },
+   {
+    "categorie": "Bain de ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "SOLEIL",
+     "MINUIT",
+     "FOULE",
+     "BOUE"
+    ],
+    "explication": "Bain de soleil, bain de minuit, bain de foule, bain de boue."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g5",
+  "titre": "Grille 5",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Sports de raquette",
+    "difficulte": "facile",
+    "mots": [
+     "TENNIS",
+     "BADMINTON",
+     "SQUASH",
+     "PADEL"
+    ],
+    "explication": "Quatre sports qui se jouent avec une raquette."
+   },
+   {
+    "categorie": "Oiseaux",
+    "difficulte": "facile",
+    "mots": [
+     "MOINEAU",
+     "PIGEON",
+     "CORBEAU",
+     "HIRONDELLE"
+    ],
+    "explication": "Quatre oiseaux."
+   },
+   {
+    "categorie": "Desserts",
+    "difficulte": "facile",
+    "mots": [
+     "TARTE",
+     "MOUSSE",
+     "FLAN",
+     "CLAFOUTIS"
+    ],
+    "explication": "Quatre desserts."
+   },
+   {
+    "categorie": "___ d'or",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BALLON",
+     "ÂGE",
+     "NOMBRE",
+     "CŒUR"
+    ],
+    "explication": "Ballon d'or, âge d'or, nombre d'or, cœur d'or."
+   }
+  ],
+  "rattachements_plausibles": {
+   "BALLON": [
+    "Sports de raquette"
+   ]
+  }
+ },
+ {
+  "id": "g6",
+  "titre": "Grille 6",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Fleurs",
+    "difficulte": "facile",
+    "mots": [
+     "TULIPE",
+     "JONQUILLE",
+     "MARGUERITE",
+     "PIVOINE"
+    ],
+    "explication": "Quatre fleurs."
+   },
+   {
+    "categorie": "Outils",
+    "difficulte": "facile",
+    "mots": [
+     "MARTEAU",
+     "TOURNEVIS",
+     "PINCE",
+     "PERCEUSE"
+    ],
+    "explication": "Quatre outils de bricolage."
+   },
+   {
+    "categorie": "Transports urbains",
+    "difficulte": "facile",
+    "mots": [
+     "TRAMWAY",
+     "MÉTRO",
+     "VÉLO",
+     "TROTTINETTE"
+    ],
+    "explication": "Quatre façons de se déplacer en ville."
+   },
+   {
+    "categorie": "Carte ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BLEUE",
+     "POSTALE",
+     "VITALE",
+     "GRISE"
+    ],
+    "explication": "Carte bleue, carte postale, carte Vitale, carte grise."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g7",
+  "titre": "Grille 7",
+  "niveau": "facile",
+  "intention": "Deux groupes autour du mot « vent », sans confusion possible.",
+  "groupes": [
+   {
+    "categorie": "Fromages",
+    "difficulte": "facile",
+    "mots": [
+     "CAMEMBERT",
+     "ROQUEFORT",
+     "COMTÉ",
+     "REBLOCHON"
+    ],
+    "explication": "Quatre fromages français."
+   },
+   {
+    "categorie": "Pays d'Europe",
+    "difficulte": "facile",
+    "mots": [
+     "ITALIE",
+     "ESPAGNE",
+     "PORTUGAL",
+     "BELGIQUE"
+    ],
+    "explication": "Quatre pays européens."
+   },
+   {
+    "categorie": "Instruments à vent",
+    "difficulte": "facile",
+    "mots": [
+     "FLÛTE",
+     "TROMPETTE",
+     "CLARINETTE",
+     "SAXOPHONE"
+    ],
+    "explication": "Quatre instruments dans lesquels on souffle."
+   },
+   {
+    "categorie": "Noms de vents",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MISTRAL",
+     "TRAMONTANE",
+     "SIROCCO",
+     "ALIZÉ"
+    ],
+    "explication": "Quatre vents : mistral, tramontane, sirocco, alizé."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g8",
+  "titre": "Grille 8",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Animaux de la ferme",
+    "difficulte": "facile",
+    "mots": [
+     "VACHE",
+     "COCHON",
+     "POULE",
+     "MOUTON"
+    ],
+    "explication": "Quatre animaux de la ferme."
+   },
+   {
+    "categorie": "Formes géométriques",
+    "difficulte": "facile",
+    "mots": [
+     "CARRÉ",
+     "CERCLE",
+     "TRIANGLE",
+     "LOSANGE"
+    ],
+    "explication": "Quatre formes."
+   },
+   {
+    "categorie": "Boissons chaudes",
+    "difficulte": "facile",
+    "mots": [
+     "CAFÉ",
+     "CHOCOLAT",
+     "TISANE",
+     "CAPPUCCINO"
+    ],
+    "explication": "Quatre boissons que l'on boit chaudes."
+   },
+   {
+    "categorie": "Salle de ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BAIN",
+     "CLASSE",
+     "SPORT",
+     "SÉJOUR"
+    ],
+    "explication": "Salle de bain, salle de classe, salle de sport, salle de séjour."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g9",
+  "titre": "Grille 9",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Insectes",
+    "difficulte": "facile",
+    "mots": [
+     "FOURMI",
+     "ABEILLE",
+     "PAPILLON",
+     "COCCINELLE"
+    ],
+    "explication": "Quatre insectes."
+   },
+   {
+    "categorie": "Vêtements",
+    "difficulte": "facile",
+    "mots": [
+     "PANTALON",
+     "CHEMISE",
+     "MANTEAU",
+     "ÉCHARPE"
+    ],
+    "explication": "Quatre vêtements. Le nœud papillon en est presque un, mais le papillon est d'abord un insecte."
+   },
+   {
+    "categorie": "Métaux",
+    "difficulte": "facile",
+    "mots": [
+     "FER",
+     "CUIVRE",
+     "ARGENT",
+     "PLOMB"
+    ],
+    "explication": "Quatre métaux. L'argent est aussi la monnaie, mais aucun autre groupe ne parle d'argent."
+   },
+   {
+    "categorie": "Coup de ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "FOUDRE",
+     "POUCE",
+     "THÉÂTRE",
+     "FIL"
+    ],
+    "explication": "Coup de foudre, coup de pouce, coup de théâtre, coup de fil."
+   }
+  ],
+  "rattachements_plausibles": {
+   "PAPILLON": [
+    "Vêtements"
+   ]
+  }
+ },
+ {
+  "id": "g10",
+  "titre": "Grille 10",
+  "niveau": "facile",
+  "intention": "Un petit piège : ROUGE est une couleur, mais il manque aux poissons.",
+  "groupes": [
+   {
+    "categorie": "Couleurs",
+    "difficulte": "facile",
+    "mots": [
+     "VERT",
+     "JAUNE",
+     "NOIR",
+     "VIOLET"
+    ],
+    "explication": "Quatre couleurs. Rouge en est une aussi, mais il faut quatre poissons."
+   },
+   {
+    "categorie": "Mois de l'année",
+    "difficulte": "facile",
+    "mots": [
+     "JANVIER",
+     "JUIN",
+     "JUILLET",
+     "OCTOBRE"
+    ],
+    "explication": "Quatre mois."
+   },
+   {
+    "categorie": "Fruits de mer",
+    "difficulte": "facile",
+    "mots": [
+     "HUÎTRE",
+     "MOULE",
+     "CREVETTE",
+     "HOMARD"
+    ],
+    "explication": "Quatre fruits de mer."
+   },
+   {
+    "categorie": "Poisson ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "ROUGE",
+     "CHAT",
+     "CLOWN",
+     "PANÉ"
+    ],
+    "explication": "Poisson rouge, poisson-chat, poisson-clown, poisson pané."
+   }
+  ],
+  "rattachements_plausibles": {
+   "ROUGE": [
+    "Couleurs"
+   ]
+  }
+ },
+ {
+  "id": "g11",
+  "titre": "Grille 11",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Capitales européennes",
+    "difficulte": "facile",
+    "mots": [
+     "PARIS",
+     "ROME",
+     "MADRID",
+     "LISBONNE"
+    ],
+    "explication": "Quatre capitales."
+   },
+   {
+    "categorie": "Parties du visage",
+    "difficulte": "facile",
+    "mots": [
+     "NEZ",
+     "BOUCHE",
+     "JOUE",
+     "MENTON"
+    ],
+    "explication": "Quatre parties du visage."
+   },
+   {
+    "categorie": "Ustensiles de cuisine",
+    "difficulte": "facile",
+    "mots": [
+     "LOUCHE",
+     "PASSOIRE",
+     "ÉCUMOIRE",
+     "SPATULE"
+    ],
+    "explication": "Quatre ustensiles."
+   },
+   {
+    "categorie": "Table de ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "JARDIN",
+     "CHEVET",
+     "MULTIPLICATION",
+     "MIXAGE"
+    ],
+    "explication": "Table de jardin, table de chevet, table de multiplication, table de mixage."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g12",
+  "titre": "Grille 12",
+  "niveau": "facile",
+  "intention": "Catégories concrètes et une expression courante.",
+  "groupes": [
+   {
+    "categorie": "Félins",
+    "difficulte": "facile",
+    "mots": [
+     "LION",
+     "TIGRE",
+     "GUÉPARD",
+     "PANTHÈRE"
+    ],
+    "explication": "Quatre félins."
+   },
+   {
+    "categorie": "Sports d'hiver",
+    "difficulte": "facile",
+    "mots": [
+     "SKI",
+     "LUGE",
+     "PATINAGE",
+     "BIATHLON"
+    ],
+    "explication": "Quatre sports d'hiver."
+   },
+   {
+    "categorie": "Pâtes",
+    "difficulte": "facile",
+    "mots": [
+     "SPAGHETTI",
+     "PENNE",
+     "LASAGNE",
+     "RAVIOLI"
+    ],
+    "explication": "Quatre sortes de pâtes."
+   },
+   {
+    "categorie": "___ blanc",
+    "difficulte": "intermediaire",
+    "mots": [
+     "VIN",
+     "MARIAGE",
+     "BULLETIN",
+     "EXAMEN"
+    ],
+    "explication": "Vin blanc, mariage blanc, bulletin blanc, examen blanc."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g13",
+  "titre": "Grille 13",
+  "niveau": "intermediaire",
+  "intention": "Une expression, un groupe de pains dont les noms sont aussi des objets, des chapeaux aux noms trompeurs.",
+  "groupes": [
+   {
+    "categorie": "Casser la ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "CROÛTE",
+     "BARAQUE",
+     "GRAINE",
+     "FIGURE"
+    ],
+    "explication": "Casser la croûte, casser la baraque, casser la graine, casser la figure."
+   },
+   {
+    "categorie": "Types de pain",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BAGUETTE",
+     "FICELLE",
+     "BOULE",
+     "BÂTARD"
+    ],
+    "explication": "Quatre formes de pain : la baguette, la ficelle, la boule, le bâtard."
+   },
+   {
+    "categorie": "Matériel de pêche",
+    "difficulte": "intermediaire",
+    "mots": [
+     "HAMEÇON",
+     "CANNE",
+     "MOULINET",
+     "APPÂT"
+    ],
+    "explication": "Ce qu'il faut pour pêcher."
+   },
+   {
+    "categorie": "Chapeaux",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BÉRET",
+     "CASQUETTE",
+     "MELON",
+     "PANAMA"
+    ],
+    "explication": "Quatre couvre-chefs. Le melon et le panama ne sont pas ici un fruit ni un pays."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g14",
+  "titre": "Grille 14",
+  "niveau": "intermediaire",
+  "intention": "Deux pièges : VOILES fait partie d'un bateau, POINTS est une ponctuation. Mais l'expression a besoin des deux.",
+  "groupes": [
+   {
+    "categorie": "Mettre les ___",
+    "difficulte": "difficile",
+    "mots": [
+     "VOILES",
+     "BOUCHÉES",
+     "PIEDS",
+     "POINTS"
+    ],
+    "explication": "Mettre les voiles, mettre les bouchées doubles, mettre les pieds dans le plat, mettre les points sur les i."
+   },
+   {
+    "categorie": "Parties d'un bateau",
+    "difficulte": "intermediaire",
+    "mots": [
+     "COQUE",
+     "PONT",
+     "MÂT",
+     "GOUVERNAIL"
+    ],
+    "explication": "Quatre parties d'un bateau. Les voiles aussi, mais elles servent à l'expression."
+   },
+   {
+    "categorie": "Jeux de cartes",
+    "difficulte": "facile",
+    "mots": [
+     "POKER",
+     "BELOTE",
+     "TAROT",
+     "BRIDGE"
+    ],
+    "explication": "Quatre jeux de cartes."
+   },
+   {
+    "categorie": "Signes de ponctuation",
+    "difficulte": "intermediaire",
+    "mots": [
+     "VIRGULE",
+     "TIRET",
+     "PARENTHÈSE",
+     "ACCOLADE"
+    ],
+    "explication": "Quatre signes. Le point aussi, mais il faut le mettre sur les i."
+   }
+  ],
+  "rattachements_plausibles": {
+   "VOILES": [
+    "Parties d'un bateau"
+   ],
+   "POINTS": [
+    "Signes de ponctuation"
+   ]
+  }
+ },
+ {
+  "id": "g15",
+  "titre": "Grille 15",
+  "niveau": "intermediaire",
+  "intention": "Grille à thème : chaque groupe a une partie du corps. LIT a une tête et un pied, la comète a une tête et une queue.",
+  "groupes": [
+   {
+    "categorie": "Ils ont une queue",
+    "difficulte": "intermediaire",
+    "mots": [
+     "COMÈTE",
+     "BILLARD",
+     "CASSEROLE",
+     "POÊLE"
+    ],
+    "explication": "Queue de comète, queue de billard, queue de casserole, queue de poêle."
+   },
+   {
+    "categorie": "Ils ont un pied",
+    "difficulte": "intermediaire",
+    "mots": [
+     "LAMPE",
+     "VERRE",
+     "BICHE",
+     "VIGNE"
+    ],
+    "explication": "Pied de lampe, pied de verre, pied de vigne, pied-de-biche."
+   },
+   {
+    "categorie": "Ils ont une tête",
+    "difficulte": "intermediaire",
+    "mots": [
+     "LIT",
+     "ÉPINGLE",
+     "CLOU",
+     "LECTURE"
+    ],
+    "explication": "Tête de lit, tête d'épingle, tête de clou, tête de lecture. Le lit a aussi un pied, mais on avait déjà quatre pieds."
+   },
+   {
+    "categorie": "Ils ont un cœur",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MÉTIER",
+     "PALMIER",
+     "CIBLE",
+     "VILLE"
+    ],
+    "explication": "Cœur de métier, cœur de palmier, cœur de cible, cœur de ville."
+   }
+  ],
+  "rattachements_plausibles": {
+   "LIT": [
+    "Ils ont un pied"
+   ],
+   "COMÈTE": [
+    "Ils ont une tête"
+   ]
+  }
+ },
+ {
+  "id": "g16",
+  "titre": "Grille 16",
+  "niveau": "intermediaire",
+  "intention": "Grille à thème : des nuances de couleur. Il faut retrouver la couleur de base de chaque mot.",
+  "groupes": [
+   {
+    "categorie": "Jaune ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "SAFRAN",
+     "POUSSIN",
+     "MOUTARDE",
+     "PAILLE"
+    ],
+    "explication": "Jaune safran, jaune poussin, jaune moutarde, jaune paille."
+   },
+   {
+    "categorie": "Vert ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "POMME",
+     "OLIVE",
+     "BOUTEILLE",
+     "SAPIN"
+    ],
+    "explication": "Vert pomme, vert olive, vert bouteille, vert sapin."
+   },
+   {
+    "categorie": "Bleu ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MARINE",
+     "CIEL",
+     "ROI",
+     "CANARD"
+    ],
+    "explication": "Bleu marine, bleu ciel, bleu roi, bleu canard."
+   },
+   {
+    "categorie": "Rouge ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "TOMATE",
+     "BRIQUE",
+     "COQUELICOT",
+     "SANG"
+    ],
+    "explication": "Rouge tomate, rouge brique, rouge coquelicot, rouge sang."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g17",
+  "titre": "Grille 17",
+  "niveau": "intermediaire",
+  "intention": "Deux pièges : KAYAK est une embarcation et TAM-TAM une percussion, mais ils sont indispensables à leurs jeux de lettres.",
+  "groupes": [
+   {
+    "categorie": "Palindromes",
+    "difficulte": "difficile",
+    "mots": [
+     "KAYAK",
+     "RADAR",
+     "ÉTÉ",
+     "ICI"
+    ],
+    "explication": "Ces mots se lisent dans les deux sens."
+   },
+   {
+    "categorie": "Mots à syllabe doublée",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BONBON",
+     "COUSCOUS",
+     "YO-YO",
+     "TAM-TAM"
+    ],
+    "explication": "Bon-bon, cous-cous, yo-yo, tam-tam."
+   },
+   {
+    "categorie": "Embarcations",
+    "difficulte": "facile",
+    "mots": [
+     "CANOË",
+     "PIROGUE",
+     "VOILIER",
+     "GONDOLE"
+    ],
+    "explication": "Quatre bateaux. Le kayak aussi, mais c'est un palindrome."
+   },
+   {
+    "categorie": "Percussions",
+    "difficulte": "intermediaire",
+    "mots": [
+     "TAMBOUR",
+     "CYMBALE",
+     "MARACAS",
+     "XYLOPHONE"
+    ],
+    "explication": "Quatre percussions. Le tam-tam aussi, mais sa syllabe se double."
+   }
+  ],
+  "rattachements_plausibles": {
+   "KAYAK": [
+    "Embarcations"
+   ],
+   "TAM-TAM": [
+    "Percussions"
+   ]
+  }
+ },
+ {
+  "id": "g18",
+  "titre": "Grille 18",
+  "niveau": "intermediaire",
+  "intention": "Grille à thème : « ils ont des… ». PIN a des aiguilles et des branches.",
+  "groupes": [
+   {
+    "categorie": "Ils ont des touches",
+    "difficulte": "intermediaire",
+    "mots": [
+     "PIANO",
+     "CLAVIER",
+     "TÉLÉPHONE",
+     "ACCORDÉON"
+    ],
+    "explication": "On appuie sur leurs touches."
+   },
+   {
+    "categorie": "Ils ont des aiguilles",
+    "difficulte": "intermediaire",
+    "mots": [
+     "HORLOGE",
+     "BOUSSOLE",
+     "SERINGUE",
+     "PIN"
+    ],
+    "explication": "Aiguilles d'horloge, de boussole, de seringue, de pin."
+   },
+   {
+    "categorie": "Ils ont des branches",
+    "difficulte": "intermediaire",
+    "mots": [
+     "ÉTOILE",
+     "LUNETTES",
+     "FAMILLE",
+     "CHANDELIER"
+    ],
+    "explication": "Branches d'une étoile, de lunettes, d'une famille, d'un chandelier. Le pin aussi, mais il fallait ses aiguilles."
+   },
+   {
+    "categorie": "Ils ont des ailes",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MOULIN",
+     "CHÂTEAU",
+     "HÔPITAL",
+     "ANGE"
+    ],
+    "explication": "Ailes de moulin, de château, d'hôpital, d'ange."
+   }
+  ],
+  "rattachements_plausibles": {
+   "PIN": [
+    "Ils ont des branches"
+   ]
+  }
+ },
+ {
+  "id": "g19",
+  "titre": "Grille 19",
+  "niveau": "intermediaire",
+  "intention": "Deux expressions (fermer, battre) et deux catégories plus sages.",
+  "groupes": [
+   {
+    "categorie": "Fermer les ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "YEUX",
+     "VOLETS",
+     "GUILLEMETS",
+     "ÉCOUTILLES"
+    ],
+    "explication": "Fermer les yeux, fermer les volets, fermer les guillemets, fermer les écoutilles."
+   },
+   {
+    "categorie": "Battre ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "RECORD",
+     "RETRAITE",
+     "PAVILLON",
+     "CAMPAGNE"
+    ],
+    "explication": "Battre un record, battre en retraite, battre pavillon, battre la campagne."
+   },
+   {
+    "categorie": "Météo",
+    "difficulte": "facile",
+    "mots": [
+     "GRÊLE",
+     "BRUME",
+     "GIBOULÉE",
+     "VERGLAS"
+    ],
+    "explication": "Quatre phénomènes météo."
+   },
+   {
+    "categorie": "Fleuves de France",
+    "difficulte": "facile",
+    "mots": [
+     "LOIRE",
+     "SEINE",
+     "RHÔNE",
+     "GARONNE"
+    ],
+    "explication": "Quatre fleuves français."
+   }
+  ],
+  "rattachements_plausibles": {}
+ },
+ {
+  "id": "g20",
+  "titre": "Grille 20",
+  "niveau": "intermediaire",
+  "intention": "LOUIS est un roi et une pièce d'or : un seul des deux groupes peut s'en passer.",
+  "groupes": [
+   {
+    "categorie": "Rois de France",
+    "difficulte": "intermediaire",
+    "mots": [
+     "LOUIS",
+     "CHARLES",
+     "PHILIPPE",
+     "HENRI"
+    ],
+    "explication": "Prénoms portés par des rois de France."
+   },
+   {
+    "categorie": "Prénoms qui sont des mots",
+    "difficulte": "intermediaire",
+    "mots": [
+     "PIERRE",
+     "VICTOIRE",
+     "CONSTANCE",
+     "BLANCHE"
+    ],
+    "explication": "Des prénoms qui sont aussi des noms communs ou des adjectifs."
+   },
+   {
+    "categorie": "Anciennes monnaies",
+    "difficulte": "intermediaire",
+    "mots": [
+     "FRANC",
+     "ÉCU",
+     "SOU",
+     "DENIER"
+    ],
+    "explication": "Quatre monnaies d'autrefois. Le louis aussi, mais c'était d'abord un roi."
+   },
+   {
+    "categorie": "Parties d'une église",
+    "difficulte": "intermediaire",
+    "mots": [
+     "NEF",
+     "CHŒUR",
+     "CLOCHER",
+     "AUTEL"
+    ],
+    "explication": "Quatre parties d'une église."
+   }
+  ],
+  "rattachements_plausibles": {
+   "LOUIS": [
+    "Anciennes monnaies"
+   ]
+  }
+ },
+ {
+  "id": "g21",
+  "titre": "Grille 21",
+  "niveau": "difficile",
+  "intention": "Trois pièges : ROSEAU, ROUGEOLE et VERTIGE semblent aller ailleurs. Il faut voir la couleur cachée.",
+  "groupes": [
+   {
+    "categorie": "Commencent par une couleur",
+    "difficulte": "difficile",
+    "mots": [
+     "VERTIGE",
+     "ROSEAU",
+     "ROUGEOLE",
+     "GRISOU"
+    ],
+    "explication": "VERT-ige, ROSE-au, ROUGE-ole, GRIS-ou."
+   },
+   {
+    "categorie": "Plantes d'eau",
+    "difficulte": "intermediaire",
+    "mots": [
+     "NÉNUPHAR",
+     "JONC",
+     "IRIS",
+     "LOTUS"
+    ],
+    "explication": "Quatre plantes des eaux et des marais. Le roseau aussi, mais il cache une couleur."
+   },
+   {
+    "categorie": "Maladies infantiles",
+    "difficulte": "intermediaire",
+    "mots": [
+     "VARICELLE",
+     "SCARLATINE",
+     "RUBÉOLE",
+     "COQUELUCHE"
+    ],
+    "explication": "Quatre maladies de l'enfance. La rougeole aussi, mais elle cache une couleur."
+   },
+   {
+    "categorie": "Sensations désagréables",
+    "difficulte": "intermediaire",
+    "mots": [
+     "NAUSÉE",
+     "FRISSON",
+     "CRAMPE",
+     "MIGRAINE"
+    ],
+    "explication": "Quatre sensations pénibles. Le vertige aussi, mais il cache une couleur."
+   }
+  ],
+  "rattachements_plausibles": {
+   "ROSEAU": [
+    "Plantes d'eau"
+   ],
+   "ROUGEOLE": [
+    "Maladies infantiles"
+   ],
+   "VERTIGE": [
+    "Sensations désagréables"
+   ]
+  }
+ },
+ {
+  "id": "g22",
+  "titre": "Grille 22",
+  "niveau": "intermediaire",
+  "intention": "LANGUE fait partie de la bouche, mais l'expression en a besoin. DAMES est un jeu, pas une pièce.",
+  "groupes": [
+   {
+    "categorie": "Donner sa ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "LANGUE",
+     "DÉMISSION",
+     "BÉNÉDICTION",
+     "CHANCE"
+    ],
+    "explication": "Donner sa langue au chat, donner sa démission, donner sa bénédiction, donner sa chance."
+   },
+   {
+    "categorie": "Dans la bouche",
+    "difficulte": "facile",
+    "mots": [
+     "DENT",
+     "LÈVRE",
+     "PALAIS",
+     "GENCIVE"
+    ],
+    "explication": "Quatre parties de la bouche. La langue aussi, mais on la donne au chat."
+   },
+   {
+    "categorie": "Jeux de société",
+    "difficulte": "facile",
+    "mots": [
+     "ÉCHECS",
+     "DAMES",
+     "DOMINOS",
+     "BATAILLE"
+    ],
+    "explication": "Quatre jeux. Les dames sont un jeu, même si la dame est aussi une pièce d'échecs."
+   },
+   {
+    "categorie": "Pièces d'échecs",
+    "difficulte": "intermediaire",
+    "mots": [
+     "REINE",
+     "TOUR",
+     "FOU",
+     "CAVALIER"
+    ],
+    "explication": "Quatre pièces du jeu d'échecs."
+   }
+  ],
+  "rattachements_plausibles": {
+   "LANGUE": [
+    "Dans la bouche"
+   ],
+   "DAMES": [
+    "Pièces d'échecs"
+   ]
+  }
+ },
+ {
+  "id": "g23",
+  "titre": "Grille 23",
+  "niveau": "difficile",
+  "intention": "Trois pièges : SOLDAT, LAVABO et SIROP semblent aller ailleurs. Il faut entendre la note par laquelle ils commencent.",
+  "groupes": [
+   {
+    "categorie": "Commencent par une note de musique",
+    "difficulte": "difficile",
+    "mots": [
+     "SOLDAT",
+     "LAVABO",
+     "SIROP",
+     "RÉSEAU"
+    ],
+    "explication": "SOL-dat, LA-vabo, SI-rop, RÉ-seau."
+   },
+   {
+    "categorie": "Grades militaires",
+    "difficulte": "intermediaire",
+    "mots": [
+     "CAPORAL",
+     "SERGENT",
+     "COLONEL",
+     "GÉNÉRAL"
+    ],
+    "explication": "Quatre grades d'officiers et sous-officiers. Le soldat est au bas de l'échelle, et surtout il commence par une note."
+   },
+   {
+    "categorie": "Dans la salle de bain",
+    "difficulte": "facile",
+    "mots": [
+     "BAIGNOIRE",
+     "SAVON",
+     "ÉPONGE",
+     "SERVIETTE"
+    ],
+    "explication": "Quatre objets de salle de bain. Le lavabo aussi, mais il cache une note."
+   },
+   {
+    "categorie": "Formes de médicaments",
+    "difficulte": "intermediaire",
+    "mots": [
+     "COMPRIMÉ",
+     "GÉLULE",
+     "POMMADE",
+     "PASTILLE"
+    ],
+    "explication": "Quatre formes de médicaments. Le sirop aussi, mais il cache une note."
+   }
+  ],
+  "rattachements_plausibles": {
+   "SOLDAT": [
+    "Grades militaires"
+   ],
+   "LAVABO": [
+    "Dans la salle de bain"
+   ],
+   "SIROP": [
+    "Formes de médicaments"
+   ]
+  }
+ },
+ {
+  "id": "g24",
+  "titre": "Grille 24",
+  "niveau": "difficile",
+  "intention": "Quatre mots se prononcent comme une lettre. DÉ, HACHE et CAS attirent vers d'autres groupes.",
+  "groupes": [
+   {
+    "categorie": "Se prononcent comme une lettre",
+    "difficulte": "difficile",
+    "mots": [
+     "THÉ",
+     "DÉ",
+     "HACHE",
+     "CAS"
+    ],
+    "explication": "T, D, H, K."
+   },
+   {
+    "categorie": "Accessoires de jeu de société",
+    "difficulte": "intermediaire",
+    "mots": [
+     "PION",
+     "JETON",
+     "PLATEAU",
+     "SABLIER"
+    ],
+    "explication": "Quatre accessoires. Le dé aussi, mais il se prononce comme une lettre."
+   },
+   {
+    "categorie": "Armes du Moyen Âge",
+    "difficulte": "intermediaire",
+    "mots": [
+     "ÉPÉE",
+     "LANCE",
+     "MASSE",
+     "ARBALÈTE"
+    ],
+    "explication": "Quatre armes anciennes. La hache aussi, mais elle se prononce comme une lettre."
+   },
+   {
+    "categorie": "Au tribunal",
+    "difficulte": "intermediaire",
+    "mots": [
+     "JUGE",
+     "AVOCAT",
+     "GREFFIER",
+     "VERDICT"
+    ],
+    "explication": "Quatre mots du tribunal."
+   }
+  ],
+  "rattachements_plausibles": {
+   "DÉ": [
+    "Accessoires de jeu de société"
+   ],
+   "HACHE": [
+    "Armes du Moyen Âge"
+   ],
+   "CAS": [
+    "Au tribunal"
+   ]
+  }
+ },
+ {
+  "id": "g25",
+  "titre": "Grille 25",
+  "niveau": "difficile",
+  "intention": "Trois pièges : CISEAUX, FIANÇAILLES, FUNÉRAILLES et MŒURS attirent ailleurs, mais ils partagent une particularité grammaticale.",
+  "groupes": [
+   {
+    "categorie": "Ne s'emploient qu'au pluriel",
+    "difficulte": "difficile",
+    "mots": [
+     "CISEAUX",
+     "FIANÇAILLES",
+     "FUNÉRAILLES",
+     "MŒURS"
+    ],
+    "explication": "Des ciseaux, des fiançailles, des funérailles, les mœurs : on ne les emploie pas au singulier (le ciseau du sculpteur est un autre outil)."
+   },
+   {
+    "categorie": "Fournitures scolaires",
+    "difficulte": "facile",
+    "mots": [
+     "GOMME",
+     "RÈGLE",
+     "TROUSSE",
+     "COMPAS"
+    ],
+    "explication": "Quatre fournitures. Les ciseaux aussi, mais ils n'ont pas de singulier."
+   },
+   {
+    "categorie": "Cérémonies",
+    "difficulte": "intermediaire",
+    "mots": [
+     "BAPTÊME",
+     "COMMUNION",
+     "SACRE",
+     "COURONNEMENT"
+    ],
+    "explication": "Quatre cérémonies. Les fiançailles et les funérailles aussi, mais elles n'ont pas de singulier."
+   },
+   {
+    "categorie": "Habitudes",
+    "difficulte": "intermediaire",
+    "mots": [
+     "COUTUME",
+     "USAGE",
+     "ROUTINE",
+     "TRADITION"
+    ],
+    "explication": "Quatre mots pour une habitude. Les mœurs aussi, mais elles n'ont pas de singulier."
+   }
+  ],
+  "rattachements_plausibles": {
+   "CISEAUX": [
+    "Fournitures scolaires"
+   ],
+   "FIANÇAILLES": [
+    "Cérémonies"
+   ],
+   "FUNÉRAILLES": [
+    "Cérémonies"
+   ],
+   "MŒURS": [
+    "Habitudes"
+   ]
+  }
+ },
+ {
+  "id": "g26",
+  "titre": "Grille 26",
+  "niveau": "difficile",
+  "intention": "Quatre pays se cachent dans des mots ordinaires, et chacun attire vers un autre groupe.",
+  "groupes": [
+   {
+    "categorie": "Un pays caché dans le mot",
+    "difficulte": "difficile",
+    "mots": [
+     "DINDE",
+     "ROMAN",
+     "MACHINE",
+     "MALICE"
+    ],
+    "explication": "d-INDE, r-OMAN, ma-CHINE, MALI-ce."
+   },
+   {
+    "categorie": "Volailles",
+    "difficulte": "facile",
+    "mots": [
+     "POULET",
+     "OIE",
+     "PINTADE",
+     "CAILLE"
+    ],
+    "explication": "Quatre volailles. La dinde aussi, mais elle cache un pays."
+   },
+   {
+    "categorie": "Genres littéraires",
+    "difficulte": "intermediaire",
+    "mots": [
+     "POÉSIE",
+     "NOUVELLE",
+     "ESSAI",
+     "CONTE"
+    ],
+    "explication": "Quatre genres. Le roman aussi, mais il cache un pays."
+   },
+   {
+    "categorie": "Défauts",
+    "difficulte": "intermediaire",
+    "mots": [
+     "AVARICE",
+     "PARESSE",
+     "ORGUEIL",
+     "JALOUSIE"
+    ],
+    "explication": "Quatre défauts. La malice aussi, mais elle cache un pays."
+   }
+  ],
+  "rattachements_plausibles": {
+   "DINDE": [
+    "Volailles"
+   ],
+   "ROMAN": [
+    "Genres littéraires"
+   ],
+   "MALICE": [
+    "Défauts"
+   ]
+  }
+ },
+ {
+  "id": "g27",
+  "titre": "Grille 27",
+  "niveau": "difficile",
+  "intention": "Grille à thème : quatre verbes. SOUFFLE, ROUTE et COMPTE vont avec deux verbes.",
+  "groupes": [
+   {
+    "categorie": "Tenir ___",
+    "difficulte": "difficile",
+    "mots": [
+     "PROMESSE",
+     "CHANDELLE",
+     "COMPTE",
+     "ROUTE"
+    ],
+    "explication": "Tenir sa promesse, tenir la chandelle, tenir compte, tenir la route."
+   },
+   {
+    "categorie": "Couper ___",
+    "difficulte": "difficile",
+    "mots": [
+     "SOUFFLE",
+     "HERBE",
+     "CORDON",
+     "SIFFLET"
+    ],
+    "explication": "Couper le souffle, couper l'herbe sous le pied, couper le cordon, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
+   },
+   {
+    "categorie": "Perdre ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "NORD",
+     "FACE",
+     "PATIENCE",
+     "CONNAISSANCE"
+    ],
+    "explication": "Perdre le nord, perdre la face, perdre patience, perdre connaissance. On perd aussi son souffle et le compte, mais il faut couper l'un et tenir l'autre."
+   },
+   {
+    "categorie": "Rendre ___",
+    "difficulte": "intermediaire",
+    "mots": [
+     "ÂME",
+     "VISITE",
+     "SERVICE",
+     "JUSTICE"
+    ],
+    "explication": "Rendre l'âme, rendre visite, rendre service, rendre justice. On rend aussi compte, mais il faut en tenir."
+   }
+  ],
+  "rattachements_plausibles": {
+   "SOUFFLE": [
+    "Perdre ___"
+   ],
+   "ROUTE": [
+    "Couper ___"
+   ],
+   "COMPTE": [
+    "Rendre ___",
+    "Perdre ___"
+   ]
+  }
+ },
+ {
+  "id": "g28",
+  "titre": "Grille 28",
+  "niveau": "difficile",
+  "intention": "CORNEILLE, RACINE et CÉLINE sont des écrivains… et autre chose.",
+  "groupes": [
+   {
+    "categorie": "Écrivains français",
+    "difficulte": "difficile",
+    "mots": [
+     "CORNEILLE",
+     "RACINE",
+     "GIDE",
+     "CÉLINE"
+    ],
+    "explication": "Pierre Corneille, Jean Racine, André Gide, Louis-Ferdinand Céline."
+   },
+   {
+    "categorie": "Oiseaux des jardins",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MERLE",
+     "PIE",
+     "GEAI",
+     "ÉTOURNEAU"
+    ],
+    "explication": "Quatre oiseaux communs. La corneille aussi, mais c'est surtout un dramaturge ici."
+   },
+   {
+    "categorie": "Parties d'une plante",
+    "difficulte": "facile",
+    "mots": [
+     "TIGE",
+     "FEUILLE",
+     "BOURGEON",
+     "SÈVE"
+    ],
+    "explication": "Quatre parties d'une plante. La racine aussi, mais c'est un dramaturge ici."
+   },
+   {
+    "categorie": "Prénoms féminins",
+    "difficulte": "facile",
+    "mots": [
+     "JULIE",
+     "SOPHIE",
+     "LÉA",
+     "CHLOÉ"
+    ],
+    "explication": "Quatre prénoms. Céline aussi, mais c'est un romancier ici."
+   }
+  ],
+  "rattachements_plausibles": {
+   "CORNEILLE": [
+    "Oiseaux des jardins"
+   ],
+   "RACINE": [
+    "Parties d'une plante"
+   ],
+   "CÉLINE": [
+    "Prénoms féminins"
+   ]
+  }
+ },
+ {
+  "id": "g29",
+  "titre": "Grille 29",
+  "niveau": "difficile",
+  "intention": "Quatre animaux sont aussi des objets ou des engins, et chacun a un groupe d'animaux ou d'engins pour l'attirer.",
+  "groupes": [
+   {
+    "categorie": "Un animal qui est aussi un engin",
+    "difficulte": "difficile",
+    "mots": [
+     "GRUE",
+     "SOURIS",
+     "PUCE",
+     "CHENILLE"
+    ],
+    "explication": "La grue de chantier, la souris d'ordinateur, la puce électronique, la chenille d'un char."
+   },
+   {
+    "categorie": "Rongeurs",
+    "difficulte": "facile",
+    "mots": [
+     "HAMSTER",
+     "ÉCUREUIL",
+     "CASTOR",
+     "MULOT"
+    ],
+    "explication": "Quatre rongeurs. La souris aussi, mais elle est aussi un engin."
+   },
+   {
+    "categorie": "Engins de chantier",
+    "difficulte": "intermediaire",
+    "mots": [
+     "PELLETEUSE",
+     "BULLDOZER",
+     "BÉTONNIÈRE",
+     "ROULEAU"
+    ],
+    "explication": "Quatre engins. La grue aussi, mais elle est aussi un animal."
+   },
+   {
+    "categorie": "Insectes qui piquent",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MOUSTIQUE",
+     "GUÊPE",
+     "TAON",
+     "FRELON"
+    ],
+    "explication": "Quatre insectes piqueurs. La puce aussi, mais elle est aussi un engin."
+   }
+  ],
+  "rattachements_plausibles": {
+   "SOURIS": [
+    "Rongeurs"
+   ],
+   "GRUE": [
+    "Engins de chantier"
+   ],
+   "PUCE": [
+    "Insectes qui piquent"
+   ],
+   "CHENILLE": [
+    "Insectes qui piquent"
+   ]
+  }
+ },
+ {
+  "id": "g30",
+  "titre": "Grille 30",
+  "niveau": "difficile",
+  "intention": "Quatre mots ordinaires commencent par un prénom, et chacun attire vers un autre groupe.",
+  "groupes": [
+   {
+    "categorie": "Commencent par un prénom",
+    "difficulte": "difficile",
+    "mots": [
+     "LUCARNE",
+     "MARCHAND",
+     "MAXIMUM",
+     "ÉVALUER"
+    ],
+    "explication": "LUC-arne, MARC-hand, MAX-imum, ÉVA-luer."
+   },
+   {
+    "categorie": "Ouvertures dans un mur",
+    "difficulte": "intermediaire",
+    "mots": [
+     "FENÊTRE",
+     "HUBLOT",
+     "VASISTAS",
+     "SOUPIRAIL"
+    ],
+    "explication": "Quatre ouvertures. La lucarne aussi, mais elle cache un prénom."
+   },
+   {
+    "categorie": "Le plus haut point",
+    "difficulte": "intermediaire",
+    "mots": [
+     "SOMMET",
+     "APOGÉE",
+     "ZÉNITH",
+     "COMBLE"
+    ],
+    "explication": "Quatre mots pour le point le plus haut. Le maximum aussi, mais il cache un prénom."
+   },
+   {
+    "categorie": "Juger la valeur",
+    "difficulte": "intermediaire",
+    "mots": [
+     "MESURER",
+     "NOTER",
+     "JAUGER",
+     "APPRÉCIER"
+    ],
+    "explication": "Quatre verbes pour juger une valeur. Évaluer aussi, mais il commence par un prénom."
+   }
+  ],
+  "rattachements_plausibles": {
+   "LUCARNE": [
+    "Ouvertures dans un mur"
+   ],
+   "MAXIMUM": [
+    "Le plus haut point"
+   ],
+   "ÉVALUER": [
+    "Juger la valeur"
+   ],
+   "MARCHAND": []
   }
  }
 ];

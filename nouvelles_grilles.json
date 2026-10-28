@@ -226,7 +226,7 @@
           "MANDARINE",
           "CLÉMENTINE"
         ],
-        "explication": "Des fruits à la peau épaisse et au jus acidulé."
+        "explication": "Des fruits juteux et acidulés de la famille des citrons."
       },
       {
         "categorie": "Métiers du bâtiment",
@@ -312,7 +312,7 @@
           "YEN",
           "LIVRE"
         ],
-        "explication": "La livre est aussi la monnaie britannique."
+        "explication": "L'euro, le dollar, le yen et la livre sterling."
       }
     ],
     "rattachements_plausibles": {}
@@ -403,7 +403,7 @@
           "KIWI",
           "ÉMEU"
         ],
-        "explication": "Le kiwi est aussi un oiseau de Nouvelle-Zélande."
+        "explication": "Quatre oiseaux incapables de voler. Le kiwi est aussi un fruit, mais il est pris."
       },
       {
         "categorie": "Fruits exotiques",
@@ -478,11 +478,11 @@
         "difficulte": "intermediaire",
         "mots": [
           "BUT",
-          "PAIX",
+          "ZOO",
           "MUSÉE",
           "PRISON"
         ],
-        "explication": "Gardien de but, de la paix, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
+        "explication": "Gardien de but, de zoo, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
       }
     ],
     "rattachements_plausibles": {
@@ -638,7 +638,7 @@
         "mots": [
           "PHARMACIE",
           "LIBRAIRIE",
-          "FLEURISTE",
+          "MERCERIE",
           "ÉPICERIE"
         ],
         "explication": "La boulangerie aussi, mais elle a les cinq voyelles."

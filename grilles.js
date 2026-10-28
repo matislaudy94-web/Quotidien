@@ -746,11 +746,11 @@ window.QUOTIDIEN_GRILLES = [
     "difficulte": "difficile",
     "mots": [
      "VOILES",
-     "BOUCHÉES",
+     "FORMES",
      "PIEDS",
      "POINTS"
     ],
-    "explication": "Mettre les voiles, mettre les bouchées doubles, mettre les pieds dans le plat, mettre les points sur les i."
+    "explication": "Mettre les voiles, mettre les formes, mettre les pieds dans le plat, mettre les points sur les i."
    },
    {
     "categorie": "Parties d'un bateau",
@@ -781,9 +781,9 @@ window.QUOTIDIEN_GRILLES = [
      "VIRGULE",
      "TIRET",
      "PARENTHÈSE",
-     "ACCOLADE"
+     "CROCHET"
     ],
-    "explication": "Quatre signes. Le point aussi, mais il faut le mettre sur les i."
+    "explication": "Quatre signes de ponctuation. Le point aussi, mais il faut le mettre sur les i."
    }
   ],
   "rattachements_plausibles": {
@@ -1220,7 +1220,7 @@ window.QUOTIDIEN_GRILLES = [
     "explication": "Donner sa langue au chat, donner sa démission, donner sa bénédiction, donner sa chance."
    },
    {
-    "categorie": "Dans la bouche",
+    "categorie": "Parties de la bouche",
     "difficulte": "facile",
     "mots": [
      "DENT",
@@ -1288,7 +1288,7 @@ window.QUOTIDIEN_GRILLES = [
      "COLONEL",
      "GÉNÉRAL"
     ],
-    "explication": "Quatre grades d'officiers et sous-officiers. Le soldat est au bas de l'échelle, et surtout il commence par une note."
+    "explication": "Quatre grades de l'armée. Le soldat est au bas de l'échelle, et surtout il commence par une note."
    },
    {
     "categorie": "Dans la salle de bain",
@@ -1540,10 +1540,10 @@ window.QUOTIDIEN_GRILLES = [
     "mots": [
      "SOUFFLE",
      "HERBE",
-     "CORDON",
+     "COURT",
      "SIFFLET"
     ],
-    "explication": "Couper le souffle, couper l'herbe sous le pied, couper le cordon, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
+    "explication": "Couper le souffle, couper l'herbe sous le pied, couper court, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
    },
    {
     "categorie": "Perdre ___",
@@ -1562,15 +1562,16 @@ window.QUOTIDIEN_GRILLES = [
     "mots": [
      "ÂME",
      "VISITE",
-     "SERVICE",
+     "HOMMAGE",
      "JUSTICE"
     ],
-    "explication": "Rendre l'âme, rendre visite, rendre service, rendre justice. On rend aussi compte, mais il faut en tenir."
+    "explication": "Rendre l'âme, rendre visite, rendre hommage, rendre justice. On rend aussi compte, mais il faut en tenir."
    }
   ],
   "rattachements_plausibles": {
    "SOUFFLE": [
-    "Perdre ___"
+    "Perdre ___",
+    "Rendre ___"
    ],
    "ROUTE": [
     "Couper ___",
@@ -1578,6 +1579,9 @@ window.QUOTIDIEN_GRILLES = [
    ],
    "COMPTE": [
     "Rendre ___",
+    "Perdre ___"
+   ],
+   "ÂME": [
     "Perdre ___"
    ]
   }
@@ -1603,7 +1607,7 @@ window.QUOTIDIEN_GRILLES = [
     "categorie": "Oiseaux des jardins",
     "difficulte": "intermediaire",
     "mots": [
-     "MERLE",
+     "MÉSANGE",
      "PIE",
      "GEAI",
      "ÉTOURNEAU"
@@ -1617,7 +1621,7 @@ window.QUOTIDIEN_GRILLES = [
      "TIGE",
      "FEUILLE",
      "BOURGEON",
-     "SÈVE"
+     "PÉTALE"
     ],
     "explication": "Quatre parties d'une plante. La racine aussi, mais c'est un dramaturge ici."
    },
@@ -1652,7 +1656,7 @@ window.QUOTIDIEN_GRILLES = [
   "intention": "Quatre animaux sont aussi des objets ou des engins, et chacun a un groupe d'animaux ou d'engins pour l'attirer.",
   "groupes": [
    {
-    "categorie": "Un animal qui est aussi un engin",
+    "categorie": "Un animal qui est aussi un objet technique",
     "difficulte": "difficile",
     "mots": [
      "GRUE",
@@ -1671,7 +1675,7 @@ window.QUOTIDIEN_GRILLES = [
      "CASTOR",
      "MULOT"
     ],
-    "explication": "Quatre rongeurs. La souris aussi, mais elle est aussi un engin."
+    "explication": "Quatre rongeurs. La souris aussi, mais c'est aussi un objet technique."
    },
    {
     "categorie": "Engins de chantier",
@@ -1693,7 +1697,7 @@ window.QUOTIDIEN_GRILLES = [
      "TAON",
      "FRELON"
     ],
-    "explication": "Quatre insectes piqueurs. La puce aussi, mais elle est aussi un engin."
+    "explication": "Quatre insectes piqueurs. La puce aussi, mais c'est aussi un objet technique."
    }
   ],
   "rattachements_plausibles": {
@@ -1729,7 +1733,7 @@ window.QUOTIDIEN_GRILLES = [
     "explication": "LUC-arne, MARC-hand, MAX-imum, ÉVA-luer."
    },
    {
-    "categorie": "Ouvertures dans un mur",
+    "categorie": "Ouvertures pour l'air et la lumière",
     "difficulte": "intermediaire",
     "mots": [
      "FENÊTRE",
@@ -1754,7 +1758,7 @@ window.QUOTIDIEN_GRILLES = [
     "categorie": "Juger la valeur",
     "difficulte": "intermediaire",
     "mots": [
-     "MESURER",
+     "EXPERTISER",
      "NOTER",
      "JAUGER",
      "APPRÉCIER"
@@ -1764,15 +1768,14 @@ window.QUOTIDIEN_GRILLES = [
   ],
   "rattachements_plausibles": {
    "LUCARNE": [
-    "Ouvertures dans un mur"
+    "Ouvertures pour l'air et la lumière"
    ],
    "MAXIMUM": [
     "Le plus haut point"
    ],
    "ÉVALUER": [
     "Juger la valeur"
-   ],
-   "MARCHAND": []
+   ]
   }
  },
  {
@@ -2002,7 +2005,7 @@ window.QUOTIDIEN_GRILLES = [
      "MANDARINE",
      "CLÉMENTINE"
     ],
-    "explication": "Des fruits à la peau épaisse et au jus acidulé."
+    "explication": "Des fruits juteux et acidulés de la famille des citrons."
    },
    {
     "categorie": "Métiers du bâtiment",
@@ -2088,7 +2091,7 @@ window.QUOTIDIEN_GRILLES = [
      "YEN",
      "LIVRE"
     ],
-    "explication": "La livre est aussi la monnaie britannique."
+    "explication": "L'euro, le dollar, le yen et la livre sterling."
    }
   ],
   "rattachements_plausibles": {}
@@ -2179,7 +2182,7 @@ window.QUOTIDIEN_GRILLES = [
      "KIWI",
      "ÉMEU"
     ],
-    "explication": "Le kiwi est aussi un oiseau de Nouvelle-Zélande."
+    "explication": "Quatre oiseaux incapables de voler. Le kiwi est aussi un fruit, mais il est pris."
    },
    {
     "categorie": "Fruits exotiques",
@@ -2254,11 +2257,11 @@ window.QUOTIDIEN_GRILLES = [
     "difficulte": "intermediaire",
     "mots": [
      "BUT",
-     "PAIX",
+     "ZOO",
      "MUSÉE",
      "PRISON"
     ],
-    "explication": "Gardien de but, de la paix, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
+    "explication": "Gardien de but, de zoo, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
    }
   ],
   "rattachements_plausibles": {
@@ -2414,7 +2417,7 @@ window.QUOTIDIEN_GRILLES = [
     "mots": [
      "PHARMACIE",
      "LIBRAIRIE",
-     "FLEURISTE",
+     "MERCERIE",
      "ÉPICERIE"
     ],
     "explication": "La boulangerie aussi, mais elle a les cinq voyelles."

@@ -66,7 +66,7 @@
   .tile.sel:active { box-shadow: 0 2px 0 var(--sel-edge); }
   .shake { animation: shake .3s; }
   @keyframes shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
-  .status { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0 6px; color: var(--muted); font-size: 14px; font-weight: 800; }
+  .status { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 16px 0 14px; color: var(--muted); font-size: 14px; font-weight: 800; }
   .dots { display: inline-flex; gap: 6px; align-items: center; }
   .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--life); box-shadow: inset 0 -3px 0 rgba(0,0,0,.2), 0 0 8px rgba(255,93,143,.45); }
   .dot.used { background: rgba(255,255,255,.14); box-shadow: inset 0 2px 3px rgba(0,0,0,.35); }
@@ -109,6 +109,27 @@
   .banner a { color: var(--focus); }
   #erreur.panel { text-align: center; }
   #chargement { color: var(--muted); }
+  .icon-rond { width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; }
+  .date-grille { text-align: center; margin: 12px 0 2px; font-family: var(--title); font-weight: 600; font-size: 15px; color: #fff; letter-spacing: .02em; }
+  .date-grille b { color: var(--c0); font-weight: 700; }
+  .tagline { margin-top: 2px !important; }
+  .zone-jeu { position: relative; }
+  .msg { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%) scale(.9); z-index: 3; margin: 0; min-height: 0;
+    background: #fff; color: var(--ink); padding: 10px 18px; border-radius: 999px; white-space: nowrap; pointer-events: none;
+    box-shadow: 0 5px 0 rgba(0,0,0,.25), 0 10px 24px rgba(0,0,0,.35); opacity: 0; transition: opacity .15s, transform .15s; }
+  .msg.visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .msg.bon { background: var(--ok); color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.2); }
+  .msg:empty { display: none; }
+  .coeur { width: 20px; height: 20px; display: block; }
+  .coeur path { fill: var(--life); filter: drop-shadow(0 0 4px rgba(255,93,143,.5)); }
+  .coeur.used path { fill: rgba(255,255,255,.16); filter: none; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+  .stat { background: #fff; border-radius: 16px; padding: 10px 4px 8px; text-align: center; box-shadow: 0 4px 0 #e2d6b8; }
+  .stat .v { font-family: var(--title); font-weight: 700; font-size: 24px; line-height: 1.1; color: var(--ink); }
+  .stat .l { font-size: 12px; font-weight: 800; color: #6d64a0; text-transform: uppercase; letter-spacing: .04em; }
+  .compteur { display: inline-block; min-width: 2.6em; margin-left: 4px; font-size: 14px; opacity: .9; }
+  .actions-jeu { flex-wrap: nowrap; display: grid; grid-template-columns: 1fr 1fr 1.35fr; gap: 8px; }
+  .actions-jeu .btn { padding: 10px 6px; white-space: nowrap; }
   .hidden { display: none !important; }
   footer { margin-top: 26px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; font-weight: 600; }
   footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; font-weight: 700; }
@@ -122,24 +143,27 @@
 <main>
   <header>
     <h1 class="logo" aria-label="Quotidien"><span>Q</span><span>U</span><span>O</span><span>T</span><span>I</span><span>D</span><span>I</span><span>E</span><span>N</span></h1>
-    <button class="icon-btn" id="btn-regles" aria-haspopup="dialog">Règles</button>
+    <button class="icon-btn icon-rond" id="btn-regles" aria-haspopup="dialog" aria-label="Règles" title="Règles">?</button>
   </header>
-  <p class="tagline">Chaque jour, 16 mots à répartir en 4 groupes de 4.</p>
+  <p class="date-grille" id="date-grille"></p>
+  <p class="tagline">Retrouve les 4 groupes de 4 mots.</p>
 
   <div id="banniere-demo" class="banner hidden">Mode démo : rien n'est enregistré. <span id="choix-grille-demo"></span></div>
   <div id="chargement" class="msg">Chargement…</div>
   <div id="erreur" class="panel hidden"></div>
 
   <section id="jeu" class="hidden" aria-label="Grille du jour">
+    <div class="zone-jeu">
+    <div class="msg" id="message" role="status" aria-live="polite"></div>
     <div class="plateau-cadre">
       <div class="found" id="trouves"></div>
       <div class="board" id="plateau" role="group" aria-label="Mots"></div>
     </div>
-    <div class="status"><span>Erreurs restantes :</span> <span class="dots" id="points" aria-live="polite"></span></div>
-    <div class="msg" id="message" role="status" aria-live="polite"></div>
-    <div class="actions" id="actions-jeu">
+    </div>
+    <div class="status"><span>Erreurs restantes</span> <span class="dots" id="points" aria-live="polite"></span></div>
+    <div class="actions actions-jeu" id="actions-jeu">
       <button class="btn" id="btn-melanger">Mélanger</button>
-      <button class="btn" id="btn-effacer">Désélectionner</button>
+      <button class="btn" id="btn-effacer" aria-label="Désélectionner">Effacer</button>
       <button class="btn primary" id="btn-valider" disabled>Valider</button>
     </div>
   </section>
@@ -193,7 +217,7 @@
     <li>Tu as droit à <strong>4 erreurs</strong>. Au-delà, la solution s'affiche avec les explications.</li>
     <li>Une nouvelle grille chaque jour.</li>
   </ul>
-  <div class="actions"><button class="btn primary" data-close>Compris</button></div>
+  <div class="actions"><button class="btn primary" data-close>Compris, je joue !</button></div>
 </div></dialog>
 
 <dialog id="dlg-vie-privee"><div class="dlg">
@@ -350,6 +374,8 @@
 
   function lancerGrille() {
     $("chargement").classList.add("hidden");
+    const num = GRILLES.indexOf(grille) + 1;
+    $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>` : `Grille du <b>${formatDate(jourParis())}</b>`;
     const tous = grille.groupes.flatMap(g => g.mots);
     etat = (!DEMO && store.get(cle())) || null;
     if (!etat) {
@@ -359,6 +385,7 @@
     }
     selection = [];
     if (etat.fin) return afficherFin();
+    if (!DEMO && !store.get("quotidien_regles_vues")) { store.set("quotidien_regles_vues", true); $("dlg-regles").showModal(); journal("regles", { auto: true }); }
     $("jeu").classList.remove("hidden");
     rendre();
   }
@@ -396,9 +423,11 @@
       plateau.appendChild(b);
     }
     ajusterTailles();
-    $("points").innerHTML = Array.from({ length: MAX_ERREURS }, (_, i) => `<span class="dot ${i < etat.erreurs ? "used" : ""}"></span>`).join("")
+    const coeur = (u) => `<svg class="coeur ${u ? "used" : ""}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.3C.8 8.4 2.6 4.5 6.4 4.1c2.1-.2 3.9.9 5.6 3 1.7-2.1 3.5-3.2 5.6-3 3.8.4 5.6 4.3 4.1 7.6C19.5 16.4 12 21 12 21z"/></svg>`;
+    $("points").innerHTML = Array.from({ length: MAX_ERREURS }, (_, i) => coeur(i >= MAX_ERREURS - etat.erreurs)).join("")
       + `<span class="small" style="margin-left:4px">${MAX_ERREURS - etat.erreurs}/${MAX_ERREURS}</span>`;
     $("btn-valider").disabled = selection.length !== 4;
+    $("btn-valider").innerHTML = `Valider<span class="compteur">${selection.length}/4</span>`;
     $("btn-effacer").disabled = selection.length === 0;
   }
 
@@ -413,19 +442,28 @@
   }
   window.addEventListener("resize", () => { if (!$("jeu").classList.contains("hidden")) ajusterTailles(); });
 
+  let minuterieToast = null;
+  function toast(texte, bon) {
+    const m = $("message"); m.textContent = texte; m.classList.toggle("bon", !!bon);
+    requestAnimationFrame(() => m.classList.add("visible"));
+    clearTimeout(minuterieToast);
+    minuterieToast = setTimeout(() => { m.classList.remove("visible"); setTimeout(() => { if (!m.classList.contains("visible")) m.textContent = ""; }, 200); }, 1400);
+  }
+  function vibrer(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
+
   function basculer(mot) {
     if (etat.fin) return;
     if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); }
     if (selection.includes(mot)) selection = selection.filter(m => m !== mot);
     else if (selection.length < 4) selection.push(mot);
-    $("message").textContent = "";
+    vibrer(8);
     rendre();
   }
 
   function valider() {
     if (selection.length !== 4 || etat.fin) return;
     const signature = selection.slice().sort().join("|");
-    if (etat.essais.some(e => e.signature === signature)) { $("message").textContent = "Déjà essayé !"; return; }
+    if (etat.essais.some(e => e.signature === signature)) { toast("Déjà essayé !"); return; }
     const groupes = selection.map(groupeDe);
     const compte = {}; groupes.forEach(g => compte[g] = (compte[g] || 0) + 1);
     const max = Math.max(...Object.values(compte));
@@ -437,11 +475,11 @@
       etat.trouves.push(groupes[0]);
       groupeAnime = groupes[0];
       selection = [];
-      $("message").textContent = "Bien vu !";
+      toast(["Bien vu !", "Bravo !", "Excellent !", "Parfait !"][etat.trouves.length - 1] || "Bien vu !", true); vibrer(30);
       if (etat.trouves.length === 4) return terminer(true);
     } else {
       etat.erreurs++;
-      $("message").textContent = unDeMoins ? "Presque : il en manque un." : "Ce n'est pas un groupe.";
+      toast(unDeMoins ? "Presque ! Il en manque un." : "Ce n'est pas un groupe."); vibrer([40, 40, 40]);
       const p = $("plateau"); p.classList.remove("shake"); void p.offsetWidth; p.classList.add("shake");
       if (etat.erreurs >= MAX_ERREURS) { sauver(); return terminer(false); }
     }
@@ -504,8 +542,12 @@
     $("resume").innerHTML = `
       <h2 class="titre-victoire ${etat.gagne ? "gagne" : ""}">${etat.gagne ? "Bravo !" : "Partie terminée"}</h2>
       ${etat.gagne ? `<p style="text-align:center">Grille résolue !</p>` : ""}
-      <p>${etat.gagne ? `Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Voici la solution :`}
-      ${dureeTxt ? ` Temps : ${dureeTxt}.` : ""}</p>
+      <p style="text-align:center">${etat.gagne ? `Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Voici la solution :`}</p>
+      <div class="stats">
+        <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
+        <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
+        <div class="stat"><div class="v">${dureeTxt ? (duree >= 60 ? Math.floor(duree / 60) + ":" + String(duree % 60).padStart(2, "0") : duree + " s") : "–"}</div><div class="l">Temps</div></div>
+      </div>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
       <div class="found">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>
       <div class="actions" style="margin-top:12px"><button class="btn primary" id="btn-partager">Inviter quelqu'un à jouer</button></div>

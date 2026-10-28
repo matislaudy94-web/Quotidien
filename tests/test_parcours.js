@@ -30,8 +30,9 @@ async function jouer(page, groupesAJouer, faux = 0) {
   const browser = await chromium.launch();
   const erreursConsole = [];
   const iphone = devices["iPhone 13"];
-  const nouveau = async (opts = {}) => {
+  const nouveau = async (opts = {}, reglesVues = false) => {
     const ctx = await browser.newContext({ ...iphone, permissions: ["clipboard-read", "clipboard-write"], ...opts });
+    if (reglesVues) await ctx.addInitScript(() => { try { localStorage.setItem("quotidien_regles_vues", "true"); } catch (e) {} });
     await ctx.addInitScript(() => { try { delete Navigator.prototype.share; } catch (e) {} });
     const page = await ctx.newPage();
     page.on("console", m => { if (m.type() === "error") erreursConsole.push(m.text()); });
@@ -68,6 +69,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
       cartes: [...document.querySelectorAll(".tile")].filter(t => t.scrollWidth > t.clientWidth + 1).map(t => t.textContent) }));
     ok(!debord.page, "aucun défilement horizontal sur iPhone");
     ok(debord.cartes.length === 0, "aucun mot ne déborde de sa carte " + (debord.cartes.join(",") || ""));
+    ok(await pa.locator("#dlg-regles[open]").count() === 1, "première visite : les règles s'ouvrent automatiquement");
+    await pa.getByRole("button", { name: "Compris" }).click();
     await pa.getByRole("button", { name: "Règles" }).click(); await pa.waitForSelector("#dlg-regles[open]");
     await pa.getByRole("button", { name: "Compris" }).click();
     await jouer(pa, [0, 1, 2, 3], 1);
@@ -87,8 +90,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(pa.url().endsWith("?p=" + A), "l'adresse affichée est le lien personnel (à mettre en favori)");
 
     console.log("3. Joueur B (groupe S) perd après 4 erreurs");
-    const { page: pb } = await nouveau();
-    await pb.goto(`${BASE}/?p=${B}`); await pb.waitForSelector(".tile");
+    const { page: pb } = await nouveau({}, true);
+    await pb.evaluate(() => {}).catch(() => {}); await pb.goto(`${BASE}/?p=${B}`); await pb.waitForSelector(".tile");
     await jouer(pb, [0], 0);
     // même essai deux fois : ne doit pas compter d'erreur
     const g = G[0];
@@ -109,8 +112,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok((await pb.locator("#resume").innerText()).includes("1 groupe trouvé sur 4"), "résumé : 1 groupe sur 4 et solution révélée");
 
     console.log("4. Invitation : un nouveau joueur arrive par le lien de A");
-    const { page: pi } = await nouveau();
-    await pi.goto(`${BASE}/?inv=${A}`); await pi.waitForSelector(".tile");
+    const { page: pi } = await nouveau({}, true);
+    await pi.evaluate(() => {}).catch(() => {}); await pi.goto(`${BASE}/?inv=${A}`); await pi.waitForSelector(".tile");
     await pi.locator(".tile").first().click();
     await pi.waitForTimeout(400);
     d = await db();

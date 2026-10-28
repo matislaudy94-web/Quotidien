@@ -3427,7 +3427,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TRIPTYQUE",
       "ENLUMINURE"
      ],
-     "explication": "Quatre sortes d'œuvres peintes (retables et triptyques ornent souvent les autels). L'icône et la toile aussi, mais ce sont aussi des mots d'informatique."
+     "explication": "Quatre sortes d'œuvres souvent peintes (retables et triptyques ornent souvent les autels). L'icône et la toile aussi, mais ce sont aussi des mots d'informatique."
     }
    ],
    "rattachements_plausibles": {
@@ -3612,7 +3612,7 @@ window.QUOTIDIEN_VARIANTES = {
      "difficulte": "intermediaire",
      "mots": [
       "PISTIL",
-      "ÉTAMINE",
+      "OVAIRE",
       "SÉPALE",
       "COROLLE"
      ],

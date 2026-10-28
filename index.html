@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Quotidien</title>
+<meta name="description" content="Retrouve les 4 groupes de 4 mots.">
+<style>
+  :root {
+    --bg: #faf8f4; --surface: #ffffff; --ink: #1c1b19; --muted: #6b675f; --line: #e3dfd6;
+    --card: #ece8df; --card-sel: #3a3833; --card-sel-ink: #fff;
+    --c0: #f2d675; --c1: #a8d58a; --c2: #9ec5ec; --c3: #c6a8e6;
+    --danger: #b3261e; --focus: #2b5fd9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161513; --surface: #201f1c; --ink: #f1eee8; --muted: #a29d93; --line: #35332e;
+      --card: #2c2a26; --card-sel: #e9e5dc; --card-sel-ink: #161513;
+      --c0: #b89a2f; --c1: #5f8f45; --c2: #4b7bab; --c3: #7f5fa6; --danger: #f2827a; --focus: #8fb0ff; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%; }
+  body { min-height: 100vh; }
+  main { max-width: 520px; margin: 0 auto; padding: 16px 16px calc(24px + env(safe-area-inset-bottom)); }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+  .logo { font-weight: 800; letter-spacing: .18em; font-size: 22px; margin: 0; }
+  .tagline { color: var(--muted); font-size: 14px; margin: 4px 0 16px; }
+  .icon-btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px;
+    height: 36px; min-width: 36px; padding: 0 12px; font-size: 14px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .found { display: grid; gap: 8px; margin-bottom: 8px; }
+  .group { border-radius: 10px; padding: 10px 12px; text-align: center; color: #1c1b19; }
+  .group .cat { font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: .03em; }
+  .group .words { font-size: 14px; margin-top: 2px; }
+  .group .expl { font-size: 13px; margin-top: 4px; opacity: .85; }
+  .group .lvl { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; opacity: .7; }
+  @media (prefers-color-scheme: dark) { .group { color: #fff; } }
+  .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .tile { aspect-ratio: 1 / .78; border: 0; border-radius: 10px; background: var(--card); color: var(--ink);
+    font-weight: 700; font-size: 15px; text-transform: uppercase; padding: 4px 1px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.1;
+    white-space: nowrap; overflow: hidden; letter-spacing: -.01em; user-select: none; -webkit-user-select: none; touch-action: manipulation;
+    transition: background-color .08s, transform .08s; }
+  .tile.sel { background: var(--card-sel); color: var(--card-sel-ink); }
+  .tile:active { transform: scale(.97); }
+  .shake { animation: shake .28s; }
+  @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  @media (prefers-reduced-motion: reduce) { .shake { animation: none; } .tile { transition: none; } }
+  .status { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 14px 0 10px; color: var(--muted); font-size: 14px; }
+  .dots { display: inline-flex; gap: 6px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--card-sel); }
+  .dot.used { background: var(--line); }
+  .msg { min-height: 22px; text-align: center; font-size: 14px; font-weight: 600; margin: 4px 0 8px; }
+  .actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .btn { border: 1px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px;
+    padding: 11px 18px; font-size: 15px; font-weight: 600; cursor: pointer; min-height: 44px; }
+  @media (max-width: 360px) { .btn { padding: 9px 12px; font-size: 14px; } .actions { gap: 6px; } }
+  .btn.primary { background: var(--ink); color: var(--bg); }
+  .btn:disabled { opacity: .35; cursor: default; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 16px; }
+  .panel h2 { font-size: 18px; margin: 0 0 8px; }
+  .panel p { margin: 6px 0; font-size: 15px; line-height: 1.45; }
+  .summary-grid { font-size: 22px; line-height: 1.15; letter-spacing: 2px; margin: 8px 0; }
+  .small { font-size: 13px; color: var(--muted); }
+  fieldset { border: 0; padding: 0; margin: 14px 0 0; }
+  legend { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .choices { display: flex; flex-wrap: wrap; gap: 6px; }
+  .choices label { border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; font-size: 14px; cursor: pointer; }
+  .choices input { position: absolute; opacity: 0; pointer-events: none; }
+  .choices input:checked + span { font-weight: 700; }
+  .choices label:has(input:checked) { border-color: var(--ink); background: var(--card); }
+  textarea { width: 100%; min-height: 70px; border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: inherit; font-size: 16px;
+    background: var(--bg); color: var(--ink); }
+  dialog { border: 0; border-radius: 16px; padding: 0; max-width: 460px; width: calc(100% - 32px); background: var(--surface); color: var(--ink); }
+  dialog::backdrop { background: rgba(0,0,0,.4); }
+  .dlg { padding: 18px; } .dlg h2 { margin: 0 0 8px; font-size: 19px; } .dlg p, .dlg li { font-size: 15px; line-height: 1.45; }
+  .linkbox { display: flex; gap: 6px; margin-top: 8px; }
+  .linkbox input { flex: 1; min-width: 0; font-size: 14px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+  .banner { background: var(--card); border-radius: 10px; padding: 8px 12px; font-size: 13px; margin-bottom: 12px; }
+  .hidden { display: none !important; }
+  footer { margin-top: 24px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; }
+  footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 0; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 class="logo">QUOTIDIEN</h1>
+    <button class="icon-btn" id="btn-regles" aria-haspopup="dialog">Règles</button>
+  </header>
+  <p class="tagline">Chaque jour, 16 mots à répartir en 4 groupes de 4.</p>
+
+  <div id="banniere-demo" class="banner hidden">Mode démo : rien n'est enregistré. <span id="choix-grille-demo"></span></div>
+  <div id="chargement" class="msg">Chargement…</div>
+  <div id="erreur" class="panel hidden"></div>
+
+  <section id="jeu" class="hidden" aria-label="Grille du jour">
+    <div class="found" id="trouves"></div>
+    <div class="board" id="plateau" role="group" aria-label="Mots"></div>
+    <div class="status"><span>Erreurs restantes :</span> <span class="dots" id="points" aria-live="polite"></span></div>
+    <div class="msg" id="message" role="status" aria-live="polite"></div>
+    <div class="actions" id="actions-jeu">
+      <button class="btn" id="btn-melanger">Mélanger</button>
+      <button class="btn" id="btn-effacer">Désélectionner</button>
+      <button class="btn primary" id="btn-valider" disabled>Valider</button>
+    </div>
+  </section>
+
+  <section id="fin" class="hidden">
+    <div class="panel" id="resume"></div>
+    <div class="panel" id="suite"></div>
+    <div class="panel" id="questionnaire-panel">
+      <h2>Ton avis (facultatif, 20 secondes)</h2>
+      <form id="questionnaire">
+        <fieldset><legend>As-tu trouvé les associations de mots justes ?</legend>
+          <div class="choices">
+            <label><input type="radio" name="justesse" value="toutes"><span>Oui, toutes</span></label>
+            <label><input type="radio" name="justesse" value="la_plupart"><span>La plupart</span></label>
+            <label><input type="radio" name="justesse" value="plusieurs_injustes"><span>Plusieurs m'ont semblé injustes</span></label>
+          </div></fieldset>
+        <fieldset><legend>Quelle difficulté as-tu ressentie ?</legend>
+          <div class="choices">
+            <label><input type="radio" name="difficulte" value="trop_facile"><span>Trop facile</span></label>
+            <label><input type="radio" name="difficulte" value="bien_dosee"><span>Bien dosée</span></label>
+            <label><input type="radio" name="difficulte" value="trop_difficile"><span>Trop difficile</span></label>
+          </div></fieldset>
+        <fieldset><legend>Aurais-tu envie de jouer à une nouvelle grille ?</legend>
+          <div class="choices">
+            <label><input type="radio" name="envie" value="oui"><span>Oui</span></label>
+            <label><input type="radio" name="envie" value="peut_etre"><span>Peut-être</span></label>
+            <label><input type="radio" name="envie" value="non"><span>Non</span></label>
+          </div></fieldset>
+        <fieldset><legend>Qu'est-ce qui t'a le plus gêné ? (facultatif)</legend>
+          <textarea name="gene" maxlength="600" placeholder="Un groupe injuste, un mot inconnu, l'interface…"></textarea></fieldset>
+        <div class="actions" style="margin-top:12px"><button class="btn primary" type="submit">Envoyer</button></div>
+      </form>
+      <p class="msg hidden" id="merci">Merci, c'est noté.</p>
+    </div>
+    <div class="actions hidden" id="actions-demo" style="margin-top:16px"><button class="btn" id="btn-recommencer">Recommencer cette grille (démo)</button></div>
+  </section>
+
+  <footer>
+    Test anonyme : tes parties sont enregistrées avec un identifiant aléatoire, sans nom ni contact.
+    <button id="btn-vie-privee">En savoir plus</button>
+  </footer>
+</main>
+
+<dialog id="dlg-regles"><div class="dlg">
+  <h2>Comment jouer</h2>
+  <ul>
+    <li>Trouve <strong>4 groupes de 4 mots</strong> qui ont un point commun.</li>
+    <li>Touche 4 mots, puis <strong>Valider</strong>. Touche à nouveau un mot pour le désélectionner.</li>
+    <li>Les groupes peuvent être des catégories (« fromages »), des expressions (« coup de… ») ou des jeux sur les mots.</li>
+    <li>Attention : certains mots semblent aller dans plusieurs groupes, mais une seule solution utilise les 16 mots.</li>
+    <li>Tu as droit à <strong>4 erreurs</strong>. Au-delà, la solution s'affiche avec les explications.</li>
+    <li>Une nouvelle grille chaque jour.</li>
+  </ul>
+  <div class="actions"><button class="btn primary" data-close>Compris</button></div>
+</div></dialog>
+
+<dialog id="dlg-vie-privee"><div class="dlg">
+  <h2>Données enregistrées</h2>
+  <p>Ce jeu est un prototype en test. Pour savoir si les grilles sont réussies, nous enregistrons, avec un identifiant aléatoire :</p>
+  <ul>
+    <li>tes visites (date, et si tu es venu par un lien de rappel ou de toi-même) ;</li>
+    <li>tes essais, tes erreurs, les groupes trouvés et la durée de la partie ;</li>
+    <li>tes clics sur « partager » et « prochaine grille » ;</li>
+    <li>tes réponses au questionnaire, si tu le remplis.</li>
+  </ul>
+  <p>Nous n'enregistrons ni nom, ni e-mail, ni téléphone, ni adresse. Aucune publicité, aucun outil de suivi externe. L'identifiant est aussi gardé dans ton navigateur pour reconnaître ta prochaine visite.</p>
+  <div class="actions"><button class="btn primary" data-close>Fermer</button></div>
+</div></dialog>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="grilles.js"></script>
+<script>
+(function () {
+  "use strict";
+  const API = window.QuotidienAPI;
+  const GRILLES = window.QUOTIDIEN_GRILLES;
+  const COULEURS = ["var(--c0)", "var(--c1)", "var(--c2)", "var(--c3)"];
+  const EMOJI = ["🟨", "🟩", "🟦", "🟪"];
+  const ORDRE_DIFF = { facile: 0, intermediaire: 1, difficile: 2 };
+  const LIB_DIFF = { facile: "Facile", intermediaire: "Intermédiaire", difficile: "Difficile" };
+  const MAX_ERREURS = 4;
+  const $ = (id) => document.getElementById(id);
+
+  // ---------- Stockage local (protégé : peut être indisponible) ----------
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+    del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+  };
+
+  // ---------- Paramètres d'URL ----------
+  const params = new URLSearchParams(location.search);
+  const DEMO = params.get("demo") === "1";
+  const pParam = (params.get("p") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
+  const token = (params.get("r") || "").replace(/[^a-f0-9]/gi, "") || null;
+  const invParam = (params.get("inv") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
+  const visiteId = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+
+  // ---------- État ----------
+  let participant = null;   // { id, calendrier, grille_forcee }
+  let grille = null;        // objet grille
+  let etat = null;          // état de la partie
+  let selection = [];
+
+  function jourParis(d) {
+    // AAAA-MM-JJ en heure de Paris
+    return new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d || new Date());
+  }
+
+  // ---------- Journal des événements (file d'attente en cas de coupure réseau) ----------
+  const FILE = "quotidien_file";
+  function journal(type, donnees) {
+    if (DEMO || !participant) return;
+    const ev = { p_id: participant.id, p_visite: visiteId, p_grille: grille ? grille.id : null, p_type: type, p_donnees: Object.assign({ t_client: new Date().toISOString() }, donnees || {}) };
+    const file = store.get(FILE) || [];
+    file.push(ev); store.set(FILE, file.slice(-200));
+    viderFile();
+  }
+  let envoiEnCours = false;
+  async function viderFile() {
+    if (envoiEnCours) return; envoiEnCours = true;
+    try {
+      let file = store.get(FILE) || [];
+      while (file.length) {
+        await API.rpc("q_evenement", file[0]);
+        file = (store.get(FILE) || []).slice(1); store.set(FILE, file);
+      }
+    } catch (e) { /* réessai à la prochaine action ou visite */ }
+    envoiEnCours = false;
+  }
+
+  // ---------- Démarrage ----------
+  async function demarrer() {
+    if (DEMO) {
+      $("banniere-demo").classList.remove("hidden");
+      const choix = GRILLES.map(g => `<a href="?demo=1&g=${g.id}">${g.titre}</a>`).join(" · ");
+      $("choix-grille-demo").innerHTML = choix;
+      grille = GRILLES.find(g => g.id === params.get("g")) || GRILLES[0];
+      return lancerGrille();
+    }
+    let entree = token ? "rappel" : pParam ? "lien_personnel" : invParam ? "invitation" : "sans_lien";
+    let pid = pParam || store.get("quotidien_pid");
+    try {
+      if (!pid) {
+        const r = await API.rpc("q_rejoindre", { p_invite_par: invParam });
+        if (!r || !r.ok) return erreur("Le test n'est pas ouvert en ce moment. Merci de ta visite !");
+        pid = r.id;
+      }
+      let info = await API.rpc("q_identifier", { p_id: pid });
+      if (!info.existe) {
+        store.del("quotidien_pid");
+        if (pParam) return erreur("Ce lien n'est pas valide. Vérifie que tu l'as copié en entier.");
+        const r = await API.rpc("q_rejoindre", { p_invite_par: invParam });
+        if (!r || !r.ok) return erreur("Le test n'est pas ouvert en ce moment. Merci de ta visite !");
+        pid = r.id; info = await API.rpc("q_identifier", { p_id: pid });
+      }
+      participant = info;
+      store.set("quotidien_pid", pid);
+      // L'adresse affichée devient le lien personnel (sans jeton de rappel) : c'est celui à mettre en favori.
+      history.replaceState(null, "", location.pathname + "?p=" + pid);
+      const gid = participant.grille_forcee || participant.calendrier[jourParis()];
+      grille = GRILLES.find(g => g.id === gid) || null;
+      API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null }).catch(() => {});
+      viderFile();
+      if (!grille) return pasDeGrille();
+      lancerGrille();
+    } catch (e) {
+      erreur("Impossible de joindre le serveur. Vérifie ta connexion puis recharge la page.");
+    }
+  }
+
+  function erreur(texte) {
+    $("chargement").classList.add("hidden");
+    const el = $("erreur"); el.textContent = texte; el.classList.remove("hidden");
+  }
+
+  function prochaineDate() {
+    const auj = jourParis();
+    return Object.keys(participant.calendrier || {}).filter(d => d > auj).sort()[0] || null;
+  }
+
+  function formatDate(iso) {
+    const [a, m, j] = iso.split("-").map(Number);
+    return new Date(Date.UTC(a, m - 1, j, 12)).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
+  }
+
+  function pasDeGrille() {
+    $("chargement").classList.add("hidden");
+    const prochaine = prochaineDate();
+    const el = $("erreur"); el.classList.remove("hidden");
+    el.innerHTML = prochaine
+      ? `<h2 style="margin-top:0">Pas de grille aujourd'hui</h2><p>La prochaine grille sera disponible le <strong>${formatDate(prochaine)}</strong>.</p>${blocLienPersonnel()}`
+      : `<h2 style="margin-top:0">Le test est terminé</h2><p>Merci d'avoir joué ! Il n'y a plus de nouvelle grille pour ce test.</p>`;
+    brancherCopie(el);
+  }
+
+  // ---------- Partie ----------
+  function cle() { return "quotidien_etat_" + (DEMO ? "demo" : participant.id) + "_" + grille.id; }
+
+  function melangeGraine(liste, graine) {
+    let h = 2166136261; for (const c of graine) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+    const a = liste.slice();
+    for (let i = a.length - 1; i > 0; i--) { h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0; const j = h % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  function lancerGrille() {
+    $("chargement").classList.add("hidden");
+    const tous = grille.groupes.flatMap(g => g.mots);
+    etat = (!DEMO && store.get(cle())) || null;
+    if (!etat) {
+      etat = { ordre: melangeGraine(tous, (participant ? participant.id : "demo" + Math.random()) + grille.id),
+               trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false };
+      sauver();
+    }
+    selection = [];
+    if (etat.fin) return afficherFin();
+    $("jeu").classList.remove("hidden");
+    rendre();
+  }
+
+  function sauver() { if (!DEMO) store.set(cle(), etat); }
+
+  function groupeDe(mot) { return grille.groupes.findIndex(g => g.mots.includes(mot)); }
+
+  function htmlGroupe(gi, couleurIndex) {
+    const g = grille.groupes[gi];
+    return `<div class="group" style="background:${COULEURS[couleurIndex]}">
+      <div class="lvl">${LIB_DIFF[g.difficulte]}</div>
+      <div class="cat">${g.categorie}</div>
+      <div class="words">${g.mots.join(", ")}</div>
+      ${etat.fin ? `<div class="expl">${g.explication}</div>` : ""}</div>`;
+  }
+
+  function couleurDe(gi) {
+    // couleur stable par niveau de difficulté puis par ordre dans la grille
+    const tri = grille.groupes.map((g, i) => i).sort((a, b) => ORDRE_DIFF[grille.groupes[a].difficulte] - ORDRE_DIFF[grille.groupes[b].difficulte] || a - b);
+    return tri.indexOf(gi);
+  }
+
+  function rendre() {
+    $("trouves").innerHTML = etat.trouves.map(gi => htmlGroupe(gi, couleurDe(gi))).join("");
+    const restants = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
+    const plateau = $("plateau");
+    plateau.innerHTML = "";
+    for (const mot of restants) {
+      const b = document.createElement("button");
+      b.className = "tile" + (selection.includes(mot) ? " sel" : "");
+      b.textContent = mot; b.setAttribute("aria-pressed", selection.includes(mot));
+      b.addEventListener("click", () => basculer(mot));
+      plateau.appendChild(b);
+    }
+    ajusterTailles();
+    $("points").innerHTML = Array.from({ length: MAX_ERREURS }, (_, i) => `<span class="dot ${i < etat.erreurs ? "used" : ""}"></span>`).join("")
+      + `<span class="small" style="margin-left:4px">${MAX_ERREURS - etat.erreurs}/${MAX_ERREURS}</span>`;
+    $("btn-valider").disabled = selection.length !== 4;
+    $("btn-effacer").disabled = selection.length === 0;
+  }
+
+  // Réduit la taille du texte de chaque carte trop longue jusqu'à ce que le mot tienne sur une ligne, sans le couper.
+  function ajusterTailles() {
+    document.querySelectorAll(".tile").forEach(t => {
+      t.style.fontSize = ""; t.style.letterSpacing = "";
+      let taille = 15;
+      while (t.scrollWidth > t.clientWidth && taille > 9) { taille -= 0.5; t.style.fontSize = taille + "px"; }
+      if (t.scrollWidth > t.clientWidth) t.style.letterSpacing = "-.05em";
+    });
+  }
+  window.addEventListener("resize", () => { if (!$("jeu").classList.contains("hidden")) ajusterTailles(); });
+
+  function basculer(mot) {
+    if (etat.fin) return;
+    if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); }
+    if (selection.includes(mot)) selection = selection.filter(m => m !== mot);
+    else if (selection.length < 4) selection.push(mot);
+    $("message").textContent = "";
+    rendre();
+  }
+
+  function valider() {
+    if (selection.length !== 4 || etat.fin) return;
+    const signature = selection.slice().sort().join("|");
+    if (etat.essais.some(e => e.signature === signature)) { $("message").textContent = "Déjà essayé !"; return; }
+    const groupes = selection.map(groupeDe);
+    const compte = {}; groupes.forEach(g => compte[g] = (compte[g] || 0) + 1);
+    const max = Math.max(...Object.values(compte));
+    const correct = max === 4;
+    const unDeMoins = max === 3;
+    etat.essais.push({ signature, correct });
+    journal("essai", { mots: selection.slice(), correct, un_de_moins: unDeMoins, numero: etat.essais.length });
+    if (correct) {
+      etat.trouves.push(groupes[0]);
+      selection = [];
+      $("message").textContent = "Bien vu !";
+      if (etat.trouves.length === 4) return terminer(true);
+    } else {
+      etat.erreurs++;
+      $("message").textContent = unDeMoins ? "Presque : il en manque un." : "Ce n'est pas un groupe.";
+      const p = $("plateau"); p.classList.remove("shake"); void p.offsetWidth; p.classList.add("shake");
+      if (etat.erreurs >= MAX_ERREURS) { sauver(); return terminer(false); }
+    }
+    sauver(); rendre();
+  }
+
+  function terminer(gagne) {
+    etat.fin = Date.now(); etat.gagne = gagne;
+    // en cas d'échec, on révèle les groupes restants
+    const trouvesParJoueur = etat.trouves.slice();
+    for (let i = 0; i < 4; i++) if (!etat.trouves.includes(i)) etat.trouves.push(i);
+    etat.trouvesParJoueur = trouvesParJoueur;
+    sauver();
+    journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
+      nb_groupes_trouves: trouvesParJoueur.length, duree_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length });
+    afficherFin();
+  }
+
+  function grilleEmoji() {
+    // une ligne par essai, couleur du groupe de chaque mot
+    return etat.essais.map(e => e.signature.split("|").map(m => EMOJI[couleurDe(groupeDe(m))]).join("")).join("\n");
+  }
+
+  function lienPersonnel() { return location.origin + location.pathname + "?p=" + (participant ? participant.id : ""); }
+  function lienInvitation() { return location.origin + location.pathname + "?inv=" + (participant ? participant.id : ""); }
+
+  function blocLienPersonnel() {
+    if (!participant) return "";
+    return `<p class="small">Ton lien personnel (à mettre en favori pour retrouver tes parties) :</p>
+      <div class="linkbox"><input readonly value="${lienPersonnel()}" aria-label="Ton lien personnel"><button class="btn" data-copie>Copier</button></div>`;
+  }
+
+  function brancherCopie(racine) {
+    racine.querySelectorAll("[data-copie]").forEach(b => b.addEventListener("click", async () => {
+      const input = b.parentElement.querySelector("input");
+      try { await navigator.clipboard.writeText(input.value); b.textContent = "Copié"; }
+      catch (e) { input.select(); document.execCommand && document.execCommand("copy"); b.textContent = "Copié"; }
+    }));
+  }
+
+  function afficherFin() {
+    $("jeu").classList.add("hidden");
+    $("fin").classList.remove("hidden");
+    const tp = etat.trouvesParJoueur || etat.trouves;
+    const duree = etat.debut ? Math.round((etat.fin - etat.debut) / 1000) : null;
+    const dureeTxt = duree == null ? "" : duree >= 60 ? `${Math.floor(duree / 60)} min ${duree % 60} s` : `${duree} s`;
+    $("resume").innerHTML = `
+      <h2>${etat.gagne ? "Bravo, grille résolue !" : "Partie terminée"}</h2>
+      <p>${etat.gagne ? `Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Voici la solution :`}
+      ${dureeTxt ? ` Temps : ${dureeTxt}.` : ""}</p>
+      <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
+      <div class="found">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>
+      <div class="actions" style="margin-top:12px"><button class="btn primary" id="btn-partager">Inviter quelqu'un à jouer</button></div>
+      <p class="small hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
+    $("btn-partager").addEventListener("click", partager);
+
+    const prochaine = DEMO ? null : prochaineDate();
+    const suite = $("suite");
+    if (DEMO) suite.innerHTML = `<h2>Prochaine grille</h2><p class="small">En mode démo, rien n'est enregistré.</p>`;
+    else if (!prochaine) suite.innerHTML = `<h2>C'était la dernière grille du test</h2><p>Merci d'avoir joué !</p>`;
+    else suite.innerHTML = `<h2>Une autre grille ?</h2>
+      <p>La prochaine sera disponible le <strong>${formatDate(prochaine)}</strong>, à la même adresse.</p>
+      <div class="actions"><button class="btn primary" id="btn-demande" ${etat.demande ? "disabled" : ""}>${etat.demande ? "C'est noté !" : "Oui, je veux jouer la prochaine"}</button></div>
+      <div id="apres-demande" class="${etat.demande ? "" : "hidden"}">${blocLienPersonnel()}</div>`;
+    const bd = $("btn-demande");
+    if (bd) bd.addEventListener("click", () => {
+      etat.demande = true; sauver(); journal("demande_suivante", {});
+      bd.disabled = true; bd.textContent = "C'est noté !"; $("apres-demande").classList.remove("hidden");
+    });
+    brancherCopie(suite);
+
+    if (etat.questionnaire) { $("questionnaire").classList.add("hidden"); $("merci").classList.remove("hidden"); }
+    $("actions-demo").classList.toggle("hidden", !DEMO);
+  }
+
+  async function partager() {
+    const texte = `QUOTIDIEN — ${etat.gagne ? "résolue" : "pas résolue"} avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}\n${grilleEmoji()}\nÀ toi : ${DEMO ? location.origin + location.pathname : lienInvitation()}`;
+    let methode = "copie";
+    try {
+      if (navigator.share) { await navigator.share({ text: texte }); methode = "partage_natif"; }
+      else { await navigator.clipboard.writeText(texte); $("partage-ok").classList.remove("hidden"); }
+    } catch (e) {
+      if (e && e.name === "AbortError") { journal("partage", { methode: "annule" }); return; }
+      try { await navigator.clipboard.writeText(texte); $("partage-ok").classList.remove("hidden"); } catch (e2) { methode = "echec"; }
+    }
+    journal("partage", { methode });
+  }
+
+  // ---------- Questionnaire ----------
+  $("questionnaire").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const f = new FormData(ev.target);
+    const rep = { justesse: f.get("justesse"), difficulte: f.get("difficulte"), envie: f.get("envie"), gene: (f.get("gene") || "").trim().slice(0, 600) };
+    if (!rep.justesse && !rep.difficulte && !rep.envie && !rep.gene) return;
+    etat.questionnaire = true; sauver(); journal("questionnaire", rep);
+    ev.target.classList.add("hidden"); $("merci").classList.remove("hidden");
+  });
+
+  // ---------- Boutons ----------
+  $("btn-valider").addEventListener("click", valider);
+  $("btn-effacer").addEventListener("click", () => { selection = []; rendre(); });
+  $("btn-melanger").addEventListener("click", () => {
+    const fixes = etat.ordre.filter(m => etat.trouves.includes(groupeDe(m)));
+    const autres = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
+    for (let i = autres.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [autres[i], autres[j]] = [autres[j], autres[i]]; }
+    etat.ordre = fixes.concat(autres); sauver(); rendre();
+  });
+  $("btn-recommencer").addEventListener("click", () => { location.reload(); });
+  $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
+  $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());
+  document.querySelectorAll("dialog [data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog").close()));
+  document.querySelectorAll("dialog").forEach(d => d.addEventListener("click", (e) => { if (e.target === d) d.close(); }));
+
+  demarrer();
+})();
+</script>
+</body>
+</html>

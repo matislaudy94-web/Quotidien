@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Quotidien · Administration</title>
+<style>
+  :root { --bg:#faf8f4; --surface:#fff; --ink:#1c1b19; --muted:#6b675f; --line:#e3dfd6; --soft:#f1eee7; --accent:#2b5fd9; --bad:#b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161513; --surface:#201f1c; --ink:#f1eee8; --muted:#a29d93; --line:#35332e; --soft:#2a2925; --accent:#8fb0ff; --bad:#f2827a; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+  main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; letter-spacing: .12em; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 0 0 8px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  section { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin: 14px 0; }
+  input, select, textarea, button { font: inherit; font-size: 15px; }
+  input, select, textarea { border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; background: var(--bg); color: var(--ink); }
+  button { border: 1px solid var(--ink); background: var(--ink); color: var(--bg); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+  button.sec { background: transparent; color: var(--ink); }
+  button.mini { padding: 3px 8px; font-size: 13px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; white-space: nowrap; }
+  th { background: var(--soft); font-weight: 600; position: sticky; top: 0; }
+  td.num, th.num { text-align: right; }
+  .k { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .err { color: var(--bad); font-weight: 600; }
+  .note { background: var(--soft); border-radius: 8px; padding: 8px 10px; font-size: 13px; margin: 8px 0; }
+  .hidden { display: none !important; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tabs button { background: transparent; color: var(--ink); }
+  .tabs button.on { background: var(--ink); color: var(--bg); }
+  ul.comments { margin: 4px 0; padding-left: 18px; } ul.comments li { white-space: normal; }
+</style>
+</head>
+<body>
+<main>
+  <h1>QUOTIDIEN · ADMIN</h1>
+  <p class="muted">Tableau de bord réservé à l'administrateur. Les chiffres affichés viennent uniquement des événements réels enregistrés.</p>
+
+  <section id="connexion">
+    <h2>Connexion</h2>
+    <form class="row" id="form-connexion">
+      <input type="password" id="code" placeholder="Code administrateur" autocomplete="current-password" required>
+      <button>Se connecter</button>
+      <span id="err-connexion" class="err"></span>
+    </form>
+  </section>
+
+  <div id="app" class="hidden">
+    <section>
+      <h2>Session de test</h2>
+      <div class="row">
+        <select id="choix-session"></select>
+        <button class="sec" id="btn-actualiser">Actualiser</button>
+        <a id="lien-demo" target="_blank" rel="noopener">Jouer en mode démo (rien n'est enregistré)</a>
+      </div>
+      <div id="info-session" class="note"></div>
+      <details style="margin-top:8px"><summary>Créer une nouvelle session</summary>
+        <form class="row" id="form-session" style="margin-top:8px">
+          <input id="s-nom" placeholder="Nom (ex. Test novembre)" required>
+          <label>Premier jour <input type="date" id="s-debut" required></label>
+          <span class="muted">Grille 1 le premier jour, grille 2 le lendemain, grille 3 le surlendemain. La nouvelle session devient la session active.</span>
+          <button>Créer</button>
+        </form>
+      </details>
+      <details style="margin-top:8px"><summary>Modifier le calendrier de cette session</summary>
+        <p class="muted">Format : {"AAAA-MM-JJ": "g1", …}. Une date absente = pas de grille ce jour-là.</p>
+        <textarea id="s-calendrier" rows="3" style="width:100%"></textarea>
+        <div class="row" style="margin-top:6px"><button id="btn-calendrier">Enregistrer le calendrier</button>
+          <button class="sec" id="btn-activer">Rendre cette session active</button></div>
+      </details>
+    </section>
+
+    <section>
+      <h2>Entonnoir de comportement</h2>
+      <p class="muted">Une personne compte une seule fois par ligne. « Revenu sans rappel » exclut tout retour dans les 24 h suivant un lien de rappel envoyé à cette personne.</p>
+      <div class="scroll"><table id="tab-entonnoir"></table></div>
+      <div class="note">Lecture : <strong>R</strong> = reçoit un lien de rappel s'il le demande, <strong>S</strong> = aucun rappel, doit revenir seul ; <strong>invité</strong> = arrivé par le lien de partage d'un joueur ; <strong>organique</strong> = arrivé sur la page sans lien personnel ni invitation. Une ouverture de page n'est pas une preuve d'intérêt : regardez d'abord « a commencé », « a terminé » et « revenu sans rappel ».</div>
+    </section>
+
+    <section>
+      <h2>Rappels à envoyer aujourd'hui (groupe R seulement)</h2>
+      <p class="muted">Participants du groupe R qui ont demandé une autre grille, qui ont une grille aujourd'hui et ne sont pas encore venus aujourd'hui. Générez le lien, puis envoyez-le par le canal habituel. Ne jamais envoyer de rappel au groupe S.</p>
+      <div class="scroll"><table id="tab-rappels"></table></div>
+    </section>
+
+    <section>
+      <h2>Participants</h2>
+      <form class="row" id="form-participants">
+        <label>Créer <input type="number" id="n-participants" min="1" max="60" value="10" style="width:80px"> participants</label>
+        <button>Créer</button>
+        <span class="muted">Les groupes R et S sont attribués en alternance à la création.</span>
+      </form>
+      <p class="muted">Cliquez « Copier le lien » au moment où vous l'envoyez : cela enregistre « lien envoyé ». Un lien par personne, jamais le même lien à deux personnes.</p>
+      <div class="scroll"><table id="tab-participants"></table></div>
+    </section>
+
+    <section>
+      <h2>Résultats par grille</h2>
+      <div class="tabs" id="tabs-grilles"></div>
+      <div id="res-grille" style="margin-top:10px"></div>
+    </section>
+
+    <section>
+      <h2>Export</h2>
+      <div class="row">
+        <button id="btn-csv-participants">Participants (CSV)</button>
+        <button id="btn-csv-evenements">Tous les événements (CSV)</button>
+      </div>
+      <p class="muted">Séparateur point-virgule, compatible avec Excel et Google Sheets.</p>
+    </section>
+  </div>
+</main>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="grilles.js"></script>
+<script>
+(function () {
+  "use strict";
+  const API = window.QuotidienAPI, GRILLES = window.QUOTIDIEN_GRILLES;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const BASE = new URL("index.html", location.href).href.replace(/index\.html$/, "");
+  let CODE = null, sessions = [], sessionId = null, D = null, grilleOnglet = GRILLES[0].id;
+
+  const jourParis = (d) => new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d ? new Date(d) : new Date());
+  const heure = (d) => d ? new Date(d).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
+  const lienPerso = (id) => BASE + "?p=" + id;
+  const pct = (a, b) => b ? Math.round(100 * a / b) + " %" : "–";
+
+  $("lien-demo").href = BASE + "?demo=1";
+
+  try { CODE = sessionStorage.getItem("quotidien_admin"); } catch (e) {}
+  if (CODE) connecter(CODE);
+  $("form-connexion").addEventListener("submit", (e) => { e.preventDefault(); connecter($("code").value.trim()); });
+
+  async function connecter(code) {
+    $("err-connexion").textContent = "";
+    try {
+      sessions = await API.rpc("a_sessions", { code });
+      CODE = code; try { sessionStorage.setItem("quotidien_admin", code); } catch (e) {}
+      $("connexion").classList.add("hidden"); $("app").classList.remove("hidden");
+      const active = sessions.find(s => s.active);
+      sessionId = (active || sessions[0] || {}).id || null;
+      await charger();
+    } catch (e) {
+      try { sessionStorage.removeItem("quotidien_admin"); } catch (e2) {}
+      $("err-connexion").textContent = /invalide/.test(e.message) ? "Code incorrect." : "Serveur injoignable : " + e.message;
+    }
+  }
+
+  async function charger() {
+    sessions = await API.rpc("a_sessions", { code: CODE });
+    $("choix-session").innerHTML = sessions.length ? sessions.map(s => `<option value="${esc(s.id)}" ${s.id === sessionId ? "selected" : ""}>${esc(s.nom)} (${esc(s.id)})${s.active ? " · active" : ""}</option>`).join("")
+      : `<option value="">Aucune session : créez-en une ci-dessous</option>`;
+    const s = sessions.find(x => x.id === sessionId);
+    if (!s) { $("info-session").textContent = "Créez une session pour commencer."; D = null; rendreTout(); return; }
+    $("s-calendrier").value = JSON.stringify(s.calendrier);
+    const cal = Object.entries(s.calendrier).sort().map(([d, g]) => `${d} → ${(GRILLES.find(x => x.id === g) || {}).titre || g}`).join(" · ") || "aucune date";
+    $("info-session").innerHTML = `${s.active ? "<strong>Session active</strong> (les visiteurs sans lien et les invités y sont rattachés)." : "Session inactive."} Calendrier (heure de Paris) : ${esc(cal)}. Aujourd'hui : ${jourParis()}.`;
+    D = await API.rpc("a_donnees", { code: CODE, p_session: sessionId });
+    rendreTout();
+  }
+
+  $("choix-session").addEventListener("change", (e) => { sessionId = e.target.value; charger(); });
+  $("btn-actualiser").addEventListener("click", () => charger());
+
+  $("form-session").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const debut = $("s-debut").value; if (!debut) return;
+    const cal = {}; GRILLES.forEach((g, i) => { const d = new Date(debut + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + i); cal[d.toISOString().slice(0, 10)] = g.id; });
+    const r = await API.rpc("a_creer_session", { code: CODE, p_nom: $("s-nom").value.trim(), p_calendrier: cal });
+    sessionId = r.id; charger();
+  });
+  $("btn-calendrier").addEventListener("click", async () => {
+    let cal; try { cal = JSON.parse($("s-calendrier").value); } catch (e) { return alert("Calendrier illisible : vérifiez le format."); }
+    await API.rpc("a_maj_session", { code: CODE, p_session: sessionId, p_calendrier: cal, p_active: null }); charger();
+  });
+  $("btn-activer").addEventListener("click", async () => { await API.rpc("a_maj_session", { code: CODE, p_session: sessionId, p_calendrier: null, p_active: true }); charger(); });
+
+  $("form-participants").addEventListener("submit", async (e) => {
+    e.preventDefault(); if (!sessionId) return;
+    await API.rpc("a_creer_participants", { code: CODE, p_session: sessionId, n: Number($("n-participants").value) }); charger();
+  });
+
+  // ---------- Calculs ----------
+  function calculer() {
+    const P = D.participants, E = D.evenements, R = D.rappels;
+    const parP = {};
+    for (const p of P) parP[p.id] = { p, ev: [], rappels: R.filter(r => r.participant_id === p.id) };
+    for (const e of E) if (parP[e.participant_id]) parP[e.participant_id].ev.push(e);
+    const m = {};
+    for (const id in parP) {
+      const { p, ev, rappels } = parP[id];
+      const visites = ev.filter(e => e.type === "visite");
+      const cls = (c) => visites.filter(v => v.donnees.classe === c);
+      const joursSpont = new Set(cls("retour_spontane").map(v => jourParis(v.created_at)));
+      const fins = ev.filter(e => e.type === "fin");
+      const partages = ev.filter(e => e.type === "partage" && !["annule", "echec"].includes(e.donnees.methode));
+      m[id] = {
+        id, groupe: p.groupe, invite_par: p.invite_par || "", grille_forcee: p.grille_forcee || "",
+        lien_envoye: !!p.lien_envoye_le, lien_envoye_le: p.lien_envoye_le,
+        visites: visites.length, a_ouvert: visites.length > 0,
+        a_commence: ev.some(e => e.type === "debut"),
+        grilles_commencees: [...new Set(ev.filter(e => e.type === "debut").map(e => e.grille))],
+        grilles_terminees: [...new Set(fins.map(e => e.grille))],
+        grilles_gagnees: [...new Set(fins.filter(e => e.donnees.gagne).map(e => e.grille))],
+        a_demande: ev.some(e => e.type === "demande_suivante"),
+        retours_spontanes_jours: joursSpont.size,
+        retours_apres_rappel: cls("retour_apres_rappel").length,
+        retours_rappel_probable: cls("retour_rappel_probable").length,
+        partages: partages.length,
+        rappels_envoyes: rappels.length,
+        derniere_visite: visites.length ? visites[visites.length - 1].created_at : null,
+        visite_aujourdhui: visites.some(v => jourParis(v.created_at) === jourParis()),
+        ev,
+      };
+    }
+    for (const id in m) m[id].invites_actifs = Object.values(m).filter(x => x.invite_par === id && x.a_commence).length;
+    return m;
+  }
+
+  // ---------- Rendu ----------
+  function rendreTout() {
+    if (!D) { ["tab-entonnoir", "tab-rappels", "tab-participants"].forEach(t => $(t).innerHTML = ""); $("res-grille").innerHTML = ""; return; }
+    const M = calculer();
+    rendreEntonnoir(M); rendreRappels(M); rendreParticipants(M); rendreOnglets(); rendreGrille(M);
+    window.__M = M;
+  }
+
+  function rendreEntonnoir(M) {
+    const cols = [["R", "Groupe R"], ["S", "Groupe S"], ["invite", "Invités"], ["organique", "Organiques"], ["*", "Total"]];
+    const sous = (g) => Object.values(M).filter(x => g === "*" || x.groupe === g);
+    const lignes = [
+      ["Participants créés / arrivés", x => true],
+      ["Lien envoyé (R et S)", x => x.lien_envoye],
+      ["A ouvert la page", x => x.a_ouvert],
+      ["A commencé une partie", x => x.a_commence],
+      ["A terminé au moins une grille", x => x.grilles_terminees.length > 0],
+      ["A terminé 2 grilles ou plus", x => x.grilles_terminees.length >= 2],
+      ["A demandé une autre grille", x => x.a_demande],
+      ["Revenu après un rappel", x => x.retours_apres_rappel > 0],
+      ["Revenu sans rappel (au moins 1 jour)", x => x.retours_spontanes_jours > 0, true],
+      ["Revenu sans rappel 2 jours ou plus", x => x.retours_spontanes_jours >= 2],
+      ["A cliqué sur « Inviter »", x => x.partages > 0],
+      ["A fait venir un invité qui a joué", x => x.invites_actifs > 0],
+    ];
+    let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
+    for (const [lib, f, fort] of lignes) {
+      h += `<tr><td>${fort ? "<strong>" + lib + "</strong>" : lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n}${lib.startsWith("Participants") ? "" : ` <span class="muted">(${pct(n, s.length)})</span>`}</td>`; }).join("")}</tr>`;
+    }
+    $("tab-entonnoir").innerHTML = h;
+  }
+
+  function rendreRappels(M) {
+    const s = sessions.find(x => x.id === sessionId);
+    const gidJour = s && s.calendrier[jourParis()];
+    const liste = Object.values(M).filter(x => x.groupe === "R" && x.a_demande && !x.visite_aujourdhui && (x.grille_forcee || gidJour));
+    if (!gidJour) { $("tab-rappels").innerHTML = `<tr><td class="muted">Pas de grille au calendrier aujourd'hui.</td></tr>`; return; }
+    if (!liste.length) { $("tab-rappels").innerHTML = `<tr><td class="muted">Aucun rappel à envoyer pour l'instant.</td></tr>`; return; }
+    const auj = jourParis();
+    $("tab-rappels").innerHTML = `<tr><th>Participant</th><th>Rappels déjà générés aujourd'hui</th><th>Lien de rappel</th></tr>` + liste.map(x => {
+      const deja = D.rappels.filter(r => r.participant_id === x.id && jourParis(r.created_at) === auj);
+      return `<tr><td class="k">${x.id}</td><td>${deja.length}</td><td>${deja.length ? `<span class="k">${esc(lienPerso(x.id) + "&r=" + deja[deja.length - 1].token)}</span> <button class="mini sec" data-copier="${esc(lienPerso(x.id) + "&r=" + deja[deja.length - 1].token)}">Copier</button>` : `<button class="mini" data-rappel="${x.id}">Générer le lien</button>`}</td></tr>`;
+    }).join("");
+    $("tab-rappels").querySelectorAll("[data-rappel]").forEach(b => b.addEventListener("click", async () => {
+      await API.rpc("a_creer_rappel", { code: CODE, p_id: b.dataset.rappel, p_grille: gidJour }); charger();
+    }));
+    brancherCopier($("tab-rappels"));
+  }
+
+  function brancherCopier(racine) {
+    racine.querySelectorAll("[data-copier]").forEach(b => b.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(b.dataset.copier); b.textContent = "Copié"; } catch (e) { prompt("Copiez ce lien :", b.dataset.copier); }
+    }));
+  }
+
+  function rendreParticipants(M) {
+    const L = Object.values(M);
+    if (!L.length) { $("tab-participants").innerHTML = `<tr><td class="muted">Aucun participant.</td></tr>`; return; }
+    const opts = (sel) => `<option value="">calendrier</option>` + GRILLES.map(g => `<option value="${g.id}" ${sel === g.id ? "selected" : ""}>${g.titre}</option>`).join("");
+    $("tab-participants").innerHTML = `<tr><th>ID</th><th>Groupe</th><th>Lien personnel</th><th>Envoyé</th><th>Grille</th><th class="num">Visites</th><th>Commencées</th><th>Terminées</th><th>Demande</th><th class="num">Jours revenu sans rappel</th><th class="num">Retours après rappel</th><th class="num">Clics inviter</th><th class="num">Invités ayant joué</th><th>Dernière visite</th></tr>`
+      + L.map(x => `<tr>
+        <td class="k">${x.id}</td><td>${x.groupe}${x.invite_par ? ` <span class="muted">par ${x.invite_par}</span>` : ""}</td>
+        <td>${["R", "S"].includes(x.groupe) ? `<button class="mini sec" data-lien="${x.id}">Copier le lien</button>` : `<span class="muted">–</span>`}</td>
+        <td>${x.lien_envoye ? heure(x.lien_envoye_le) : ""}</td>
+        <td><select data-forcer="${x.id}">${opts(x.grille_forcee)}</select></td>
+        <td class="num">${x.visites}</td><td>${x.grilles_commencees.join(", ")}</td>
+        <td>${x.grilles_terminees.map(g => g + (x.grilles_gagnees.includes(g) ? " ✓" : " ✗")).join(", ")}</td>
+        <td>${x.a_demande ? "oui" : ""}</td><td class="num">${x.retours_spontanes_jours}</td><td class="num">${x.retours_apres_rappel}${x.retours_rappel_probable ? ` <span class="muted">(+${x.retours_rappel_probable} probable)</span>` : ""}</td>
+        <td class="num">${x.partages}</td><td class="num">${x.invites_actifs}</td><td>${heure(x.derniere_visite)}</td></tr>`).join("");
+    $("tab-participants").querySelectorAll("[data-lien]").forEach(b => b.addEventListener("click", async () => {
+      const lien = lienPerso(b.dataset.lien);
+      try { await navigator.clipboard.writeText(lien); b.textContent = "Copié"; } catch (e) { prompt("Copiez ce lien :", lien); }
+      await API.rpc("a_lien_envoye", { code: CODE, p_id: b.dataset.lien }); charger();
+    }));
+    $("tab-participants").querySelectorAll("[data-forcer]").forEach(s => s.addEventListener("change", async () => {
+      await API.rpc("a_forcer_grille", { code: CODE, p_id: s.dataset.forcer, p_grille: s.value }); charger();
+    }));
+  }
+
+  function rendreOnglets() {
+    $("tabs-grilles").innerHTML = GRILLES.map(g => `<button class="${g.id === grilleOnglet ? "on" : ""}" data-g="${g.id}">${g.titre}</button>`).join("");
+    $("tabs-grilles").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { grilleOnglet = b.dataset.g; rendreTout(); }));
+  }
+
+  function mediane(a) { if (!a.length) return null; const s = a.slice().sort((x, y) => x - y); const k = Math.floor(s.length / 2); return s.length % 2 ? s[k] : (s[k - 1] + s[k]) / 2; }
+
+  function rendreGrille(M) {
+    const g = GRILLES.find(x => x.id === grilleOnglet);
+    const E = D.evenements.filter(e => e.grille === g.id);
+    const qui = (t) => new Set(E.filter(e => e.type === t).map(e => e.participant_id));
+    const fins = E.filter(e => e.type === "fin");
+    // une seule fin par participant (la première)
+    const finParP = {}; for (const f of fins) if (!finParP[f.participant_id]) finParP[f.participant_id] = f;
+    const F = Object.values(finParP);
+    const gagnes = F.filter(f => f.donnees.gagne);
+    const durees = gagnes.map(f => f.donnees.duree_s).filter(x => typeof x === "number");
+    const erreursMoy = F.length ? (F.reduce((a, f) => a + (f.donnees.erreurs || 0), 0) / F.length).toFixed(1) : "–";
+    const Q = {}; for (const q of E.filter(e => e.type === "questionnaire")) Q[q.participant_id] = q.donnees;
+    const QL = Object.values(Q);
+    const distrib = (k, vals) => vals.map(([v, lib]) => `${lib} : ${QL.filter(q => q[k] === v).length}`).join(" · ");
+    const essaisFaux = {}; E.filter(e => e.type === "essai" && !e.donnees.correct).forEach(e => { const s = e.donnees.mots.slice().sort().join(", "); essaisFaux[s] = (essaisFaux[s] || 0) + 1; });
+    const topFaux = Object.entries(essaisFaux).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const groupesStat = g.groupes.map(gr => `<tr><td>${esc(gr.categorie)}</td><td>${gr.difficulte}</td><td class="num">${F.filter(f => (f.donnees.groupes_trouves || []).includes(gr.categorie)).length} / ${F.length}</td></tr>`).join("");
+    const commentaires = QL.filter(q => q.gene).map(q => `<li>${esc(q.gene)}</li>`).join("");
+    $("res-grille").innerHTML = `
+      <p class="muted">${esc(g.intention)}</p>
+      <div class="scroll"><table>
+        <tr><th>Mesure</th><th class="num">Valeur</th></tr>
+        <tr><td>Personnes ayant ouvert cette grille</td><td class="num">${new Set(E.filter(e => e.type === "visite").map(e => e.participant_id)).size}</td></tr>
+        <tr><td>Ont commencé</td><td class="num">${qui("debut").size}</td></tr>
+        <tr><td>Ont terminé</td><td class="num">${F.length}</td></tr>
+        <tr><td>Ont résolu la grille</td><td class="num">${gagnes.length} <span class="muted">(${pct(gagnes.length, F.length)} des parties terminées)</span></td></tr>
+        <tr><td>Erreurs moyennes (parties terminées)</td><td class="num">${erreursMoy}</td></tr>
+        <tr><td>Temps médian de résolution</td><td class="num">${mediane(durees) == null ? "–" : Math.round(mediane(durees)) + " s"}</td></tr>
+        <tr><td>Ont demandé une autre grille après celle-ci</td><td class="num">${qui("demande_suivante").size}</td></tr>
+        <tr><td>Questionnaires remplis</td><td class="num">${QL.length}</td></tr>
+      </table></div>
+      <h3 style="font-size:15px;margin:12px 0 4px">Questionnaire</h3>
+      <p>Justesse — ${distrib("justesse", [["toutes", "Oui, toutes"], ["la_plupart", "La plupart"], ["plusieurs_injustes", "Plusieurs injustes"]])}</p>
+      <p>Difficulté — ${distrib("difficulte", [["trop_facile", "Trop facile"], ["bien_dosee", "Bien dosée"], ["trop_difficile", "Trop difficile"]])}</p>
+      <p>Envie d'une autre grille — ${distrib("envie", [["oui", "Oui"], ["peut_etre", "Peut-être"], ["non", "Non"]])}</p>
+      <h3 style="font-size:15px;margin:12px 0 4px">Groupes trouvés par les joueurs (sans compter la solution révélée)</h3>
+      <div class="scroll"><table><tr><th>Groupe</th><th>Difficulté</th><th class="num">Trouvé</th></tr>${groupesStat}</table></div>
+      <h3 style="font-size:15px;margin:12px 0 4px">Erreurs les plus fréquentes</h3>
+      ${topFaux.length ? `<ul class="comments">${topFaux.map(([s, n]) => `<li>${esc(s)} — ${n} fois</li>`).join("")}</ul>` : `<p class="muted">Aucune pour l'instant.</p>`}
+      <h3 style="font-size:15px;margin:12px 0 4px">Ce qui a gêné (réponses libres)</h3>
+      ${commentaires ? `<ul class="comments">${commentaires}</ul>` : `<p class="muted">Aucune réponse pour l'instant.</p>`}`;
+  }
+
+  // ---------- Export CSV ----------
+  function csv(lignes) {
+    const cell = (v) => { const s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); return /[;"\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    return "﻿" + lignes.map(l => l.map(cell).join(";")).join("\r\n");
+  }
+  function telecharger(nom, contenu) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([contenu], { type: "text/csv;charset=utf-8" }));
+    a.download = nom; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+  $("btn-csv-participants").addEventListener("click", () => {
+    if (!D) return; const M = calculer();
+    const t = [["id", "groupe", "invite_par", "lien_envoye_le", "visites", "a_commence", "grilles_commencees", "grilles_terminees", "grilles_resolues", "a_demande_autre_grille", "jours_revenu_sans_rappel", "retours_apres_rappel", "retours_rappel_probable", "clics_inviter", "invites_ayant_joue", "rappels_envoyes", "derniere_visite"]];
+    for (const x of Object.values(M)) t.push([x.id, x.groupe, x.invite_par, x.lien_envoye_le || "", x.visites, x.a_commence ? 1 : 0, x.grilles_commencees.join(" "), x.grilles_terminees.join(" "), x.grilles_gagnees.join(" "), x.a_demande ? 1 : 0, x.retours_spontanes_jours, x.retours_apres_rappel, x.retours_rappel_probable, x.partages, x.invites_actifs, x.rappels_envoyes, x.derniere_visite || ""]);
+    telecharger(`quotidien_participants_${sessionId}.csv`, csv(t));
+  });
+  $("btn-csv-evenements").addEventListener("click", () => {
+    if (!D) return;
+    const t = [["id", "date_heure_utc", "jour_paris", "participant", "groupe", "visite", "grille", "type", "classe_visite", "entree", "correct", "erreurs", "gagne", "duree_s", "donnees_json"]];
+    const grp = Object.fromEntries(D.participants.map(p => [p.id, p.groupe]));
+    for (const e of D.evenements) { const d = e.donnees || {}; t.push([e.id, e.created_at, jourParis(e.created_at), e.participant_id, grp[e.participant_id], e.visite_id, e.grille, e.type, d.classe || "", d.entree || "", d.correct == null ? "" : d.correct ? 1 : 0, d.erreurs == null ? "" : d.erreurs, d.gagne == null ? "" : d.gagne ? 1 : 0, d.duree_s == null ? "" : d.duree_s, d]); }
+    telecharger(`quotidien_evenements_${sessionId}.csv`, csv(t));
+  });
+})();
+</script>
+</body>
+</html>

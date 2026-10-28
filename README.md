@@ -8,12 +8,19 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 |---|---|
 | `index.html` | Le jeu (mobile et ordinateur, sans téléchargement). |
 | `admin.html` | Tableau de bord administrateur (protégé par un code). |
-| `grilles.json` | Les 3 grilles (source). Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
+| `grilles.json` | Les 30 grilles (source), 10 faciles / 10 intermédiaires / 10 difficiles, chacune avec un champ `niveau`. Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
 | `grilles.js` | Les grilles, générées depuis `grilles.json` (ne pas modifier à la main). |
 | `config.js` | Adresse de la base Supabase et clé **publique**. |
 | `api.js` | Appels à la base. |
-| `verifier_grilles.py` | Vérifie chaque grille : 16 mots distincts, 4×4, et **une seule solution** compte tenu des leurres déclarés. |
+| `verifier_grilles.py` | Vérifie chaque grille : 16 mots distincts, 4×4, niveau renseigné, aucun mot répété d'une grille à l'autre, et **une seule solution** compte tenu des leurres déclarés (`rattachements_plausibles`). |
 | `tests/` | Serveur de test local (base simulée) et tests automatisés du parcours complet. |
+
+## La banque de grilles
+
+- 30 grilles, 3 niveaux (10 / 10 / 10). Le niveau n'est **pas** affiché au joueur, pour ne pas influencer la difficulté ressentie que mesure le questionnaire.
+- Chaque grille passe deux contrôles : le script `verifier_grilles.py` (structure, unicité de la solution en tenant compte des pièges déclarés, aucun mot réutilisé entre grilles) et une relecture indépendante (recherche d'une autre répartition défendable, expressions fausses ou rares, mots cachés involontaires, calibrage de la difficulté). Les grilles à mots cachés sont en plus passées à un scan automatique des 16 mots (notes, couleurs, pays, prénoms).
+- Ces contrôles réduisent fortement le risque d'injustice mais ne le suppriment pas : une grille jugée injuste par plusieurs testeurs (question « associations justes ? » et commentaires) doit être retirée ou corrigée **entre deux sessions**, jamais pendant.
+- Une grille à retirer : la supprimer du calendrier de la session plutôt que du fichier, pour garder la numérotation stable.
 
 ## Architecture (gratuite)
 
@@ -28,7 +35,8 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 
 1. Ouvrir `admin.html` (adresse en ligne) et entrer le code administrateur.
 2. **Créer une session** : nom et premier jour.
-   - Le calendrier se remplit tout seul : grille 1 le premier jour, grille 2 le lendemain, grille 3 le surlendemain.
+   - Le calendrier se remplit tout seul : une grille par jour dans l'ordre du fichier (grille 1 le premier jour, … grille 30 le trentième). Il reste modifiable dans « Modifier le calendrier ».
+   - L'ordre des 30 grilles alterne volontairement les niveaux sur les premiers jours (1 facile, 2 intermédiaire, 3 difficile) ; le protocole de décision à 14 jours reste inchangé.
    - Le changement de jour se fait à minuit, heure de Paris.
 3. **Créer les participants** (par exemple 30). Ils sont répartis automatiquement en groupe R et groupe S, en alternance.
 4. Pour chaque testeur, cliquer **« Copier le lien »** au moment où on le lui envoie, puis coller ce lien dans le message.

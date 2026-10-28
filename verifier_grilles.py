@@ -13,6 +13,7 @@ for g in grids:
     if len(set(words)) != 16: errs.append("mots non distincts")
     if any(x["difficulte"] not in ("facile", "intermediaire", "difficile") for x in g["groupes"]): errs.append("difficulté invalide")
     if any(not x["explication"].strip() for x in g["groupes"]): errs.append("explication vide")
+    if g.get("niveau") not in ("facile", "intermediaire", "difficile"): errs.append("niveau de grille manquant ou invalide")
     for w in words: allwords.setdefault(w, []).append(g["id"])
     # candidats : catégorie officielle + rattachements plausibles qui sont des catégories de la grille
     cand = {}
@@ -37,4 +38,7 @@ for g in grids:
     ok &= (not errs and n == 1)
 dup = {w: ids for w, ids in allwords.items() if len(ids) > 1}
 print("Mots répétés entre grilles :", dup or "aucun")
+from collections import Counter
+print("Niveaux :", dict(Counter(g.get("niveau") for g in grids)))
+ok &= not dup
 sys.exit(0 if ok else 1)

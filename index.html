@@ -56,6 +56,7 @@
   .tagline { color: var(--muted); font-size: 14px; font-weight: 700; margin: 2px 0 14px; text-align: center; }
   .banner { background: rgba(255,255,255,.08); border-radius: var(--r-m); padding: 8px 12px; font-size: 13px; font-weight: 700; margin-bottom: 12px; text-align: center; color: var(--muted); }
   .banner a { color: var(--focus); font-weight: 800; }
+  .banner select { font: inherit; font-size: 14px; font-weight: 700; border: 0; border-radius: 8px; padding: 4px 8px; background: var(--cream); color: var(--ink); margin-left: 4px; max-width: 100%; }
   .chargement { text-align: center; color: var(--light); font-weight: 700; padding: 40px 0; line-height: 1.6; }
   .small-clair { font-size: 13px; color: var(--muted); }
   .spin { display: inline-block; width: 14px; height: 14px; border: 3px solid rgba(255,255,255,.25); border-top-color: var(--c0); border-radius: 50%; vertical-align: -2px; margin-right: 4px; animation: tourne .9s linear infinite; }
@@ -425,9 +426,10 @@
   async function _demarrer() {
     if (DEMO) {
       $("banniere-demo").classList.remove("hidden");
-      const choix = GRILLES.map(g => `<a href="?demo=1&g=${g.id}">${g.titre}</a>`).join(" · ");
-      $("choix-grille-demo").innerHTML = choix;
+      const LIB_NIV = { facile: "facile", intermediaire: "intermédiaire", difficile: "difficile" };
       grille = GRILLES.find(g => g.id === params.get("g")) || GRILLES[0];
+      $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map(g => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""}>${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>`;
+      $("select-demo").addEventListener("change", (e) => { location.href = "?demo=1&g=" + e.target.value; });
       return lancerGrille();
     }
     let entree = token ? "rappel" : pParam ? "lien_personnel" : invParam ? "invitation" : "sans_lien";

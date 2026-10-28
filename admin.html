@@ -63,7 +63,7 @@
         <form class="row" id="form-session" style="margin-top:8px">
           <input id="s-nom" placeholder="Nom (ex. Test novembre)" required>
           <label>Premier jour <input type="date" id="s-debut" required></label>
-          <span class="muted">Grille 1 le premier jour, grille 2 le lendemain, grille 3 le surlendemain. La nouvelle session devient la session active.</span>
+          <span class="muted">Une grille par jour dans l'ordre (grille 1 le premier jour, etc.), soit autant de jours que de grilles (<span id="nb-grilles"></span>). Le calendrier reste modifiable ensuite. La nouvelle session devient la session active.</span>
           <button>Créer</button>
         </form>
       </details>
@@ -136,6 +136,8 @@
   const pct = (a, b) => b ? Math.round(100 * a / b) + " %" : "–";
 
   $("lien-demo").href = BASE + "?demo=1";
+  $("nb-grilles").textContent = GRILLES.length;
+  const LIB_NIV = { facile: "facile", intermediaire: "interm.", difficile: "difficile" };
 
   try { CODE = sessionStorage.getItem("quotidien_admin"); } catch (e) {}
   if (CODE) connecter(CODE);
@@ -163,8 +165,10 @@
     const s = sessions.find(x => x.id === sessionId);
     if (!s) { $("info-session").textContent = "Créez une session pour commencer."; D = null; rendreTout(); return; }
     $("s-calendrier").value = JSON.stringify(s.calendrier);
-    const cal = Object.entries(s.calendrier).sort().map(([d, g]) => `${d} → ${(GRILLES.find(x => x.id === g) || {}).titre || g}`).join(" · ") || "aucune date";
-    $("info-session").innerHTML = `${s.active ? "<strong>Session active</strong> (les visiteurs sans lien et les invités y sont rattachés)." : "Session inactive."} Calendrier (heure de Paris) : ${esc(cal)}. Aujourd'hui : ${jourParis()}.`;
+    const entrees = Object.entries(s.calendrier).sort();
+    const cal = (entrees.length > 6 ? entrees.slice(0, 3).concat([["…", "…"]], entrees.slice(-2)) : entrees).map(([d, g]) => d === "…" ? "…" : `${d} → ${(GRILLES.find(x => x.id === g) || {}).titre || g}`).join(" · ") || "aucune date";
+    const calComplet = entrees.length ? ` (${entrees.length} jours, du ${entrees[0][0]} au ${entrees[entrees.length - 1][0]})` : "";
+    $("info-session").innerHTML = `${s.active ? "<strong>Session active</strong> (les visiteurs sans lien et les invités y sont rattachés)." : "Session inactive."} Calendrier (heure de Paris)${calComplet} : ${esc(cal)}. Aujourd'hui : ${jourParis()}.`;
     D = await API.rpc("a_donnees", { code: CODE, p_session: sessionId });
     rendreTout();
   }
@@ -313,7 +317,7 @@
   }
 
   function rendreOnglets() {
-    $("tabs-grilles").innerHTML = GRILLES.map(g => `<button class="${g.id === grilleOnglet ? "on" : ""}" data-g="${g.id}">${g.titre}</button>`).join("");
+    $("tabs-grilles").innerHTML = GRILLES.map(g => `<button class="${g.id === grilleOnglet ? "on" : ""}" data-g="${g.id}" title="${esc(g.niveau || "")}">${g.titre.replace("Grille ", "")}<span class="muted" style="font-size:11px"> ${LIB_NIV[g.niveau] || ""}</span></button>`).join("");
     $("tabs-grilles").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { grilleOnglet = b.dataset.g; rendreTout(); }));
   }
 
@@ -338,7 +342,7 @@
     const groupesStat = g.groupes.map(gr => `<tr><td>${esc(gr.categorie)}</td><td>${gr.difficulte}</td><td class="num">${F.filter(f => (f.donnees.groupes_trouves || []).includes(gr.categorie)).length} / ${F.length}</td></tr>`).join("");
     const commentaires = QL.filter(q => q.gene).map(q => `<li>${esc(q.gene)}</li>`).join("");
     $("res-grille").innerHTML = `
-      <p class="muted">${esc(g.intention)}</p>
+      <p class="muted"><strong>${esc(g.titre)} · niveau ${esc(g.niveau || "?")}.</strong> ${esc(g.intention)}</p>
       <div class="scroll"><table>
         <tr><th>Mesure</th><th class="num">Valeur</th></tr>
         <tr><td>Personnes ayant ouvert cette grille</td><td class="num">${new Set(E.filter(e => e.type === "visite").map(e => e.participant_id)).size}</td></tr>

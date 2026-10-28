@@ -90,7 +90,7 @@
     font-family: var(--title); font-weight: 600; font-size: 16px; letter-spacing: 0; text-transform: uppercase; padding: 0 3px; cursor: pointer;
     display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1;
     white-space: nowrap; overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent; transition: transform .08s ease, box-shadow .08s ease, background-color .1s; }
+    -webkit-tap-highlight-color: transparent; transition: transform .14s cubic-bezier(.2,.8,.2,1), box-shadow .14s ease, background-color .14s, color .14s; }
   .tile.t2 { font-size: 13.5px; } .tile.t3 { font-size: 12px; } .tile.t4 { font-size: 10.5px; letter-spacing: -.02em; }
   .tile span { display: inline-block; transform-origin: center; }
   .tile.t5 { font-size: 9.5px; letter-spacing: -.03em; }
@@ -102,6 +102,8 @@
   .tile { position: relative; }
   .tile.sel:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--sel-edge), inset 0 0 0 3px rgba(255,255,255,.55); }
   .tile.faux { animation: secoue .4s; }
+  .tile.envol { animation: envol .3s ease-in forwards; pointer-events: none; }
+  @keyframes envol { 0% { transform: translateY(-2px) scale(1); opacity: 1; } 100% { transform: translateY(-26px) scale(.7); opacity: 0; } }
   @keyframes secoue { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
 
   /* ---------- Retour de jeu (sous le plateau, ne masque rien) ---------- */
@@ -609,16 +611,11 @@
   async function _demarrer() {
     if (DEMO) {
       $("banniere-demo").classList.remove("hidden");
-      const LIB_NIV = { facile: "facile", intermediaire: "intermédiaire", difficile: "difficile" };
       // En démo, les grilles se débloquent dans l'ordre : la grille n+1 s'ouvre quand la grille n est résolue.
-      const resolues = new Set(PROG.lireJournal("demo").filter(e => e.gagne).map(e => e.grille));
-      const deverrouillee = (i) => i === 0 || resolues.has(GRILLES[i - 1].id);
+      const { deverrouillee, resolues } = etatDemo();
       const demandee = GRILLES.findIndex(g => g.id === params.get("g"));
       const iGrille = demandee >= 0 && deverrouillee(demandee) ? demandee : Math.max(0, GRILLES.findIndex((g, i) => deverrouillee(i) && !resolues.has(g.id)));
       grille = GRILLES[iGrille >= 0 ? iGrille : 0];
-      $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map((g, i) => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""} ${deverrouillee(i) ? "" : "disabled"}>${deverrouillee(i) ? (resolues.has(g.id) ? "✓ " : "") : "🔒 "}${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>
-        <div class="small-clair" style="margin-top:4px">Résous une grille pour débloquer la suivante.</div>`;
-      $("select-demo").addEventListener("change", (e) => { location.href = "?demo=1&g=" + e.target.value; });
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
       return;
@@ -731,6 +728,24 @@
     rendreEntete(); rendreAccueil(); afficherEcran("accueil");
   }
 
+  // Démo : état de déblocage des grilles et sélecteur (changement de grille sans recharger la page).
+  function etatDemo() {
+    const resolues = new Set(PROG.lireJournal("demo").filter(e => e.gagne).map(e => e.grille));
+    return { resolues, deverrouillee: (i) => i === 0 || resolues.has(GRILLES[i - 1].id) };
+  }
+  function rendreSelecteurDemo() {
+    if (!DEMO || !grille) return;
+    const { deverrouillee, resolues } = etatDemo();
+    $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map((g, i) => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""} ${deverrouillee(i) ? "" : "disabled"}>${deverrouillee(i) ? (resolues.has(g.id) ? "✓ " : "") : "🔒 "}${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>
+      <div class="small-clair" style="margin-top:4px">Résous une grille pour débloquer la suivante.</div>`;
+    $("select-demo").addEventListener("change", (e) => {
+      const g = GRILLES.find(x => x.id === e.target.value); if (!g) return;
+      grille = g; etat = null; selection = []; fini = false;
+      history.replaceState(null, "", "?demo=1&g=" + g.id);
+      rendreAccueil();
+    });
+  }
+
   function allerJouer() {
     if (!grille) { afficherEcran("accueil"); return; }
     if (etat && etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
@@ -791,6 +806,7 @@
       ${suiv ? `<p class="small"><strong>Prochaine étape :</strong> niveau ${suiv.n} — ${suiv.nom}. Il te manque <strong>${suiv.xp - p.xp} XP</strong>. ${suiv.cible}</p>` : `<p class="small">Tu as atteint le dernier niveau disponible.</p>`}
       <button class="btn btn-large" data-ecran="parcours">Voir mon parcours</button>`;
     brancherNav(document.querySelector("main"));
+    rendreSelecteurDemo();
   }
 
   function htmlObjectif(o) {
@@ -925,6 +941,7 @@
     // Reprise d'une partie quittée : on garde la sélection en cours (mots encore sur le plateau)
     selection = (etatRepris ? selection : []).filter(m => !etat.trouves.includes(groupeDe(m)));
     fini = false; tuilesFausses = [];
+    if (!etatRepris) viderPlateau();
     if (etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
     const cleRegles = DEMO ? "quotidien_regles_vues_demo" : "quotidien_regles_vues";
     if (!store.get(cleRegles)) { store.set(cleRegles, true); montrerEtape(1); $("dlg-regles").showModal(); journal("regles", { auto: true }); }
@@ -953,21 +970,53 @@
     return tri.indexOf(gi);
   }
 
-  function rendre() {
+  // Les cartes sont des éléments persistants : un toucher ne change que leurs classes (les transitions jouent),
+  // un mélange les déplace avec une animation (technique FLIP), un groupe trouvé fait s'envoler ses 4 cartes.
+  const tuiles = new Map(); // mot -> bouton
+  function creerTuile(mot) {
+    const b = document.createElement("button");
+    b.className = "tile"; b.type = "button";
+    const sp = document.createElement("span"); sp.textContent = mot; b.appendChild(sp); b.setAttribute("aria-label", mot);
+    b.addEventListener("click", () => basculer(mot));
+    return b;
+  }
+  function viderPlateau() { tuiles.clear(); $("plateau").innerHTML = ""; }
+  function positions() { const p = new Map(); tuiles.forEach((b, m) => p.set(m, b.getBoundingClientRect())); return p; }
+  function animerDeplacements(avant) {
+    if (!avant || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    tuiles.forEach((b, m) => {
+      const a = avant.get(m); if (!a) return;
+      const n = b.getBoundingClientRect(); const dx = a.left - n.left, dy = a.top - n.top;
+      if (!dx && !dy) return;
+      b.style.transition = "none"; b.style.transform = `translate(${dx}px,${dy}px)`;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        b.style.transition = "transform .32s cubic-bezier(.2,.8,.2,1)"; b.style.transform = "";
+        b.addEventListener("transitionend", () => { b.style.transition = ""; }, { once: true });
+      }));
+    });
+  }
+  function rendre(options) {
     $("trouves").classList.add("en-jeu");
     $("trouves").innerHTML = etat.trouves.map(gi => htmlGroupe(gi, couleurDe(gi))).join("");
     groupeAnime = null;
     const restants = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
     const plateau = $("plateau");
-    plateau.innerHTML = "";
-    for (const mot of restants) {
-      const b = document.createElement("button");
-      b.className = "tile" + (selection.includes(mot) ? " sel" : "") + (tuilesFausses.includes(mot) ? " faux" : "") + (motsIndices().includes(mot) ? " indice" : "");
-      const sp = document.createElement("span"); sp.textContent = mot; b.appendChild(sp); b.setAttribute("aria-label", mot); b.setAttribute("aria-pressed", selection.includes(mot));
-      b.addEventListener("click", () => basculer(mot));
-      plateau.appendChild(b);
-    }
-    ajusterTailles();
+    const avant = options && options.flip ? positions() : null;
+    tuiles.forEach((b, m) => { if (!restants.includes(m)) { b.remove(); tuiles.delete(m); } });
+    let nouvelles = false;
+    const indices = motsIndices();
+    restants.forEach((mot, i) => {
+      let b = tuiles.get(mot);
+      if (!b) { b = creerTuile(mot); tuiles.set(mot, b); nouvelles = true; }
+      b.classList.toggle("sel", selection.includes(mot));
+      b.classList.toggle("indice", indices.includes(mot));
+      b.setAttribute("aria-pressed", selection.includes(mot));
+      if (plateau.children[i] !== b) plateau.insertBefore(b, plateau.children[i] || null);
+    });
+    if (nouvelles) ajusterTailles();
+    animerDeplacements(avant);
+    tuilesFausses.forEach(m => { const b = tuiles.get(m); if (!b) return; b.classList.remove("faux"); void b.offsetWidth; b.classList.add("faux");
+      b.addEventListener("animationend", () => b.classList.remove("faux"), { once: true }); });
     tuilesFausses = [];
     const coeur = (u, perdu) => `<svg class="coeur ${u ? "used" : ""} ${perdu ? "perdu" : ""}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9.3C.8 8.4 2.6 4.5 6.4 4.1c2.1-.2 3.9.9 5.6 3 1.7-2.1 3.5-3.2 5.6-3 3.8.4 5.6 4.3 4.1 7.6C19.5 16.4 12 21 12 21z"/></svg>`;
     const restantes = MAX_ERREURS - etat.erreurs;
@@ -979,6 +1028,9 @@
     $("progression").innerHTML = [0, 1, 2, 3].map(i => `<i class="${i < trouvesTries.length ? "c" + trouvesTries[i] : ""}"></i>`).join("");
     $("nb-groupes").textContent = etat.trouves.length + "/4";
     rendreIndice();
+    rendreBoutons();
+  }
+  function rendreBoutons() {
     const etaitPret = !$("btn-valider").disabled;
     $("btn-valider").disabled = selection.length !== 4;
     if (selection.length === 4 && !etaitPret) { const b = $("btn-valider"); b.classList.remove("pret"); void b.offsetWidth; b.classList.add("pret"); }
@@ -1058,8 +1110,17 @@
   function dureeActiveS() { return etat ? Math.round(tempsActifMs() / 1000) : null; }
   document.addEventListener("visibilitychange", () => { if (document.hidden) chronoPause(); else if (ecranCourant === "jeu" && etat && !etat.fin && !$("jeu").classList.contains("hidden")) chronoDemarrer(); });
 
+  function envoler(mots, apres) {
+    const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const boutons = mots.map(m => tuiles.get(m)).filter(Boolean);
+    if (reduit || !boutons.length) { apres(); return; }
+    boutons.forEach((b, i) => { b.classList.add("envol"); b.style.animationDelay = (i * 40) + "ms"; });
+    rendreBoutons();
+    setTimeout(apres, 320);
+  }
+
   function basculer(mot) {
-    if (etat.fin) return;
+    if (etat.fin || etat.trouves.includes(groupeDe(mot))) return;
     if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); }
     if (selection.includes(mot)) selection = selection.filter(m => m !== mot);
     else if (selection.length < 4) selection.push(mot);
@@ -1080,10 +1141,15 @@
     journal("essai", { mots: selection.slice(), correct, un_de_moins: unDeMoins, numero: etat.essais.length });
     if (correct) {
       etat.trouves.push(groupes[0]);
-      groupeAnime = groupes[0];
+      const envol = selection.slice();
       selection = [];
       toast(["Bien vu !", "Bravo !", "Excellent !", "Parfait !"][etat.trouves.length - 1] || "Bien vu !", "bon"); vibrer(30);
-      if (etat.trouves.length === 4) { sauver(); rendre(); fini = true; setTimeout(() => terminer(true), 900); return; }
+      sauver();
+      const complet = etat.trouves.length === 4;
+      if (complet) fini = true;
+      // Les 4 cartes s'envolent, puis le groupe apparaît en haut du plateau.
+      envoler(envol, () => { groupeAnime = groupes[0]; rendre(); if (complet) setTimeout(() => terminer(true), 800); });
+      return;
     } else {
       etat.erreurs++;
       toast(unDeMoins ? "Presque ! Il en manque un." : "Ce n'est pas un groupe.", unDeMoins ? "presque" : "faux"); vibrer([40, 40, 40]);
@@ -1225,7 +1291,7 @@
     const fixes = etat.ordre.filter(m => etat.trouves.includes(groupeDe(m)));
     const autres = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
     for (let i = autres.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [autres[i], autres[j]] = [autres[j], autres[i]]; }
-    etat.ordre = fixes.concat(autres); sauver(); rendre();
+    etat.ordre = fixes.concat(autres); sauver(); rendre({ flip: true }); vibrer(8);
   });
   $("btn-recommencer").addEventListener("click", () => { etat = null; fini = false; lancerGrille(); });
   // Tutoriel : 3 étapes, boutons Précédent / Suivant, « Compris, je joue ! » à la fin.

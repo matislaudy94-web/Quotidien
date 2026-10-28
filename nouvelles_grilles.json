@@ -1,0 +1,870 @@
+[
+  {
+    "id": "g31",
+    "titre": "Grille 31",
+    "niveau": "facile",
+    "intention": "Deux catégories concrètes, une catégorie scolaire et une expression simple.",
+    "groupes": [
+      {
+        "categorie": "Animaux de la savane",
+        "difficulte": "facile",
+        "mots": [
+          "GIRAFE",
+          "ZÈBRE",
+          "ÉLÉPHANT",
+          "HIPPOPOTAME"
+        ],
+        "explication": "Quatre grands animaux d'Afrique."
+      },
+      {
+        "categorie": "Fruits rouges",
+        "difficulte": "facile",
+        "mots": [
+          "FRAISE",
+          "FRAMBOISE",
+          "MYRTILLE",
+          "GROSEILLE"
+        ],
+        "explication": "Petits fruits de l'été."
+      },
+      {
+        "categorie": "Dans un cartable",
+        "difficulte": "facile",
+        "mots": [
+          "CAHIER",
+          "STYLO",
+          "ARDOISE",
+          "CLASSEUR"
+        ],
+        "explication": "Le matériel d'un écolier."
+      },
+      {
+        "categorie": "Eau de ___",
+        "difficulte": "facile",
+        "mots": [
+          "VIE",
+          "TOILETTE",
+          "JAVEL",
+          "ROSE"
+        ],
+        "explication": "Eau de vie, eau de toilette, eau de Javel, eau de rose."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g32",
+    "titre": "Grille 32",
+    "niveau": "facile",
+    "intention": "Une expression à trou avec des mots trompeurs, trois catégories franches.",
+    "groupes": [
+      {
+        "categorie": "Boîte de ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "NUIT",
+          "VITESSES",
+          "CONSERVE",
+          "DIALOGUE"
+        ],
+        "explication": "Boîte de nuit, boîte de vitesses, boîte de conserve, boîte de dialogue."
+      },
+      {
+        "categorie": "Sports collectifs",
+        "difficulte": "facile",
+        "mots": [
+          "FOOTBALL",
+          "RUGBY",
+          "HANDBALL",
+          "VOLLEY"
+        ],
+        "explication": "Quatre sports d'équipe."
+      },
+      {
+        "categorie": "Légumes racines",
+        "difficulte": "intermediaire",
+        "mots": [
+          "CAROTTE",
+          "NAVET",
+          "RADIS",
+          "BETTERAVE"
+        ],
+        "explication": "On mange la racine."
+      },
+      {
+        "categorie": "Mammifères marins",
+        "difficulte": "facile",
+        "mots": [
+          "DAUPHIN",
+          "BALEINE",
+          "PHOQUE",
+          "OTARIE"
+        ],
+        "explication": "Ils vivent dans l'eau mais respirent de l'air."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g33",
+    "titre": "Grille 33",
+    "niveau": "facile",
+    "intention": "Quatre catégories du quotidien, sans piège.",
+    "groupes": [
+      {
+        "categorie": "Parties du corps",
+        "difficulte": "facile",
+        "mots": [
+          "BRAS",
+          "JAMBE",
+          "MAIN",
+          "GENOU"
+        ],
+        "explication": "Des parties du corps."
+      },
+      {
+        "categorie": "Condiments",
+        "difficulte": "facile",
+        "mots": [
+          "SEL",
+          "POIVRE",
+          "KETCHUP",
+          "MAYONNAISE"
+        ],
+        "explication": "Pour relever un plat."
+      },
+      {
+        "categorie": "Jours de la semaine",
+        "difficulte": "facile",
+        "mots": [
+          "LUNDI",
+          "MARDI",
+          "JEUDI",
+          "SAMEDI"
+        ],
+        "explication": "Quatre des sept jours."
+      },
+      {
+        "categorie": "Chaussures",
+        "difficulte": "facile",
+        "mots": [
+          "BOTTE",
+          "SANDALE",
+          "MOCASSIN",
+          "ESCARPIN"
+        ],
+        "explication": "Quatre types de chaussures."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g34",
+    "titre": "Grille 34",
+    "niveau": "facile",
+    "intention": "Une expression « jouer la ___ » dont les mots semblent anodins.",
+    "groupes": [
+      {
+        "categorie": "Jouer la ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "VICTIME",
+          "MONTRE",
+          "COMÉDIE",
+          "SÉCURITÉ"
+        ],
+        "explication": "Jouer la victime, jouer la montre, jouer la comédie, jouer la sécurité."
+      },
+      {
+        "categorie": "Véhicules à moteur",
+        "difficulte": "facile",
+        "mots": [
+          "CAMION",
+          "BUS",
+          "MOTO",
+          "TRACTEUR"
+        ],
+        "explication": "Ils roulent avec un moteur."
+      },
+      {
+        "categorie": "Arbres",
+        "difficulte": "facile",
+        "mots": [
+          "CHÊNE",
+          "HÊTRE",
+          "BOULEAU",
+          "PLATANE"
+        ],
+        "explication": "Quatre arbres de nos régions."
+      },
+      {
+        "categorie": "Produits laitiers",
+        "difficulte": "facile",
+        "mots": [
+          "BEURRE",
+          "YAOURT",
+          "CRÈME",
+          "LAIT"
+        ],
+        "explication": "Le lait et ce qu'on en fait."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g35",
+    "titre": "Grille 35",
+    "niveau": "facile",
+    "intention": "Quatre catégories directes, une expression connue.",
+    "groupes": [
+      {
+        "categorie": "Agrumes",
+        "difficulte": "facile",
+        "mots": [
+          "CITRON",
+          "PAMPLEMOUSSE",
+          "MANDARINE",
+          "CLÉMENTINE"
+        ],
+        "explication": "Des fruits à la peau épaisse et au jus acidulé."
+      },
+      {
+        "categorie": "Métiers du bâtiment",
+        "difficulte": "facile",
+        "mots": [
+          "MAÇON",
+          "ÉLECTRICIEN",
+          "COUVREUR",
+          "CHARPENTIER"
+        ],
+        "explication": "Ils construisent les maisons."
+      },
+      {
+        "categorie": "Reptiles",
+        "difficulte": "facile",
+        "mots": [
+          "SERPENT",
+          "LÉZARD",
+          "CROCODILE",
+          "TORTUE"
+        ],
+        "explication": "Animaux à sang froid et à écailles."
+      },
+      {
+        "categorie": "___ de neige",
+        "difficulte": "facile",
+        "mots": [
+          "FLOCON",
+          "BONHOMME",
+          "CHUTE",
+          "TEMPÊTE"
+        ],
+        "explication": "Flocon de neige, bonhomme de neige, chute de neige, tempête de neige."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g36",
+    "titre": "Grille 36",
+    "niveau": "intermediaire",
+    "intention": "Une expression familière, un groupe « ils ont un manche » avec un intrus apparent, deux catégories de culture générale.",
+    "groupes": [
+      {
+        "categorie": "Avoir la ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "FRITE",
+          "DALLE",
+          "FLEMME",
+          "BANANE"
+        ],
+        "explication": "Avoir la frite, avoir la dalle, avoir la flemme, avoir la banane."
+      },
+      {
+        "categorie": "Ils ont un manche",
+        "difficulte": "intermediaire",
+        "mots": [
+          "COUTEAU",
+          "BALAI",
+          "PELLE",
+          "VESTE"
+        ],
+        "explication": "Le manche du couteau, du balai, de la pelle… et les manches de la veste."
+      },
+      {
+        "categorie": "Nuages",
+        "difficulte": "intermediaire",
+        "mots": [
+          "CUMULUS",
+          "CIRRUS",
+          "STRATUS",
+          "CUMULONIMBUS"
+        ],
+        "explication": "Quatre types de nuages."
+      },
+      {
+        "categorie": "Monnaies actuelles",
+        "difficulte": "facile",
+        "mots": [
+          "EURO",
+          "DOLLAR",
+          "YEN",
+          "LIVRE"
+        ],
+        "explication": "La livre est aussi la monnaie britannique."
+      }
+    ],
+    "rattachements_plausibles": {}
+  },
+  {
+    "id": "g37",
+    "titre": "Grille 37",
+    "niveau": "intermediaire",
+    "intention": "Deux mots pivot : BALANCE (signe ou instrument) et BÉLIER (signe ou animal à cornes).",
+    "groupes": [
+      {
+        "categorie": "Signes du zodiaque",
+        "difficulte": "intermediaire",
+        "mots": [
+          "BÉLIER",
+          "BALANCE",
+          "VIERGE",
+          "CANCER"
+        ],
+        "explication": "Quatre des douze signes."
+      },
+      {
+        "categorie": "Instruments de mesure",
+        "difficulte": "intermediaire",
+        "mots": [
+          "THERMOMÈTRE",
+          "MÈTRE",
+          "CHRONOMÈTRE",
+          "BAROMÈTRE"
+        ],
+        "explication": "Ils mesurent la température, la longueur, le temps, la pression. La balance en est un aussi, mais elle est prise par le zodiaque."
+      },
+      {
+        "categorie": "Ils ont des cornes",
+        "difficulte": "intermediaire",
+        "mots": [
+          "CHÈVRE",
+          "BOUC",
+          "ESCARGOT",
+          "RHINOCÉROS"
+        ],
+        "explication": "Le bélier aussi, mais il est pris par le zodiaque."
+      },
+      {
+        "categorie": "À un mariage",
+        "difficulte": "facile",
+        "mots": [
+          "ALLIANCE",
+          "BOUQUET",
+          "TÉMOIN",
+          "ROBE"
+        ],
+        "explication": "Ce qu'on voit à un mariage."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BALANCE": [
+        "Instruments de mesure"
+      ],
+      "BÉLIER": [
+        "Ils ont des cornes"
+      ]
+    }
+  },
+  {
+    "id": "g38",
+    "titre": "Grille 38",
+    "niveau": "intermediaire",
+    "intention": "KIWI est un fruit ou un oiseau ; GRENADE est un fruit avant tout ici.",
+    "groupes": [
+      {
+        "categorie": "Faire la ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "QUEUE",
+          "FÊTE",
+          "MANCHE",
+          "BISE"
+        ],
+        "explication": "Faire la queue, faire la fête, faire la manche, faire la bise."
+      },
+      {
+        "categorie": "Oiseaux qui ne volent pas",
+        "difficulte": "intermediaire",
+        "mots": [
+          "AUTRUCHE",
+          "MANCHOT",
+          "KIWI",
+          "ÉMEU"
+        ],
+        "explication": "Le kiwi est aussi un oiseau de Nouvelle-Zélande."
+      },
+      {
+        "categorie": "Fruits exotiques",
+        "difficulte": "facile",
+        "mots": [
+          "MANGUE",
+          "PAPAYE",
+          "GOYAVE",
+          "GRENADE"
+        ],
+        "explication": "Quatre fruits des pays chauds."
+      },
+      {
+        "categorie": "Jeux de cour de récréation",
+        "difficulte": "facile",
+        "mots": [
+          "MARELLE",
+          "BILLES",
+          "ÉLASTIQUE",
+          "CORDE"
+        ],
+        "explication": "On y joue à la récré."
+      }
+    ],
+    "rattachements_plausibles": {
+      "KIWI": [
+        "Fruits exotiques"
+      ]
+    }
+  },
+  {
+    "id": "g39",
+    "titre": "Grille 39",
+    "niveau": "intermediaire",
+    "intention": "PHARE peut aller dans trois groupes ; seul « pièces d'une voiture » reste possible une fois les autres complets.",
+    "groupes": [
+      {
+        "categorie": "Pièces d'une voiture",
+        "difficulte": "intermediaire",
+        "mots": [
+          "VOLANT",
+          "PNEU",
+          "CAPOT",
+          "PHARE"
+        ],
+        "explication": "Sur une voiture."
+      },
+      {
+        "categorie": "Ils éclairent",
+        "difficulte": "facile",
+        "mots": [
+          "FLAMBEAU",
+          "LANTERNE",
+          "TORCHE",
+          "LAMPION"
+        ],
+        "explication": "Des sources de lumière. Le phare aussi, mais il est pris."
+      },
+      {
+        "categorie": "Sports de combat",
+        "difficulte": "facile",
+        "mots": [
+          "JUDO",
+          "BOXE",
+          "KARATÉ",
+          "ESCRIME"
+        ],
+        "explication": "Un contre un."
+      },
+      {
+        "categorie": "Gardien de ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "BUT",
+          "PAIX",
+          "MUSÉE",
+          "PRISON"
+        ],
+        "explication": "Gardien de but, de la paix, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
+      }
+    ],
+    "rattachements_plausibles": {
+      "PHARE": [
+        "Ils éclairent",
+        "Gardien de ___"
+      ]
+    }
+  },
+  {
+    "id": "g40",
+    "titre": "Grille 40",
+    "niveau": "intermediaire",
+    "intention": "L'argent familier emprunte des mots aux plantes : BLÉ et OSEILLE sont les pivots.",
+    "groupes": [
+      {
+        "categorie": "L'argent, familièrement",
+        "difficulte": "intermediaire",
+        "mots": [
+          "FRIC",
+          "BLÉ",
+          "OSEILLE",
+          "THUNE"
+        ],
+        "explication": "Quatre mots familiers pour l'argent."
+      },
+      {
+        "categorie": "Céréales",
+        "difficulte": "facile",
+        "mots": [
+          "RIZ",
+          "MAÏS",
+          "AVOINE",
+          "ORGE"
+        ],
+        "explication": "Le blé en est une aussi, mais il est pris."
+      },
+      {
+        "categorie": "Herbes aromatiques",
+        "difficulte": "facile",
+        "mots": [
+          "BASILIC",
+          "PERSIL",
+          "CIBOULETTE",
+          "MENTHE"
+        ],
+        "explication": "L'oseille en est une aussi, mais elle est prise."
+      },
+      {
+        "categorie": "Tomber dans ___",
+        "difficulte": "intermediaire",
+        "mots": [
+          "PANNEAU",
+          "PIÈGE",
+          "OUBLI",
+          "EXCÈS"
+        ],
+        "explication": "Tomber dans le panneau, dans le piège, dans l'oubli, dans l'excès."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BLÉ": [
+        "Céréales"
+      ],
+      "OSEILLE": [
+        "Herbes aromatiques"
+      ]
+    }
+  },
+  {
+    "id": "g41",
+    "titre": "Grille 41",
+    "niveau": "difficile",
+    "intention": "Mots cachés : un métal dans le mot. ARGENTINE, ORAGE et FERMIER ont chacun un autre groupe tentant.",
+    "groupes": [
+      {
+        "categorie": "Cachent un métal",
+        "difficulte": "difficile",
+        "mots": [
+          "FERMIER",
+          "ORAGE",
+          "ARGENTINE",
+          "PLOMBIER"
+        ],
+        "explication": "FERmier, ORage, ARGENTine, PLOMBier."
+      },
+      {
+        "categorie": "Pays d'Amérique du Sud",
+        "difficulte": "facile",
+        "mots": [
+          "PÉROU",
+          "CHILI",
+          "BOLIVIE",
+          "COLOMBIE"
+        ],
+        "explication": "L'Argentine aussi, mais elle cache un métal."
+      },
+      {
+        "categorie": "Vents violents",
+        "difficulte": "intermediaire",
+        "mots": [
+          "OURAGAN",
+          "CYCLONE",
+          "TYPHON",
+          "BOURRASQUE"
+        ],
+        "explication": "L'orage n'est pas un vent et cache de l'or."
+      },
+      {
+        "categorie": "Métiers de la campagne",
+        "difficulte": "facile",
+        "mots": [
+          "BERGER",
+          "VIGNERON",
+          "MEUNIER",
+          "ÉLEVEUR"
+        ],
+        "explication": "Le fermier aussi, mais il cache du fer."
+      }
+    ],
+    "rattachements_plausibles": {
+      "ARGENTINE": [
+        "Pays d'Amérique du Sud"
+      ],
+      "FERMIER": [
+        "Métiers de la campagne"
+      ],
+      "ORAGE": [
+        "Vents violents"
+      ]
+    }
+  },
+  {
+    "id": "g42",
+    "titre": "Grille 42",
+    "niveau": "difficile",
+    "intention": "Un groupe fondé sur les lettres (les cinq voyelles), dont chaque mot semble appartenir à une catégorie évidente.",
+    "groupes": [
+      {
+        "categorie": "Contiennent les cinq voyelles A E I O U",
+        "difficulte": "difficile",
+        "mots": [
+          "OISEAU",
+          "BOULANGERIE",
+          "AUTOMOBILE",
+          "MOUSTIQUAIRE"
+        ],
+        "explication": "Chacun contient a, e, i, o et u."
+      },
+      {
+        "categorie": "Commerces",
+        "difficulte": "facile",
+        "mots": [
+          "PHARMACIE",
+          "LIBRAIRIE",
+          "FLEURISTE",
+          "ÉPICERIE"
+        ],
+        "explication": "La boulangerie aussi, mais elle a les cinq voyelles."
+      },
+      {
+        "categorie": "Ils volent",
+        "difficulte": "intermediaire",
+        "mots": [
+          "CERF-VOLANT",
+          "LIBELLULE",
+          "DRONE",
+          "MONTGOLFIÈRE"
+        ],
+        "explication": "L'oiseau aussi, mais il a les cinq voyelles."
+      },
+      {
+        "categorie": "Pour dormir",
+        "difficulte": "facile",
+        "mots": [
+          "OREILLER",
+          "COUETTE",
+          "MATELAS",
+          "DRAP"
+        ],
+        "explication": "La moustiquaire aussi, mais elle a les cinq voyelles."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BOULANGERIE": [
+        "Commerces"
+      ],
+      "OISEAU": [
+        "Ils volent"
+      ],
+      "MOUSTIQUAIRE": [
+        "Pour dormir"
+      ]
+    }
+  },
+  {
+    "id": "g43",
+    "titre": "Grille 43",
+    "niveau": "difficile",
+    "intention": "Mots cachés : une partie du corps. BRASSERIE, DOSSIER et MAINTENANT ont chacun une catégorie tentante.",
+    "groupes": [
+      {
+        "categorie": "Cachent une partie du corps",
+        "difficulte": "difficile",
+        "mots": [
+          "BRASSERIE",
+          "DOSSIER",
+          "MAINTENANT",
+          "ACCIDENT"
+        ],
+        "explication": "BRASserie, DOSsier, MAINtenant, acciDENT."
+      },
+      {
+        "categorie": "Où l'on boit un verre",
+        "difficulte": "facile",
+        "mots": [
+          "BAR",
+          "BISTROT",
+          "PUB",
+          "TAVERNE"
+        ],
+        "explication": "La brasserie aussi, mais elle cache un bras."
+      },
+      {
+        "categorie": "Fournitures de bureau",
+        "difficulte": "facile",
+        "mots": [
+          "AGRAFEUSE",
+          "TROMBONE",
+          "SURLIGNEUR",
+          "PERFORATRICE"
+        ],
+        "explication": "Le dossier aussi, mais il cache le dos."
+      },
+      {
+        "categorie": "Adverbes de temps",
+        "difficulte": "intermediaire",
+        "mots": [
+          "HIER",
+          "BIENTÔT",
+          "JADIS",
+          "SOUVENT"
+        ],
+        "explication": "Maintenant aussi, mais il cache une main."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BRASSERIE": [
+        "Où l'on boit un verre"
+      ],
+      "DOSSIER": [
+        "Fournitures de bureau"
+      ],
+      "MAINTENANT": [
+        "Adverbes de temps"
+      ]
+    }
+  },
+  {
+    "id": "g44",
+    "titre": "Grille 44",
+    "niveau": "difficile",
+    "intention": "Un groupe grammatical (pluriels irréguliers) dont trois mots ont une catégorie tentante.",
+    "groupes": [
+      {
+        "categorie": "Pluriel irrégulier",
+        "difficulte": "difficile",
+        "mots": [
+          "ŒIL",
+          "AÏEUL",
+          "TRAVAIL",
+          "CORAIL"
+        ],
+        "explication": "Yeux, aïeux, travaux, coraux."
+      },
+      {
+        "categorie": "Organes",
+        "difficulte": "facile",
+        "mots": [
+          "FOIE",
+          "REIN",
+          "POUMON",
+          "ESTOMAC"
+        ],
+        "explication": "L'œil aussi, mais son pluriel est irrégulier."
+      },
+      {
+        "categorie": "Vivent dans la mer",
+        "difficulte": "intermediaire",
+        "mots": [
+          "MÉDUSE",
+          "OURSIN",
+          "ANÉMONE",
+          "HIPPOCAMPE"
+        ],
+        "explication": "Le corail aussi, mais son pluriel est irrégulier."
+      },
+      {
+        "categorie": "Synonymes de travail",
+        "difficulte": "intermediaire",
+        "mots": [
+          "BOULOT",
+          "TÂCHE",
+          "BESOGNE",
+          "OUVRAGE"
+        ],
+        "explication": "Le mot travail lui-même est pris par les pluriels."
+      }
+    ],
+    "rattachements_plausibles": {
+      "ŒIL": [
+        "Organes"
+      ],
+      "CORAIL": [
+        "Vivent dans la mer"
+      ],
+      "TRAVAIL": [
+        "Synonymes de travail"
+      ]
+    }
+  },
+  {
+    "id": "g45",
+    "titre": "Grille 45",
+    "niveau": "difficile",
+    "intention": "Mots cachés : une capitale. BERLINGOT, LIMACE et HIBERNER ont chacun une catégorie tentante.",
+    "groupes": [
+      {
+        "categorie": "Cachent une capitale",
+        "difficulte": "difficile",
+        "mots": [
+          "BERLINGOT",
+          "PROMENADE",
+          "LIMACE",
+          "HIBERNER"
+        ],
+        "explication": "BERLINgot, pROMEnade, LIMAce, hiBERNEr."
+      },
+      {
+        "categorie": "Bonbons",
+        "difficulte": "facile",
+        "mots": [
+          "CARAMEL",
+          "NOUGAT",
+          "RÉGLISSE",
+          "GUIMAUVE"
+        ],
+        "explication": "Le berlingot aussi, mais il cache Berlin."
+      },
+      {
+        "categorie": "Mollusques",
+        "difficulte": "intermediaire",
+        "mots": [
+          "PIEUVRE",
+          "CALMAR",
+          "SEICHE",
+          "BULOT"
+        ],
+        "explication": "La limace aussi, mais elle cache Lima."
+      },
+      {
+        "categorie": "Verbes d'hiver",
+        "difficulte": "intermediaire",
+        "mots": [
+          "SKIER",
+          "GELER",
+          "GRELOTTER",
+          "DÉNEIGER"
+        ],
+        "explication": "Hiberner aussi, mais il cache Berne."
+      }
+    ],
+    "rattachements_plausibles": {
+      "BERLINGOT": [
+        "Bonbons"
+      ],
+      "LIMACE": [
+        "Mollusques"
+      ],
+      "HIBERNER": [
+        "Verbes d'hiver"
+      ]
+    }
+  }
+]

@@ -82,29 +82,41 @@
     return { actuelle, record };
   }
 
+  // Une entrée sans champ « mode » date d'avant le mode entraînement : c'est une grille du jour (ou de démo).
+  const estEntr = (e) => e.mode === "entrainement";
+  // Le bonus « sans faute » exige : aucune erreur, aucun indice, et la première tentative (en entraînement,
+  // une réussite après un échec ne compte pas comme sans faute : le joueur a déjà vu des combinaisons).
+  const sansFauteOk = (e) => e.gagne && e.erreurs === 0 && !(e.indices | 0) && (e.tentative | 0) <= 1;
+
   function calculer(journal, aujourdhui) {
     const resolues = journal.filter(e => e.gagne);
+    const jour = journal.filter(e => !estEntr(e)), entr = journal.filter(estEntr);
     const s = {
       terminees: journal.length,
       resolues: resolues.length,
       groupes: journal.reduce((a, e) => a + (e.groupes || 0), 0),
       erreurs: journal.reduce((a, e) => a + (e.erreurs || 0), 0),
-      sansFaute: resolues.filter(e => e.erreurs === 0 && !(e.indices | 0)).length,
+      sansFaute: resolues.filter(sansFauteOk).length,
       resoluesAvec3Erreurs: resolues.filter(e => e.erreurs === 3).length,
       resoluesRapides: resolues.filter(e => typeof e.duree_s === "number" && e.duree_s < 90).length,
       resoluesDifficiles: resolues.filter(e => e.niveau === "difficile").length,
-      taux: journal.length ? resolues.length / journal.length : null, // résolues / terminées
+      // Grilles du jour uniquement : l'entraînement n'enregistre que des réussites, il fausserait le taux.
+      taux: jour.length ? jour.filter(e => e.gagne).length / jour.length : null, // résolues / terminées
       meilleure: null,
-      serie: serie(journal, aujourdhui),
+      serie: serie(jour, aujourdhui), // jours consécutifs avec une grille du jour terminée
+      quotidien: { terminees: jour.length, resolues: jour.filter(e => e.gagne).length,
+                   groupes: jour.reduce((a, e) => a + (e.groupes || 0), 0), erreurs: jour.reduce((a, e) => a + (e.erreurs || 0), 0) },
+      entrainement: { resolus: entr.length, erreurs: entr.reduce((a, e) => a + (e.erreurs || 0), 0) },
     };
-    if (resolues.length) {
-      s.meilleure = resolues.slice().sort((a, b) => (a.erreurs - b.erreurs) || ((a.duree_s ?? 1e9) - (b.duree_s ?? 1e9)))[0];
+    const resoluesJour = jour.filter(e => e.gagne);
+    if (resoluesJour.length) {
+      s.meilleure = resoluesJour.slice().sort((a, b) => (a.erreurs - b.erreurs) || ((a.duree_s ?? 1e9) - (b.duree_s ?? 1e9)))[0];
     }
     // XP des parties
     let xpParties = 0;
     const detailParties = journal.map(e => {
       let xp = e.gagne ? (BAREME.resolue[e.niveau] || BAREME.resolue.intermediaire) : BAREME.terminee;
-      if (e.gagne && e.erreurs === 0 && !(e.indices | 0)) xp += BAREME.sansFaute;
+      if (sansFauteOk(e)) xp += BAREME.sansFaute;
       xp = Math.max(BAREME.terminee, xp - BAREME.indice * (e.indices | 0));
       xpParties += xp;
       return { grille: e.grille, xp };
@@ -146,7 +158,9 @@
   }
 
   // ---------- Enregistrer une partie terminée ----------
-  // partie = { grille, niveau, jour, gagne, erreurs, groupes, duree_s }
+  // partie = { grille, niveau, jour, gagne, erreurs, groupes, duree_s, indices, mode?, tentative? }
+  // mode = "entrainement" pour un exercice d'entraînement (identifiants e01…), absent pour une grille du jour.
+  // En entraînement, l'appelant n'enregistre qu'une RÉUSSITE (jamais un échec ni un abandon).
   // Renvoie { deja, avant, apres, gains } ; deja = true si cette grille avait déjà été comptée (aucun changement).
   function enregistrerPartie(profil, partie, aujourdhui) {
     const journal = lireJournal(profil);
@@ -154,6 +168,7 @@
     if (journal.some(e => e.grille === partie.grille)) return { deja: true, avant, apres: avant, gains: null };
     const entree = { grille: partie.grille, niveau: partie.niveau, jour: partie.jour, gagne: !!partie.gagne,
       erreurs: partie.erreurs | 0, groupes: partie.groupes | 0, duree_s: typeof partie.duree_s === "number" ? partie.duree_s : null, indices: partie.indices | 0, t: Date.now() };
+    if (partie.mode === "entrainement") { entree.mode = "entrainement"; entree.tentative = Math.max(1, partie.tentative | 0); }
     journal.push(entree);
     store.set(cleJournal(profil), journal);
     const apres = calculer(journal, aujourdhui);
@@ -161,7 +176,7 @@
     const gains = {
       xp: apres.xp - avant.xp,
       xpPartie,
-      sansFaute: entree.gagne && entree.erreurs === 0 && !entree.indices,
+      sansFaute: sansFauteOk(entree),
       objectifs: apres.objectifs.filter(o => o.termine && !avant.objectifs.find(a => a.id === o.id).termine),
       badges: apres.badges.filter(b => b.obtenu && !avant.badges.find(a => a.id === b.id).obtenu),
       niveauAvant: avant.niveau, niveauApres: apres.niveau,

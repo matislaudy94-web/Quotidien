@@ -1255,7 +1255,7 @@ window.QUOTIDIEN_GRILLES = [
   ],
   "rattachements_plausibles": {
    "LANGUE": [
-    "Dans la bouche"
+    "Parties de la bouche"
    ],
    "DAMES": [
     "Pièces d'échecs"

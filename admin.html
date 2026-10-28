@@ -79,6 +79,9 @@
       <h2>Entonnoir de comportement</h2>
       <p class="muted">Une personne compte une seule fois par ligne. « Revenu sans rappel » exclut tout retour dans les 24 h suivant un lien de rappel envoyé à cette personne.</p>
       <div class="scroll"><table id="tab-entonnoir"></table></div>
+      <h3 style="margin:18px 0 4px">Mode entraînement <span class="muted" style="font-weight:400">(hors mesures du test)</span></h3>
+      <p class="muted" style="margin:0 0 6px;font-size:13px">Exercices supplémentaires, distincts du calendrier. Ces parties n'entrent dans aucune ligne de l'entonnoir ci-dessus (événements de type « entrainement » uniquement).</p>
+      <div class="scroll"><table id="tab-entrainement"></table></div>
       <div class="note">Lecture : <strong>R</strong> = reçoit un lien de rappel s'il le demande, <strong>S</strong> = aucun rappel, doit revenir seul ; <strong>invité</strong> = arrivé par le lien de partage d'un joueur ; <strong>organique</strong> = arrivé sur la page sans lien personnel ni invitation. Une ouverture de page n'est pas une preuve d'intérêt : regardez d'abord « a commencé », « a terminé » et « revenu sans rappel ».</div>
     </section>
 
@@ -238,9 +241,9 @@
 
   // ---------- Rendu ----------
   function rendreTout() {
-    if (!D) { ["tab-entonnoir", "tab-rappels", "tab-participants"].forEach(t => $(t).innerHTML = ""); $("res-grille").innerHTML = ""; return; }
+    if (!D) { ["tab-entonnoir", "tab-entrainement", "tab-rappels", "tab-participants"].forEach(t => $(t).innerHTML = ""); $("res-grille").innerHTML = ""; return; }
     const M = calculer();
-    rendreEntonnoir(M); rendreRappels(M); rendreParticipants(M); rendreOnglets(); rendreGrille(M);
+    rendreEntonnoir(M); rendreEntrainementAdmin(M); rendreRappels(M); rendreParticipants(M); rendreOnglets(); rendreGrille(M);
     window.__M = M;
   }
 
@@ -267,6 +270,28 @@
       h += `<tr><td>${fort ? "<strong>" + lib + "</strong>" : lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n}${lib.startsWith("Participants") ? "" : ` <span class="muted">(${pct(n, s.length)})</span>`}</td>`; }).join("")}</tr>`;
     }
     $("tab-entonnoir").innerHTML = h;
+  }
+
+  // Mode entraînement : lu uniquement depuis les événements « entrainement » (action = ouverture, debut, fin, solution, passe).
+  function rendreEntrainementAdmin(M) {
+    const cols = [["R", "Groupe R"], ["S", "Groupe S"], ["invite", "Invités"], ["organique", "Organiques"], ["*", "Total"]];
+    const sous = (g) => Object.values(M).filter(x => g === "*" || x.groupe === g);
+    const tr = (x) => x.ev.filter(e => e.type === "entrainement");
+    const reussis = (x) => new Set(tr(x).filter(e => e.donnees.action === "fin" && e.donnees.gagne).map(e => e.grille)).size;
+    const lignes = [
+      ["A ouvert le mode entraînement", x => tr(x).some(e => e.donnees.action === "ouverture")],
+      ["A commencé un exercice", x => tr(x).some(e => e.donnees.action === "debut")],
+      ["A réussi au moins 1 exercice", x => reussis(x) >= 1],
+      ["A réussi 5 exercices ou plus", x => reussis(x) >= 5],
+      ["A consulté une solution", x => tr(x).some(e => e.donnees.action === "solution")],
+      ["A passé un exercice", x => tr(x).some(e => e.donnees.action === "passe")],
+    ];
+    let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
+    for (const [lib, f] of lignes) h += `<tr><td>${lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n} <span class="muted">(${pct(n, s.length)})</span></td>`; }).join("")}</tr>`;
+    const tous = Object.values(M).map(reussis).filter(n => n > 0).sort((a, b) => a - b);
+    const med = tous.length ? tous[Math.floor((tous.length - 1) / 2)] : null;
+    h += `<tr><td>Exercices réussis par joueur actif (médiane)</td><td class="num" colspan="5">${med == null ? "–" : med}</td></tr>`;
+    $("tab-entrainement").innerHTML = h;
   }
 
   function rendreRappels(M) {

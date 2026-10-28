@@ -4,4 +4,7 @@
 window.QUOTIDIEN_CONFIG = {
   supabaseUrl: "https://xxadgyslanxfzzszsbab.supabase.co",
   supabaseKey: "sb_publishable_ANnBVBUMDUfcZrmmfEVtbw_B6Zo-8Jh",
+  // Mode entraînement : "tous" (participants et démo), "demo" (démo seulement, le test reste limité à la grille du jour),
+  // ou "aucun". Changer cette valeur change le produit testé : le noter dans le journal du README.
+  entrainement: "tous",
 };

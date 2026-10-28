@@ -10,10 +10,11 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 | `admin.html` | Tableau de bord administrateur (protégé par un code). |
 | `grilles.json` | Les 45 grilles (source), 15 faciles / 15 intermédiaires / 15 difficiles, chacune avec un champ `niveau`. Les grilles 31 à 45 sont dans `nouvelles_grilles.json` (copie de travail, même contenu). Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
 | `grilles.js` | Les grilles, générées depuis `grilles.json` (ne pas modifier à la main). |
+| `entrainement.json` | La banque du **mode entraînement** : 20 exercices en 5 chapitres, distincte du calendrier (aucun mot en commun). `entrainement.js` est généré à partir d'elle par `python3 generer_grilles_js.py`. |
 | `progression.js` | Progression du joueur : barème d'XP, niveaux, objectifs, badges, statistiques. Seule source de vérité, tout est recalculé depuis le journal local des parties terminées. |
 | `config.js` | Adresse de la base Supabase et clé **publique**. |
 | `api.js` | Appels à la base. |
-| `verifier_grilles.py` | Vérifie chaque grille : 16 mots distincts, 4×4, niveau renseigné, aucun mot répété d'une grille à l'autre, et **une seule solution** compte tenu des leurres déclarés (`rattachements_plausibles`). |
+| `verifier_grilles.py` | `python3 verifier_grilles.py` (calendrier) ou `python3 verifier_grilles.py entrainement.json`. Vérifie aussi qu'aucun mot n'est partagé entre les deux banques. Pour chaque grille : 16 mots distincts, 4×4, niveau renseigné, aucun mot répété d'une grille à l'autre, et **une seule solution** compte tenu des leurres déclarés (`rattachements_plausibles`). |
 | `tests/` | Serveur de test local (base simulée) et tests automatisés du parcours complet. |
 
 ## La banque de grilles
@@ -22,6 +23,26 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 - Chaque grille passe deux contrôles : le script `verifier_grilles.py` (structure, unicité de la solution en tenant compte des pièges déclarés, aucun mot réutilisé entre grilles) et une relecture indépendante (recherche d'une autre répartition défendable, expressions fausses ou rares, mots cachés involontaires, calibrage de la difficulté). Les grilles à mots cachés sont en plus passées à un scan automatique des 16 mots (notes, couleurs, pays, prénoms).
 - Ces contrôles réduisent fortement le risque d'injustice mais ne le suppriment pas : une grille jugée injuste par plusieurs testeurs (question « associations justes ? » et commentaires) doit être retirée ou corrigée **entre deux sessions**, jamais pendant.
 - Une grille à retirer : la supprimer du calendrier de la session plutôt que du fichier, pour garder la numérotation stable.
+
+## Le mode entraînement
+
+**Pourquoi une banque distincte.** Les 45 grilles du calendrier restent réservées au jour prévu : les rendre jouables en avance révélerait la grille de demain et fausserait le test. Le mode entraînement utilise donc ses **propres** 20 exercices (`entrainement.json`), qui passent les mêmes contrôles (script : structure, une seule solution, aucun mot partagé avec le calendrier ; deux relectures indépendantes le 28/10/2026). Pour en ajouter : compléter `entrainement.json` (champ `chapitre`), lancer `python3 verifier_grilles.py entrainement.json`, faire relire, puis `python3 generer_grilles_js.py`. S'il n'y a aucun exercice, l'écran l'indique au lieu d'en simuler.
+
+**Parcours.** 5 chapitres de 4 exercices (Échauffement, Expressions à trou, Doubles sens, Mots cachés, Expert), chacun avec une astuce. Un exercice s'ouvre quand le précédent est **réussi ou passé**. Après une réussite : « Exercice suivant » (seulement s'il existe), « Revoir les solutions », « Retour à l'entraînement », lien « Accueil ». Rien ne se lance sans clic du joueur. Après le dernier exercice, l'écran d'entraînement propose de rejouer, de revoir ses résultats ou de revenir à l'accueil.
+
+**Après 4 erreurs (entraînement seulement).** La solution n'est pas révélée d'office. Trois choix : **Réessayer** (nouvelle tentative : 16 mots remis, erreurs, sélection et chronomètre à zéro ; le numéro de tentative est conservé), **Comprendre la solution** (les 4 groupes et leurs explications), **Passer à la suite** (l'exercice reste rejouable depuis le parcours). La grille du jour garde son comportement : solution révélée après 4 erreurs.
+
+**Règles d'XP de l'entraînement** (même barème que la grille du jour) :
+- XP à la **première réussite** d'un exercice seulement ; rejouer un exercice réussi ne rapporte rien.
+- Échec, exercice passé : 0 XP, aucune entrée dans la progression.
+- Solution consultée avant de réussir : la réussite ne rapporte rien (sinon on gagnerait de l'XP en recopiant).
+- Réussite après un échec (tentative 2 ou plus) : XP normale, mais **pas** de bonus « sans erreur ».
+- Les exercices réussis comptent pour les objectifs et badges comme des grilles terminées et résolues (les objectifs « 15 grilles » et « 25 grilles » deviennent atteignables pendant un test de 14 jours).
+- Le taux de réussite, le meilleur résultat et la série ne portent que sur les grilles du jour.
+
+**Reprise.** Une partie d'entraînement quittée (bouton ←, fermeture, rechargement) reprend avec ses groupes trouvés, ses erreurs, sa sélection et son temps actif (le temps hors partie n'est pas compté). Une tentative terminée n'est jamais restaurée : rouvrir l'exercice lance une nouvelle tentative. Sauvegardes séparées : `quotidien_entr_<profil>_<exercice>` et `quotidien_entr_meta_<profil>` (tentatives, réussi, passé, solution vue) ; la grille du jour garde `quotidien_etat_…`.
+
+**Interrupteur.** Dans `config.js`, `entrainement: "tous"` (participants et démo, valeur actuelle), `"demo"` (démo seulement : le test reste limité à la grille du jour) ou `"aucun"`.
 
 ## La progression du joueur (XP, niveaux, objectifs, badges)
 
@@ -134,6 +155,7 @@ Le séparateur est le point-virgule ; les fichiers s'ouvrent dans Excel ou Googl
 - Visites (date, type d'entrée).
 - Essais (mots choisis), erreurs, groupes trouvés, durée.
 - Clics sur « inviter » et « prochaine grille ».
+- Mode entraînement : ouverture, début, fin (réussi ou non, erreurs, durée, indices, numéro de tentative), solution consultée, exercice passé.
 - Réponses au questionnaire.
 
 Aucun nom, e-mail, téléphone ou adresse. Pas de publicité, pas d'outil de suivi tiers. Les joueurs voient cette explication en bas de page.
@@ -187,6 +209,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | Date | Changement | Effet sur la lecture des résultats |
 |---|---|---|
 | 28/10/2026 (avant tout test) | Ajout d'un identifiant d'appareil anonyme (aléatoire, par navigateur) envoyé avec chaque visite. Nouvelle colonne « Appareils » et ligne « ⚠ Lien ouvert sur 2 appareils ou plus ». | Permet de repérer les liens transférés. Aucun autre compteur modifié. |
+| 28/10/2026 (avant tout test) | **Mode entraînement** (banque distincte de 20 exercices). Nouveau type d'événement `entrainement` (champ `action` : `ouverture`, `debut`, `fin`, `solution`, `passe` ; `grille` = identifiant d'exercice e01…). Pendant l'entraînement, **aucun** événement du test n'est envoyé (`debut`, `essai`, `fin`, `indice`, `recompense`, `demande_suivante`, `questionnaire`, `partage`) et **aucune visite** n'est enregistrée (pas de rechargement de page) : « Exercice suivant » ne peut pas compter comme un retour. Seul `regles` peut partir pendant l'entraînement, alors sans grille. Le tableau de bord affiche l'entraînement dans un tableau séparé. Sur l'écran de fin de la grille du jour, une proposition « S'entraîner » est ajoutée **après** le questionnaire. Statistiques du joueur séparées (grilles du jour / entraînement / progression) ; série et taux de réussite calculés sur les grilles du jour seulement. | **Change le produit testé** : les participants peuvent jouer davantage le même jour, ce qui peut modifier le retour du lendemain (dans un sens ou dans l'autre) et la réponse à « Oui, je veux jouer la prochaine ». À garder en tête à la lecture, et à comparer à un test sans entraînement si besoin (`entrainement: "demo"` dans `config.js`). Les compteurs de l'entonnoir et le classement des visites sont inchangés. |
 | 28/10/2026 (avant tout test) | Seconde relecture indépendante des 45 grilles (3 lots). Corrections : g14 ACCOLADE → CROCHET (pas une ponctuation), BOUCHÉES → FORMES ; g27 SERVICE → HOMMAGE et CORDON → COURT (deux répartitions alternatives) ; g28 MERLE → MÉSANGE (Robert Merle, écrivain), SÈVE → PÉTALE ; g30 MESURER → EXPERTISER ; g39 PAIX → ZOO ; g42 FLEURISTE → MERCERIE ; catégories reformulées (g22, g29, g30) et explications corrigées (g14, g23, g35, g36, g38). | Aucun compteur modifié. |
 | 28/10/2026 (avant tout test) | Banque portée de 30 à 45 grilles (jours 31–45 du calendrier) ; corrections sans effet sur la solution des grilles 1–30 (g21 IRIS → PAPYRUS, leurres déclarés g9/g16/g27). Interface : cartes persistantes (sélection animée), envol des 4 cartes d'un groupe trouvé, mélange animé, changement de grille de démo sans rechargement. | Aucun compteur ni événement modifié. |
 | 28/10/2026 (avant tout test) | Compte à rebours jusqu'à la prochaine grille (minuit, heure de Paris) en fin de partie. | Fait partie du jeu ; n'est pas un rappel ; le classement des visites est inchangé. |
@@ -197,6 +220,8 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | 28/10/2026 (avant tout test) | Écran d'accueil avant la grille (carte du jour + bouton « Jouer maintenant »), progression locale (XP, niveaux, objectifs, badges), nouvel événement `recompense`. | « A ouvert la page » = visite de l'accueil ; « a commencé » = premier mot touché (inchangé). Le produit testé inclut désormais la progression ; aucune récompense n'est liée au retour quotidien. |
 
 ## Tests effectués
+
+`node tests/test_entrainement.js` (71 vérifications, iPhone 13 et iPhone SE) couvre le mode entraînement : accueil avec les deux modes, grille du jour inchangée, ouverture du parcours, réussite et « Exercice suivant », échec après 4 erreurs, « Réessayer » (remise à zéro de la tentative, chronomètre, progression intacte), « Comprendre la solution » (puis réussite sans XP), « Passer » sans XP, reprise après rechargement (groupes, erreurs, sélection, temps actif), absence de double crédit, statistiques séparées, mode démo indépendant, données du test non contaminées (seuls les événements de la grille du jour, visites non comptées comme retours, traces `entrainement` séparées), petits écrans (pas de défilement horizontal, zones tactiles ≥ 44 px, bouton Valider visible).
 
 `node tests/test_parcours.js` lance un serveur local avec une base **simulée**, puis un navigateur Chromium en émulation iPhone. Ces tests vérifient :
 - la création de la session et des participants (alternance R/S) ;

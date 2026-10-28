@@ -1,0 +1,1236 @@
+// Fichier généré depuis entrainement.json par : python3 generer_grilles_js.py
+// Banque d'entraînement, DISTINCTE du calendrier : aucun mot en commun (vérifié par verifier_grilles.py).
+window.QUOTIDIEN_ENTRAINEMENT = {
+ "chapitres": [
+  {
+   "n": 1,
+   "titre": "Échauffement",
+   "astuce": "Commence par le groupe qui te paraît le plus évident : chaque groupe trouvé réduit les possibilités pour les autres."
+  },
+  {
+   "n": 2,
+   "titre": "Expressions à trou",
+   "astuce": "Quand quatre mots n'ont rien en commun, essaie de les compléter avec un même début : « Tête de ___ », « Faux ___ »…"
+  },
+  {
+   "n": 3,
+   "titre": "Doubles sens",
+   "astuce": "Si tu vois cinq mots pour un même groupe, l'un d'eux appartient ailleurs. Cherche lequel a un deuxième sens."
+  },
+  {
+   "n": 4,
+   "titre": "Mots cachés",
+   "astuce": "Regarde à l'intérieur des mots : un nombre, un animal, un fruit ou un sport peut s'y cacher. Le mot qui ne va nulle part est souvent la clé."
+  },
+  {
+   "n": 5,
+   "titre": "Expert",
+   "astuce": "Ici, les catégories jouent avec la langue elle-même : le genre des mots, le verlan, les petites prépositions, les mots-valises."
+  }
+ ],
+ "grilles": [
+  {
+   "id": "e01",
+   "chapitre": 1,
+   "titre": "Exercice 1",
+   "niveau": "facile",
+   "intention": "Quatre catégories concrètes, sans piège.",
+   "groupes": [
+    {
+     "categorie": "Légumes",
+     "difficulte": "facile",
+     "mots": [
+      "POIREAU",
+      "CHOU",
+      "CONCOMBRE",
+      "AUBERGINE"
+     ],
+     "explication": "Quatre légumes du potager."
+    },
+    {
+     "categorie": "Animaux de la forêt",
+     "difficulte": "facile",
+     "mots": [
+      "SANGLIER",
+      "RENARD",
+      "CERF",
+      "BLAIREAU"
+     ],
+     "explication": "Ils vivent dans les bois."
+    },
+    {
+     "categorie": "Au petit-déjeuner",
+     "difficulte": "facile",
+     "mots": [
+      "CROISSANT",
+      "TARTINE",
+      "CONFITURE",
+      "CÉRÉALES"
+     ],
+     "explication": "Ce qu'on mange le matin."
+    },
+    {
+     "categorie": "Sports nautiques",
+     "difficulte": "facile",
+     "mots": [
+      "SURF",
+      "PLONGÉE",
+      "AVIRON",
+      "NATATION"
+     ],
+     "explication": "Quatre sports qui se pratiquent dans l'eau ou sur l'eau."
+    }
+   ],
+   "rattachements_plausibles": {}
+  },
+  {
+   "id": "e02",
+   "chapitre": 1,
+   "titre": "Exercice 2",
+   "niveau": "facile",
+   "intention": "Les langues sont aussi des matières : mais seules quatre matières ne sont pas des langues.",
+   "groupes": [
+    {
+     "categorie": "Matières scolaires",
+     "difficulte": "facile",
+     "mots": [
+      "HISTOIRE",
+      "MATHS",
+      "PHYSIQUE",
+      "CHIMIE"
+     ],
+     "explication": "Quatre matières du collège et du lycée. Les langues en sont aussi, mais elles forment leur propre groupe."
+    },
+    {
+     "categorie": "Langues",
+     "difficulte": "facile",
+     "mots": [
+      "ANGLAIS",
+      "ALLEMAND",
+      "CHINOIS",
+      "RUSSE"
+     ],
+     "explication": "Quatre langues parlées dans le monde."
+    },
+    {
+     "categorie": "Électroménager",
+     "difficulte": "facile",
+     "mots": [
+      "FRIGO",
+      "FOUR",
+      "LAVE-VAISSELLE",
+      "GRILLE-PAIN"
+     ],
+     "explication": "Les appareils de la cuisine."
+    },
+    {
+     "categorie": "Pâtisseries",
+     "difficulte": "facile",
+     "mots": [
+      "ÉCLAIR",
+      "MILLEFEUILLE",
+      "MACARON",
+      "MADELEINE"
+     ],
+     "explication": "Quatre gâteaux de la boulangerie-pâtisserie."
+    }
+   ],
+   "rattachements_plausibles": {
+    "ANGLAIS": [
+     "Matières scolaires"
+    ],
+    "ALLEMAND": [
+     "Matières scolaires"
+    ],
+    "CHINOIS": [
+     "Matières scolaires"
+    ],
+    "RUSSE": [
+     "Matières scolaires"
+    ]
+   }
+  },
+  {
+   "id": "e03",
+   "chapitre": 1,
+   "titre": "Exercice 3",
+   "niveau": "facile",
+   "intention": "Quatre catégories concrètes, sans piège.",
+   "groupes": [
+    {
+     "categorie": "Bijoux",
+     "difficulte": "facile",
+     "mots": [
+      "BAGUE",
+      "COLLIER",
+      "BRACELET",
+      "BROCHE"
+     ],
+     "explication": "Ce qu'on porte pour se parer."
+    },
+    {
+     "categorie": "Métiers",
+     "difficulte": "facile",
+     "mots": [
+      "BOULANGER",
+      "FACTEUR",
+      "POMPIER",
+      "POLICIER"
+     ],
+     "explication": "Quatre métiers du quotidien."
+    },
+    {
+     "categorie": "Continents",
+     "difficulte": "facile",
+     "mots": [
+      "AFRIQUE",
+      "ASIE",
+      "EUROPE",
+      "AMÉRIQUE"
+     ],
+     "explication": "Quatre des continents."
+    },
+    {
+     "categorie": "Fleurs",
+     "difficulte": "facile",
+     "mots": [
+      "LILAS",
+      "ORCHIDÉE",
+      "ŒILLET",
+      "MUGUET"
+     ],
+     "explication": "Quatre fleurs."
+    }
+   ],
+   "rattachements_plausibles": {}
+  },
+  {
+   "id": "e04",
+   "chapitre": 1,
+   "titre": "Exercice 4",
+   "niveau": "facile",
+   "intention": "Trois catégories simples et une première expression à trou.",
+   "groupes": [
+    {
+     "categorie": "___ de fer",
+     "difficulte": "facile",
+     "mots": [
+      "CHEMIN",
+      "RIDEAU",
+      "SANTÉ",
+      "POIGNE"
+     ],
+     "explication": "Chemin de fer, rideau de fer, santé de fer, poigne de fer."
+    },
+    {
+     "categorie": "Rapaces",
+     "difficulte": "facile",
+     "mots": [
+      "AIGLE",
+      "FAUCON",
+      "VAUTOUR",
+      "HIBOU"
+     ],
+     "explication": "Des oiseaux chasseurs, de jour ou de nuit."
+    },
+    {
+     "categorie": "Vaisselle",
+     "difficulte": "facile",
+     "mots": [
+      "ASSIETTE",
+      "BOL",
+      "TASSE",
+      "SAUCIÈRE"
+     ],
+     "explication": "Ce qu'on pose sur la table."
+    },
+    {
+     "categorie": "Fruits à coque",
+     "difficulte": "facile",
+     "mots": [
+      "AMANDE",
+      "NOISETTE",
+      "PISTACHE",
+      "NOIX"
+     ],
+     "explication": "Des fruits secs à casser."
+    }
+   ],
+   "rattachements_plausibles": {}
+  },
+  {
+   "id": "e05",
+   "chapitre": 2,
+   "titre": "Exercice 5",
+   "niveau": "facile",
+   "intention": "Deux expressions à trou ; MULE est aussi un animal de montagne.",
+   "groupes": [
+    {
+     "categorie": "Tête de ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "TURC",
+      "MULE",
+      "LINOTTE",
+      "PIOCHE"
+     ],
+     "explication": "Tête de Turc, tête de mule, tête de linotte, tête de pioche."
+    },
+    {
+     "categorie": "Petit ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "POIS",
+      "DÉJEUNER",
+      "ÉCRAN",
+      "MATIN"
+     ],
+     "explication": "Petit pois, petit-déjeuner, petit écran, petit matin."
+    },
+    {
+     "categorie": "Animaux de montagne",
+     "difficulte": "facile",
+     "mots": [
+      "MARMOTTE",
+      "CHAMOIS",
+      "BOUQUETIN",
+      "LAMA"
+     ],
+     "explication": "Ils vivent en altitude. La mule aussi, mais c'est une tête dure ici."
+    },
+    {
+     "categorie": "Fêtes",
+     "difficulte": "facile",
+     "mots": [
+      "NOËL",
+      "PÂQUES",
+      "HALLOWEEN",
+      "CARNAVAL"
+     ],
+     "explication": "Quatre fêtes de l'année."
+    }
+   ],
+   "rattachements_plausibles": {
+    "MULE": [
+     "Animaux de montagne"
+    ]
+   }
+  },
+  {
+   "id": "e06",
+   "chapitre": 2,
+   "titre": "Exercice 6",
+   "niveau": "facile",
+   "intention": "Deux expressions à trou et deux catégories simples.",
+   "groupes": [
+    {
+     "categorie": "Sans ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "GÊNE",
+      "SOUCI",
+      "FAÇON",
+      "ABRI"
+     ],
+     "explication": "Sans-gêne, sans souci, sans façon, sans-abri."
+    },
+    {
+     "categorie": "Faux ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "DÉPART",
+      "PAS",
+      "FRÈRE",
+      "BOND"
+     ],
+     "explication": "Faux départ, faux pas, faux frère, faire faux bond."
+    },
+    {
+     "categorie": "Arbres fruitiers",
+     "difficulte": "facile",
+     "mots": [
+      "POMMIER",
+      "CERISIER",
+      "PRUNIER",
+      "ABRICOTIER"
+     ],
+     "explication": "Ils donnent des fruits."
+    },
+    {
+     "categorie": "Pays d'Asie",
+     "difficulte": "facile",
+     "mots": [
+      "JAPON",
+      "THAÏLANDE",
+      "VIETNAM",
+      "INDONÉSIE"
+     ],
+     "explication": "Quatre pays d'Asie."
+    }
+   ],
+   "rattachements_plausibles": {}
+  },
+  {
+   "id": "e07",
+   "chapitre": 2,
+   "titre": "Exercice 7",
+   "niveau": "intermediaire",
+   "intention": "Deux expressions avec un verbe ; LIGNE peut tenter vers « tirer ».",
+   "groupes": [
+    {
+     "categorie": "Tirer ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "PROFIT",
+      "PARTI",
+      "RÉVÉRENCE",
+      "TRAIT"
+     ],
+     "explication": "Tirer profit, tirer parti, tirer sa révérence, tirer un trait."
+    },
+    {
+     "categorie": "Garder ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "MORAL",
+      "LIGNE",
+      "CALME",
+      "SECRET"
+     ],
+     "explication": "Garder le moral, garder la ligne, garder son calme, garder un secret."
+    },
+    {
+     "categorie": "Épices",
+     "difficulte": "facile",
+     "mots": [
+      "CANNELLE",
+      "CUMIN",
+      "CURCUMA",
+      "PAPRIKA"
+     ],
+     "explication": "Quatre épices."
+    },
+    {
+     "categorie": "Tissus",
+     "difficulte": "facile",
+     "mots": [
+      "COTON",
+      "SOIE",
+      "LAINE",
+      "VELOURS"
+     ],
+     "explication": "Quatre matières pour faire des vêtements."
+    }
+   ],
+   "rattachements_plausibles": {
+    "LIGNE": [
+     "Tirer ___"
+    ]
+   }
+  },
+  {
+   "id": "e08",
+   "chapitre": 2,
+   "titre": "Exercice 8",
+   "niveau": "intermediaire",
+   "intention": "Deux expressions à trou, un groupe de pièces de chaussure, des monuments.",
+   "groupes": [
+    {
+     "categorie": "Être dans le ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "PÉTRIN",
+      "BROUILLARD",
+      "VENT",
+      "COLLIMATEUR"
+     ],
+     "explication": "Être dans le pétrin, dans le brouillard, dans le vent, dans le collimateur."
+    },
+    {
+     "categorie": "Lever le ___",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CAMP",
+      "VOILE",
+      "COUDE",
+      "SIÈGE"
+     ],
+     "explication": "Lever le camp, lever le voile, lever le coude, lever le siège."
+    },
+    {
+     "categorie": "Parties d'une chaussure",
+     "difficulte": "facile",
+     "mots": [
+      "LACET",
+      "SEMELLE",
+      "TALON",
+      "LANGUETTE"
+     ],
+     "explication": "Ce qui compose une chaussure."
+    },
+    {
+     "categorie": "Monuments de Paris",
+     "difficulte": "facile",
+     "mots": [
+      "LOUVRE",
+      "PANTHÉON",
+      "SACRÉ-CŒUR",
+      "INVALIDES"
+     ],
+     "explication": "Quatre monuments parisiens."
+    }
+   ],
+   "rattachements_plausibles": {}
+  },
+  {
+   "id": "e09",
+   "chapitre": 3,
+   "titre": "Exercice 9",
+   "niveau": "intermediaire",
+   "intention": "RAIE est un poisson et une ligne dans les cheveux ; la mèche réunit des objets très différents.",
+   "groupes": [
+    {
+     "categorie": "Ils ont une mèche",
+     "difficulte": "difficile",
+     "mots": [
+      "BOUGIE",
+      "PÉTARD",
+      "DYNAMITE",
+      "CIERGE"
+     ],
+     "explication": "La mèche de la bougie, du pétard, de la dynamite et du cierge."
+    },
+    {
+     "categorie": "En coiffure",
+     "difficulte": "facile",
+     "mots": [
+      "FRANGE",
+      "CHIGNON",
+      "NATTE",
+      "DÉGRADÉ"
+     ],
+     "explication": "Ce qu'on demande chez le coiffeur. La raie aussi, mais c'est un poisson ici."
+    },
+    {
+     "categorie": "Poissons",
+     "difficulte": "facile",
+     "mots": [
+      "THON",
+      "MERLAN",
+      "SARDINE",
+      "RAIE"
+     ],
+     "explication": "Quatre poissons de mer."
+    },
+    {
+     "categorie": "Au cirque",
+     "difficulte": "intermediaire",
+     "mots": [
+      "JONGLEUR",
+      "TRAPÈZE",
+      "CHAPITEAU",
+      "ACROBATE"
+     ],
+     "explication": "Sous le chapiteau."
+    }
+   ],
+   "rattachements_plausibles": {
+    "RAIE": [
+     "En coiffure"
+    ]
+   }
+  },
+  {
+   "id": "e10",
+   "chapitre": 3,
+   "titre": "Exercice 10",
+   "niveau": "intermediaire",
+   "intention": "Cinq villes apparentes : BORDEAUX est une couleur. GRENAT est une couleur et une pierre.",
+   "groupes": [
+    {
+     "categorie": "Villes de France",
+     "difficulte": "facile",
+     "mots": [
+      "LYON",
+      "NANTES",
+      "TOULOUSE",
+      "AVIGNON"
+     ],
+     "explication": "Quatre villes. Bordeaux aussi, mais c'est une couleur ici."
+    },
+    {
+     "categorie": "Nuances de rouge",
+     "difficulte": "intermediaire",
+     "mots": [
+      "BORDEAUX",
+      "CARMIN",
+      "POURPRE",
+      "VERMILLON"
+     ],
+     "explication": "Quatre rouges. Le grenat aussi, mais c'est une pierre ici."
+    },
+    {
+     "categorie": "Pierres",
+     "difficulte": "intermediaire",
+     "mots": [
+      "GRENAT",
+      "AMÉTHYSTE",
+      "TOPAZE",
+      "OPALE"
+     ],
+     "explication": "Quatre pierres utilisées en bijouterie."
+    },
+    {
+     "categorie": "Massifs montagneux",
+     "difficulte": "facile",
+     "mots": [
+      "ALPES",
+      "PYRÉNÉES",
+      "VOSGES",
+      "JURA"
+     ],
+     "explication": "Les montagnes de France."
+    }
+   ],
+   "rattachements_plausibles": {
+    "BORDEAUX": [
+     "Villes de France"
+    ],
+    "GRENAT": [
+     "Nuances de rouge"
+    ]
+   }
+  },
+  {
+   "id": "e11",
+   "chapitre": 3,
+   "titre": "Exercice 11",
+   "niveau": "intermediaire",
+   "intention": "Huit choses ont un bec : les oiseaux et les récipients. ARROSOIR tente vers le jardin.",
+   "groupes": [
+    {
+     "categorie": "Ils ont un bec (et ne sont pas des oiseaux)",
+     "difficulte": "intermediaire",
+     "mots": [
+      "THÉIÈRE",
+      "CRUCHE",
+      "ARROSOIR",
+      "BOUILLOIRE"
+     ],
+     "explication": "Le bec verseur de la théière, de la cruche, de l'arrosoir, de la bouilloire."
+    },
+    {
+     "categorie": "Oiseaux exotiques",
+     "difficulte": "facile",
+     "mots": [
+      "PERROQUET",
+      "TOUCAN",
+      "COLIBRI",
+      "ARA"
+     ],
+     "explication": "Des oiseaux colorés des pays chauds."
+    },
+    {
+     "categorie": "Outils de jardin",
+     "difficulte": "facile",
+     "mots": [
+      "SÉCATEUR",
+      "BINETTE",
+      "BROUETTE",
+      "TONDEUSE"
+     ],
+     "explication": "Pour entretenir le jardin. L'arrosoir aussi, mais il a un bec."
+    },
+    {
+     "categorie": "Dieux grecs",
+     "difficulte": "facile",
+     "mots": [
+      "ZEUS",
+      "HERMÈS",
+      "APOLLON",
+      "ATHÉNA"
+     ],
+     "explication": "Quatre dieux de l'Olympe."
+    }
+   ],
+   "rattachements_plausibles": {
+    "ARROSOIR": [
+     "Outils de jardin"
+    ]
+   }
+  },
+  {
+   "id": "e12",
+   "chapitre": 3,
+   "titre": "Exercice 12",
+   "niveau": "intermediaire",
+   "intention": "FILET est un morceau de viande et un mot du tennis ; BAVETTE est un morceau de viande et un bavoir.",
+   "groupes": [
+    {
+     "categorie": "Au tennis",
+     "difficulte": "intermediaire",
+     "mots": [
+      "REVERS",
+      "LOB",
+      "SMASH",
+      "AMORTI"
+     ],
+     "explication": "Quatre coups de tennis. Au tennis, il y a aussi le filet, mais c'est de la viande ici."
+    },
+    {
+     "categorie": "Morceaux de viande",
+     "difficulte": "intermediaire",
+     "mots": [
+      "FILET",
+      "ENTRECÔTE",
+      "GIGOT",
+      "RUMSTECK"
+     ],
+     "explication": "Chez le boucher. La bavette aussi, mais elle sert au bébé ici."
+    },
+    {
+     "categorie": "Pour bébé",
+     "difficulte": "intermediaire",
+     "mots": [
+      "BIBERON",
+      "TÉTINE",
+      "LANGE",
+      "BAVETTE"
+     ],
+     "explication": "La bavette est aussi un petit bavoir."
+    },
+    {
+     "categorie": "Fleuves du monde",
+     "difficulte": "facile",
+     "mots": [
+      "NIL",
+      "AMAZONE",
+      "DANUBE",
+      "MISSISSIPPI"
+     ],
+     "explication": "Quatre grands fleuves."
+    }
+   ],
+   "rattachements_plausibles": {
+    "FILET": [
+     "Au tennis"
+    ],
+    "BAVETTE": [
+     "Morceaux de viande"
+    ]
+   }
+  },
+  {
+   "id": "e13",
+   "chapitre": 4,
+   "titre": "Exercice 13",
+   "niveau": "difficile",
+   "intention": "Mots cachés : un nombre. BRONZE, CAMILLE et ACCENT ont chacun un groupe tentant ; NEUFCHÂTEL ne va nulle part ailleurs.",
+   "groupes": [
+    {
+     "categorie": "Cachent un nombre",
+     "difficulte": "difficile",
+     "mots": [
+      "BRONZE",
+      "CAMILLE",
+      "ACCENT",
+      "NEUFCHÂTEL"
+     ],
+     "explication": "brONZE, caMILLE, acCENT, NEUFchâtel."
+    },
+    {
+     "categorie": "Alliages et métaux travaillés",
+     "difficulte": "intermediaire",
+     "mots": [
+      "LAITON",
+      "ACIER",
+      "FONTE",
+      "INOX"
+     ],
+     "explication": "Des métaux transformés. Le bronze aussi, mais il cache onze."
+    },
+    {
+     "categorie": "Prénoms mixtes",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CLAUDE",
+      "DOMINIQUE",
+      "SACHA",
+      "CHARLIE"
+     ],
+     "explication": "Ils se donnent aux filles comme aux garçons. Camille aussi, mais il cache mille."
+    },
+    {
+     "categorie": "Signes orthographiques",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CÉDILLE",
+      "TRÉMA",
+      "APOSTROPHE",
+      "CIRCONFLEXE"
+     ],
+     "explication": "Des signes qui s'ajoutent aux lettres ou aux mots. L'accent aussi, mais il cache cent."
+    }
+   ],
+   "rattachements_plausibles": {
+    "BRONZE": [
+     "Alliages et métaux travaillés"
+    ],
+    "CAMILLE": [
+     "Prénoms mixtes"
+    ],
+    "ACCENT": [
+     "Signes orthographiques"
+    ]
+   }
+  },
+  {
+   "id": "e14",
+   "chapitre": 4,
+   "titre": "Exercice 14",
+   "niveau": "difficile",
+   "intention": "Mots cachés : un animal à la fin du mot. ACHAT, CABANE et DISCOURS ont chacun un groupe tentant.",
+   "groupes": [
+    {
+     "categorie": "Finissent par un animal",
+     "difficulte": "difficile",
+     "mots": [
+      "ACHAT",
+      "CABANE",
+      "DISCOURS",
+      "MILLION"
+     ],
+     "explication": "aCHAT, cabÂNE, discOURS, milLION."
+    },
+    {
+     "categorie": "Dans un magasin",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CAISSE",
+      "RAYON",
+      "CHARIOT",
+      "PROMOTION"
+     ],
+     "explication": "Ce qu'on trouve en faisant ses courses. L'achat aussi, mais il finit par chat."
+    },
+    {
+     "categorie": "Petites habitations",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CHALET",
+      "HUTTE",
+      "IGLOO",
+      "YOURTE"
+     ],
+     "explication": "Des abris simples. La cabane aussi, mais elle finit par âne."
+    },
+    {
+     "categorie": "Prises de parole",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CONFÉRENCE",
+      "EXPOSÉ",
+      "ALLOCUTION",
+      "PLAIDOIRIE"
+     ],
+     "explication": "On parle devant un public. Le discours aussi, mais il finit par ours."
+    }
+   ],
+   "rattachements_plausibles": {
+    "ACHAT": [
+     "Dans un magasin"
+    ],
+    "CABANE": [
+     "Petites habitations"
+    ],
+    "DISCOURS": [
+     "Prises de parole"
+    ]
+   }
+  },
+  {
+   "id": "e15",
+   "chapitre": 4,
+   "titre": "Exercice 15",
+   "niveau": "difficile",
+   "intention": "Mots cachés : un fruit. PRUNELLE et POMMETTE sont aussi des parties du visage, PÊCHEUR un métier de la mer.",
+   "groupes": [
+    {
+     "categorie": "Cachent un fruit",
+     "difficulte": "difficile",
+     "mots": [
+      "PRUNELLE",
+      "POMMETTE",
+      "SUBLIME",
+      "PÊCHEUR"
+     ],
+     "explication": "PRUNElle, POMMEtte, subLIME, PÊCHEur."
+    },
+    {
+     "categorie": "Gens de mer",
+     "difficulte": "intermediaire",
+     "mots": [
+      "MARIN",
+      "AMIRAL",
+      "CAPITAINE",
+      "MATELOT"
+     ],
+     "explication": "Ils travaillent sur un bateau. Le pêcheur aussi, mais il cache une pêche."
+    },
+    {
+     "categorie": "Très beau",
+     "difficulte": "intermediaire",
+     "mots": [
+      "SPLENDIDE",
+      "MAGNIFIQUE",
+      "SUPERBE",
+      "RAVISSANT"
+     ],
+     "explication": "Quatre façons de dire que c'est beau. Sublime aussi, mais il cache une lime."
+    },
+    {
+     "categorie": "Sur le visage",
+     "difficulte": "intermediaire",
+     "mots": [
+      "SOURCIL",
+      "PAUPIÈRE",
+      "TEMPE",
+      "NARINE"
+     ],
+     "explication": "Des parties du visage. La prunelle et la pommette aussi, mais elles cachent une prune et une pomme."
+    }
+   ],
+   "rattachements_plausibles": {
+    "PRUNELLE": [
+     "Sur le visage"
+    ],
+    "POMMETTE": [
+     "Sur le visage"
+    ],
+    "PÊCHEUR": [
+     "Gens de mer"
+    ],
+    "SUBLIME": [
+     "Très beau"
+    ]
+   }
+  },
+  {
+   "id": "e16",
+   "chapitre": 4,
+   "titre": "Exercice 16",
+   "niveau": "difficile",
+   "intention": "Mots cachés : un sport au début du mot. GOLFE, POLOCHON et TIRELIRE ont chacun un groupe tentant.",
+   "groupes": [
+    {
+     "categorie": "Commencent par un sport",
+     "difficulte": "difficile",
+     "mots": [
+      "GOLFE",
+      "POLOCHON",
+      "SURFACE",
+      "TIRELIRE"
+     ],
+     "explication": "GOLFe, POLOchon, SURFace, TIRelire."
+    },
+    {
+     "categorie": "Formes du littoral",
+     "difficulte": "intermediaire",
+     "mots": [
+      "BAIE",
+      "LAGUNE",
+      "ESTUAIRE",
+      "DÉTROIT"
+     ],
+     "explication": "Des formes que prend la mer le long des côtes. Le golfe aussi, mais il commence par golf."
+    },
+    {
+     "categorie": "Literie",
+     "difficulte": "intermediaire",
+     "mots": [
+      "TRAVERSIN",
+      "ÉDREDON",
+      "SOMMIER",
+      "PLAID"
+     ],
+     "explication": "La literie. Le polochon aussi, mais il commence par polo."
+    },
+    {
+     "categorie": "Pour garder son argent",
+     "difficulte": "intermediaire",
+     "mots": [
+      "PORTEFEUILLE",
+      "BOURSE",
+      "COFFRE",
+      "CAGNOTTE"
+     ],
+     "explication": "Pour ranger ou économiser. La tirelire aussi, mais elle commence par tir."
+    }
+   ],
+   "rattachements_plausibles": {
+    "GOLFE": [
+     "Formes du littoral"
+    ],
+    "POLOCHON": [
+     "Literie"
+    ],
+    "TIRELIRE": [
+     "Pour garder son argent"
+    ]
+   }
+  },
+  {
+   "id": "e17",
+   "chapitre": 5,
+   "titre": "Exercice 17",
+   "niveau": "difficile",
+   "intention": "Mots qui changent de sens avec le genre (le vase / la vase). VASE, CRÊPE et SOMME ont chacun un groupe tentant.",
+   "groupes": [
+    {
+     "categorie": "Changent de sens selon le genre",
+     "difficulte": "difficile",
+     "mots": [
+      "VASE",
+      "CRÊPE",
+      "SOMME",
+      "MODE"
+     ],
+     "explication": "Le vase / la vase, le crêpe (tissu) / la crêpe, le somme (sieste) / la somme, le mode / la mode."
+    },
+    {
+     "categorie": "Récipients",
+     "difficulte": "facile",
+     "mots": [
+      "CARAFE",
+      "JARRE",
+      "AMPHORE",
+      "POT"
+     ],
+     "explication": "Pour contenir un liquide ou des aliments. Le vase aussi, mais il change de sens selon le genre."
+    },
+    {
+     "categorie": "Spécialités bretonnes",
+     "difficulte": "intermediaire",
+     "mots": [
+      "GALETTE",
+      "KOUIGN-AMANN",
+      "CIDRE",
+      "FAR"
+     ],
+     "explication": "On les mange ou les boit en Bretagne. La crêpe aussi, mais elle change de sens selon le genre."
+    },
+    {
+     "categorie": "Résultats d'opérations",
+     "difficulte": "intermediaire",
+     "mots": [
+      "PRODUIT",
+      "QUOTIENT",
+      "DIFFÉRENCE",
+      "RESTE"
+     ],
+     "explication": "Multiplication, division, soustraction, reste de la division. La somme aussi, mais elle change de sens selon le genre."
+    }
+   ],
+   "rattachements_plausibles": {
+    "VASE": [
+     "Récipients"
+    ],
+    "CRÊPE": [
+     "Spécialités bretonnes"
+    ],
+    "SOMME": [
+     "Résultats d'opérations"
+    ]
+   }
+  },
+  {
+   "id": "e18",
+   "chapitre": 5,
+   "titre": "Exercice 18",
+   "niveau": "difficile",
+   "intention": "Le verlan : ZARBI veut dire bizarre, OUF est aussi une interjection.",
+   "groupes": [
+    {
+     "categorie": "En verlan",
+     "difficulte": "difficile",
+     "mots": [
+      "RELOU",
+      "CHELOU",
+      "ZARBI",
+      "OUF"
+     ],
+     "explication": "Relou (lourd), chelou (louche), zarbi (bizarre), ouf (fou)."
+    },
+    {
+     "categorie": "Interjections",
+     "difficulte": "facile",
+     "mots": [
+      "AÏE",
+      "HÉLAS",
+      "BOF",
+      "ZUT"
+     ],
+     "explication": "Des petits mots qu'on s'exclame. Ouf aussi, mais c'est fou en verlan ici."
+    },
+    {
+     "categorie": "Bizarre",
+     "difficulte": "intermediaire",
+     "mots": [
+      "ÉTRANGE",
+      "INSOLITE",
+      "CURIEUX",
+      "SAUGRENU"
+     ],
+     "explication": "Quatre synonymes de bizarre. Zarbi aussi, mais c'est du verlan."
+    },
+    {
+     "categorie": "Très fatigué (familier)",
+     "difficulte": "intermediaire",
+     "mots": [
+      "CREVÉ",
+      "NAZE",
+      "LESSIVÉ",
+      "VIDÉ"
+     ],
+     "explication": "Quatre façons familières de dire qu'on est épuisé."
+    }
+   ],
+   "rattachements_plausibles": {
+    "OUF": [
+     "Interjections"
+    ],
+    "ZARBI": [
+     "Bizarre"
+    ],
+    "CHELOU": [
+     "Bizarre"
+    ]
+   }
+  },
+  {
+   "id": "e19",
+   "chapitre": 5,
+   "titre": "Exercice 19",
+   "niveau": "difficile",
+   "intention": "Trois expressions avec « mettre » qui ne diffèrent que par la préposition. JOUR va avec « à » et « au » ; SCÈNE tente vers le théâtre.",
+   "groupes": [
+    {
+     "categorie": "Mettre en ___",
+     "difficulte": "difficile",
+     "mots": [
+      "SCÈNE",
+      "DEMEURE",
+      "VALEUR",
+      "CAUSE"
+     ],
+     "explication": "Mettre en scène, mettre en demeure, mettre en valeur, mettre en cause."
+    },
+    {
+     "categorie": "Mettre à ___",
+     "difficulte": "difficile",
+     "mots": [
+      "JOUR",
+      "PLAT",
+      "NU",
+      "SAC"
+     ],
+     "explication": "Mettre à jour, mettre à plat, mettre à nu, mettre à sac. On dit aussi « mettre au jour », mais le groupe « au » est déjà complet."
+    },
+    {
+     "categorie": "Mettre au ___",
+     "difficulte": "difficile",
+     "mots": [
+      "MONDE",
+      "PILORI",
+      "DÉFI",
+      "COIN"
+     ],
+     "explication": "Mettre au monde, mettre au pilori, mettre au défi, mettre au coin."
+    },
+    {
+     "categorie": "Au théâtre",
+     "difficulte": "facile",
+     "mots": [
+      "COULISSES",
+      "PARTERRE",
+      "BALCON",
+      "FOSSE"
+     ],
+     "explication": "Des parties d'une salle de théâtre. La scène aussi, mais on la met en scène ici."
+    }
+   ],
+   "rattachements_plausibles": {
+    "JOUR": [
+     "Mettre au ___"
+    ],
+    "SCÈNE": [
+     "Au théâtre"
+    ]
+   }
+  },
+  {
+   "id": "e20",
+   "chapitre": 5,
+   "titre": "Exercice 20",
+   "niveau": "difficile",
+   "intention": "Mots-valises (deux mots fondus en un). BRUNCH, MOTEL et COURRIEL ont chacun un groupe tentant.",
+   "groupes": [
+    {
+     "categorie": "Mots-valises",
+     "difficulte": "difficile",
+     "mots": [
+      "FRANGLAIS",
+      "COURRIEL",
+      "BRUNCH",
+      "MOTEL"
+     ],
+     "explication": "Français + anglais, courrier + électronique, breakfast + lunch, motor + hotel."
+    },
+    {
+     "categorie": "Repas",
+     "difficulte": "facile",
+     "mots": [
+      "DÎNER",
+      "GOÛTER",
+      "SOUPER",
+      "COLLATION"
+     ],
+     "explication": "Les moments où l'on mange. Le brunch aussi, mais c'est un mot-valise."
+    },
+    {
+     "categorie": "Hébergements",
+     "difficulte": "facile",
+     "mots": [
+      "HÔTEL",
+      "AUBERGE",
+      "GÎTE",
+      "REFUGE"
+     ],
+     "explication": "Pour dormir en voyage. Le motel aussi, mais c'est un mot-valise."
+    },
+    {
+     "categorie": "Messages",
+     "difficulte": "intermediaire",
+     "mots": [
+      "LETTRE",
+      "TEXTO",
+      "TÉLÉGRAMME",
+      "MISSIVE"
+     ],
+     "explication": "Pour écrire à quelqu'un. Le courriel aussi, mais c'est un mot-valise."
+    }
+   ],
+   "rattachements_plausibles": {
+    "BRUNCH": [
+     "Repas"
+    ],
+    "MOTEL": [
+     "Hébergements"
+    ],
+    "COURRIEL": [
+     "Messages"
+    ]
+   }
+  }
+ ]
+};

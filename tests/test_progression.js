@@ -29,5 +29,20 @@ ok(c.niveaux.map(n => n.etat).join() === "termine,termine,termine,termine,termin
 const c0 = P.calculer([], J);
 ok(c0.xp === 0 && c0.niveau.n === 1 && c0.stats.taux === null && c0.niveaux.map(n => n.etat).join() === "en_cours,accessible,verrouille,verrouille,verrouille", "profil vide : 0 XP, Débutant en cours, Curieux accessible, reste verrouillé");
 P.reinitialiser("t"); ok(P.lireJournal("t").length === 0, "réinitialisation");
+// ---- Entraînement ----
+const pe = "e";
+P.enregistrerPartie(pe, { grille: "g1", niveau: "facile", jour: J, gagne: false, erreurs: 4, groupes: 1, duree_s: 100 }, J);
+let e1 = P.enregistrerPartie(pe, { grille: "e01", niveau: "facile", jour: J, gagne: true, erreurs: 0, groupes: 4, duree_s: 100, mode: "entrainement", tentative: 1 }, J);
+ok(e1.gains.xpPartie === 75 && e1.gains.sansFaute, "entraînement, 1re tentative sans erreur : 50 + 25 = 75 XP");
+let e2 = P.enregistrerPartie(pe, { grille: "e02", niveau: "facile", jour: J, gagne: true, erreurs: 0, groupes: 4, duree_s: 100, mode: "entrainement", tentative: 2 }, J);
+ok(e2.gains.xpPartie === 50 && !e2.gains.sansFaute, "entraînement, réussite à la 2e tentative : 50 XP, pas de bonus sans faute");
+let e3 = P.enregistrerPartie(pe, { grille: "e01", niveau: "facile", jour: J, gagne: true, erreurs: 0, groupes: 4, duree_s: 40, mode: "entrainement", tentative: 3 }, J);
+ok(e3.deja && e3.apres.xp === e2.apres.xp, "exercice déjà réussi : rejouer ne crédite rien");
+const ce = P.calculer(P.lireJournal(pe), J).stats;
+ok(ce.quotidien.terminees === 1 && ce.quotidien.resolues === 0 && ce.entrainement.resolus === 2, "stats séparées : 1 grille du jour (0 résolue), 2 exercices réussis");
+ok(ce.taux === 0, "taux de réussite calculé sur les grilles du jour seulement (0 %, pas 67 %)");
+ok(ce.serie.actuelle === 1, "la série ne compte que les grilles du jour");
+ok(ce.terminees === 3 && ce.resolues === 2, "objectifs et badges : les exercices réussis comptent comme grilles terminées et résolues");
+ok(P.lireJournal(pe).find(x => x.grille === "e02").mode === "entrainement" && !("mode" in P.lireJournal(pe).find(x => x.grille === "g1")), "le journal distingue les modes (grille du jour sans champ mode, comme avant)");
 console.log(ko ? ko + " échec(s)" : "Module de progression : tous les tests passent.");
 process.exit(ko ? 1 : 0);

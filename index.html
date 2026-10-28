@@ -269,6 +269,26 @@
   .tag.facile { background: var(--c1); box-shadow: 0 2px 0 var(--c1e); } .tag.intermediaire { background: var(--c0); box-shadow: 0 2px 0 var(--c0e); } .tag.difficile { background: var(--c3); box-shadow: 0 2px 0 var(--c3e); }
   .tag.ok { background: var(--ok); color: #fff; box-shadow: 0 2px 0 var(--ok-edge); }
   .carte-jour p { margin: 4px 0 10px; font-size: 14.5px; font-weight: 700; color: var(--ink-soft); }
+  /* ---------- Mode entraînement ---------- */
+  .carte-entr::before { background: var(--c2); }
+  .carte-entr h2 { font-size: 21px; }
+  .mode-badge { display: inline-block; font-family: var(--title); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px 4px; border-radius: var(--pill); background: var(--c2); color: var(--ink); box-shadow: 0 2px 0 var(--c2e); margin-bottom: 4px; }
+  .mode-badge.jour { background: var(--c0); box-shadow: 0 2px 0 var(--c0e); }
+  .chapitre { background: var(--cream); color: var(--ink); border-radius: var(--r-l); padding: 14px; margin-top: 12px; box-shadow: 0 5px 0 var(--cream-edge); }
+  .chapitre h3 { font-family: var(--title); font-weight: 700; font-size: 17px; margin: 0 0 4px; }
+  .chapitre .astuce { font-size: 13.5px; font-weight: 700; color: var(--ink-soft); margin: 0 0 10px; }
+  .exos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .exo { border: 0; border-radius: var(--r-s); min-height: 54px; font-family: var(--title); font-weight: 700; font-size: 18px; cursor: pointer; background: #ece5ff; color: var(--ink); box-shadow: 0 4px 0 #c5b8f0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; -webkit-tap-highlight-color: transparent; }
+  .exo small { font-family: var(--body, inherit); font-size: 10.5px; font-weight: 800; letter-spacing: .02em; }
+  .exo:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #c5b8f0; }
+  .exo.reussi { background: var(--c1); box-shadow: 0 4px 0 var(--c1e); }
+  .exo.passe { background: var(--c0); box-shadow: 0 4px 0 var(--c0e); }
+  .exo.en_cours, .exo.a_faire.prochain { background: var(--c2); box-shadow: 0 4px 0 var(--c2e); }
+  .exo.verrouille { opacity: .45; cursor: default; }
+  .titre-stats { margin: 16px 0 8px; }
+  .actions-fin { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .actions-fin .rang { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lien-discret { background: none; border: 0; color: var(--ink-soft); font-weight: 800; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 10px; min-height: 44px; }
   .carte-jour .btn { width: 100%; }
   .objectif { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9e1d0; }
   .objectif:last-child { border-bottom: 0; }
@@ -362,6 +382,7 @@
   <section id="ecran-accueil" class="ecran hidden" aria-label="Accueil">
     <div class="carte-xp" id="carte-xp"></div>
     <div class="carte-jour" id="carte-jour"></div>
+    <div class="carte-jour carte-entr hidden" id="carte-entr"></div>
     <div class="panel" id="accueil-objectifs"></div>
     <div class="panel" id="accueil-parcours"></div>
     <div class="raccourcis">
@@ -372,12 +393,13 @@
   </section>
 
   <section id="ecran-parcours" class="ecran hidden" aria-label="Mon parcours"></section>
+  <section id="ecran-entrainement" class="ecran hidden" aria-label="Mode entraînement"></section>
   <section id="ecran-badges" class="ecran hidden" aria-label="Mes badges et objectifs"></section>
   <section id="ecran-stats" class="ecran hidden" aria-label="Mes statistiques"></section>
 
   <section id="ecran-jeu" class="ecran hidden">
   <p class="date-grille" id="date-grille"></p>
-  <p class="tagline">Retrouve les 4 groupes de 4 mots.</p>
+  <p class="tagline" id="tagline">Retrouve les 4 groupes de 4 mots.</p>
   <section id="jeu" class="hidden" aria-label="Grille du jour">
     <div class="plateau-cadre">
       <div class="found" id="trouves"></div>
@@ -433,7 +455,8 @@
       </form>
       <p class="merci hidden" id="merci">Merci, c'est noté !</p>
     </div>
-    <div class="actions" style="margin-top:16px"><button class="btn btn-large" data-ecran="accueil">Retour à l'accueil</button></div>
+    <div class="panel hidden" id="continuer-entr"></div>
+    <div class="actions" style="margin-top:16px" id="retour-accueil-fin"><button class="btn btn-large" data-ecran="accueil">Retour à l'accueil</button></div>
     <div class="actions hidden" id="actions-demo" style="margin-top:10px"><button class="btn" id="btn-recommencer">Recommencer cette grille (démo, sans XP)</button></div>
   </section>
   </section>
@@ -507,6 +530,7 @@
 <script src="config.js"></script>
 <script src="api.js"></script>
 <script src="grilles.js"></script>
+<script src="entrainement.js"></script>
 <script src="progression.js"></script>
 <script>
 (function () {
@@ -549,6 +573,13 @@
   let etat = null;          // état de la partie
   let selection = [];
   let groupeAnime = null; let coeurPerdu = false; let tuilesFausses = []; let fini = false; // seul le groupe qui vient d'être trouvé est animé
+  // Mode entraînement : banque distincte du calendrier, sauvegardes distinctes, aucune trace dans les événements du test.
+  const ENTR = window.QUOTIDIEN_ENTRAINEMENT || { chapitres: [], grilles: [] };
+  const CFG = window.QUOTIDIEN_CONFIG || {};
+  let mode = "jour";          // "jour" = grille du jour (ou grille de démo) ; "entr" = exercice d'entraînement
+  let sauvegardeJour = null;  // grille du jour mise de côté pendant l'entraînement : { grille, etat }
+  let infoGain = null;        // en entraînement, raison d'une réussite sans XP : "deja" ou "solution"
+  let entrOuvertTrace = false;
 
   function jourParis(d) {
     // AAAA-MM-JJ en heure de Paris
@@ -559,7 +590,19 @@
   const FILE = "quotidien_file";
   function journal(type, donnees) {
     if (DEMO || !participant) return;
-    const ev = { p_id: participant.id, p_visite: visiteId, p_grille: grille ? grille.id : null, p_type: type, p_donnees: Object.assign({ t_client: new Date().toISOString() }, donnees || {}) };
+    // Pendant l'entraînement, AUCUN événement du test n'est envoyé (debut, essai, fin, indice, recompense…).
+    // Seule exception : « regles » (tutoriel vu), qui ne dépend d'aucune grille ; il part alors sans grille.
+    if (mode === "entr" && type !== "regles") return;
+    envoyer(type, mode === "entr" ? null : (grille ? grille.id : null), donnees);
+  }
+  // Traces du mode entraînement : un seul type d'événement, « entrainement », avec une action
+  // (ouverture, debut, fin, solution, passe). Jamais compté dans les indicateurs du test.
+  function journalEntr(action, donnees) {
+    if (DEMO || !participant) return;
+    envoyer("entrainement", mode === "entr" && grille ? grille.id : null, Object.assign({ action }, donnees || {}));
+  }
+  function envoyer(type, idGrille, donnees) {
+    const ev = { p_id: participant.id, p_visite: visiteId, p_grille: idGrille, p_type: type, p_donnees: Object.assign({ t_client: new Date().toISOString() }, donnees || {}) };
     const file = store.get(FILE) || [];
     file.push(ev); store.set(FILE, file.slice(-200));
     viderFile();
@@ -712,7 +755,7 @@
 
   function afficherEcran(nom) {
     ecranCourant = nom;
-    ["accueil", "jeu", "parcours", "badges", "stats"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
+    ["accueil", "jeu", "parcours", "badges", "stats", "entrainement"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
     document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
     const partieEnCours = nom === "jeu" && !$("jeu").classList.contains("hidden");
@@ -725,7 +768,87 @@
   }
 
   function ouvrirAccueil() {
-    rendreEntete(); rendreAccueil(); afficherEcran("accueil");
+    revenirJour(); rendreEntete(); rendreAccueil(); afficherEcran("accueil");
+  }
+
+  // ---------- Mode entraînement ----------
+  const entrainementActif = () => (CFG.entrainement || "tous") === "tous" || (CFG.entrainement === "demo" && DEMO);
+  const cleMetaEntr = () => "quotidien_entr_meta_" + profil();
+  // meta[id] = { tentatives, reussi, passe, solutionVue } : sert au parcours et aux règles d'XP, jamais au test.
+  function metaEntr() { return store.get(cleMetaEntr()) || {}; }
+  function majMetaEntr(id, maj) { const m = metaEntr(); m[id] = Object.assign({ tentatives: 0 }, m[id], maj); store.set(cleMetaEntr(), m); return m[id]; }
+  function cleEtatEntr(id) { return "quotidien_entr_" + (DEMO ? "demo" : participant.id) + "_" + id; }
+  function statutsEntr() {
+    const meta = metaEntr(), j = new Set(PROG.lireJournal(profil()).filter(e => e.mode === "entrainement").map(e => e.grille));
+    const st = ENTR.grilles.map(g => {
+      const m = meta[g.id] || {};
+      if (m.reussi || j.has(g.id)) return "reussi";
+      if (m.passe) return "passe";
+      const e = store.get(cleEtatEntr(g.id));
+      if ((e && e.debut && !e.fin) || (mode === "entr" && grille && grille.id === g.id && etat && etat.debut && !etat.fin)) return "en_cours";
+      return "a_faire";
+    });
+    // Déblocage : un exercice s'ouvre quand le précédent est réussi ou passé.
+    return st.map((x, i) => (i === 0 || st[i - 1] === "reussi" || st[i - 1] === "passe" || x !== "a_faire") ? x : "verrouille");
+  }
+  function prochainEntr(st) {
+    st = st || statutsEntr();
+    let i = st.findIndex(x => x === "en_cours" || x === "a_faire");
+    if (i < 0) i = st.findIndex(x => x === "passe");
+    return i;
+  }
+  function chapitreDe(g) { return ENTR.chapitres.find(c => c.n === g.chapitre) || { n: g.chapitre, titre: "", astuce: "" }; }
+
+  function ouvrirEntrainement() {
+    if (mode === "entr") { chronoPause(); if (etat) sauver(); }
+    if (!entrOuvertTrace) { entrOuvertTrace = true; journalEntr("ouverture", {}); }
+    rendreEntrainement(); afficherEcran("entrainement");
+  }
+  function ouvrirExercice(id) {
+    const g = ENTR.grilles.find(x => x.id === id); if (!g) return;
+    if (mode !== "entr") { chronoPause(); if (etat) sauver(); sauvegardeJour = { grille, etat }; mode = "entr"; etat = null; selection = []; }
+    else if (!grille || grille.id !== id) { chronoPause(); if (etat) sauver(); etat = null; selection = []; }
+    grille = g; fini = false;
+    lancerGrille();
+  }
+  // Retour à la grille du jour : on remet en place la grille et la partie du jour, sans les toucher.
+  function revenirJour() {
+    if (mode !== "entr") return;
+    chronoPause(); if (etat) sauver();
+    mode = "jour";
+    if (sauvegardeJour) { grille = sauvegardeJour.grille; etat = sauvegardeJour.etat; }
+    sauvegardeJour = null; selection = []; fini = false; viderPlateau();
+  }
+  function nouvelleTentative() {
+    if (mode !== "entr" || !grille) return;
+    store.del(cleEtatEntr(grille.id)); etat = null; selection = []; fini = false;
+    lancerGrille();
+  }
+
+  function rendreEntrainement() {
+    const G = ENTR.grilles, el = $("ecran-entrainement");
+    if (!G.length) { el.innerHTML = `<h2 class="titre-ecran">Mode entraînement</h2><div class="vide"><div class="ico">🧩</div>Aucun exercice n'est disponible pour le moment.</div>`; return; }
+    const st = statutsEntr(), reussis = st.filter(x => x === "reussi").length, passes = st.filter(x => x === "passe").length;
+    const i = prochainEntr(st), tout = reussis === G.length;
+    const lib = { reussi: "réussi", passe: "passé", en_cours: "en cours", a_faire: "", verrouille: "🔒" };
+    const pct = Math.round(100 * reussis / G.length);
+    el.innerHTML = `<span class="mode-badge">Mode entraînement</span><h2 class="titre-ecran" style="margin-top:4px">Enchaîne les exercices à ton rythme</h2>
+      <p class="sous-ecran">${G.length} exercices en ${ENTR.chapitres.length} chapitres, du plus simple au plus rusé. L'XP n'est gagnée qu'à la première réussite d'un exercice ; rejouer est toujours possible, sans XP.</p>
+      <div class="carte-xp" style="margin-top:0"><div class="ligne"><div class="niv">${reussis} / ${G.length} <small>réussis</small></div><div class="xp-txt">${pct} %</div></div>
+        <div class="barre"><i style="width:${pct}%"></i></div>
+        ${passes ? `<div class="sous">${passes} exercice${passes > 1 ? "s" : ""} passé${passes > 1 ? "s" : ""}, à reprendre quand tu veux.</div>` : ""}</div>
+      ${tout ? `<div class="panel" style="text-align:center"><h2 style="margin-top:0">Parcours terminé, bravo !</h2>
+          <p class="small">Tu as réussi les ${G.length} exercices. Tu peux en rejouer un (sans XP), revoir tes résultats ou revenir à l'accueil.</p>
+          <div class="actions-fin"><button class="btn primary btn-large" data-ecran="stats">Revoir mes résultats</button>
+          <button class="btn btn-large" data-ecran="accueil">Retour à l'accueil</button></div></div>`
+        : `<div class="actions" style="margin-top:14px"><button class="btn primary btn-large" id="btn-entr-continuer">${st[i] === "en_cours" ? "Reprendre" : st[i] === "passe" ? "Reprendre" : "Jouer"} l'exercice ${i + 1}</button></div>`}
+      ${ENTR.chapitres.map(c => `<div class="chapitre"><h3>Chapitre ${c.n} — ${c.titre}</h3><p class="astuce">💡 ${c.astuce}</p>
+        <div class="exos">${G.map((g, k) => ({ g, k })).filter(x => x.g.chapitre === c.n).map(({ g, k }) =>
+          `<button class="exo ${st[k]}${k === i ? " prochain" : ""}" data-exo="${g.id}" ${st[k] === "verrouille" ? "disabled" : ""} aria-label="Exercice ${k + 1} ${lib[st[k]]}">${st[k] === "reussi" ? "✓" : k + 1}<small>${st[k] === "reussi" ? k + 1 : lib[st[k]]}</small></button>`).join("")}</div></div>`).join("")}
+      <div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="accueil">Retour à l'accueil</button></div>`;
+    el.querySelectorAll("[data-exo]").forEach(b => b.addEventListener("click", () => ouvrirExercice(b.dataset.exo)));
+    const bc = $("btn-entr-continuer"); if (bc) bc.addEventListener("click", () => ouvrirExercice(G[i].id));
+    brancherNav(el);
   }
 
   // Démo : état de déblocage des grilles et sélecteur (changement de grille sans recharger la page).
@@ -747,6 +870,7 @@
   }
 
   function allerJouer() {
+    revenirJour();
     if (!grille) { afficherEcran("accueil"); return; }
     if (etat && etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
     lancerGrille();
@@ -787,12 +911,27 @@
         <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>` : ""}
           <span class="tag">${terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
           <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
-        <p>${terminee ? "Tu as déjà joué cette grille." : "16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16."}</p>
+        <p>${terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
         <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
       $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; lancerGrille(); } else allerJouer(); });
       if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
     }
+
+    // Carte « Mode entraînement » : bouton principal quand la grille du jour est déjà jouée.
+    const ce = $("carte-entr");
+    if (entrainementActif() && ENTR.grilles.length) {
+      const st = statutsEntr(), reussis = st.filter(x => x === "reussi").length, i = prochainEntr(st);
+      const jourFini = !grille || ((!DEMO && store.get(cle())) || {}).fin || (DEMO && PROG.lireJournal("demo").some(e => e.grille === grille.id));
+      const ch = i >= 0 ? chapitreDe(ENTR.grilles[i]) : null;
+      ce.classList.remove("hidden");
+      ce.innerHTML = `<span class="etiquette">Mode entraînement</span>
+        <h2>Enchaîne les exercices à ton rythme</h2>
+        <div class="meta"><span class="tag">${reussis}/${ENTR.grilles.length} réussis</span>${ch ? `<span class="tag">Chapitre ${ch.n} · ${ch.titre}</span>` : `<span class="tag ok">Parcours terminé</span>`}</div>
+        <p>${i >= 0 ? (st[i] === "en_cours" ? `Exercice ${i + 1} en cours : reprends où tu t'étais arrêté.` : `Prochain : exercice ${i + 1}. Des exercices supplémentaires, en dehors de la grille du jour.`) : "Tu as réussi tous les exercices. Tu peux en rejouer un, sans XP."}</p>
+        <button class="btn ${jourFini ? "primary" : ""} btn-large" id="btn-entr">${i >= 0 ? (st[i] === "en_cours" ? "Reprendre l'entraînement" : reussis ? "Continuer l'entraînement" : "S'entraîner") : "Voir le parcours"}</button>`;
+      $("btn-entr").addEventListener("click", ouvrirEntrainement);
+    } else ce.classList.add("hidden");
 
     // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
     const restants = p.objectifs.filter(o => !o.termine).slice(0, 3);
@@ -821,7 +960,7 @@
     const p = progression();
     const lib = { termine: "Terminé", en_cours: "En cours", accessible: "Prochain", verrouille: "Verrouillé" };
     $("ecran-parcours").innerHTML = `<h2 class="titre-ecran">Mon parcours</h2>
-      <p class="sous-ecran">Chaque grille du jour terminée rapporte de l'XP. Les niveaux se débloquent avec l'XP, sans condition de jours consécutifs. La grille du jour reste toujours accessible.</p>
+      <p class="sous-ecran">Chaque grille du jour terminée rapporte de l'XP, et chaque exercice d'entraînement réussi pour la première fois aussi. Les niveaux se débloquent avec l'XP, sans condition de jours consécutifs. La grille du jour reste toujours accessible.</p>
       <div class="carte-xp" style="margin-top:0"><div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
         <div class="barre"><i style="width:${barreXp(p).pct}%"></i></div><div class="sous">${barreXp(p).txt}</div></div>
       <div class="parcours" style="margin-top:16px">${p.niveaux.map(n => `<div class="etape ${n.etat}"><div class="rond">${n.etat === "termine" ? "✓" : n.etat === "verrouille" ? "🔒" : n.n}</div>
@@ -832,7 +971,8 @@
         <p>Grille résolue : <strong>${PROG.BAREME.resolue.facile}</strong> (facile), <strong>${PROG.BAREME.resolue.intermediaire}</strong> (intermédiaire) ou <strong>${PROG.BAREME.resolue.difficile}</strong> XP (difficile).</p>
         <p>Résolue sans erreur : <strong>+${PROG.BAREME.sansFaute}</strong> XP. Partie terminée sans résoudre : <strong>${PROG.BAREME.terminee}</strong> XP.</p>
         <p>Objectif réalisé : de 30 à 250 XP. Badge débloqué : <strong>+${PROG.BAREME.badge}</strong> XP.</p>
-        <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p></div>`;
+        <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p>
+        <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec, un exercice passé ou une solution consultée avant de réussir ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p></div>`;
   }
 
   function rendreBadges(cible) {
@@ -854,15 +994,26 @@
     }
     const m = s.meilleure;
     const fmt = (d) => d == null ? "–" : d >= 60 ? `${Math.floor(d / 60)} min ${d % 60} s` : `${d} s`;
+    const q = s.quotidien, en = s.entrainement;
+    const stE = ENTR.grilles.length ? statutsEntr() : [];
     el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><p class="sous-ecran">Calculées à partir des parties terminées sur cet appareil.</p>
+      <h3 class="titre-stats"><span class="mode-badge jour">${DEMO ? "Grilles de démo" : "Grilles du jour"}</span></h3>
       <div class="stats-grille">
-        <div class="stat-c"><div class="v">${s.terminees}</div><div class="l">Grilles terminées</div><div class="note">dont ${s.resolues} résolue${s.resolues > 1 ? "s" : ""}</div></div>
+        <div class="stat-c"><div class="v">${q.terminees}</div><div class="l">Grilles terminées</div><div class="note">dont ${q.resolues} résolue${q.resolues > 1 ? "s" : ""}</div></div>
         <div class="stat-c"><div class="v">${s.taux == null ? "–" : Math.round(100 * s.taux) + " %"}</div><div class="l">Taux de réussite</div><div class="note">grilles résolues ÷ grilles terminées</div></div>
-        <div class="stat-c"><div class="v">${s.groupes}</div><div class="l">Groupes trouvés</div></div>
-        <div class="stat-c"><div class="v">${s.erreurs}</div><div class="l">Erreurs</div><div class="note">${s.terminees ? (s.erreurs / s.terminees).toFixed(1) + " par grille" : ""}</div></div>
+        <div class="stat-c"><div class="v">${q.groupes}</div><div class="l">Groupes trouvés</div></div>
+        <div class="stat-c"><div class="v">${q.erreurs}</div><div class="l">Erreurs</div><div class="note">${q.terminees ? (q.erreurs / q.terminees).toFixed(1) + " par grille" : ""}</div></div>
+      </div>
+      ${entrainementActif() && ENTR.grilles.length ? `<h3 class="titre-stats"><span class="mode-badge">Entraînement</span></h3>
+      <div class="stats-grille">
+        <div class="stat-c"><div class="v">${stE.filter(x => x === "reussi").length}/${ENTR.grilles.length}</div><div class="l">Exercices réussis</div><div class="note">${en.resolus} avec XP</div></div>
+        <div class="stat-c"><div class="v">${stE.filter(x => x === "passe").length}</div><div class="l">Exercices passés</div><div class="note">à reprendre quand tu veux</div></div>
+      </div>` : ""}
+      <h3 class="titre-stats"><span class="mode-badge" style="background:var(--c3);box-shadow:0 2px 0 var(--c3e)">Progression</span></h3>
+      <div class="stats-grille">
         <div class="stat-c"><div class="v">${p.xp}</div><div class="l">XP</div><div class="note">Niveau ${p.niveau.n} — ${p.niveau.nom}</div></div>
         <div class="stat-c"><div class="v">${m ? m.erreurs + " err." : "–"}</div><div class="l">Meilleur résultat</div><div class="note">${m ? `${m.grille.replace("g", "grille ")} · ${fmt(m.duree_s)}` : "aucune grille résolue"}</div></div>
-        <div class="stat-c"><div class="v">${s.serie.actuelle}</div><div class="l">Série actuelle</div><div class="note">jours consécutifs avec une grille terminée</div></div>
+        <div class="stat-c"><div class="v">${s.serie.actuelle}</div><div class="l">Série actuelle</div><div class="note">jours consécutifs avec une grille du jour terminée</div></div>
         <div class="stat-c"><div class="v">${s.serie.record}</div><div class="l">Record de série</div><div class="note">la série est affichée, pas récompensée</div></div>
       </div>
       <p class="small" style="color:var(--muted);margin-top:12px">La progression est enregistrée dans ce navigateur uniquement : elle ne se synchronise pas avec un autre appareil.</p>
@@ -879,7 +1030,8 @@
   }
   function naviguer(nom, cible) {
     if (nom === "jeu") { allerJouer(); return; }
-    if (nom === "accueil") rendreAccueil();
+    if (nom === "entrainement") { ouvrirEntrainement(); return; }
+    if (nom === "accueil") { revenirJour(); rendreAccueil(); }
     if (nom === "parcours") rendreParcours();
     if (nom === "badges") rendreBadges(cible);
     if (nom === "stats") rendreStats();
@@ -891,6 +1043,7 @@
   // Crédite la progression pour la partie qui vient de se terminer. Idempotent : une grille déjà comptée ne rapporte rien.
   function crediter() {
     if (!grille || !etat || !etat.fin) return;
+    if (mode === "entr") return crediterEntr();
     const tp = etat.trouvesParJoueur || [];
     const res = PROG.enregistrerPartie(profil(), { grille: grille.id, niveau: grille.niveau, jour: jourParis(), gagne: !!etat.gagne,
       erreurs: etat.erreurs, groupes: tp.length, duree_s: dureeActiveS(), indices: (etat.indices || []).length }, jourParis());
@@ -901,10 +1054,24 @@
       niveau_avant: res.gains.niveauAvant.n, niveau_apres: res.gains.niveauApres.n, xp_total: res.apres.xp });
   }
 
+  // Entraînement : XP à la première RÉUSSITE seulement ; rien pour un échec, un abandon, une solution consultée
+  // avant de réussir, ni pour un exercice déjà réussi. Le barème est celui de la grille du jour.
+  function crediterEntr() {
+    dernierGain = null; infoGain = null;
+    if (!etat.gagne) return;
+    const avant = metaEntr()[grille.id] || {};
+    majMetaEntr(grille.id, { reussi: true });
+    if (avant.solutionVue) { infoGain = "solution"; return; }
+    const res = PROG.enregistrerPartie(profil(), { grille: grille.id, niveau: grille.niveau, jour: jourParis(), gagne: true,
+      erreurs: etat.erreurs, groupes: 4, duree_s: dureeActiveS(), indices: (etat.indices || []).length, mode: "entrainement", tentative: etat.tentative || 1 }, jourParis());
+    if (res.deja) { infoGain = "deja"; return; }
+    dernierGain = res.gains;
+  }
+
   function htmlRecompenses(g) {
     if (!g) return "";
     const lignes = [];
-    lignes.push(`<li><span class="ico">${etat.gagne ? "✅" : "🧩"}</span>${etat.gagne ? "Grille résolue" : "Partie terminée"}${g.sansFaute ? " · sans faute" : ""}${(etat.indices || []).length ? ` · ${(etat.indices || []).length} indice${(etat.indices || []).length > 1 ? "s" : ""} (−${15 * (etat.indices || []).length})` : ""}<span class="plus">+${g.xpPartie} XP</span></li>`);
+    lignes.push(`<li><span class="ico">${etat.gagne ? "✅" : "🧩"}</span>${etat.gagne ? (mode === "entr" ? "Exercice réussi" : "Grille résolue") : "Partie terminée"}${g.sansFaute ? " · sans faute" : ""}${(etat.indices || []).length ? ` · ${(etat.indices || []).length} indice${(etat.indices || []).length > 1 ? "s" : ""} (−${15 * (etat.indices || []).length})` : ""}<span class="plus">+${g.xpPartie} XP</span></li>`);
     g.objectifs.forEach(o => lignes.push(`<li><span class="ico">🎯</span>Objectif : ${o.titre}<span class="plus">+${o.xp} XP</span></li>`));
     g.badges.forEach(b => lignes.push(`<li><span class="ico">${b.icone}</span>Badge : ${b.nom}<span class="plus">+${PROG.BAREME.badge} XP</span></li>`));
     const p = progression(); const b = barreXp(p);
@@ -915,7 +1082,7 @@
   }
 
   // ---------- Partie ----------
-  function cle() { return "quotidien_etat_" + (DEMO ? "demo" : participant.id) + "_" + grille.id; }
+  function cle() { return mode === "entr" ? cleEtatEntr(grille.id) : "quotidien_etat_" + (DEMO ? "demo" : participant.id) + "_" + grille.id; }
 
   function melangeGraine(liste, graine) {
     let h = 2166136261; for (const c of graine) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
@@ -927,19 +1094,31 @@
   function lancerGrille() {
     $("chargement").classList.add("hidden");
     const num = GRILLES.indexOf(grille) + 1;
-    $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>` : `Grille du <b>${formatDate(jourParis())}</b>`;
     const tous = grille.groupes.flatMap(g => g.mots);
     const etatAvant = etat;
-    etat = (!DEMO && store.get(cle())) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
+    if (mode === "entr") {
+      const k = ENTR.grilles.indexOf(grille), ch = chapitreDe(grille);
+      $("date-grille").innerHTML = `<span class="mode-badge">Entraînement</span><br>Exercice <b>${k + 1} / ${ENTR.grilles.length}</b>`;
+      $("tagline").textContent = `Chapitre ${ch.n} · ${ch.titre}`;
+      // Reprise : la partie en mémoire, sinon la sauvegarde locale, si elle n'est pas terminée. Sinon : nouvelle tentative.
+      const sauve = store.get(cleEtatEntr(grille.id));
+      etat = (etatAvant && etatAvant.grilleId === grille.id && !etatAvant.fin) ? etatAvant : (sauve && !sauve.fin && sauve.grilleId === grille.id ? sauve : null);
+    } else {
+      $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>` : `Grille du <b>${formatDate(jourParis())}</b>`;
+      $("tagline").textContent = "Retrouve les 4 groupes de 4 mots.";
+      etat = (!DEMO && store.get(cle())) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
+    }
     const etatRepris = !!(etat && etatAvant && etatAvant.grilleId === grille.id && !etat.fin);
     if (!etat) {
       etat = { ordre: melangeGraine(tous, (participant ? participant.id : "demo" + Math.random()) + grille.id),
                trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false, indices: [], tempsActif: 0 };
+      if (mode === "entr") etat.tentative = majMetaEntr(grille.id, { tentatives: ((metaEntr()[grille.id] || {}).tentatives || 0) + 1 }).tentatives;
+      etat.grilleId = grille.id;
       sauver();
     }
     etat.grilleId = grille.id;
     // Reprise d'une partie quittée : on garde la sélection en cours (mots encore sur le plateau)
-    selection = (etatRepris ? selection : []).filter(m => !etat.trouves.includes(groupeDe(m)));
+    selection = (etatRepris ? selection : (mode === "entr" && etat.selection) || []).filter(m => !etat.trouves.includes(groupeDe(m)));
     fini = false; tuilesFausses = [];
     if (!etatRepris) viderPlateau();
     if (etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
@@ -951,14 +1130,14 @@
     chronoDemarrer();
   }
 
-  function sauver() { if (!DEMO) store.set(cle(), etat); }
+  function sauver() { if (!DEMO || mode === "entr") store.set(cle(), etat); }
 
   function groupeDe(mot) { return grille.groupes.findIndex(g => g.mots.includes(mot)); }
 
   function htmlGroupe(gi, couleurIndex) {
     const g = grille.groupes[gi];
     return `<div class="group c${couleurIndex}${gi === groupeAnime ? " nouveau" : ""}">
-      ${DEMO ? `<div class="lvl">${LIB_DIFF[g.difficulte]}</div>` : ""}
+      ${DEMO || mode === "entr" ? `<div class="lvl">${LIB_DIFF[g.difficulte]}</div>` : ""}
       <div class="cat">${g.categorie}</div>
       <div class="words">${g.mots.join(", ")}</div>
       ${etat.fin ? `<div class="expl">${g.explication}</div>` : ""}</div>`;
@@ -1087,7 +1266,7 @@
   }
   function donnerIndice() {
     if (indicesDisponibles() <= 0 || etat.fin) return;
-    if (!etat.debut) { etat.debut = Date.now(); journal("debut", {}); }
+    if (!etat.debut) { etat.debut = Date.now(); journal("debut", {}); if (mode === "entr") journalEntr("debut", { tentative: etat.tentative }); }
     const candidats = grille.groupes.map((g, i) => i).filter(i => !etat.trouves.includes(i) && !(etat.indices || []).some(x => x.groupe === i))
       .sort((a, b) => ORDRE_DIFF[grille.groupes[a].difficulte] - ORDRE_DIFF[grille.groupes[b].difficulte] || a - b);
     if (!candidats.length) return;
@@ -1121,9 +1300,10 @@
 
   function basculer(mot) {
     if (etat.fin || etat.trouves.includes(groupeDe(mot))) return;
-    if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); }
+    if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); if (mode === "entr") journalEntr("debut", { tentative: etat.tentative }); }
     if (selection.includes(mot)) selection = selection.filter(m => m !== mot);
     else if (selection.length < 4) selection.push(mot);
+    if (mode === "entr") { etat.selection = selection.slice(); sauver(); }
     vibrer(8);
     rendre();
   }
@@ -1142,7 +1322,7 @@
     if (correct) {
       etat.trouves.push(groupes[0]);
       const envol = selection.slice();
-      selection = [];
+      selection = []; if (mode === "entr") etat.selection = [];
       toast(["Bien vu !", "Bravo !", "Excellent !", "Parfait !"][etat.trouves.length - 1] || "Bien vu !", "bon"); vibrer(30);
       sauver();
       const complet = etat.trouves.length === 4;
@@ -1165,9 +1345,11 @@
     etat.fin = Date.now(); etat.gagne = gagne;
     // en cas d'échec, on révèle les groupes restants
     const trouvesParJoueur = etat.trouves.slice();
-    for (let i = 0; i < 4; i++) if (!etat.trouves.includes(i)) etat.trouves.push(i);
+    // Grille du jour : la solution est révélée. Entraînement : le joueur choisit (réessayer, voir la solution, passer).
+    if (mode !== "entr") for (let i = 0; i < 4; i++) if (!etat.trouves.includes(i)) etat.trouves.push(i);
     etat.trouvesParJoueur = trouvesParJoueur;
     sauver();
+    if (mode === "entr") journalEntr("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), indices: (etat.indices || []).length, tentative: etat.tentative });
     journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
       nb_groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), duree_brute_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length, indices: (etat.indices || []).length });
     crediter();
@@ -1213,6 +1395,8 @@
   function afficherFin() {
     $("jeu").classList.add("hidden");
     $("fin").classList.remove("hidden");
+    if (mode === "entr") return afficherFinEntr();
+    ["questionnaire-panel", "retour-accueil-fin", "solution", "suite"].forEach(id => $(id).classList.remove("hidden"));
     $("recompenses").innerHTML = htmlRecompenses(dernierGain);
     if (dernierGain) { const p = progression(), b = barreXp(p); requestAnimationFrame(() => requestAnimationFrame(() => { const i = document.querySelector("#bloc-recompenses .barre i"); if (i) i.style.width = b.pct + "%"; })); vibrer(20); }
     dernierGain = null;
@@ -1259,6 +1443,69 @@
 
     if (etat.questionnaire) { $("questionnaire").classList.add("hidden"); $("merci").classList.remove("hidden"); }
     $("actions-demo").classList.toggle("hidden", !DEMO);
+    // Proposition de continuer en entraînement, placée APRÈS le questionnaire pour ne pas le concurrencer.
+    const ce = $("continuer-entr");
+    if (entrainementActif() && ENTR.grilles.length) {
+      ce.classList.remove("hidden");
+      ce.innerHTML = `<h2>Envie de continuer maintenant ?</h2><p class="small">Le mode entraînement propose ${ENTR.grilles.length} exercices à enchaîner, en dehors de la grille du jour.</p>
+        <div class="actions"><button class="btn primary btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
+      $("btn-fin-entr").addEventListener("click", ouvrirEntrainement);
+    } else ce.classList.add("hidden");
+  }
+
+  // ---------- Fin d'un exercice d'entraînement ----------
+  function afficherFinEntr() {
+    const G = ENTR.grilles, k = G.indexOf(grille), suivant = G[k + 1] || null;
+    const meta = metaEntr()[grille.id] || {}, gagne = !!etat.gagne;
+    ["questionnaire-panel", "retour-accueil-fin", "actions-demo", "continuer-entr"].forEach(id => $(id).classList.add("hidden"));
+    $("nav-bas").classList.remove("hidden"); document.querySelector("main").classList.add("avec-nav");
+    // Récompenses (affichées une seule fois, juste après la réussite)
+    let rec = "";
+    if (gagne && dernierGain) rec = htmlRecompenses(dernierGain);
+    else if (gagne && infoGain) rec = `<div class="recompenses"><p class="small" style="margin:0;text-align:center;color:var(--muted)">${infoGain === "solution" ? "Tu avais consulté la solution : cette réussite ne rapporte pas d'XP." : "Exercice déjà réussi : rejouer ne rapporte pas d'XP."}</p></div>`;
+    $("recompenses").innerHTML = rec;
+    if (gagne && dernierGain) { const p = progression(), b = barreXp(p); requestAnimationFrame(() => requestAnimationFrame(() => { const i = document.querySelector("#bloc-recompenses .barre i"); if (i) i.style.width = b.pct + "%"; })); vibrer(20); }
+    dernierGain = null; infoGain = null;
+    const tp = etat.trouvesParJoueur || etat.trouves;
+    const duree = etat.debut ? dureeActiveS() : null;
+    const tempsCourt = duree == null ? "–" : duree >= 60 ? Math.floor(duree / 60) + ":" + String(duree % 60).padStart(2, "0") : duree + " s";
+    $("resume").innerHTML = `
+      <div class="heros">
+        <h2 class="titre-victoire ${gagne ? "gagne" : ""}">${gagne ? "Bravo !" : "Pas cette fois"}</h2>
+        <p>${gagne ? `Exercice réussi${etat.tentative > 1 ? ` (tentative ${etat.tentative})` : ""} avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Tu peux réessayer, comprendre la solution ou passer à la suite.`}</p></div>
+      <div class="stats">
+        <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
+        <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
+        <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
+      </div><div id="suite-entr"></div>`;
+    const voirSolution = gagne || meta.solutionVue;
+    $("solution").classList.toggle("hidden", !voirSolution);
+    if (voirSolution) $("solution").innerHTML = `<h2>${gagne ? "Les explications" : "La solution"}</h2>
+      <div class="found solution">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>
+      <p class="small" style="margin-top:10px">💡 ${chapitreDe(grille).astuce}</p>`;
+    // Les choix de suite sont placés juste sous le résultat (sans défiler jusqu'aux explications).
+    $("suite").classList.add("hidden");
+    const suite = $("suite-entr");
+    if (gagne) suite.innerHTML = `<div class="actions-fin">
+        ${suivant ? `<button class="btn primary btn-large" id="entr-suivant">Exercice suivant</button>` : `<button class="btn primary btn-large" id="entr-parcours">Voir la fin du parcours</button>`}
+        <div class="rang"><button class="btn" id="entr-revoir">Revoir les solutions</button><button class="btn" id="entr-parcours2">Retour à l'entraînement</button></div>
+        <button class="lien-discret" data-ecran="accueil">Accueil</button></div>`;
+    else suite.innerHTML = `<div class="actions-fin">
+        <button class="btn primary btn-large" id="entr-reessayer">Réessayer${meta.solutionVue ? " (sans XP)" : ""}</button>
+        ${meta.solutionVue ? "" : `<button class="btn btn-large" id="entr-solution">Comprendre la solution</button>`}
+        <button class="btn btn-large" id="entr-passer">${suivant ? "Passer à l'exercice suivant" : "Retour à l'entraînement"}</button>
+        <p class="small" style="text-align:center;margin:0">${meta.solutionVue ? "Solution consultée : une réussite de cet exercice ne rapportera pas d'XP." : "Voir la solution ou passer ne rapporte pas d'XP. Tu pourras revenir à cet exercice depuis le parcours."}</p>
+        <button class="lien-discret" data-ecran="accueil">Accueil</button></div>`;
+    const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", () => { b.disabled = true; f(); }); };
+    on("entr-suivant", () => ouvrirExercice(suivant.id));
+    on("entr-parcours", ouvrirEntrainement); on("entr-parcours2", ouvrirEntrainement);
+    const rv = $("entr-revoir"); if (rv) rv.addEventListener("click", () => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }));
+    on("entr-reessayer", nouvelleTentative);
+    on("entr-solution", () => { majMetaEntr(grille.id, { solutionVue: true }); journalEntr("solution", { tentative: etat.tentative }); afficherFinEntr();
+      setTimeout(() => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }), 50); });
+    on("entr-passer", () => { if (!(metaEntr()[grille.id] || {}).reussi) majMetaEntr(grille.id, { passe: true }); journalEntr("passe", { tentative: etat.tentative });
+      if (suivant) ouvrirExercice(suivant.id); else ouvrirEntrainement(); });
+    brancherNav(suite);
   }
 
   async function partager() {
@@ -1286,7 +1533,7 @@
 
   // ---------- Boutons ----------
   $("btn-valider").addEventListener("click", valider);
-  $("btn-effacer").addEventListener("click", () => { selection = []; rendre(); });
+  $("btn-effacer").addEventListener("click", () => { selection = []; if (mode === "entr" && etat) { etat.selection = []; sauver(); } rendre(); });
   $("btn-melanger").addEventListener("click", () => {
     const fixes = etat.ordre.filter(m => etat.trouves.includes(groupeDe(m)));
     const autres = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
@@ -1306,7 +1553,7 @@
   $("tuto-suiv").addEventListener("click", () => { if (etapeTuto === 3) $("dlg-regles").close(); else montrerEtape(etapeTuto + 1); });
   $("dlg-regles").addEventListener("close", () => montrerEtape(1));
   montrerEtape(1);
-  $("btn-quitter").addEventListener("click", () => { chronoPause(); sauver(); ouvrirAccueil(); });
+  $("btn-quitter").addEventListener("click", () => { chronoPause(); sauver(); if (mode === "entr") ouvrirEntrainement(); else ouvrirAccueil(); });
   $("btn-indice").addEventListener("click", donnerIndice);
   $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
   $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());

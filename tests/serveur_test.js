@@ -25,7 +25,7 @@ const F = {
     db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: "visite", donnees: { entree: p_entree, classe, token: !!p_token, appareil: p_appareil || null }, created_at: now.toISOString() });
     return { ok: true, classe }; },
   q_evenement({ p_id, p_visite, p_grille, p_type, p_donnees }) { const p = db.participants.find(x => x.id === p_id); if (!p) return false;
-    if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles","recompense","indice"].includes(p_type)) return false;
+    if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles","recompense","indice","entrainement"].includes(p_type)) return false;
     db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: p_type, donnees: p_donnees || {}, created_at: maintenant().toISOString() }); return true; },
   a_sessions({ code }) { admin(code); return db.sessions.slice().reverse(); },
   a_creer_session({ code, p_nom, p_calendrier }) { admin(code); db.sessions.forEach(s => s.active = false); const s = { id: "S" + nid(), nom: p_nom, calendrier: p_calendrier, active: true, created_at: new Date().toISOString() }; db.sessions.push(s); return { id: s.id }; },

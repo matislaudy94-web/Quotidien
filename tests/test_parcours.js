@@ -290,7 +290,12 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(/245 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement (185 + 60)");
     ok(await pa.locator('#carte-grilles [data-grille="g3"]:not([disabled])').count() === 1 && await pa.locator('#carte-grilles [data-grille="g4"][disabled]').count() === 1, "démo : grilles 1 et 2 résolues → grille 3 débloquée, grille 4 encore verrouillée");
     ok(/Rejouer \(sans XP\)/.test(await pa.locator("#btn-jouer").innerText()), "démo : la grille déjà comptée propose « Rejouer (sans XP) »");
-    await pa.click("#btn-jouer"); await pa.waitForSelector(".tile"); await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#fin:not(.hidden)");
+    await pa.click("#btn-jouer"); await pa.waitForSelector(".tile");
+    // Rejouer une grille de démo donne une autre version (autres mots, mêmes règles d'XP)
+    const V1 = require(path.join(__dirname, "..", "variantes.json")).g1[0];
+    ok((await pa.$$eval("#plateau .tile", t => t.map(x => x.textContent))).sort().join() === V1.groupes.flatMap(g => g.mots).sort().join(), "démo : rejouer la grille 1 propose sa version 2, avec d'autres mots");
+    for (const gr of V1.groupes) { for (const m of gr.mots) await pa.getByRole("button", { name: m, exact: true }).click(); await pa.getByRole("button", { name: "Valider" }).click(); await pa.waitForTimeout(450); }
+    await pa.waitForSelector("#fin:not(.hidden)");
     await pa.waitForTimeout(1200);
     ok(await pa.locator("#bloc-recompenses").count() === 0, "rejouer la même grille ne crédite rien (pas de bloc récompenses)");
     await aller(pa, `${BASE}/?demo=1`, false); await pa.waitForSelector("#carte-xp");

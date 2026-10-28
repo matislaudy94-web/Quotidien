@@ -1767,18 +1767,15 @@ window.QUOTIDIEN_VARIANTES = {
      "mots": [
       "CASSÉ",
       "IVOIRE",
-      "NACRÉ",
+      "NEIGE",
       "IMMACULÉ"
      ],
-     "explication": "Blanc cassé, blanc ivoire, blanc nacré, blanc immaculé. Le rose nacré existe aussi, mais le rose est complet."
+     "explication": "Blanc cassé, blanc ivoire, blanc neige, blanc immaculé. On dit aussi blanc perle, mais la perle est prise par le gris."
     }
    ],
    "rattachements_plausibles": {
     "CHARBON": [
      "Gris ___"
-    ],
-    "NACRÉ": [
-     "Rose ___"
     ],
     "PERLE": [
      "Blanc ___"
@@ -2374,7 +2371,7 @@ window.QUOTIDIEN_VARIANTES = {
      "explication": "Quatre professions paramédicales. Le masseur(-kinésithérapeute) aussi, mais il commence par une masse."
     },
     {
-     "categorie": "Indulgence et pardon",
+     "categorie": "Pardonner facilement",
      "difficulte": "intermediaire",
      "mots": [
       "INDULGENCE",
@@ -2393,7 +2390,7 @@ window.QUOTIDIEN_VARIANTES = {
      "Professions paramédicales"
     ],
     "CLÉMENCE": [
-     "Indulgence et pardon"
+     "Pardonner facilement"
     ]
    }
   },
@@ -2421,7 +2418,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LUMBAGO",
       "SCIATIQUE",
       "TENDINITE",
-      "ARTHROSE"
+      "NÉVRALGIE"
      ],
      "explication": "Quatre maux qui font souffrir. Le rhumatisme et la gingivite aussi, mais ils cachent une boisson."
     },
@@ -4266,11 +4263,11 @@ window.QUOTIDIEN_VARIANTES = {
      "difficulte": "intermediaire",
      "mots": [
       "HÉRISSON",
-      "ÉCHIDNÉ",
+      "CHÂTAIGNE",
       "HOUX",
       "AUBÉPINE"
      ],
-     "explication": "Le hérisson, l'échidné, le houx et l'aubépine piquent."
+     "explication": "Le hérisson, la châtaigne (dans sa bogue), le houx et l'aubépine piquent."
     },
     {
      "categorie": "Personnages de contes",
@@ -4517,7 +4514,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHACAL",
       "COYOTE",
       "FENNEC",
-      "LYCAON"
+      "DINGO"
      ],
      "explication": "Quatre canidés sauvages."
     },
@@ -4685,7 +4682,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POTIMARRON",
       "PÂTISSON",
       "BUTTERNUT",
-      "GIRAUMON"
+      "POTIRON"
      ],
      "explication": "Quatre courges. La citrouille en est une aussi, mais elle est prise."
     },
@@ -5192,12 +5189,12 @@ window.QUOTIDIEN_VARIANTES = {
      "categorie": "Homophones d'une partie du corps",
      "difficulte": "difficile",
      "mots": [
-      "JOUG",
+      "DO",
       "PÔ",
       "COÛT",
       "POUSSE"
      ],
-     "explication": "Joug / joue, Pô / peau, coût / cou, pousse / pouce."
+     "explication": "Do / dos, Pô / peau, coût / cou, pousse / pouce."
     },
     {
      "categorie": "Fleuves d'Europe",

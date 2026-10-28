@@ -47,7 +47,7 @@
     "NAVET",
     "CHOU",
     "COURGETTE",
-    "ÉPINARD",
+    "ÉPINARDS",
     "RADIS",
     "HARICOT"
    ]
@@ -123,7 +123,7 @@
     "SPAGHETTIS",
     "GNOCCHIS",
     "PANINI",
-    "BOLOGNAISE"
+    "TAGLIATELLES"
    ]
   },
   {
@@ -225,7 +225,7 @@
     "ABEILLE",
     "MOUCHE",
     "GUÊPE",
-    "PAPILLON",
+    "LIBELLULE",
     "COCCINELLE",
     "MOUSTIQUE",
     "SAUTERELLE"
@@ -451,8 +451,8 @@
     "ÉCHARPE",
     "GANTS",
     "LUNETTES",
-    "MONTRE",
-    "PARAPLUIE",
+    "PORTEFEUILLE",
+    "FOULARD",
     "CRAVATE"
    ]
   },
@@ -482,7 +482,7 @@
     "BROCHE",
     "PENDENTIF",
     "ALLIANCE",
-    "PIERCING",
+    "GOURMETTE",
     "DIADÈME"
    ]
   },
@@ -510,8 +510,7 @@
     "BADMINTON",
     "SQUASH",
     "PING-PONG",
-    "PADEL",
-    "PELOTE BASQUE"
+    "PADEL"
    ]
   },
   {
@@ -548,7 +547,7 @@
    "famille": "sport",
    "mots": [
     "SURF",
-    "VOILE",
+    "SKI NAUTIQUE",
     "NATATION",
     "PLONGÉE",
     "AVIRON",
@@ -595,7 +594,7 @@
     "SAXOPHONE",
     "CLARINETTE",
     "HAUTBOIS",
-    "TROMBONE",
+    "BASSON",
     "CORNEMUSE",
     "HARMONICA"
    ]
@@ -683,7 +682,7 @@
     "CHINE",
     "JAPON",
     "INDE",
-    "CORÉE",
+    "CAMBODGE",
     "VIETNAM",
     "THAÏLANDE",
     "NÉPAL",
@@ -904,7 +903,7 @@
    "nom": "Unités de mesure (longueur, masse…)",
    "famille": "maths",
    "mots": [
-    "MÈTRE",
+    "KILOMÈTRE",
     "LITRE",
     "GRAMME",
     "KILO",
@@ -961,7 +960,7 @@
   },
   {
    "id": "membres",
-   "nom": "Membres du corps",
+   "nom": "Bras et jambes",
    "famille": "corps",
    "mots": [
     "BRAS",
@@ -1006,7 +1005,7 @@
   },
   {
    "id": "restauration",
-   "nom": "Métiers de la restauration",
+   "nom": "Métiers de bouche et de salle",
    "famille": "metiers",
    "mots": [
     "CUISINIER",
@@ -1060,7 +1059,10 @@
     "JUIN",
     "JUILLET",
     "SEPTEMBRE",
-    "DÉCEMBRE"
+    "DÉCEMBRE",
+    "AOÛT",
+    "OCTOBRE",
+    "NOVEMBRE"
    ]
   },
   {
@@ -1233,7 +1235,6 @@
     "DAMES",
     "DOMINOS",
     "LOTO",
-    "PUZZLE",
     "MIKADO",
     "PETITS CHEVAUX",
     "JEU DE L'OIE"
@@ -1540,6 +1541,30 @@
   [
    "membres",
    "unites"
+  ],
+  [
+   "accessoires",
+   "sdb"
+  ],
+  [
+   "planetes",
+   "aeronefs"
+  ],
+  [
+   "vehicules",
+   "ferme"
+  ],
+  [
+   "fournitures",
+   "accessoires"
+  ],
+  [
+   "accessoires",
+   "meteo"
+  ],
+  [
+   "accessoires",
+   "duree"
   ]
  ]
 }

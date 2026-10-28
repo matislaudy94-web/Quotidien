@@ -3,7 +3,23 @@
 const http = require("http"), fs = require("fs"), path = require("path");
 const RACINE = path.join(__dirname, "..");
 const CODE = "code-test";
-const db = { sessions: [], participants: [], rappels: [], evenements: [], salons: [], scores: [] };
+const db = { sessions: [], participants: [], rappels: [], evenements: [], salons: [], scores: [], groupes: [], membres: [], manches: [], resultats: [] };
+// ---- Groupes du Défi (reproduit les fonctions SQL g_*) ----
+const pseudoOk = (p) => String(p || "").trim().replace(/[<>"&]/g, "").slice(0, 16);
+const t = (d) => new Date(d).getTime();
+function statutManche(m) {
+  const now = maintenant().getTime();
+  if (m.close_le) return "terminee";
+  if (now < t(m.demarre_le)) return "compte_a_rebours";
+  const nMembres = db.membres.filter(x => x.groupe === m.groupe && t(x.rejoint_le) <= t(m.lancee_le)).length;
+  const rs = db.resultats.filter(r => r.manche === m.id);
+  const finis = rs.filter(r => r.termine_le).length, enCours = rs.filter(r => !r.termine_le && now - t(r.commence_le) < 16 * 60000).length;
+  if (finis >= nMembres) return "terminee";
+  if (enCours === 0 && now > t(m.demarre_le) + 16 * 60000) return "terminee";
+  return "en_cours";
+}
+const cloturable = (m) => statutManche(m) === "en_cours" && db.resultats.some(r => r.manche === m.id && r.termine_le) && !db.resultats.some(r => r.manche === m.id && !r.termine_le && maintenant().getTime() - t(r.commence_le) < 16 * 60000);
+const derniereManche = (code) => db.manches.filter(m => m.groupe === code).sort((a, b) => b.numero - a.numero)[0];
 let decalageJours = 0; // pour simuler « le lendemain »
 const maintenant = () => new Date(Date.now() + decalageJours * 86400000);
 const jour = (d) => new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }).format(new Date(d));
@@ -48,6 +64,53 @@ const F = {
     if (p_paliers == null || p_paliers < 0 || p_paliers > 30 || p_temps_ms == null || p_temps_ms < p_paliers * 500 || p_temps_ms > 900000) return { ok: false, raison: "invalide" };
     const x = db.scores.find(y => y.salon === String(p_code).toUpperCase().trim() && y.joueur === p_joueur && y.paliers == null); if (!x) return { ok: false };
     x.paliers = p_paliers; x.temps_ms = p_temps_ms; return { ok: true }; },
+  g_creer({ p_joueur, p_pseudo, p_nom }) { const ps = pseudoOk(p_pseudo); if (String(p_joueur || "").length < 6 || !ps) return { ok: false, raison: "pseudo" };
+    const code = nid(); db.groupes.push({ code, nom: pseudoOk(p_nom) || "Groupe de " + ps, hote: p_joueur, max_membres: 6, expire_le: new Date(maintenant().getTime() + 30 * 86400000).toISOString() });
+    db.membres.push({ groupe: code, joueur: p_joueur, pseudo: ps, rejoint_le: maintenant().toISOString(), vu_le: maintenant().toISOString() }); return { ok: true, code }; },
+  g_rejoindre({ p_code, p_joueur, p_pseudo }) { const g = db.groupes.find(x => x.code === String(p_code).toUpperCase().trim()); if (!g) return { ok: false, raison: "inconnu" };
+    const ps = pseudoOk(p_pseudo); if (String(p_joueur || "").length < 6 || !ps) return { ok: false, raison: "pseudo" };
+    const deja = db.membres.find(x => x.groupe === g.code && x.joueur === p_joueur); if (deja) { deja.pseudo = ps; return { ok: true, deja: true }; }
+    const ms = db.membres.filter(x => x.groupe === g.code); if (ms.length >= g.max_membres) return { ok: false, raison: "complet" };
+    if (ms.some(x => x.pseudo.toLowerCase() === ps.toLowerCase())) return { ok: false, raison: "pseudo_pris" };
+    db.membres.push({ groupe: g.code, joueur: p_joueur, pseudo: ps, rejoint_le: maintenant().toISOString(), vu_le: maintenant().toISOString() }); return { ok: true }; },
+  g_etat({ p_code, p_joueur }) { const g = db.groupes.find(x => x.code === String(p_code).toUpperCase().trim()); if (!g) return { existe: false };
+    const now = maintenant(); const moi = db.membres.find(x => x.groupe === g.code && x.joueur === p_joueur); if (moi) moi.vu_le = now.toISOString();
+    const m = derniereManche(g.code); const ms = db.membres.filter(x => x.groupe === g.code);
+    const general = ms.map(mb => { let points = 0, manches = 0, victoires = 0, paliers = 0;
+      for (const mm of db.manches.filter(x => x.groupe === g.code && statutManche(x) === "terminee")) {
+        const rs = db.resultats.filter(r => r.manche === mm.id && r.termine_le); const r = rs.find(x => x.joueur === mb.joueur); if (!r) continue;
+        const rang = 1 + rs.filter(x => x.paliers > r.paliers || (x.paliers === r.paliers && x.temps_ms < r.temps_ms)).length;
+        points += rs.length - rang + 1; manches++; if (rang === 1) victoires++; paliers += r.paliers; }
+      return { pseudo: mb.pseudo, moi: mb.joueur === p_joueur, points, manches, victoires, paliers }; })
+      .sort((a, b) => b.points - a.points || b.victoires - a.victoires || b.paliers - a.paliers || a.pseudo.localeCompare(b.pseudo));
+    return { existe: true, code: g.code, nom: g.nom, ouvert: t(g.expire_le) > now.getTime(), max_membres: g.max_membres, maintenant: now.toISOString(), membre: !!moi, hote: g.hote === p_joueur,
+      membres: ms.map(x => ({ pseudo: x.pseudo, hote: x.joueur === g.hote, moi: x.joueur === p_joueur, en_ligne: now.getTime() - t(x.vu_le) < 12000 })),
+      manche: m ? { numero: m.numero, demarre_le: m.demarre_le, statut: statutManche(m), cloturable: cloturable(m), je_participe: !!moi && t(moi.rejoint_le) <= t(m.lancee_le),
+        mon_resultat: (r => r ? { paliers: r.paliers, temps_ms: r.temps_ms, termine: !!r.termine_le } : null)(db.resultats.find(r => r.manche === m.id && r.joueur === p_joueur)),
+        resultats: db.resultats.filter(r => r.manche === m.id).map(r => ({ pseudo: ms.find(x => x.joueur === r.joueur).pseudo, moi: r.joueur === p_joueur, paliers: r.paliers, temps_ms: r.temps_ms, termine: !!r.termine_le })) } : null,
+      general, manches_jouees: db.manches.filter(x => x.groupe === g.code && statutManche(x) === "terminee").length }; },
+  g_lancer({ p_code, p_joueur }) { const g = db.groupes.find(x => x.code === String(p_code).toUpperCase().trim()); if (!g) return { ok: false, raison: "inconnu" };
+    if (g.hote !== p_joueur) return { ok: false, raison: "pas_hote" };
+    if (db.membres.filter(x => x.groupe === g.code).length < 2) return { ok: false, raison: "seul" };
+    const m = derniereManche(g.code); if (m && statutManche(m) !== "terminee") return { ok: false, raison: "en_cours" };
+    const numero = (m ? m.numero : 0) + 1, now = maintenant().getTime();
+    db.manches.push({ id: db.manches.length + 1, groupe: g.code, numero, graine: Math.random().toString(16).slice(2, 14), lancee_le: new Date(now + 1).toISOString(), demarre_le: new Date(now + 5000).toISOString(), close_le: null });
+    return { ok: true, numero }; },
+  g_commencer({ p_code, p_joueur }) { const g = db.groupes.find(x => x.code === String(p_code).toUpperCase().trim()); if (!g) return { ok: false, raison: "inconnu" };
+    const moi = db.membres.find(x => x.groupe === g.code && x.joueur === p_joueur); if (!moi) return { ok: false, raison: "pas_membre" };
+    const m = derniereManche(g.code); if (!m) return { ok: false, raison: "pas_de_manche" };
+    if (t(moi.rejoint_le) > t(m.lancee_le)) return { ok: false, raison: "arrive_apres" };
+    const st = statutManche(m); if (st === "terminee") return { ok: false, raison: "terminee" }; if (st === "compte_a_rebours") return { ok: false, raison: "pas_encore", demarre_le: m.demarre_le };
+    if (db.resultats.some(r => r.manche === m.id && r.joueur === p_joueur)) return { ok: false, raison: "deja_joue" };
+    db.resultats.push({ manche: m.id, joueur: p_joueur, paliers: null, temps_ms: null, commence_le: maintenant().toISOString(), termine_le: null }); return { ok: true, graine: m.graine, numero: m.numero }; },
+  g_score({ p_code, p_joueur, p_numero, p_paliers, p_temps_ms }) {
+    if (p_paliers == null || p_paliers < 0 || p_paliers > 30 || p_temps_ms == null || p_temps_ms < p_paliers * 500 || p_temps_ms > 900000) return { ok: false, raison: "invalide" };
+    const m = db.manches.find(x => x.groupe === String(p_code).toUpperCase().trim() && x.numero === p_numero); if (!m) return { ok: false };
+    const r = db.resultats.find(x => x.manche === m.id && x.joueur === p_joueur && x.paliers == null); if (!r) return { ok: false };
+    r.paliers = p_paliers; r.temps_ms = p_temps_ms; r.termine_le = maintenant().toISOString(); return { ok: true }; },
+  g_cloturer({ p_code, p_joueur }) { const g = db.groupes.find(x => x.code === String(p_code).toUpperCase().trim()); if (!g) return { ok: false, raison: "inconnu" };
+    if (g.hote !== p_joueur) return { ok: false, raison: "pas_hote" }; const m = derniereManche(g.code);
+    if (!m || !cloturable(m)) return { ok: false, raison: "rien_a_clore" }; m.close_le = maintenant().toISOString(); return { ok: true }; },
   a_sessions({ code }) { admin(code); return db.sessions.slice().reverse(); },
   a_creer_session({ code, p_nom, p_calendrier }) { admin(code); db.sessions.forEach(s => s.active = false); const s = { id: "S" + nid(), nom: p_nom, calendrier: p_calendrier, active: true, created_at: new Date().toISOString() }; db.sessions.push(s); return { id: s.id }; },
   a_maj_session({ code, p_session, p_calendrier, p_active }) { admin(code); const s = db.sessions.find(x => x.id === p_session); if (p_calendrier) s.calendrier = p_calendrier; if (p_active) { db.sessions.forEach(x => x.active = false); s.active = true; } return null; },

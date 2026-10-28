@@ -261,7 +261,7 @@
       ["A demandé une autre grille", x => x.a_demande],
       ["Revenu après un rappel", x => x.retours_apres_rappel > 0],
       ["Revenu sans rappel (au moins 1 jour)", x => x.retours_spontanes_jours > 0, true],
-      ["Revenu par le lien de Défi d'un ami (pas compté comme spontané)", x => x.retours_defi > 0],
+      ["Revenu par le lien de groupe d'un ami (pas compté comme spontané)", x => x.retours_defi > 0],
       ["Revenu sans rappel 2 jours ou plus", x => x.retours_spontanes_jours >= 2],
       ["A cliqué sur « Inviter »", x => x.partages > 0],
       ["A fait venir un invité qui a joué", x => x.invites_actifs > 0],
@@ -289,8 +289,9 @@
       ["A passé un exercice", x => tr(x).some(e => e.donnees.action === "passe")],
       ["Défi express : a ouvert le Défi", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "ouverture")],
       ["Défi express : a terminé au moins une partie", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "fin")],
-      ["Défi express : a créé un défi entre amis", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "salon_cree")],
-      ["Défi express : a joué le défi d'un ami", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "salon_rejoint")],
+      ["Défi express : a créé un groupe", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "groupe_cree")],
+      ["Défi express : a rejoint le groupe d'un ami", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "groupe_rejoint")],
+      ["Défi express : a joué une manche de groupe", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "fin" && e.donnees.groupe)],
     ];
     let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
     for (const [lib, f] of lignes) h += `<tr><td>${lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n} <span class="muted">(${pct(n, s.length)})</span></td>`; }).join("")}</tr>`;

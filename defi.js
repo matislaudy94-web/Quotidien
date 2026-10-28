@@ -89,8 +89,8 @@
     { id: "sans_limite", nom: "Sans limite", icone: "🏁", description: "Réussir les 30 paliers." },
     { id: "main_sure", nom: "Main sûre", icone: "🎯", description: "Enchaîner 10 paliers sans aucune erreur." },
     { id: "reflexe", nom: "Réflexe", icone: "⚡", description: "Réussir un palier en moins de 3 secondes." },
-    { id: "duelliste", nom: "Duelliste", icone: "⚔️", description: "Terminer une partie dans un défi entre amis." },
-    { id: "champion", nom: "Champion du salon", icone: "👑", description: "Être premier d'un défi entre amis où au moins 2 joueurs ont terminé." },
+    { id: "duelliste", nom: "Joueur d'équipe", icone: "⚔️", description: "Terminer une manche dans un groupe d'amis." },
+    { id: "champion", nom: "Champion de manche", icone: "👑", description: "Gagner une manche de groupe où au moins 2 joueurs sont classés." },
   ];
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },

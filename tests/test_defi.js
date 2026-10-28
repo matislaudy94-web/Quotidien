@@ -61,7 +61,7 @@ ok(!r.nouveauRecord && r.badges.length === 0 && r.etat.record.paliers === 6, "pa
 r = D.enregistrerPartie("t", { paliers: 6, temps_ms: 60000, serieSansErreur: 2 });
 ok(r.nouveauRecord, "même nombre de paliers mais plus rapide : nouveau record");
 r = D.enregistrerPartie("t", { paliers: 11, temps_ms: 200000, serieSansErreur: 10, salon: "ABC123" });
-ok(r.badges.map(b => b.id).sort().join() === "duelliste,fusee,main_sure", "11 paliers dont 10 sans erreur, en salon : Fusée, Main sûre, Duelliste");
+ok(r.badges.map(b => b.id).sort().join() === "duelliste,fusee,main_sure", "11 paliers dont 10 sans erreur, en groupe : Fusée, Main sûre, Joueur d'équipe");
 ok(D.marquerChampion("t").id === "champion" && D.marquerChampion("t") === null, "badge Champion du salon donné une seule fois");
 ok(D.lire("t").parties === 4 && !("xp" in D.lire("t")), "4 parties comptées, aucune XP stockée");
 ok(memoire["quotidien_journal_t"] === undefined, "le Défi n'écrit rien dans le journal de progression (XP)");

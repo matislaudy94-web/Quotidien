@@ -49,7 +49,7 @@ window.QUOTIDIEN_DEFI = {
     "NAVET",
     "CHOU",
     "COURGETTE",
-    "ÉPINARD",
+    "ÉPINARDS",
     "RADIS",
     "HARICOT"
    ]
@@ -125,7 +125,7 @@ window.QUOTIDIEN_DEFI = {
     "SPAGHETTIS",
     "GNOCCHIS",
     "PANINI",
-    "BOLOGNAISE"
+    "TAGLIATELLES"
    ]
   },
   {
@@ -227,7 +227,7 @@ window.QUOTIDIEN_DEFI = {
     "ABEILLE",
     "MOUCHE",
     "GUÊPE",
-    "PAPILLON",
+    "LIBELLULE",
     "COCCINELLE",
     "MOUSTIQUE",
     "SAUTERELLE"
@@ -453,8 +453,8 @@ window.QUOTIDIEN_DEFI = {
     "ÉCHARPE",
     "GANTS",
     "LUNETTES",
-    "MONTRE",
-    "PARAPLUIE",
+    "PORTEFEUILLE",
+    "FOULARD",
     "CRAVATE"
    ]
   },
@@ -484,7 +484,7 @@ window.QUOTIDIEN_DEFI = {
     "BROCHE",
     "PENDENTIF",
     "ALLIANCE",
-    "PIERCING",
+    "GOURMETTE",
     "DIADÈME"
    ]
   },
@@ -512,8 +512,7 @@ window.QUOTIDIEN_DEFI = {
     "BADMINTON",
     "SQUASH",
     "PING-PONG",
-    "PADEL",
-    "PELOTE BASQUE"
+    "PADEL"
    ]
   },
   {
@@ -550,7 +549,7 @@ window.QUOTIDIEN_DEFI = {
    "famille": "sport",
    "mots": [
     "SURF",
-    "VOILE",
+    "SKI NAUTIQUE",
     "NATATION",
     "PLONGÉE",
     "AVIRON",
@@ -597,7 +596,7 @@ window.QUOTIDIEN_DEFI = {
     "SAXOPHONE",
     "CLARINETTE",
     "HAUTBOIS",
-    "TROMBONE",
+    "BASSON",
     "CORNEMUSE",
     "HARMONICA"
    ]
@@ -685,7 +684,7 @@ window.QUOTIDIEN_DEFI = {
     "CHINE",
     "JAPON",
     "INDE",
-    "CORÉE",
+    "CAMBODGE",
     "VIETNAM",
     "THAÏLANDE",
     "NÉPAL",
@@ -906,7 +905,7 @@ window.QUOTIDIEN_DEFI = {
    "nom": "Unités de mesure (longueur, masse…)",
    "famille": "maths",
    "mots": [
-    "MÈTRE",
+    "KILOMÈTRE",
     "LITRE",
     "GRAMME",
     "KILO",
@@ -963,7 +962,7 @@ window.QUOTIDIEN_DEFI = {
   },
   {
    "id": "membres",
-   "nom": "Membres du corps",
+   "nom": "Bras et jambes",
    "famille": "corps",
    "mots": [
     "BRAS",
@@ -1008,7 +1007,7 @@ window.QUOTIDIEN_DEFI = {
   },
   {
    "id": "restauration",
-   "nom": "Métiers de la restauration",
+   "nom": "Métiers de bouche et de salle",
    "famille": "metiers",
    "mots": [
     "CUISINIER",
@@ -1062,7 +1061,10 @@ window.QUOTIDIEN_DEFI = {
     "JUIN",
     "JUILLET",
     "SEPTEMBRE",
-    "DÉCEMBRE"
+    "DÉCEMBRE",
+    "AOÛT",
+    "OCTOBRE",
+    "NOVEMBRE"
    ]
   },
   {
@@ -1235,7 +1237,6 @@ window.QUOTIDIEN_DEFI = {
     "DAMES",
     "DOMINOS",
     "LOTO",
-    "PUZZLE",
     "MIKADO",
     "PETITS CHEVAUX",
     "JEU DE L'OIE"
@@ -1542,6 +1543,30 @@ window.QUOTIDIEN_DEFI = {
   [
    "membres",
    "unites"
+  ],
+  [
+   "accessoires",
+   "sdb"
+  ],
+  [
+   "planetes",
+   "aeronefs"
+  ],
+  [
+   "vehicules",
+   "ferme"
+  ],
+  [
+   "fournitures",
+   "accessoires"
+  ],
+  [
+   "accessoires",
+   "meteo"
+  ],
+  [
+   "accessoires",
+   "duree"
   ]
  ]
 };

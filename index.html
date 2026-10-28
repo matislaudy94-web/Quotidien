@@ -561,7 +561,7 @@
     <li>tes clics sur « partager » et « prochaine grille » ;</li>
     <li>tes réponses au questionnaire, si tu le remplis.</li>
   </ul>
-  <p><strong>Défi entre amis :</strong> le pseudo que tu choisis (16 caractères au plus) et ton score sont visibles par les joueurs du même défi, pendant 7 jours. Choisis un surnom plutôt que ton nom complet.</p>
+  <p><strong>Groupes du Défi :</strong> le pseudo que tu choisis (16 caractères au plus), ta présence sur l'écran du groupe et tes scores sont visibles par les membres du groupe, pendant 30 jours. Choisis un surnom plutôt que ton nom complet.</p>
   <p>Nous n'enregistrons ni nom, ni e-mail, ni téléphone, ni adresse. Aucune publicité, aucun outil de suivi externe. L'identifiant est aussi gardé dans ton navigateur pour reconnaître ta prochaine visite.</p>
   <div class="actions"><button class="btn primary" data-close>Fermer</button></div>
 </div></dialog>
@@ -602,7 +602,7 @@
   const pParam = (params.get("p") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
   const token = (params.get("r") || "").replace(/[^a-f0-9]/gi, "") || null;
   const invParam = (params.get("inv") || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || null;
-  const defiParam = (params.get("defi") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8) || null;
+  const defiParam = (params.get("groupe") || params.get("defi") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 8) || null;
   const visiteId = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   // Identifiant d'appareil : aléatoire, propre à ce navigateur, sans lien avec la personne.
   // Sert uniquement à signaler un lien personnel ouvert depuis plusieurs appareils.
@@ -699,10 +699,10 @@
     if (defiParam && !DEMO && !pParam && !store.get("quotidien_pid")) {
       visiteurDefi = true;
       $("chargement").classList.add("hidden");
-      document.querySelector("footer").innerHTML = `Défi entre amis : ton pseudo et ton score sont visibles par les joueurs de ce défi pendant 7 jours. Aucune autre donnée n'est enregistrée. <button id="btn-vie-privee-defi">En savoir plus</button>`;
+      document.querySelector("footer").innerHTML = `Groupe du Défi : ton pseudo, ta présence et tes scores sont visibles par les membres du groupe pendant 30 jours. Aucune autre donnée n'est enregistrée. <button id="btn-vie-privee-defi">En savoir plus</button>`;
       $("btn-vie-privee-defi").addEventListener("click", () => $("dlg-vie-privee").showModal());
       soumettreDefiInterrompu();
-      ouvrirSalon(defiParam);
+      ouvrirGroupe(defiParam);
       return;
     }
     if (DEMO) {
@@ -715,7 +715,7 @@
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
       soumettreDefiInterrompu();
-      if (defiParam) ouvrirSalon(defiParam);
+      if (defiParam) ouvrirGroupe(defiParam);
       return;
     }
     // « defi » : arrivé par le lien de Défi d'un ami → visite classée « retour_defi », jamais « retour_spontane ».
@@ -746,7 +746,7 @@
       $("chargement").classList.add("hidden");
       ouvrirAccueil();
       soumettreDefiInterrompu();
-      if (defiParam) ouvrirSalon(defiParam);
+      if (defiParam) ouvrirGroupe(defiParam);
     } catch (e) {
       throw e;
     }
@@ -813,6 +813,7 @@
 
   function afficherEcran(nom) {
     ecranCourant = nom;
+    if (nom !== "defi" && typeof arreterSondeGroupe === "function" && nom !== "defi-jeu") { arreterSondeGroupe(); groupeOuvert = null; }
     ["accueil", "jeu", "parcours", "badges", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
     document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
@@ -861,18 +862,19 @@
         <li>Les paliers grandissent : de 2 groupes de 2 mots jusqu'à 4 groupes de 3 (30 paliers).</li>
         <li>Les mots sont tirés au hasard à chaque partie. Le chrono ne s'arrête pas si tu quittes l'écran.</li></ul>
         <div class="actions-fin"><button class="btn primary btn-large" id="defi-solo">Jouer en solo</button>
-        <button class="btn btn-large" id="defi-amis">Défier des amis (2 à 6 joueurs)</button></div></div>
+        <div class="rang"><button class="btn" id="defi-creer">Créer un groupe</button><button class="btn" id="defi-rejoindre">Rejoindre un groupe</button></div></div>
+        <p class="small" style="margin:8px 0 0">En groupe (2 à 6), comme au petit bac : l'hôte lance la manche, tout le monde joue en même temps le même tirage, et chaque manche rapporte des points.</p></div>
       <div class="carte-xp"><div class="ligne"><div class="niv">${ed.record ? `${ed.record.paliers} <small>palier${ed.record.paliers > 1 ? "s" : ""}</small>` : "– <small>pas encore de record</small>"}</div><div class="xp-txt">Record</div></div>
         <div class="sous">${ed.record ? `en ${fmtDuree(ed.record.temps_ms)} · ` : ""}${ed.parties} partie${ed.parties > 1 ? "s" : ""} jouée${ed.parties > 1 ? "s" : ""}</div></div>
       <div id="defi-form"></div>
-      ${ed.salons.length ? `<div class="panel"><h2>Mes défis entre amis</h2>${ed.salons.slice(0, 6).map(x => `<div class="actions" style="justify-content:space-between;align-items:center;margin:6px 0"><span><strong>${esc(x.code)}</strong> <span class="small">· ${esc(x.titre || "")}</span></span><button class="btn" data-salon="${esc(x.code)}">Classement</button></div>`).join("")}</div>` : ""}
+      ${ed.salons.length ? `<div class="panel"><h2>Mes groupes</h2>${ed.salons.slice(0, 6).map(x => `<div class="actions" style="justify-content:space-between;align-items:center;margin:6px 0;flex-wrap:nowrap"><span><strong>${esc(x.titre || x.code)}</strong> <span class="small">· ${esc(x.code)}</span></span><button class="btn" data-groupe="${esc(x.code)}">Ouvrir</button></div>`).join("")}</div>` : ""}
       <h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">Des trophées, sans XP.</p>
       <div class="grille-badges">${DF.BADGES.map(b => `<div class="badge ${ed.badges[b.id] ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p></div>`).join("")}</div>
       ${visiteurDefi ? "" : `<div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="accueil">Retour à l'accueil</button></div>`}`;
-    $("defi-solo").addEventListener("click", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
-    // Tirage choisi par le serveur et révélé seulement au début de la partie : même le créateur ne le connaît pas à l'avance.
-    $("defi-amis").addEventListener("click", () => formulairePseudo(async (pseudo) => creerSalon(pseudo, null, null)));
-    el.querySelectorAll("[data-salon]").forEach(b => b.addEventListener("click", () => ouvrirSalon(b.dataset.salon)));
+    $("defi-solo").addEventListener("click", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
+    $("defi-creer").addEventListener("click", () => formulaireGroupe("creer"));
+    $("defi-rejoindre").addEventListener("click", () => formulaireGroupe("rejoindre"));
+    el.querySelectorAll("[data-groupe]").forEach(b => b.addEventListener("click", () => ouvrirGroupe(b.dataset.groupe)));
     brancherNav(el);
   }
 
@@ -895,79 +897,194 @@
     });
   }
 
-  async function creerSalon(pseudo, graine, monScore) {
-    const r = await API.rpc("d_creer_salon", { p_joueur: joueurDefi(), p_pseudo: pseudo, p_graine: graine });
-    if (!r || !r.ok) throw new Error(r && r.raison);
-    DF.memoriserSalon(profilDefi(), { code: r.code, titre: "créé par toi", cree: new Date().toISOString() });
-    journalDefi("salon_cree", { avec_score: !!monScore });
-    if (monScore) { // défi lancé APRÈS une partie solo : ton score sur ce même tirage est enregistré d'office
-      await API.rpc("d_commencer", { p_code: r.code, p_joueur: joueurDefi(), p_pseudo: pseudo });
-      await API.rpc("d_score", { p_code: r.code, p_joueur: joueurDefi(), p_paliers: monScore.paliers, p_temps_ms: monScore.temps_ms });
-    }
-    await ouvrirSalon(r.code, true);
+  // ---------- Groupes (façon petit bac) ----------
+  // Un hôte crée le groupe, les amis le rejoignent (lien ou code), l'hôte lance chaque manche : compte à rebours
+  // commun de 5 s, même tirage pour tous, une seule partie par manche, points : 1er = nombre de classés, dernier = 1.
+  let groupeOuvert = null, sondeGroupe = null, minuterieCompteManche = null, decalageServeur = 0, dernierEtatGroupe = null, departAuto = null;
+  const lienGroupe = (code) => location.origin + location.pathname + "?groupe=" + code;
+  const RAISONS_G = { complet: "Ce groupe est complet (6 membres).", ferme: "Ce groupe est fermé.", pseudo_pris: "Ce pseudo est déjà pris dans le groupe : choisis-en un autre.",
+    inconnu: "Code de groupe introuvable. Vérifie-le.", pseudo: "Choisis un pseudo.", trop_de_groupes: "Trop de groupes créés aujourd'hui sur cet appareil." };
+
+  function formulaireGroupe(type) {
+    const zone = $("defi-form");
+    zone.innerHTML = `<div class="panel"><h2>${type === "creer" ? "Créer un groupe" : "Rejoindre un groupe"}</h2>
+      <form id="form-groupe">
+        ${type === "creer" ? `<label class="small" for="champ-nom">Nom du groupe</label><input class="champ" id="champ-nom" maxlength="16" placeholder="Ex. Les cousins" style="margin-bottom:10px">`
+          : `<label class="small" for="champ-code">Code du groupe (6 caractères)</label><input class="champ" id="champ-code" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="Ex. 4C59K7" style="margin-bottom:10px;text-transform:uppercase" required>`}
+        <label class="small" for="champ-pseudo">Ton pseudo (visible par le groupe)</label>
+        <input class="champ" id="champ-pseudo" maxlength="16" autocomplete="nickname" value="${esc(store.get("quotidien_pseudo") || "")}" placeholder="Ex. Mat" required>
+        <div class="actions" style="margin-top:10px"><button class="btn primary btn-large" type="submit">${type === "creer" ? "Créer le groupe" : "Rejoindre"}</button></div>
+        <p class="small" id="groupe-err" style="color:#c0392b"></p></form></div>`;
+    zone.scrollIntoView({ behavior: "smooth", block: "center" });
+    $("form-groupe").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const pseudo = $("champ-pseudo").value.trim().replace(/[<>"&]/g, "").slice(0, 16);
+      if (!pseudo) { $("groupe-err").textContent = "Choisis un pseudo."; return; }
+      store.set("quotidien_pseudo", pseudo);
+      const bt = ev.target.querySelector("button"); bt.disabled = true; bt.textContent = "Un instant…";
+      try {
+        if (type === "creer") {
+          const r = await API.rpc("g_creer", { p_joueur: joueurDefi(), p_pseudo: pseudo, p_nom: ($("champ-nom").value || "").trim() });
+          if (!r || !r.ok) throw new Error(RAISONS_G[r && r.raison] || "Création impossible.");
+          journalDefi("groupe_cree", {});
+          return ouvrirGroupe(r.code, true);
+        }
+        const code = ($("champ-code").value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        const r = await API.rpc("g_rejoindre", { p_code: code, p_joueur: joueurDefi(), p_pseudo: pseudo });
+        if (!r || !r.ok) throw new Error(RAISONS_G[r && r.raison] || "Impossible de rejoindre ce groupe.");
+        if (!r.deja) journalDefi("groupe_rejoint", {});
+        ouvrirGroupe(code);
+      } catch (e) { $("groupe-err").textContent = e.message && !/fetch|abort/i.test(e.message) ? e.message : "Connexion impossible. Vérifie ta connexion puis réessaie."; bt.disabled = false; bt.textContent = type === "creer" ? "Créer le groupe" : "Rejoindre"; }
+    });
   }
 
-  async function ouvrirSalon(code, vientDeCreer) {
-    quitterJeuPrincipal();
-    const el = $("ecran-defi");
+  function arreterSondeGroupe() { clearInterval(sondeGroupe); sondeGroupe = null; clearInterval(minuterieCompteManche); minuterieCompteManche = null; }
+
+  async function ouvrirGroupe(code, vientDeCreer) {
+    quitterJeuPrincipal(); arreterSondeGroupe();
+    groupeOuvert = { code: String(code).toUpperCase(), vientDeCreer: !!vientDeCreer }; dernierEtatGroupe = null; departAuto = null;
     afficherEcran("defi");
-    el.innerHTML = `<span class="mode-badge defi">Défi entre amis</span><div class="panel"><span class="spin" aria-hidden="true"></span> Chargement du défi…</div>`;
-    let s;
-    try { s = await API.rpc("d_salon", { p_code: code, p_joueur: joueurDefi() }); }
-    catch (e) { el.innerHTML = `<div class="panel"><h2>Connexion impossible</h2><p>Vérifie ta connexion, puis réessaie.</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-reessayer">Réessayer</button></div></div>`; $("salon-reessayer").addEventListener("click", () => ouvrirSalon(code)); return; }
-    if (!s || !s.existe) { el.innerHTML = `<div class="panel"><h2>Défi introuvable</h2><p>Ce lien de défi n'existe pas. Vérifie qu'il a été copié en entier.</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-retour">Jouer au Défi en solo</button></div></div>`; $("salon-retour").addEventListener("click", ouvrirDefi); return; }
-    DF.memoriserSalon(profilDefi(), { code: s.code, titre: "de " + s.createur_pseudo, cree: s.expire_le });
-    const fini = s.joueurs.filter(j => j.termine).sort(DF.comparer), enCours = s.joueurs.filter(j => !j.termine);
-    const peutJouer = !s.moi && s.ouvert && s.joueurs.length < s.max_joueurs;
-    if (s.moi && s.moi.paliers != null && fini.length >= 2 && fini[0].moi) { const b = DF.marquerChampion(profilDefi()); if (b) toastNav("Badge débloqué : " + b.icone + " " + b.nom); }
-    const jours = Math.max(0, Math.ceil((new Date(s.expire_le) - Date.now()) / 86400000));
+    $("ecran-defi").innerHTML = `<span class="mode-badge defi">Groupe</span><div class="panel"><span class="spin" aria-hidden="true"></span> Chargement du groupe…</div>`;
+    await rafraichirGroupe();
+    // Mise à jour toutes les 2,5 s tant que l'écran du groupe est affiché (présence, lancement, résultats en direct).
+    sondeGroupe = setInterval(() => { if (ecranCourant !== "defi" || !groupeOuvert || document.hidden) return; rafraichirGroupe(); }, 2500);
+  }
+
+  async function rafraichirGroupe() {
+    if (!groupeOuvert) return;
+    const code = groupeOuvert.code;
+    let g;
+    try { g = await API.rpc("g_etat", { p_code: code, p_joueur: joueurDefi() }); }
+    catch (e) { if (!dernierEtatGroupe) { $("ecran-defi").innerHTML = `<div class="panel"><h2>Connexion impossible</h2><p>Vérifie ta connexion, puis réessaie.</p><div class="actions-fin"><button class="btn primary btn-large" id="g-reessayer">Réessayer</button></div></div>`; $("g-reessayer").addEventListener("click", () => ouvrirGroupe(code)); } return; }
+    if (!groupeOuvert || groupeOuvert.code !== code || ecranCourant !== "defi") return;
+    if (!g || !g.existe) { arreterSondeGroupe(); $("ecran-defi").innerHTML = `<div class="panel"><h2>Groupe introuvable</h2><p>Ce lien ou ce code ne correspond à aucun groupe. Vérifie qu'il a été copié en entier.</p><div class="actions-fin"><button class="btn primary btn-large" id="g-solo">Jouer au Défi en solo</button></div></div>`; $("g-solo").addEventListener("click", ouvrirDefi); return; }
+    decalageServeur = Date.parse(g.maintenant) - Date.now();
+    if (g.membre) DF.memoriserSalon(profilDefi(), { code: g.code, titre: g.nom, cree: new Date().toISOString() });
+    // Badge Champion : gagner une manche terminée avec au moins 2 classés
+    const mt = g.manche;
+    if (mt && mt.statut === "terminee") { const cl = mt.resultats.filter(r => r.termine).sort(DF.comparer); if (cl.length >= 2 && cl[0].moi && DF.comparer(cl[0], cl[1]) < 0) { const b = DF.marquerChampion(profilDefi()); if (b) toastNav("Badge débloqué : " + b.icone + " " + b.nom); } }
+    const signature = JSON.stringify([g.membres, g.manche, g.general, g.membre, g.hote]);
+    const actif = document.activeElement;
+    const saisie = actif && actif.tagName === "INPUT" && $("ecran-defi").contains(actif);
+    if (signature !== dernierEtatGroupe && !saisie) { dernierEtatGroupe = signature; rendreGroupe(g); }
+    gererCompteManche(g);
+  }
+
+  function htmlManche(g) {
+    const m = g.manche, prochain = m ? m.numero + 1 : 1, nb = g.membres.length;
+    const hoteNom = (g.membres.find(x => x.hote) || {}).pseudo || "l'hôte";
+    const boutonLancer = (n) => g.hote ? `<button class="btn primary btn-large" id="g-lancer" ${nb < 2 ? "disabled" : ""}>Lancer la manche ${n}</button>
+        ${nb < 2 ? `<p class="small" style="margin:6px 0 0">Il faut au moins 2 membres. Envoie le lien ou le code à tes amis.</p>` : `<p class="small" style="margin:6px 0 0">Tout le monde démarre ensemble après un compte à rebours de 5 secondes.</p>`}`
+      : `<p style="margin:0"><span class="spin" aria-hidden="true" style="border-top-color:var(--c3)"></span> En attente : <strong>${esc(hoteNom)}</strong> lance la manche ${n}.</p><p class="small" style="margin:6px 0 0">Reste sur cet écran : la partie démarrera toute seule.</p>`;
+    if (!m) return `<h2>Manche 1</h2>${boutonLancer(1)}`;
+    const classes = m.resultats.filter(r => r.termine).sort(DF.comparer), enCours = m.resultats.filter(r => !r.termine);
+    const pts = (i) => { // points du petit bac, égalités comprises
+      const r = classes[i]; const rang = classes.findIndex(x => DF.comparer(x, r) === 0); return classes.length - rang; };
+    const tableau = (m.resultats.length ? `<table class="classement">${classes.map((r, i) => { const rang = classes.findIndex(x => DF.comparer(x, r) === 0);
+        return `<tr class="${r.moi ? "moi" : ""}"><td class="rang">${["🥇", "🥈", "🥉"][rang] || rang + 1}</td><td>${esc(r.pseudo)}${r.moi ? " (toi)" : ""}</td><td class="num">${r.paliers} pal.</td><td class="num small">${fmtDuree(r.temps_ms)}</td>${m.statut === "terminee" ? `<td class="num">+${pts(i)} pt${pts(i) > 1 ? "s" : ""}</td>` : ""}</tr>`; }).join("")}
+        ${enCours.map(r => `<tr class="${r.moi ? "moi" : ""}"><td class="rang">⏳</td><td>${esc(r.pseudo)}${r.moi ? " (toi)" : ""}</td><td class="num small" colspan="${m.statut === "terminee" ? 3 : 2}">${m.statut === "terminee" ? "abandon" : "joue…"}</td></tr>`).join("")}</table>` : "");
+    if (m.statut === "compte_a_rebours") return `<h2>Manche ${m.numero}</h2>${m.je_participe ? `<div class="compte"><span class="compte-lib">Départ dans</span><span class="compte-chiffres" id="compte-manche">5</span></div>` : `<p>La manche ${m.numero} démarre. Tu es arrivé après son lancement : tu joueras la suivante.</p>`}`;
+    if (m.statut === "en_cours") {
+      const r = m.mon_resultat;
+      let haut;
+      if (!m.je_participe) haut = `<p>La manche ${m.numero} est en cours. Tu es arrivé après son lancement : tu joueras la suivante.</p>`;
+      else if (!r) haut = `<button class="btn primary btn-large" id="g-jouer">Jouer la manche ${m.numero}</button><p class="small" style="margin:6px 0 0">Une seule partie par manche.</p>`;
+      else if (!r.termine) haut = `<p>Ta partie de la manche ${m.numero} a été interrompue : elle sera comptée au dernier palier réussi.</p>`;
+      else haut = `<p><strong>Ton score : ${r.paliers} palier${r.paliers > 1 ? "s" : ""}</strong> en ${fmtDuree(r.temps_ms)}. En attente des autres joueurs…</p>`;
+      return `<h2>Manche ${m.numero} en cours</h2>${haut}${tableau}${g.hote && m.cloturable ? `<div class="actions-fin"><button class="btn btn-large" id="g-clore">Clore la manche</button><p class="small" style="margin:0">Les membres qui n'ont pas joué ne marquent pas de point.</p></div>` : ""}`;
+    }
+    return `<h2>Résultats de la manche ${m.numero}</h2>${tableau || `<p class="small">Personne n'a joué cette manche.</p>`}<div class="actions-fin">${boutonLancer(prochain)}</div>`;
+  }
+
+  function rendreGroupe(g) {
+    const el = $("ecran-defi");
+    if (!g.membre) {
+      el.innerHTML = `${visiteurDefi ? `<p class="visiteur-defi">Quotidien est un jeu de mots en cours de test. Ici, tu joues seulement au Défi.</p>` : ""}
+        <span class="mode-badge defi">Groupe</span><h2 class="titre-ecran" style="margin-top:4px">${esc(g.nom)}</h2>
+        <p class="sous-ecran">${g.membres.length}/${g.max_membres} membres : ${g.membres.map(x => esc(x.pseudo)).join(", ")}. On joue des manches de Défi express ensemble, comme au petit bac.</p>
+        ${!g.ouvert ? `<div class="panel"><p>Ce groupe est fermé.</p></div>` : g.membres.length >= g.max_membres ? `<div class="panel"><p>Ce groupe est complet (${g.max_membres} membres).</p></div>`
+          : `<div class="panel"><h2>Rejoindre le groupe</h2><form id="form-rejoindre"><label class="small" for="champ-pseudo">Ton pseudo (visible par le groupe)</label>
+            <input class="champ" id="champ-pseudo" maxlength="16" autocomplete="nickname" value="${esc(store.get("quotidien_pseudo") || "")}" placeholder="Ex. Mat" required>
+            <div class="actions" style="margin-top:10px"><button class="btn primary btn-large" type="submit">Rejoindre</button></div><p class="small" id="groupe-err" style="color:#c0392b"></p></form></div>`}
+        <div class="actions" style="margin-top:16px"><button class="lien-discret" id="g-retour">Retour au Défi</button></div>`;
+      const f = $("form-rejoindre");
+      if (f) f.addEventListener("submit", async (ev) => {
+        ev.preventDefault(); const pseudo = $("champ-pseudo").value.trim().replace(/[<>"&]/g, "").slice(0, 16); if (!pseudo) return;
+        store.set("quotidien_pseudo", pseudo); const bt = f.querySelector("button"); bt.disabled = true;
+        try { const r = await API.rpc("g_rejoindre", { p_code: g.code, p_joueur: joueurDefi(), p_pseudo: pseudo });
+          if (!r || !r.ok) { $("groupe-err").textContent = RAISONS_G[r && r.raison] || "Impossible de rejoindre."; bt.disabled = false; return; }
+          journalDefi("groupe_rejoint", {}); dernierEtatGroupe = null; document.activeElement.blur(); rafraichirGroupe();
+        } catch (e) { $("groupe-err").textContent = "Connexion impossible."; bt.disabled = false; }
+      });
+      $("g-retour").addEventListener("click", () => { arreterSondeGroupe(); groupeOuvert = null; ouvrirDefi(); });
+      return;
+    }
     el.innerHTML = `${visiteurDefi ? `<p class="visiteur-defi">Quotidien est un jeu de mots en cours de test. Ici, tu joues seulement au Défi.</p>` : ""}
-      <span class="mode-badge defi">Défi entre amis</span>
-      <h2 class="titre-ecran" style="margin-top:4px">Le défi de ${esc(s.createur_pseudo)}</h2>
-      <p class="sous-ecran">Code <strong>${esc(s.code)}</strong> · ${s.joueurs.length}/${s.max_joueurs} joueurs · ${s.ouvert ? `ouvert encore ${jours} jour${jours > 1 ? "s" : ""}` : "terminé"}. Même tirage pour tout le monde, une seule partie chacun. Le plus de paliers gagne, puis le plus rapide.</p>
-      ${vientDeCreer ? `<div class="panel" style="margin-top:8px"><h2>Invite tes amis</h2><p class="small">Envoie ce lien à 5 personnes au plus.</p><div class="linkbox"><input readonly value="${lienDefi(s.code)}" aria-label="Lien du défi"><button class="btn" data-copie>Copier</button></div></div>` : ""}
-      <div id="salon-action"></div>
-      <div class="panel"><h2>Classement</h2>
-        ${s.joueurs.length ? `<table class="classement">${fini.map((j, i) => `<tr class="${j.moi ? "moi" : ""}"><td class="rang">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td>${esc(j.pseudo)}${j.moi ? " (toi)" : ""}</td><td class="num">${j.paliers} palier${j.paliers > 1 ? "s" : ""}</td><td class="num small">${fmtDuree(j.temps_ms)}</td></tr>`).join("")}
-          ${enCours.map(j => `<tr class="${j.moi ? "moi" : ""}"><td class="rang">…</td><td>${esc(j.pseudo)}${j.moi ? " (toi)" : ""}</td><td class="num small" colspan="2">partie en cours</td></tr>`).join("")}</table>` : `<p class="small">Personne n'a encore joué.</p>`}
-        <div class="actions-fin"><div class="rang"><button class="btn" id="salon-partager">Partager le lien</button><button class="btn" id="salon-actualiser">Actualiser</button></div></div>
-        <p class="small lien-partage hidden" id="salon-copie">Lien copié : colle-le dans une conversation.</p></div>
-      <div class="actions" style="margin-top:16px"><button class="lien-discret" id="salon-retour">Retour au Défi</button></div>`;
-    const act = $("salon-action");
-    if (peutJouer) {
-      act.innerHTML = `<div class="panel"><h2>À toi de jouer</h2><p class="small">Une seule partie : si tu quittes en route, ton score s'arrête au dernier palier réussi.</p>
-        <div class="actions-fin"><button class="btn primary btn-large" id="salon-jouer">Jouer ma partie</button></div></div>`;
-      $("salon-jouer").addEventListener("click", () => formulairePseudo(async (pseudo) => {
-        const r = await API.rpc("d_commencer", { p_code: s.code, p_joueur: joueurDefi(), p_pseudo: pseudo });
-        if (!r || !r.ok) { const raisons = { deja_joue: "Tu as déjà joué ce défi sur cet appareil.", complet: "Ce défi est complet (6 joueurs).", ferme: "Ce défi est terminé." }; toastNav(raisons[r && r.raison] || "Impossible de rejoindre ce défi."); return ouvrirSalon(s.code); }
-        journalDefi("salon_rejoint", {});
-        lancerDefi({ graine: r.graine, salon: s.code, pseudo });
-      }, act));
-    } else if (!s.moi && !s.ouvert) act.innerHTML = `<div class="panel"><p>Ce défi est terminé : on ne peut plus y participer.</p></div>`;
-    else if (!s.moi) act.innerHTML = `<div class="panel"><p>Ce défi est complet (${s.max_joueurs} joueurs).</p><div class="actions-fin"><button class="btn primary btn-large" id="salon-solo">Jouer en solo</button></div></div>`;
-    const so = $("salon-solo"); if (so) so.addEventListener("click", ouvrirDefi);
-    $("salon-actualiser").addEventListener("click", () => ouvrirSalon(s.code));
-    $("salon-retour").addEventListener("click", ouvrirDefi);
-    $("salon-partager").addEventListener("click", () => partagerDefi(s.code, s.moi && s.moi.paliers != null ? s.moi : null));
+      <span class="mode-badge defi">Groupe${g.hote ? " · tu es l'hôte" : ""}</span>
+      <h2 class="titre-ecran" style="margin-top:4px">${esc(g.nom)}</h2>
+      <p class="sous-ecran">Code <strong id="g-code">${esc(g.code)}</strong> · ${g.membres.length}/${g.max_membres} membres · ${g.manches_jouees} manche${g.manches_jouees > 1 ? "s" : ""} jouée${g.manches_jouees > 1 ? "s" : ""}</p>
+      <div class="panel" style="margin-top:8px"><h2>Membres</h2>
+        <div class="defi-trouves">${g.membres.map((x, i) => `<span class="puce c${i % 4}" style="${x.en_ligne ? "" : "opacity:.55"}">${x.en_ligne ? "●" : "○"} <b>${esc(x.pseudo)}</b>${x.hote ? " · hôte" : ""}${x.moi ? " (toi)" : ""}</span>`).join("")}</div>
+        <p class="small" style="margin:8px 0 0">● en ligne sur l'écran du groupe · ○ absent</p>
+        ${g.membres.length < g.max_membres ? `<details ${groupeOuvert.vientDeCreer || g.membres.length < 2 ? "open" : ""} style="margin-top:10px"><summary class="small" style="cursor:pointer;font-weight:800">Inviter des amis (encore ${g.max_membres - g.membres.length} place${g.max_membres - g.membres.length > 1 ? "s" : ""})</summary>
+          <div class="linkbox" style="margin-top:8px"><input readonly value="${lienGroupe(g.code)}" aria-label="Lien du groupe"><button class="btn" data-copie>Copier</button></div>
+          <div class="actions" style="margin-top:8px"><button class="btn btn-large" id="g-partager">Partager l'invitation</button></div>
+          <p class="small lien-partage hidden" id="g-copie">Invitation copiée : colle-la dans une conversation.</p></details>` : ""}</div>
+      <div class="panel" id="g-manche">${htmlManche(g)}</div>
+      ${g.general.some(x => x.manches) ? `<div class="panel"><h2>Classement général</h2><table class="classement">${g.general.map((x) => { const i = g.general.findIndex(y => y.points === x.points && y.victoires === x.victoires && y.paliers === x.paliers); return `<tr class="${x.moi ? "moi" : ""}"><td class="rang">${["🥇", "🥈", "🥉"][i] || i + 1}</td><td>${esc(x.pseudo)}${x.moi ? " (toi)" : ""}</td><td class="num">${x.points} pt${x.points > 1 ? "s" : ""}</td><td class="num small">${x.victoires} victoire${x.victoires > 1 ? "s" : ""}</td></tr>`; }).join("")}</table>
+        <p class="small" style="margin:8px 0 0">Points par manche : le premier marque autant de points qu'il y a de joueurs classés, le dernier 1 point. Dans une manche, à égalité de paliers, le plus rapide passe devant. Au général, à égalité de points : le plus de victoires, puis le plus de paliers ; sinon ex æquo.</p></div>` : ""}
+      <div class="actions" style="margin-top:16px"><button class="lien-discret" id="g-retour">Retour au Défi</button></div>`;
+    const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
+    on("g-retour", () => { arreterSondeGroupe(); groupeOuvert = null; ouvrirDefi(); });
+    on("g-partager", () => partagerGroupe(g));
+    on("g-lancer", async () => { const b = $("g-lancer"); b.disabled = true; try { const r = await API.rpc("g_lancer", { p_code: g.code, p_joueur: joueurDefi() });
+      if (!r || !r.ok) toastNav({ seul: "Il faut au moins 2 membres.", en_cours: "La manche précédente n'est pas finie.", pas_hote: "Seul l'hôte lance les manches." }[r && r.raison] || "Lancement impossible.");
+      else journalDefi("manche_lancee", { numero: r.numero }); } catch (e) { toastNav("Connexion impossible."); } dernierEtatGroupe = null; rafraichirGroupe(); });
+    on("g-jouer", () => jouerManche(g.code));
+    on("g-clore", async () => { const b = $("g-clore"); if (!b.dataset.confirme) { b.dataset.confirme = "1"; b.textContent = "Confirmer : clore la manche"; return; }
+      b.disabled = true; try { await API.rpc("g_cloturer", { p_code: g.code, p_joueur: joueurDefi() }); } catch (e) {} dernierEtatGroupe = null; rafraichirGroupe(); });
     brancherCopie(el);
   }
 
-  async function partagerDefi(code, score) {
+  // Compte à rebours commun (heure du serveur) ; départ automatique pour les membres présents sur l'écran du groupe.
+  function gererCompteManche(g) {
+    const m = g.manche;
+    if (!m || m.statut !== "compte_a_rebours" || !m.je_participe || m.mon_resultat) { clearInterval(minuterieCompteManche); minuterieCompteManche = null; return; }
+    if (departAuto === g.code + "#" + m.numero) return;
+    departAuto = g.code + "#" + m.numero;
+    clearInterval(minuterieCompteManche);
+    const depart = Date.parse(m.demarre_le);
+    const tic = () => {
+      const reste = depart - (Date.now() + decalageServeur), el = $("compte-manche");
+      if (el) el.textContent = Math.max(0, Math.ceil(reste / 1000));
+      if (reste <= 0) { clearInterval(minuterieCompteManche); minuterieCompteManche = null; if (ecranCourant === "defi" && groupeOuvert && groupeOuvert.code === g.code) jouerManche(g.code); }
+    };
+    tic(); minuterieCompteManche = setInterval(tic, 200);
+  }
+
+  async function jouerManche(code, essai) {
+    let r;
+    try { r = await API.rpc("g_commencer", { p_code: code, p_joueur: joueurDefi() }); } catch (e) { toastNav("Connexion impossible."); return; }
+    if (r && !r.ok && r.raison === "pas_encore" && (essai | 0) < 6) return setTimeout(() => jouerManche(code, (essai | 0) + 1), 500); // petite avance d'horloge
+    if (!r || !r.ok) { toastNav({ deja_joue: "Tu as déjà joué cette manche.", terminee: "Cette manche est terminée.", arrive_apres: "Tu joueras la prochaine manche." }[r && r.raison] || "Impossible de jouer cette manche."); dernierEtatGroupe = null; return rafraichirGroupe(); }
+    arreterSondeGroupe();
+    lancerDefi({ graine: r.graine, groupe: { code, numero: r.numero } });
+  }
+
+  async function partagerGroupe(g) {
     const pseudo = store.get("quotidien_pseudo") || "Quelqu'un";
-    const texte = `⚡ DÉFI QUOTIDIEN — ${pseudo} te défie : regrouper des mots en 30 secondes par palier, jusqu'à 6 joueurs sur le même tirage.${score ? `
-Score à battre : ${score.paliers} palier${score.paliers > 1 ? "s" : ""} en ${fmtDuree(score.temps_ms)}.` : ""}
-${lienDefi(code)}`;
+    const texte = `⚡ DÉFI QUOTIDIEN — ${pseudo} t'invite dans le groupe « ${g.nom} » : des manches de 30 secondes par palier, tout le monde en même temps, comme au petit bac (2 à 6 joueurs).\nCode : ${g.code}\n${lienGroupe(g.code)}`;
     try { if (navigator.share) { await navigator.share({ text: texte }); return; } await navigator.clipboard.writeText(texte); }
     catch (e) { if (e && e.name === "AbortError") return; try { await navigator.clipboard.writeText(texte); } catch (e2) {} }
-    const c = $("salon-copie") || $("defi-copie"); if (c) c.classList.remove("hidden");
+    const c = $("g-copie"); if (c) c.classList.remove("hidden");
   }
 
   // ---------- Partie de Défi ----------
   function lancerDefi(opts) {
     quitterJeuPrincipal();
-    partieDefi = { graine: opts.graine, salon: opts.salon || null, suite: DF.genererSuite(opts.graine), n: 1, temps: 0, erreurs: 0,
+    partieDefi = { graine: opts.graine, groupe: opts.groupe || null, suite: DF.genererSuite(opts.graine), n: 1, temps: 0, erreurs: 0,
       serie: 0, serieMax: 0, meilleur: null, fin: null };
-    if (partieDefi.salon) store.set(CLE_ENCOURS, { code: partieDefi.salon, paliers: 0, temps_ms: 0, profil: profilDefi() });
+    if (partieDefi.groupe) store.set(CLE_ENCOURS, { code: partieDefi.groupe.code, numero: partieDefi.groupe.numero, paliers: 0, temps_ms: 0, profil: profilDefi() });
     afficherEcran("defi-jeu");
     demarrerPalier();
   }
@@ -990,7 +1107,7 @@ ${lienDefi(code)}`;
     const P = partieDefi, p = P.palier;
     const restants = p.mots.filter(m => !P.trouves.some(gi => p.groupes[gi].mots.includes(m)));
     const col = p.mots.length <= 4 ? "col2" : "col3";
-    $("ecran-defi-jeu").innerHTML = `<div class="defi-tete"><div><span class="mode-badge defi">${P.salon ? "Défi · " + esc(P.salon) : "Défi express"}</span><div class="palier">Palier ${P.n} <small>/ ${DF.MAX_PALIERS}</small></div></div>
+    $("ecran-defi-jeu").innerHTML = `<div class="defi-tete"><div><span class="mode-badge defi">${P.groupe ? "Groupe · manche " + P.groupe.numero : "Défi express"}</span><div class="palier">Palier ${P.n} <small>/ ${DF.MAX_PALIERS}</small></div></div>
         <div class="format">${p.groupes.length} groupes<br>de ${p.taille} mots</div></div>
       <div class="chrono-defi" id="defi-chrono" role="timer" aria-label="Temps restant"><i></i><b></b></div>
       <div class="defi-trouves" id="defi-trouves">${P.trouves.map((gi, k) => `<span class="puce c${k % 4}"><b>${esc(p.groupes[gi].nom)}</b> · ${p.groupes[gi].mots.map(esc).join(", ")}</span>`).join("")}</div>
@@ -1030,7 +1147,7 @@ ${lienDefi(code)}`;
     const duree = Math.min(DF.DUREE_MS, Date.now() - P.debut + P.penalite);
     P.temps += duree; P.meilleur = P.meilleur == null ? duree : Math.min(P.meilleur, duree);
     P.serie = P.erreursPalier ? 0 : P.serie + 1; P.serieMax = Math.max(P.serieMax, P.serie);
-    if (P.salon) store.set(CLE_ENCOURS, { code: P.salon, paliers: P.n, temps_ms: P.temps, profil: profilDefi() });
+    if (P.groupe) store.set(CLE_ENCOURS, { code: P.groupe.code, numero: P.groupe.numero, paliers: P.n, temps_ms: P.temps, profil: profilDefi() });
     rendreDefiJeu(); P.pause = true;
     flottant(`Palier ${P.n} !<small>${(duree / 1000).toFixed(1).replace(".", ",")} s</small>`);
     setTimeout(() => {
@@ -1044,37 +1161,37 @@ ${lienDefi(code)}`;
     P.fin = raison; clearInterval(minuterieDefi);
     // Pendant l'animation « Palier réussi », le palier en cours est déjà gagné.
     const paliers = raison === "complet" ? DF.MAX_PALIERS : (P.pause ? P.n : P.n - 1);
-    const res = DF.enregistrerPartie(profilDefi(), { paliers, temps_ms: P.temps, serieSansErreur: P.serieMax, meilleurPalierMs: P.meilleur, salon: P.salon });
-    journalDefi("fin", { paliers, temps_ms: P.temps, erreurs: P.erreurs, salon: !!P.salon, raison });
-    if (P.salon) { try { await API.rpc("d_score", { p_code: P.salon, p_joueur: joueurDefi(), p_paliers: paliers, p_temps_ms: Math.max(P.temps, paliers * 500) }); store.del(CLE_ENCOURS); } catch (e) { /* renvoyé au prochain chargement */ } }
+    const res = DF.enregistrerPartie(profilDefi(), { paliers, temps_ms: P.temps, serieSansErreur: P.serieMax, meilleurPalierMs: P.meilleur, salon: P.groupe ? P.groupe.code : null });
+    journalDefi("fin", { paliers, temps_ms: P.temps, erreurs: P.erreurs, groupe: !!P.groupe, raison });
+    if (P.groupe) { try { await API.rpc("g_score", { p_code: P.groupe.code, p_joueur: joueurDefi(), p_numero: P.groupe.numero, p_paliers: paliers, p_temps_ms: Math.max(P.temps, paliers * 500) }); store.del(CLE_ENCOURS); } catch (e) { /* renvoyé au prochain chargement */ } }
     if (raison === "temps") { flottant("Temps écoulé !"); await new Promise(r => setTimeout(r, 700)); }
     if (res.nouveauRecord && paliers > 0) confettis();
     rendreDefiFin(paliers, res, raison);
   }
-  // Partie de salon interrompue (page fermée ou rechargée) : on enregistre le dernier palier réussi.
+  // Manche de groupe interrompue (page fermée ou rechargée) : on enregistre le dernier palier réussi.
   async function soumettreDefiInterrompu() {
-    const e = store.get(CLE_ENCOURS); if (!e || !e.code) return;
-    try { await API.rpc("d_score", { p_code: e.code, p_joueur: joueurDefi(), p_paliers: e.paliers | 0, p_temps_ms: Math.max(e.temps_ms | 0, (e.paliers | 0) * 500) }); DF.enregistrerPartie(e.profil || profilDefi(), { paliers: e.paliers | 0, temps_ms: e.temps_ms | 0, salon: e.code }); store.del(CLE_ENCOURS); } catch (x) {}
+    const e = store.get(CLE_ENCOURS); if (!e || !e.code || !e.numero) { if (e) store.del(CLE_ENCOURS); return; }
+    try { await API.rpc("g_score", { p_code: e.code, p_joueur: joueurDefi(), p_numero: e.numero, p_paliers: e.paliers | 0, p_temps_ms: Math.max(e.temps_ms | 0, (e.paliers | 0) * 500) }); DF.enregistrerPartie(e.profil || profilDefi(), { paliers: e.paliers | 0, temps_ms: e.temps_ms | 0, salon: e.code }); store.del(CLE_ENCOURS); } catch (x) {}
   }
   function rendreDefiFin(paliers, res, raison) {
     const P = partieDefi, ed = res.etat;
     const motif = { temps: `Temps écoulé au palier ${P.n}.`, abandon: `Partie abandonnée au palier ${P.n}.`, complet: "Les 30 paliers réussis, chapeau !" }[raison];
-    $("ecran-defi").innerHTML = `<span class="mode-badge defi">${P.salon ? "Défi entre amis" : "Défi express"}</span>
+    $("ecran-defi").innerHTML = `<span class="mode-badge defi">${P.groupe ? "Groupe · manche " + P.groupe.numero : "Défi express"}</span>
       <div class="panel" style="text-align:center"><h2 class="titre-victoire ${paliers ? "gagne" : ""}" style="margin:4px 0">${paliers} palier${paliers > 1 ? "s" : ""}</h2>
         <p>${motif}${paliers ? ` Temps cumulé : ${fmtDuree(P.temps)}.` : ""}</p>
         <div class="stats"><div class="stat"><div class="v">${paliers}</div><div class="l">Paliers</div></div><div class="stat"><div class="v">${P.erreurs}</div><div class="l">Erreur${P.erreurs > 1 ? "s" : ""}</div></div><div class="stat"><div class="v">${ed.record ? ed.record.paliers : 0}</div><div class="l">Record</div></div></div>
         ${res.nouveauRecord ? `<p style="font-family:var(--title);font-weight:700;font-size:20px;color:var(--c3e)">Nouveau record !</p>` : ""}
         ${res.badges.length ? `<div class="recompenses" style="margin-top:10px"><ul>${res.badges.map(b => `<li><span class="ico">${b.icone}</span>Badge : ${b.nom}</li>`).join("")}</ul></div>` : ""}
-        <div class="actions-fin">${P.salon ? `<button class="btn primary btn-large" id="fin-classement">Voir le classement</button>`
-          : `<button class="btn primary btn-large" id="fin-rejouer">Rejouer (nouveau tirage)</button><button class="btn btn-large" id="fin-defier">Défier mes amis sur ce tirage</button>`}
+        <div class="actions-fin">${P.groupe ? `<button class="btn primary btn-large" id="fin-classement">Voir les résultats du groupe</button>`
+          : `<button class="btn primary btn-large" id="fin-rejouer">Rejouer (nouveau tirage)</button><button class="btn btn-large" id="fin-defier">Jouer avec des amis (créer un groupe)</button>`}
           <div class="rang"><button class="btn" id="fin-defi">Retour au Défi</button>${visiteurDefi ? `<button class="btn" id="fin-solo">Jouer en solo</button>` : `<button class="btn" data-ecran="accueil">Accueil</button>`}</div></div>
         <p class="small lien-partage hidden" id="defi-copie">Lien copié : colle-le dans une conversation.</p></div>
       <div id="defi-form"></div>`;
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
-    on("fin-classement", () => ouvrirSalon(P.salon));
-    on("fin-rejouer", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
-    on("fin-defier", () => formulairePseudo(async (pseudo) => creerSalon(pseudo, P.graine, { paliers, temps_ms: Math.max(P.temps, paliers * 500) })));
-    on("fin-defi", ouvrirDefi); on("fin-solo", () => lancerDefi({ graine: DF.nouvelleGraine(), salon: null }));
+    on("fin-classement", () => ouvrirGroupe(P.groupe.code));
+    on("fin-rejouer", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
+    on("fin-defier", () => formulaireGroupe("creer"));
+    on("fin-defi", ouvrirDefi); on("fin-solo", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
     brancherNav($("ecran-defi"));
     afficherEcran("defi");
   }
@@ -1248,8 +1365,8 @@ ${lienDefi(code)}`;
       cd.classList.remove("hidden");
       cd.innerHTML = `<span class="etiquette">Défi express</span>
         <h2>30 secondes par palier</h2>
-        <div class="meta"><span class="tag">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span><span class="tag">Duel jusqu'à 6 amis</span></div>
-        <p>Des mots tirés au hasard à chaque partie. Défie tes amis sur le même tirage : le plus de paliers gagne, puis le plus rapide.</p>
+        <div class="meta"><span class="tag">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span><span class="tag">En groupe jusqu'à 6</span></div>
+        <p>Des mots tirés au hasard à chaque partie. Crée un groupe avec tes amis : vous jouez les manches en même temps, comme au petit bac.</p>
         <button class="btn btn-large" id="btn-defi">Jouer au Défi</button>`;
       $("btn-defi").addEventListener("click", ouvrirDefi);
     } else cd.classList.add("hidden");

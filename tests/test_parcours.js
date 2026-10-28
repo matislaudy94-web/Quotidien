@@ -66,7 +66,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.waitForSelector(".tile");
     ok(await pa.locator(".tile").count() === 16, "16 cartes affichées");
     const debord = await pa.evaluate(() => ({ page: document.documentElement.scrollWidth > window.innerWidth,
-      cartes: [...document.querySelectorAll(".tile")].filter(t => t.scrollWidth > t.clientWidth + 1).map(t => t.textContent) }));
+      cartes: [...document.querySelectorAll(".tile")].filter(t => { const a = t.firstElementChild.getBoundingClientRect(), b = t.getBoundingClientRect(); return a.left < b.left - 0.5 || a.right > b.right + 0.5; }).map(t => t.textContent) }));
     ok(!debord.page, "aucun défilement horizontal sur iPhone");
     ok(debord.cartes.length === 0, "aucun mot ne déborde de sa carte " + (debord.cartes.join(",") || ""));
     ok(await pa.locator("#dlg-regles[open]").count() === 1, "première visite : les règles s'ouvrent automatiquement");
@@ -77,7 +77,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.waitForSelector("#fin:not(.hidden)");
     ok(await pa.locator("#resume h2").innerText() === "Bravo !", "écran de victoire");
     ok((await pa.locator("#resume").innerText()).includes("1 erreur"), "résumé : 1 erreur");
-    ok(await pa.locator("#resume .expl").count() === 4, "explications des 4 groupes affichées");
+    ok(await pa.locator("#solution .expl").count() === 4, "explications des 4 groupes affichées");
     await pa.click("#btn-demande"); await pa.waitForSelector("#apres-demande:not(.hidden)");
     await pa.click("#btn-partager"); await pa.waitForSelector("#partage-ok:not(.hidden)");
     const presse = await pa.evaluate(() => navigator.clipboard.readText());
@@ -85,6 +85,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.click("label:has-text('Oui, toutes')"); await pa.click("label:has-text('Bien dosée')"); await pa.click("label:has-text('Peut-être')");
     await pa.fill("textarea[name=gene]", "Le groupe coup de était facile");
     await pa.click("#questionnaire button"); await pa.waitForSelector("#merci:not(.hidden)");
+    ok(await pa.locator("#merci").isVisible(), "message de remerciement visible");
     await pa.reload(); await pa.waitForSelector("#fin:not(.hidden)");
     ok(await pa.locator("#merci:not(.hidden)").count() === 1, "après rechargement : partie terminée conservée, pas de nouvelle partie");
     ok(pa.url().endsWith("?p=" + A), "l'adresse affichée est le lien personnel (à mettre en favori)");
@@ -100,7 +101,13 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pb.getByRole("button", { name: "Valider" }).click();
     await pb.getByRole("button", { name: "Valider" }).click();
     ok((await pb.locator("#message").innerText()).includes("Déjà essayé"), "un essai répété ne coûte pas d'erreur");
+    ok(await pb.locator(".coeur.used").count() === 1, "après 1 erreur : exactement 1 cœur éteint");
+    const chevauche = await pb.evaluate(() => { const a = document.querySelector("#message .bulle").getBoundingClientRect(), b = document.querySelector("#plateau").getBoundingClientRect();
+      return !(a.bottom <= b.top || a.top >= b.bottom || a.right <= b.left || a.left >= b.right); });
+    ok(!chevauche, "le message d'erreur ne recouvre aucune carte");
+    ok(await pb.locator("#btn-valider").isEnabled(), "Valider actif avec 4 mots sélectionnés");
     await pb.getByRole("button", { name: "Désélectionner" }).click();
+    ok(await pb.locator("#btn-valider").isDisabled(), "Valider inactif sans 4 mots sélectionnés");
     for (const k of [[1, 3], [2, 3], [1, 2]]) {
       const ms = [g.groupes[k[0]].mots[2], g.groupes[k[0]].mots[3], g.groupes[k[1]].mots[2], g.groupes[k[1]].mots[3]];
       for (const m of ms) await pb.getByRole("button", { name: m, exact: true }).click();

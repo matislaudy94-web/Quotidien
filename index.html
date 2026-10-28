@@ -288,6 +288,25 @@
   .titre-stats { margin: 16px 0 8px; }
   .actions-fin { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   .actions-fin .rang { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* ---------- Carte des grilles (démo) et bouton « suite » collant ---------- */
+  .grilles-carte { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+  .grilles-carte .exo { min-height: 48px; font-size: 17px; }
+  .grilles-carte .exo.courant { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .legende-grilles { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 12.5px; font-weight: 800; color: var(--ink-soft); }
+  .legende-grilles i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; vertical-align: -1px; margin-right: 4px; }
+  .cta-collant { position: fixed; left: 50%; transform: translate(-50%, 140%); bottom: calc(76px + env(safe-area-inset-bottom)); width: min(560px, calc(100% - 24px)); z-index: 15;
+    background: var(--ink); color: #fff; border-radius: var(--r-l); padding: 10px 10px 10px 16px; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.45); transition: transform .28s cubic-bezier(.2,.9,.3,1.2), visibility 0s .28s;
+    visibility: hidden; pointer-events: none; }
+  .cta-collant.visible { transform: translate(-50%, 0); visibility: visible; pointer-events: auto; transition: transform .28s cubic-bezier(.2,.9,.3,1.2), visibility 0s; }
+  .cta-collant .t { flex: 1; font-weight: 800; font-size: 14px; line-height: 1.25; }
+  .cta-collant .t small { display: block; font-weight: 700; opacity: .75; font-size: 12px; }
+  .cta-collant .btn { flex: none; padding-left: 16px; padding-right: 16px; }
+  .suite-rapide { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .suite-rapide .rang { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .debloque { text-align: center; font-weight: 800; font-size: 14px; color: var(--ok-edge, #1f8a3a); margin: 10px 0 0; animation: pop-xp .5s cubic-bezier(.2,.9,.3,1.4) .3s both; }
+  @media (prefers-reduced-motion: reduce) { .cta-collant { transition: none; } }
+
   /* ---------- Défi express ---------- */
   .carte-defi::before { background: var(--c3); }
   .carte-defi h2 { font-size: 21px; }
@@ -410,13 +429,14 @@
     </div>
   </header>
 
-  <div id="banniere-demo" class="banner hidden">Mode démo : rien n'est enregistré. <span id="choix-grille-demo"></span></div>
+  <div id="banniere-demo" class="banner hidden">Mode démo : rien n'est envoyé, ta progression reste sur cet appareil.</div>
   <div id="chargement" class="chargement">Chargement…</div>
   <div id="erreur" class="panel hidden"></div>
 
   <section id="ecran-accueil" class="ecran hidden" aria-label="Accueil">
     <div class="carte-xp" id="carte-xp"></div>
     <div class="carte-jour" id="carte-jour"></div>
+    <div class="panel hidden" id="carte-grilles"></div>
     <div class="carte-jour carte-entr hidden" id="carte-entr"></div>
     <div class="carte-jour carte-defi hidden" id="carte-defi"></div>
     <div class="panel" id="accueil-objectifs"></div>
@@ -505,6 +525,7 @@
   </footer>
 </main>
 
+<div class="cta-collant" id="cta-collant" aria-hidden="true"></div>
 <nav class="nav-bas hidden" id="nav-bas" aria-label="Navigation">
   <button data-ecran="accueil"><span class="ico">🏠</span>Accueil</button>
   <button data-ecran="jeu"><span class="ico">🧩</span>Jouer</button>
@@ -813,6 +834,7 @@
 
   function afficherEcran(nom) {
     ecranCourant = nom;
+    if (nom !== "jeu" && typeof cacherCta === "function") cacherCta();
     if (nom !== "defi" && typeof arreterSondeGroupe === "function" && nom !== "defi-jeu") { arreterSondeGroupe(); groupeOuvert = null; }
     ["accueil", "jeu", "parcours", "badges", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
     document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
@@ -1277,21 +1299,42 @@
   }
 
   // Démo : état de déblocage des grilles et sélecteur (changement de grille sans recharger la page).
+  // Une grille de démo est « réussie » dès qu'elle a été résolue UNE fois, même après un échec.
+  // (L'XP, elle, ne compte que la première partie de chaque grille : c'est le journal de progression.)
+  const CLE_REUSSIES_DEMO = "quotidien_demo_reussies";
+  function reussiesDemo() {
+    const r = new Set(PROG.lireJournal("demo").filter(e => e.gagne).map(e => e.grille));
+    (store.get(CLE_REUSSIES_DEMO) || []).forEach(id => r.add(id));
+    return r;
+  }
+  function marquerReussieDemo(id) { const r = reussiesDemo(); r.add(id); store.set(CLE_REUSSIES_DEMO, [...r]); }
   function etatDemo() {
-    const resolues = new Set(PROG.lireJournal("demo").filter(e => e.gagne).map(e => e.grille));
+    const resolues = reussiesDemo();
     return { resolues, deverrouillee: (i) => i === 0 || resolues.has(GRILLES[i - 1].id) };
   }
+  function grilleSuivanteDemo(g) { const i = GRILLES.indexOf(g || grille); return i >= 0 && i + 1 < GRILLES.length ? GRILLES[i + 1] : null; }
+  // Change la grille de démo affichée ; si jouer = true, lance directement la partie.
+  function choisirGrilleDemo(id, jouer) {
+    const g = GRILLES.find(x => x.id === id); if (!g) return;
+    revenirJour();
+    grille = g; etat = null; selection = []; fini = false; viderPlateau();
+    // L'adresse reste « ?demo=1 » : au prochain chargement, l'accueil propose la première grille ouverte non réussie.
+    history.replaceState(null, "", "?demo=1");
+    if (jouer) lancerGrille(); else ouvrirAccueil();
+  }
+  // Carte des grilles de démo : réussies (✓), ouvertes, verrouillées (🔒). Toucher une grille ouverte la lance.
   function rendreSelecteurDemo() {
-    if (!DEMO || !grille) return;
+    const el = $("carte-grilles");
+    if (!DEMO || !grille) { el.classList.add("hidden"); return; }
     const { deverrouillee, resolues } = etatDemo();
-    $("choix-grille-demo").innerHTML = `<label>Choisir : <select id="select-demo">${GRILLES.map((g, i) => `<option value="${g.id}" ${g.id === grille.id ? "selected" : ""} ${deverrouillee(i) ? "" : "disabled"}>${deverrouillee(i) ? (resolues.has(g.id) ? "✓ " : "") : "🔒 "}${g.titre} · ${LIB_NIV[g.niveau] || ""}</option>`).join("")}</select></label>
-      <div class="small-clair" style="margin-top:4px">Résous une grille pour débloquer la suivante.</div>`;
-    $("select-demo").addEventListener("change", (e) => {
-      const g = GRILLES.find(x => x.id === e.target.value); if (!g) return;
-      grille = g; etat = null; selection = []; fini = false;
-      history.replaceState(null, "", "?demo=1&g=" + g.id);
-      rendreAccueil();
-    });
+    const ouvertes = GRILLES.filter((g, i) => deverrouillee(i)).length;
+    el.classList.remove("hidden");
+    el.innerHTML = `<h2>Les grilles <span class="small" style="font-weight:800">· ${resolues.size}/${GRILLES.length} réussies</span></h2>
+      <p class="small" style="margin:2px 0 0">Réussis une grille pour débloquer la suivante. Touche une grille pour la jouer.</p>
+      <div class="grilles-carte">${GRILLES.map((g, i) => { const ok = resolues.has(g.id), ouv = deverrouillee(i), cour = g.id === grille.id;
+        return `<button class="exo ${ok ? "reussi" : ouv ? "a_faire prochain" : "verrouille"} ${cour ? "courant" : ""}" data-grille="${g.id}" ${ouv ? "" : "disabled"} aria-label="Grille ${i + 1}${ok ? " réussie" : ouv ? "" : " verrouillée"}${cour ? ", sélectionnée" : ""}">${ok ? "✓" : ouv ? i + 1 : "🔒"}<small>${ok ? i + 1 : ""}</small></button>`; }).slice(0, Math.min(GRILLES.length, Math.max(10, Math.ceil((ouvertes + 5) / 5) * 5))).join("")}</div>
+      <div class="legende-grilles"><span><i style="background:var(--c1)"></i>réussie</span><span><i style="background:var(--c2)"></i>à jouer</span><span><i style="background:#ece5ff"></i>verrouillée</span>${ouvertes + 5 < GRILLES.length ? `<span>· ${GRILLES.length} grilles en tout</span>` : ""}</div>`;
+    el.querySelectorAll("[data-grille]").forEach(b => b.addEventListener("click", () => choisirGrilleDemo(b.dataset.grille, true)));
   }
 
   function allerJouer() {
@@ -1323,6 +1366,8 @@
     const etatLocal = (!DEMO && grille) ? store.get(cle()) : null;
     const dejaComptee = grille ? PROG.lireJournal(profil()).some(e => e.grille === grille.id) : false;
     const terminee = !!(etatLocal && etatLocal.fin) || (DEMO && dejaComptee) || (grille && etat && etat.fin && etat.grilleId === grille.id);
+    const reussieDemo = DEMO && grille && reussiesDemo().has(grille.id);
+    const suivDemo = reussieDemo ? grilleSuivanteDemo() : null;
     const prochaine = participant ? prochaineDate() : null;
     if (!grille) {
       cj.innerHTML = `<span class="etiquette">La grille du jour</span><h2>Pas de grille aujourd'hui</h2>
@@ -1334,12 +1379,14 @@
       cj.innerHTML = `<span class="etiquette">${DEMO ? "Grille de démonstration" : "La grille du jour"}</span>
         <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
         <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>` : ""}
-          <span class="tag">${terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
+          <span class="tag ${reussieDemo ? "ok" : ""}">${reussieDemo ? "Réussie ✓" : DEMO && terminee ? "À réussir" : terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
           <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
-        <p>${terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
-        <button class="btn primary" id="btn-jouer">${terminee ? (DEMO ? "Rejouer (sans XP)" : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
+        <p>${reussieDemo ? (suivDemo ? `Bravo, grille réussie ! La grille ${GRILLES.indexOf(suivDemo) + 1} est débloquée.` : "Bravo, tu as réussi la dernière grille !") : DEMO && terminee ? "Pas encore réussie : retente ta chance pour débloquer la grille suivante." : terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
+        ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${GRILLES.indexOf(suivDemo) + 1} →</button>` : ""}
+        <button class="btn ${suivDemo ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
-      $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; lancerGrille(); } else allerJouer(); });
+      $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; viderPlateau(); lancerGrille(); } else allerJouer(); });
+      if (suivDemo) $("btn-suivante").addEventListener("click", () => choisirGrilleDemo(suivDemo.id, true));
       if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
     }
 
@@ -1542,6 +1589,7 @@
 
   function lancerGrille() {
     $("chargement").classList.add("hidden");
+    cacherCta();
     const num = GRILLES.indexOf(grille) + 1;
     const tous = grille.groupes.flatMap(g => g.mots);
     const etatAvant = etat;
@@ -1798,6 +1846,7 @@
     if (mode !== "entr") for (let i = 0; i < 4; i++) if (!etat.trouves.includes(i)) etat.trouves.push(i);
     etat.trouvesParJoueur = trouvesParJoueur;
     sauver();
+    if (DEMO && mode !== "entr" && gagne) marquerReussieDemo(grille.id);
     if (mode === "entr") journalEntr("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), indices: (etat.indices || []).length, tentative: etat.tentative });
     journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
       nb_groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), duree_brute_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length, indices: (etat.indices || []).length });
@@ -1846,6 +1895,8 @@
     $("fin").classList.remove("hidden");
     if (mode === "entr") return afficherFinEntr();
     ["questionnaire-panel", "retour-accueil-fin", "solution", "suite"].forEach(id => $(id).classList.remove("hidden"));
+    // En démo, rien n'est envoyé : pas de questionnaire, et la suite est proposée tout de suite sous le résultat.
+    if (DEMO) ["questionnaire-panel", "suite", "actions-demo"].forEach(id => $(id).classList.add("hidden"));
     $("recompenses").innerHTML = htmlRecompenses(dernierGain);
     if (dernierGain) { const p = progression(), b = barreXp(p); requestAnimationFrame(() => requestAnimationFrame(() => { const i = document.querySelector("#bloc-recompenses .barre i"); if (i) i.style.width = b.pct + "%"; })); vibrer(20); }
     dernierGain = null;
@@ -1866,13 +1917,15 @@
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
       </div>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
-      <button class="btn primary btn-large" id="btn-partager">Inviter quelqu'un à jouer</button>
+      ${DEMO ? `<div id="suite-demo"></div>` : ""}
+      <button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-partager" ${DEMO ? 'style="margin-top:10px"' : ""}>Inviter quelqu'un à jouer</button>
       <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
     $("solution").innerHTML = `
       <h2>La solution</h2>
       <div class="found solution">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>`;
     $("btn-partager").addEventListener("click", partager);
 
+    if (DEMO) rendreSuiteDemo(); else cacherCta();
     const prochaine = DEMO ? null : prochaineDate();
     const suite = $("suite");
     if (DEMO) suite.innerHTML = `<h2>Prochaine grille</h2><p class="small">En mode démo, rien n'est enregistré.</p>`;
@@ -1891,15 +1944,56 @@
     if (!DEMO && prochaine) compteARebours($("compte-a-rebours"), prochaine);
 
     if (etat.questionnaire) { $("questionnaire").classList.add("hidden"); $("merci").classList.remove("hidden"); }
-    $("actions-demo").classList.toggle("hidden", !DEMO);
     // Proposition de continuer en entraînement, placée APRÈS le questionnaire pour ne pas le concurrencer.
     const ce = $("continuer-entr");
     if (entrainementActif() && ENTR.grilles.length) {
       ce.classList.remove("hidden");
       ce.innerHTML = `<h2>Envie de continuer maintenant ?</h2><p class="small">Le mode entraînement propose ${ENTR.grilles.length} exercices à enchaîner, en dehors de la grille du jour.</p>
-        <div class="actions"><button class="btn primary btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
+        <div class="actions"><button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
       $("btn-fin-entr").addEventListener("click", ouvrirEntrainement);
     } else ce.classList.add("hidden");
+  }
+
+  // Bouton « suite » collant en bas d'écran : apparaît quand le bouton principal de la fin sort de l'écran.
+  let observateurCta = null;
+  function ctaCollant(cible, texte, sousTexte, libelle, action) {
+    const c = $("cta-collant");
+    if (observateurCta) { observateurCta.disconnect(); observateurCta = null; }
+    c.classList.remove("visible"); c.setAttribute("aria-hidden", "true");
+    if (!cible) { c.innerHTML = ""; return; }
+    c.innerHTML = `<div class="t">${texte}${sousTexte ? `<small>${sousTexte}</small>` : ""}</div><button class="btn primary" id="cta-collant-btn">${libelle}</button>`;
+    $("cta-collant-btn").addEventListener("click", () => { cacherCta(); action(); });
+    if ("IntersectionObserver" in window) {
+      observateurCta = new IntersectionObserver(([e]) => { const v = !e.isIntersecting && ecranCourant === "jeu" && !$("fin").classList.contains("hidden");
+        c.classList.toggle("visible", v); c.setAttribute("aria-hidden", v ? "false" : "true"); }, { threshold: 0 });
+      observateurCta.observe(cible);
+    }
+  }
+  function cacherCta() { ctaCollant(null); }
+
+  // Démo : après une réussite, la grille suivante est débloquée et proposée tout de suite ; après un échec, réessayer.
+  function rendreSuiteDemo() {
+    const z = $("suite-demo"); if (!z) return;
+    const suiv = grilleSuivanteDemo(), n = suiv ? GRILLES.indexOf(suiv) + 1 : null;
+    if (etat.gagne) {
+      z.innerHTML = `${suiv ? `<p class="debloque">🔓 Grille ${n} débloquée !</p>` : `<p class="debloque">🏁 Tu as réussi la dernière grille de la démo !</p>`}
+        <div class="suite-rapide">${suiv ? `<button class="btn primary btn-large" id="demo-suivante">Jouer la grille ${n} →</button>` : ""}
+          <div class="rang"><button class="btn" id="demo-rejouer">Rejouer</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+    } else {
+      z.innerHTML = `<p class="small" style="text-align:center;margin:10px 0 0">Réussis cette grille pour débloquer la suivante.</p>
+        <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">Réessayer la grille</button>
+          <div class="rang"><button class="btn" id="demo-solution">Voir la solution</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+    }
+    const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
+    on("demo-suivante", () => choisirGrilleDemo(suiv.id, true));
+    on("demo-rejouer", () => choisirGrilleDemo(grille.id, true));
+    on("demo-reessayer", () => choisirGrilleDemo(grille.id, true));
+    on("demo-solution", () => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }));
+    on("demo-carte", () => { ouvrirAccueil(); setTimeout(() => { const c = $("carte-grilles"); if (c) c.scrollIntoView({ behavior: "smooth", block: "center" }); }, 60); });
+    const cible = $("demo-suivante") || $("demo-reessayer");
+    if (suiv && etat.gagne) ctaCollant(cible, `🔓 Grille ${n} débloquée`, "Continue sur ta lancée", "Jouer →", () => choisirGrilleDemo(suiv.id, true));
+    else if (!etat.gagne) ctaCollant(cible, "Grille pas encore réussie", "Retente pour débloquer la suivante", "Réessayer", () => choisirGrilleDemo(grille.id, true));
+    else cacherCta();
   }
 
   // ---------- Fin d'un exercice d'entraînement ----------
@@ -1947,6 +2041,9 @@
         <button class="lien-discret" data-ecran="accueil">Accueil</button></div>`;
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", () => { b.disabled = true; f(); }); };
     on("entr-suivant", () => ouvrirExercice(suivant.id));
+    if (gagne && suivant) ctaCollant($("entr-suivant"), `Exercice ${k + 2} débloqué`, chapitreDe(suivant).titre, "Suivant →", () => ouvrirExercice(suivant.id));
+    else if (!gagne) ctaCollant($("entr-reessayer"), "Exercice pas encore réussi", "Réessaie, ou passe à la suite", "Réessayer", nouvelleTentative);
+    else cacherCta();
     on("entr-parcours", ouvrirEntrainement); on("entr-parcours2", ouvrirEntrainement);
     const rv = $("entr-revoir"); if (rv) rv.addEventListener("click", () => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }));
     on("entr-reessayer", nouvelleTentative);

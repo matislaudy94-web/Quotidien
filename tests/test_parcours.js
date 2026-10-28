@@ -234,7 +234,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     const { page: pd } = await nouveau();
     await aller(pd, `${BASE}/?demo=1&g=g2`, false); await pd.waitForSelector("#carte-jour");
     ok(/Intermédiaire/.test(await pd.locator("#carte-jour").innerText()) === false && /Grille 1/.test(await pd.locator("#carte-jour").innerText()), "démo : la grille 2 est verrouillée tant que la 1 n'est pas résolue → la grille 1 est proposée");
-    ok(await pd.locator('#select-demo option[value="g2"][disabled]').count() === 1 && await pd.locator('#select-demo option[value="g1"]:not([disabled])').count() === 1, "démo : grille 2 désactivée dans le sélecteur, grille 1 active");
+    ok(await pd.locator('#carte-grilles [data-grille="g2"][disabled]').count() === 1 && await pd.locator('#carte-grilles [data-grille="g1"]:not([disabled])').count() === 1, "démo : grille 2 verrouillée sur la carte des grilles, grille 1 ouverte");
     ok(/Facile/.test(await pd.locator("#carte-jour").innerText()), "démo : la difficulté reste visible");
     await pd.click('#nav-bas [data-ecran="stats"]'); await pd.waitForTimeout(200);
     ok(await pd.locator("#banniere-demo.hidden").count() === 1, "démo : le sélecteur de grille n'apparaît pas hors de l'accueil");
@@ -288,7 +288,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(/Objectif : Premier défi/.test(rec) && /Objectif : Esprit logique/.test(rec) && /Badge : Sans-faute/.test(rec), "récompenses détaillées : 2 objectifs, badges");
     await aller(pa, `${BASE}/?demo=1&g=g1`, false); await pa.waitForSelector("#carte-xp");
     ok(/245 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement (185 + 60)");
-    ok(await pa.locator('#select-demo option[value="g3"]:not([disabled])').count() === 1 && await pa.locator('#select-demo option[value="g4"][disabled]').count() === 1, "démo : grilles 1 et 2 résolues → grille 3 débloquée, grille 4 encore verrouillée");
+    ok(await pa.locator('#carte-grilles [data-grille="g3"]:not([disabled])').count() === 1 && await pa.locator('#carte-grilles [data-grille="g4"][disabled]').count() === 1, "démo : grilles 1 et 2 résolues → grille 3 débloquée, grille 4 encore verrouillée");
     ok(/Rejouer \(sans XP\)/.test(await pa.locator("#btn-jouer").innerText()), "démo : la grille déjà comptée propose « Rejouer (sans XP) »");
     await pa.click("#btn-jouer"); await pa.waitForSelector(".tile"); await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#fin:not(.hidden)");
     await pa.waitForTimeout(1200);

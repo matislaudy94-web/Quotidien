@@ -220,15 +220,15 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     ok((await xpDe(pd, "demo", "e01")).partie === 75, "démo : l'exercice 1 rapporte 75 XP au profil de démo");
     const d2 = await db();
     ok(d2.evenements.length === d.evenements.length, "démo : aucun événement envoyé au serveur");
-    await pd.click('#nav-bas [data-ecran="accueil"]'); await pd.waitForSelector("#select-demo");
-    ok(await pd.locator("#select-demo").count() === 1 && /Démo|démonstration/i.test(await pd.locator("#carte-jour").innerText()), "démo : la grille de démonstration et son sélecteur sont toujours là");
+    await pd.click('#nav-bas [data-ecran="accueil"]'); await pd.waitForSelector("#carte-grilles [data-grille]");
+    ok(await pd.locator("#carte-grilles [data-grille]").count() >= 10 && /Démo|démonstration/i.test(await pd.locator("#carte-jour").innerText()), "démo : la grille de démonstration et son sélecteur sont toujours là");
 
     console.log("18. Petits écrans (iPhone SE)");
     const { page: pse } = await nouveau(devices["iPhone SE"]);
     await pse.goto(`${BASE}/?demo=1`); await pse.waitForSelector("#btn-entr");
     await pse.click("#btn-entr"); await pse.waitForSelector("#ecran-entrainement:not(.hidden)");
     ok(!(await pse.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)), "écran entraînement : aucun défilement horizontal");
-    const exo = await pse.locator(".exo").first().boundingBox();
+    const exo = await pse.locator("#ecran-entrainement .exo").first().boundingBox();
     ok(exo.height >= 44 && exo.width >= 44, `zones tactiles des exercices ≥ 44 px (${Math.round(exo.width)}×${Math.round(exo.height)})`);
     await pse.click("#btn-entr-continuer"); await pse.waitForSelector(".tile");
     const vis = await pse.evaluate(() => { const r = document.getElementById("btn-valider").getBoundingClientRect(); return r.bottom <= window.innerHeight && r.top >= 0; });

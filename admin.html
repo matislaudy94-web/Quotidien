@@ -350,8 +350,9 @@
         <tr><td>Ont terminé</td><td class="num">${F.length}</td></tr>
         <tr><td>Ont résolu la grille</td><td class="num">${gagnes.length} <span class="muted">(${pct(gagnes.length, F.length)} des parties terminées)</span></td></tr>
         <tr><td>Erreurs moyennes (parties terminées)</td><td class="num">${erreursMoy}</td></tr>
-        <tr><td>Temps médian de résolution</td><td class="num">${mediane(durees) == null ? "–" : Math.round(mediane(durees)) + " s"}</td></tr>
         <tr><td>Ont demandé une autre grille après celle-ci</td><td class="num">${qui("demande_suivante").size}</td></tr>
+        <tr><td>Ont utilisé au moins un indice</td><td class="num">${qui("indice").size} <span class="muted">(${E.filter(e => e.type === "indice").length} indice${E.filter(e => e.type === "indice").length > 1 ? "s" : ""} au total)</span></td></tr>
+        <tr><td>Temps médian de réflexion (parties résolues, pauses exclues)</td><td class="num">${mediane(gagnes.map(f => f.donnees.duree_s).filter(x => typeof x === "number")) == null ? "–" : Math.round(mediane(gagnes.map(f => f.donnees.duree_s).filter(x => typeof x === "number"))) + " s"}</td></tr>
         <tr><td>Questionnaires remplis</td><td class="num">${QL.length}</td></tr>
       </table></div>
       <h3 style="font-size:15px;margin:12px 0 4px">Questionnaire</h3>

@@ -36,6 +36,7 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 | Partie terminée sans résoudre (4 erreurs) | 15 |
 | Objectif réalisé | de 30 à 250 (voir ci-dessous) |
 | Badge débloqué | +10 |
+| Indice utilisé | −15 par indice (la partie rapporte au moins 15) ; un indice fait perdre le bonus « sans erreur » |
 
 **Niveaux** (déblocage par XP uniquement, jamais par jours consécutifs ; la grille du jour reste accessible quel que soit le niveau) :
 
@@ -52,6 +53,10 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 **Badges** (+10 XP chacun) : Première grille (terminer une partie) · Sans-faute (résoudre sans erreur) · Tête froide (résoudre après 3 erreurs) · Éclair (résoudre en moins de 90 s) · Costaud (résoudre une grille difficile) · Persévérant (terminer 10 grilles) · Collectionneur (résoudre 20 grilles) · Maître des mots (atteindre le niveau 5).
 
 **Pas de récompense liée à la connexion quotidienne.** La série de jours consécutifs est affichée dans les statistiques, mais ne rapporte ni XP ni badge : récompenser le retour quotidien rendrait la mesure du « retour spontané » ininterprétable.
+
+**Indices.** Un indice met en évidence deux mots d'un même groupe non trouvé (le plus facile restant), sans donner la catégorie. Un indice par grille ; un second se débloque après 2 erreurs. Événement `indice` tracé côté serveur (numéro, mots, erreurs au moment).
+
+**Chronomètre.** Temps de réflexion affiché pendant la partie, sans limite. Il ne tourne que lorsque la grille est à l'écran et la page visible (pause si on quitte vers l'accueil ou si le téléphone est verrouillé). La durée `duree_s` des événements `fin` est ce temps actif ; `duree_brute_s` garde l'écart brut entre premier mot et fin.
 
 **Statistiques** : grilles terminées (dont résolues), taux de réussite = résolues ÷ terminées, groupes trouvés, erreurs, XP et niveau, meilleur résultat (grille résolue avec le moins d'erreurs, puis la plus rapide), série actuelle et record. Une partie seulement commencée n'entre dans aucune statistique.
 
@@ -165,7 +170,7 @@ Après 8 s sans réponse : message + bouton « Réessayer » (qui attend la requ
 - Fiables : les comptes bruts (qui a commencé, terminé, résolu ; erreurs ; groupes trouvés ; essais faux les plus fréquents), les réponses écrites, et les écarts **très nets** (par exemple 0 retour spontané contre 8).
 - À lire comme des ordres de grandeur : tous les pourcentages. Avec 15 personnes par groupe, 4 retours sur 15 signifie en réalité « entre 11 % et 52 % ».
 - Non fiables : la comparaison fine groupe R / groupe S, la différence entre deux grilles, et tout ce qui repose sur moins de 10 personnes.
-- La durée de résolution ne compte que le temps entre le premier mot touché et la fin : une pause téléphone en poche l'allonge.
+- La durée de résolution (`duree_s`) est le temps actif à l'écran ; une pause téléphone en poche ne l'allonge pas, mais un joueur qui lit la grille sans toucher l'écran ne la raccourcit pas non plus. `duree_brute_s` garde l'écart total.
 
 **Autres limites**
 - Les solutions sont lisibles dans le code de la page par un utilisateur averti. Sans conséquence pour un test privé ; à corriger avant un lancement public.
@@ -185,6 +190,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | 28/10/2026 (avant tout test) | Compte à rebours jusqu'à la prochaine grille (minuit, heure de Paris) en fin de partie. | Fait partie du jeu ; n'est pas un rappel ; le classement des visites est inchangé. |
 | 28/10/2026 (avant tout test) | Règles ouvertes automatiquement à la première visite (événement `regles` avec `auto: true`). | À distinguer des consultations volontaires des règles (`auto` absent). |
 | 28/10/2026 (avant tout test) | Difficulté masquée dans l'interface participant (carte du jour, maximum d'XP, niveaux des groupes dans la solution) ; conservée en démo et en admin. Compte à rebours ajouté sur l'accueil quand la grille du jour est terminée. | Aucun compteur modifié. La question « difficulté ressentie » n'est plus amorcée. |
+| 28/10/2026 (avant tout test) | Indice (2 mots d'un même groupe, 1 par grille + 1 après 2 erreurs, −15 XP) : nouvel événement `indice`, champ `indices` dans `fin`. Chronomètre de temps actif : `duree_s` = temps actif (pauses exclues), `duree_brute_s` ajouté. | Le temps médian de réflexion de l'admin exclut désormais les pauses. Le nombre d'indices par grille devient une mesure de difficulté. |
 | 28/10/2026 (avant tout test) | Bouton « ← » pour quitter une partie en cours (état conservé, reprise depuis l'accueil) ; tutoriel en 3 étapes à la première visite (remplace les règles ; même événement `regles` avec `auto: true`) ; en démo, grilles débloquées dans l'ordre et sélecteur limité à l'accueil. | Aucun compteur modifié. |
 | 28/10/2026 (avant tout test) | Écran d'accueil avant la grille (carte du jour + bouton « Jouer maintenant »), progression locale (XP, niveaux, objectifs, badges), nouvel événement `recompense`. | « A ouvert la page » = visite de l'accueil ; « a commencé » = premier mot touché (inchangé). Le produit testé inclut désormais la progression ; aucune récompense n'est liée au retour quotidien. |
 

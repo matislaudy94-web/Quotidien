@@ -13,6 +13,7 @@
     terminee: 15,                                               // partie terminée sans résoudre (4 erreurs)
     sansFaute: 25,                                              // bonus : résolue sans aucune erreur
     badge: 10,                                                  // chaque badge débloqué
+    indice: 15,                                                 // retiré par indice utilisé (la partie rapporte au moins « terminee »)
   };
 
   // ---------- Niveaux ----------
@@ -88,7 +89,7 @@
       resolues: resolues.length,
       groupes: journal.reduce((a, e) => a + (e.groupes || 0), 0),
       erreurs: journal.reduce((a, e) => a + (e.erreurs || 0), 0),
-      sansFaute: resolues.filter(e => e.erreurs === 0).length,
+      sansFaute: resolues.filter(e => e.erreurs === 0 && !(e.indices | 0)).length,
       resoluesAvec3Erreurs: resolues.filter(e => e.erreurs === 3).length,
       resoluesRapides: resolues.filter(e => typeof e.duree_s === "number" && e.duree_s < 90).length,
       resoluesDifficiles: resolues.filter(e => e.niveau === "difficile").length,
@@ -103,7 +104,8 @@
     let xpParties = 0;
     const detailParties = journal.map(e => {
       let xp = e.gagne ? (BAREME.resolue[e.niveau] || BAREME.resolue.intermediaire) : BAREME.terminee;
-      if (e.gagne && e.erreurs === 0) xp += BAREME.sansFaute;
+      if (e.gagne && e.erreurs === 0 && !(e.indices | 0)) xp += BAREME.sansFaute;
+      xp = Math.max(BAREME.terminee, xp - BAREME.indice * (e.indices | 0));
       xpParties += xp;
       return { grille: e.grille, xp };
     });
@@ -151,7 +153,7 @@
     const avant = calculer(journal, aujourdhui);
     if (journal.some(e => e.grille === partie.grille)) return { deja: true, avant, apres: avant, gains: null };
     const entree = { grille: partie.grille, niveau: partie.niveau, jour: partie.jour, gagne: !!partie.gagne,
-      erreurs: partie.erreurs | 0, groupes: partie.groupes | 0, duree_s: typeof partie.duree_s === "number" ? partie.duree_s : null, t: Date.now() };
+      erreurs: partie.erreurs | 0, groupes: partie.groupes | 0, duree_s: typeof partie.duree_s === "number" ? partie.duree_s : null, indices: partie.indices | 0, t: Date.now() };
     journal.push(entree);
     store.set(cleJournal(profil), journal);
     const apres = calculer(journal, aujourdhui);
@@ -159,7 +161,7 @@
     const gains = {
       xp: apres.xp - avant.xp,
       xpPartie,
-      sansFaute: entree.gagne && entree.erreurs === 0,
+      sansFaute: entree.gagne && entree.erreurs === 0 && !entree.indices,
       objectifs: apres.objectifs.filter(o => o.termine && !avant.objectifs.find(a => a.id === o.id).termine),
       badges: apres.badges.filter(b => b.obtenu && !avant.badges.find(a => a.id === b.id).obtenu),
       niveauAvant: avant.niveau, niveauApres: apres.niveau,

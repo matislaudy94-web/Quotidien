@@ -131,6 +131,17 @@
   .nb { font-family: var(--title); color: #fff; font-size: 14px; }
   @media (max-width: 380px) { .status { font-size: 12px; gap: 6px; } .status .bloc { gap: 4px; } .prog i { width: 12px; height: 9px; } .coeur { width: 17px; height: 17px; } .dots { gap: 1px; } }
 
+  .ligne-outils { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 0 2px 10px; }
+  .chrono { font-family: var(--title); font-weight: 600; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .btn-indice { border: 0; background: var(--c0); color: var(--ink); border-radius: var(--pill); font-family: var(--title); font-weight: 700; font-size: 14px;
+    padding: 7px 12px 8px; box-shadow: 0 3px 0 var(--c0e); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; -webkit-tap-highlight-color: transparent; transition: transform .08s, box-shadow .08s; }
+  .btn-indice b { background: var(--ink); color: var(--c0); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+  .btn-indice:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--c0e); }
+  .btn-indice:disabled { background: rgba(255,255,255,.1); color: rgba(255,255,255,.45); box-shadow: 0 3px 0 rgba(0,0,0,.2); cursor: default; }
+  .btn-indice:disabled b { background: rgba(255,255,255,.15); color: rgba(255,255,255,.6); }
+  .tile.indice::before { content: "💡"; position: absolute; top: 3px; left: 5px; font-size: 12px; }
+  .tile.indice { box-shadow: 0 var(--depth) 0 var(--cream-edge), inset 0 0 0 3px var(--c0); }
+  .tile.indice.sel { box-shadow: 0 var(--depth) 0 var(--sel-edge), inset 0 0 0 3px #fff; }
   /* ---------- Boutons ---------- */
   .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .btn { border: 0; background: var(--light); color: var(--ink); border-radius: var(--pill); font-family: var(--title); font-weight: 600;
@@ -376,6 +387,10 @@
       <span class="bloc"><span>Groupes</span> <span class="prog" id="progression" aria-hidden="true"></span> <span class="nb" id="nb-groupes"></span></span>
       <span class="bloc"><span>Erreurs</span> <span class="dots" id="points"></span></span>
     </div>
+    <div class="ligne-outils">
+      <span class="chrono" id="chrono" aria-label="Temps de réflexion" title="Temps de réflexion (en pause quand tu quittes la page)">⏱ 0:00</span>
+      <button class="btn-indice" id="btn-indice" type="button"><span>💡</span> Indice <b id="indice-restant">1</b></button>
+    </div>
     <div class="actions actions-jeu" id="actions-jeu">
       <button class="btn" id="btn-melanger">Mélanger</button>
       <button class="btn" id="btn-effacer" aria-label="Désélectionner">Effacer</button>
@@ -465,7 +480,8 @@
       <p class="regle-ligne" style="margin:0 0 8px"><span class="bulle presque" style="display:inline-block;font-size:14px;padding:5px 12px">Presque !</span> = 3 mots sur 4 sont bons, un seul est à changer.</p>
       <p class="regle-ligne" style="margin:0"><span class="bulle faux" style="display:inline-block;font-size:14px;padding:5px 12px">Ce n'est pas un groupe.</span> = au moins 2 mots sont à revoir.</p>
     </div>
-    <p class="regle-ligne" style="margin-top:12px">Au bout de 4 erreurs, la solution s'affiche avec les explications. Une nouvelle grille chaque jour.</p>
+    <p class="regle-ligne" style="margin-top:12px">Bloqué ? Le bouton <b>💡 Indice</b> met en évidence deux mots qui vont ensemble (il coûte un peu d'XP). Le chronomètre ⏱ mesure ton temps de réflexion, sans limite : prends ton temps.</p>
+    <p class="regle-ligne">Au bout de 4 erreurs, la solution s'affiche avec les explications. Une nouvelle grille chaque jour.</p>
   </div>
   <div class="actions" style="margin-top:14px">
     <button class="btn" id="tuto-prec" type="button">Précédent</button>
@@ -861,7 +877,7 @@
     if (!grille || !etat || !etat.fin) return;
     const tp = etat.trouvesParJoueur || [];
     const res = PROG.enregistrerPartie(profil(), { grille: grille.id, niveau: grille.niveau, jour: jourParis(), gagne: !!etat.gagne,
-      erreurs: etat.erreurs, groupes: tp.length, duree_s: etat.debut ? Math.round((etat.fin - etat.debut) / 1000) : null }, jourParis());
+      erreurs: etat.erreurs, groupes: tp.length, duree_s: dureeActiveS(), indices: (etat.indices || []).length }, jourParis());
     if (res.deja) { dernierGain = null; return; }
     dernierGain = res.gains;
     // Trace serveur : quelle action a produit quelle récompense (sert à l'analyse, pas au calcul).
@@ -872,7 +888,7 @@
   function htmlRecompenses(g) {
     if (!g) return "";
     const lignes = [];
-    lignes.push(`<li><span class="ico">${etat.gagne ? "✅" : "🧩"}</span>${etat.gagne ? "Grille résolue" : "Partie terminée"}${g.sansFaute ? " · sans faute" : ""}<span class="plus">+${g.xpPartie} XP</span></li>`);
+    lignes.push(`<li><span class="ico">${etat.gagne ? "✅" : "🧩"}</span>${etat.gagne ? "Grille résolue" : "Partie terminée"}${g.sansFaute ? " · sans faute" : ""}${(etat.indices || []).length ? ` · ${(etat.indices || []).length} indice${(etat.indices || []).length > 1 ? "s" : ""} (−${15 * (etat.indices || []).length})` : ""}<span class="plus">+${g.xpPartie} XP</span></li>`);
     g.objectifs.forEach(o => lignes.push(`<li><span class="ico">🎯</span>Objectif : ${o.titre}<span class="plus">+${o.xp} XP</span></li>`));
     g.badges.forEach(b => lignes.push(`<li><span class="ico">${b.icone}</span>Badge : ${b.nom}<span class="plus">+${PROG.BAREME.badge} XP</span></li>`));
     const p = progression(); const b = barreXp(p);
@@ -902,7 +918,7 @@
     const etatRepris = !!(etat && etatAvant && etatAvant.grilleId === grille.id && !etat.fin);
     if (!etat) {
       etat = { ordre: melangeGraine(tous, (participant ? participant.id : "demo" + Math.random()) + grille.id),
-               trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false };
+               trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false, indices: [], tempsActif: 0 };
       sauver();
     }
     etat.grilleId = grille.id;
@@ -915,6 +931,7 @@
     $("jeu").classList.remove("hidden"); $("fin").classList.add("hidden");
     afficherEcran("jeu");   // l'écran doit être visible avant de mesurer la largeur des cartes
     rendre();
+    chronoDemarrer();
   }
 
   function sauver() { if (!DEMO) store.set(cle(), etat); }
@@ -945,7 +962,7 @@
     plateau.innerHTML = "";
     for (const mot of restants) {
       const b = document.createElement("button");
-      b.className = "tile" + (selection.includes(mot) ? " sel" : "") + (tuilesFausses.includes(mot) ? " faux" : "");
+      b.className = "tile" + (selection.includes(mot) ? " sel" : "") + (tuilesFausses.includes(mot) ? " faux" : "") + (motsIndices().includes(mot) ? " indice" : "");
       const sp = document.createElement("span"); sp.textContent = mot; b.appendChild(sp); b.setAttribute("aria-label", mot); b.setAttribute("aria-pressed", selection.includes(mot));
       b.addEventListener("click", () => basculer(mot));
       plateau.appendChild(b);
@@ -961,6 +978,7 @@
     const trouvesTries = etat.trouves.map(couleurDe).sort();
     $("progression").innerHTML = [0, 1, 2, 3].map(i => `<i class="${i < trouvesTries.length ? "c" + trouvesTries[i] : ""}"></i>`).join("");
     $("nb-groupes").textContent = etat.trouves.length + "/4";
+    rendreIndice();
     const etaitPret = !$("btn-valider").disabled;
     $("btn-valider").disabled = selection.length !== 4;
     if (selection.length === 4 && !etaitPret) { const b = $("btn-valider"); b.classList.remove("pret"); void b.offsetWidth; b.classList.add("pret"); }
@@ -999,6 +1017,47 @@
   }
   function vibrer(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
 
+  // ---------- Indices ----------
+  // Un indice met en évidence deux mots d'un même groupe non trouvé (le plus facile restant), sans donner la catégorie.
+  // 1 indice par grille ; un second se débloque après 2 erreurs. Chaque indice coûte 15 XP et fait perdre le bonus « sans faute ».
+  const INDICES_BASE = 1, INDICES_BONUS_APRES_ERREURS = 2, INDICES_MAX = 2;
+  function indicesDisponibles() { return Math.min(INDICES_MAX, INDICES_BASE + (etat.erreurs >= INDICES_BONUS_APRES_ERREURS ? 1 : 0)) - (etat.indices || []).length; }
+  function motsIndices() {
+    return (etat.indices || []).filter(i => !etat.trouves.includes(i.groupe)).flatMap(i => i.mots);
+  }
+  function rendreIndice() {
+    const b = $("btn-indice"); if (!b) return;
+    const dispo = indicesDisponibles();
+    $("indice-restant").textContent = dispo;
+    const plusDeGroupes = grille.groupes.every((g, i) => etat.trouves.includes(i) || (etat.indices || []).some(x => x.groupe === i));
+    b.disabled = dispo <= 0 || plusDeGroupes || !!etat.fin;
+    b.title = dispo > 0 ? "Met en évidence deux mots qui vont ensemble (−15 XP)" : etat.erreurs < INDICES_BONUS_APRES_ERREURS && (etat.indices || []).length < INDICES_MAX ? "Un autre indice se débloque après 2 erreurs" : "Plus d'indice disponible";
+  }
+  function donnerIndice() {
+    if (indicesDisponibles() <= 0 || etat.fin) return;
+    if (!etat.debut) { etat.debut = Date.now(); journal("debut", {}); }
+    const candidats = grille.groupes.map((g, i) => i).filter(i => !etat.trouves.includes(i) && !(etat.indices || []).some(x => x.groupe === i))
+      .sort((a, b) => ORDRE_DIFF[grille.groupes[a].difficulte] - ORDRE_DIFF[grille.groupes[b].difficulte] || a - b);
+    if (!candidats.length) return;
+    const gi = candidats[0];
+    const mots = melangeGraine(grille.groupes[gi].mots, (participant ? participant.id : "demo") + grille.id + "indice").slice(0, 2);
+    etat.indices = (etat.indices || []).concat([{ groupe: gi, mots }]);
+    sauver();
+    journal("indice", { numero: etat.indices.length, mots, erreurs_au_moment: etat.erreurs });
+    toast("Ces deux mots vont ensemble", "presque"); vibrer(15);
+    rendre();
+  }
+
+  // ---------- Chronomètre : temps de réflexion réel (en pause hors de l'écran de jeu ou quand la page est cachée) ----------
+  let chronoDepuis = null, minuterieChrono = null;
+  function tempsActifMs() { return (etat ? (etat.tempsActif || 0) : 0) + (chronoDepuis ? Date.now() - chronoDepuis : 0); }
+  function formatChrono(ms) { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+  function chronoTic() { const c = $("chrono"); if (c) c.textContent = "⏱ " + formatChrono(tempsActifMs()); }
+  function chronoDemarrer() { if (!etat || etat.fin || chronoDepuis) return; chronoDepuis = Date.now(); clearInterval(minuterieChrono); minuterieChrono = setInterval(chronoTic, 1000); chronoTic(); }
+  function chronoPause() { if (!chronoDepuis) return; if (etat) etat.tempsActif = (etat.tempsActif || 0) + (Date.now() - chronoDepuis); chronoDepuis = null; clearInterval(minuterieChrono); sauver(); chronoTic(); }
+  function dureeActiveS() { return etat ? Math.round(tempsActifMs() / 1000) : null; }
+  document.addEventListener("visibilitychange", () => { if (document.hidden) chronoPause(); else if (ecranCourant === "jeu" && etat && !etat.fin && !$("jeu").classList.contains("hidden")) chronoDemarrer(); });
+
   function basculer(mot) {
     if (etat.fin) return;
     if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); }
@@ -1036,6 +1095,7 @@
   }
 
   function terminer(gagne) {
+    chronoPause();
     etat.fin = Date.now(); etat.gagne = gagne;
     // en cas d'échec, on révèle les groupes restants
     const trouvesParJoueur = etat.trouves.slice();
@@ -1043,7 +1103,7 @@
     etat.trouvesParJoueur = trouvesParJoueur;
     sauver();
     journal("fin", { gagne, erreurs: etat.erreurs, groupes_trouves: trouvesParJoueur.map(i => grille.groupes[i].categorie),
-      nb_groupes_trouves: trouvesParJoueur.length, duree_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length });
+      nb_groupes_trouves: trouvesParJoueur.length, duree_s: dureeActiveS(), duree_brute_s: Math.round((etat.fin - etat.debut) / 1000), nb_essais: etat.essais.length, indices: (etat.indices || []).length });
     crediter();
     afficherFin();
     afficherEcran("jeu");
@@ -1093,7 +1153,7 @@
     rendreEntete();
     $("nav-bas").classList.remove("hidden"); document.querySelector("main").classList.add("avec-nav");
     const tp = etat.trouvesParJoueur || etat.trouves;
-    const duree = etat.debut ? Math.round((etat.fin - etat.debut) / 1000) : null;
+    const duree = etat.debut ? dureeActiveS() : null;
     const dureeTxt = duree == null ? "" : duree >= 60 ? `${Math.floor(duree / 60)} min ${duree % 60} s` : `${duree} s`;
     const tempsCourt = dureeTxt ? (duree >= 60 ? Math.floor(duree / 60) + ":" + String(duree % 60).padStart(2, "0") : duree + " s") : "–";
     $("resume").innerHTML = `
@@ -1180,7 +1240,8 @@
   $("tuto-suiv").addEventListener("click", () => { if (etapeTuto === 3) $("dlg-regles").close(); else montrerEtape(etapeTuto + 1); });
   $("dlg-regles").addEventListener("close", () => montrerEtape(1));
   montrerEtape(1);
-  $("btn-quitter").addEventListener("click", () => { sauver(); ouvrirAccueil(); });
+  $("btn-quitter").addEventListener("click", () => { chronoPause(); sauver(); ouvrirAccueil(); });
+  $("btn-indice").addEventListener("click", donnerIndice);
   $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
   $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());
   document.querySelectorAll("dialog [data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog").close()));

@@ -119,12 +119,19 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(await pa.locator("#bloc-recompenses").count() === 0, "après rechargement : les récompenses ne sont pas affichées (ni créditées) une 2e fois");
     ok(pa.url().endsWith("?p=" + A), "l'adresse affichée est le lien personnel (à mettre en favori)");
 
-    console.log("3. Joueur B (groupe S) perd après 4 erreurs");
+    console.log("3. Joueur B (groupe S) perd après 4 erreurs, avec un indice");
+    const g0 = G[0];
     const { page: pb } = await nouveau({}, true);
     await aller(pb, `${BASE}/?p=${B}`); await pb.waitForSelector(".tile");
+    ok((await pb.locator("#indice-restant").innerText()) === "1" && await pb.locator("#btn-indice").isEnabled(), "1 indice disponible au départ");
+    await pb.click("#btn-indice"); await pb.waitForTimeout(300);
+    const motsIndice = await pb.locator(".tile.indice").allInnerTexts();
+    ok(motsIndice.length === 2 && g0 && g0.groupes.some(gr => motsIndice.every(m => gr.mots.includes(m))), "l'indice met en évidence 2 mots du même groupe : " + motsIndice.join(", "));
+    ok(await pb.locator("#btn-indice").isDisabled() && (await pb.locator("#indice-restant").innerText()) === "0", "après usage : plus d'indice (le 2e viendra après 2 erreurs)");
+    ok(/⏱ 0:0\d/.test(await pb.locator("#chrono").innerText()), "chronomètre affiché et démarré : " + await pb.locator("#chrono").innerText());
     await jouer(pb, [0], 0);
     // même essai deux fois : ne doit pas compter d'erreur
-    const g = G[0];
+    const g = g0;
     const fauxMots = [g.groupes[1].mots[0], g.groupes[1].mots[1], g.groupes[2].mots[0], g.groupes[2].mots[1]];
     for (const m of fauxMots) await pb.getByRole("button", { name: m, exact: true }).click();
     await pb.getByRole("button", { name: "Valider" }).click();
@@ -146,6 +153,11 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pb.waitForSelector("#fin:not(.hidden)");
     ok(await pb.locator("#resume h2").innerText() === "Partie terminée", "défaite après 4 erreurs");
     ok((await pb.locator("#resume").innerText()).includes("1 groupe trouvé sur 4"), "résumé : 1 groupe sur 4 et solution révélée");
+    ok(await pb.locator("#btn-indice").count() === 1, "après 2 erreurs un 2e indice s'était débloqué (bouton présent)");
+    d = await db();
+    const indB = d.evenements.filter(e => e.participant_id === B && e.type === "indice");
+    const finB = d.evenements.find(e => e.participant_id === B && e.type === "fin");
+    ok(indB.length === 1 && finB && finB.donnees.indices === 1 && typeof finB.donnees.duree_s === "number", "serveur : 1 événement indice pour B, fin.indices = 1, durée active enregistrée");
     ok(await pb.locator("#solution .lvl").count() === 0, "participant : aucun niveau de groupe affiché dans la solution");
 
     console.log("4. Invitation : un nouveau joueur arrive par le lien de A");
@@ -266,16 +278,23 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
     const rec = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
     ok(/\+185 XP/.test(rec) && /Niveau supérieur/.test(rec) && /Curieux/.test(rec), "démo g1 sans faute et rapide : +185 XP (75 + 30 + 50 + 3 badges) et passage au niveau 2 → " + rec.slice(0, 120));
+    // Démo g2 avec un indice, sans erreur : 75 − 15 = 60, pas de bonus sans-faute, objectif Fin limier non atteint (2 résolues)
+    await aller(pa, `${BASE}/?demo=1&g=g2`); await pa.waitForSelector(".tile");
+    await pa.click("#btn-indice"); await pa.waitForTimeout(200);
+    for (const gi of [0, 1, 2, 3]) { for (const m of G[1].groupes[gi].mots) await pa.getByRole("button", { name: m, exact: true }).click(); await pa.getByRole("button", { name: "Valider" }).click(); await pa.waitForTimeout(100); }
+    await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
+    const rec2 = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
+    ok(/1 indice \(−15\)/.test(rec2) && /\+60 XP/.test(rec2) && !/sans faute/.test(rec2), "démo g2 avec indice : 75 − 15 = 60 XP, pas de bonus sans-faute → " + rec2.slice(0, 140));
     ok(/Objectif : Premier défi/.test(rec) && /Objectif : Esprit logique/.test(rec) && /Badge : Sans-faute/.test(rec), "récompenses détaillées : 2 objectifs, badges");
     await aller(pa, `${BASE}/?demo=1&g=g1`, false); await pa.waitForSelector("#carte-xp");
-    ok(/185 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement");
-    ok(await pa.locator('#select-demo option[value="g2"]:not([disabled])').count() === 1 && await pa.locator('#select-demo option[value="g3"][disabled]').count() === 1, "démo : grille 1 résolue → grille 2 débloquée, grille 3 encore verrouillée");
+    ok(/245 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : XP conservée après rechargement (185 + 60)");
+    ok(await pa.locator('#select-demo option[value="g3"]:not([disabled])').count() === 1 && await pa.locator('#select-demo option[value="g4"][disabled]').count() === 1, "démo : grilles 1 et 2 résolues → grille 3 débloquée, grille 4 encore verrouillée");
     ok(/Rejouer \(sans XP\)/.test(await pa.locator("#btn-jouer").innerText()), "démo : la grille déjà comptée propose « Rejouer (sans XP) »");
     await pa.click("#btn-jouer"); await pa.waitForSelector(".tile"); await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#fin:not(.hidden)");
     await pa.waitForTimeout(1200);
     ok(await pa.locator("#bloc-recompenses").count() === 0, "rejouer la même grille ne crédite rien (pas de bloc récompenses)");
     await aller(pa, `${BASE}/?demo=1`, false); await pa.waitForSelector("#carte-xp");
-    ok(/185 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : toujours 185 XP après la 2e partie");
+    ok(/245 XP/.test(await pa.locator("#carte-xp").innerText()), "démo : toujours 245 XP après avoir rejoué");
     await aller(pa, `${BASE}/?p=${A}`, false); await pa.waitForSelector("#carte-xp");
     ok(/100 XP/.test(await pa.locator("#carte-xp").innerText()), "la progression réelle de A (100 XP) n'a pas été touchée par la démo");
     // Réinitialisation démo

@@ -7,8 +7,12 @@
   const BANQUE = window.QUOTIDIEN_DEFI || { familles: [], categories: [], incompatibles: [] };
 
   // ---------- Règles ----------
-  const DUREE_MS = 30000;     // temps par palier
-  const PENALITE_MS = 5000;   // une erreur retire 5 secondes
+  // Règles du 29/10/2026 : UN seul chrono pour toute la partie (30 s au départ),
+  // +2 s par groupe trouvé, −2 s par erreur. La partie s'arrête quand le chrono tombe à zéro.
+  const REGLES = 2;
+  const DUREE_MS = 30000;     // temps de départ de la partie
+  const BONUS_MS = 2000;      // un groupe trouvé rajoute 2 secondes
+  const PENALITE_MS = 2000;   // une erreur retire 2 secondes
   const MAX_PALIERS = 30;
   // Taille du plateau selon le palier : de 2 groupes de 2 mots à 4 groupes de 3 mots.
   function format(n) {
@@ -78,7 +82,8 @@
     return palier.groupes.findIndex(g => mots.every(m => g.mots.includes(m)));
   }
 
-  // ---------- Classement : le plus de paliers, puis le plus rapide ----------
+  // ---------- Classement : le plus de paliers, puis le plus rapide à les atteindre ----------
+  // temps_ms = temps de jeu écoulé au moment où le dernier palier a été réussi.
   const comparer = (a, b) => (b.paliers - a.paliers) || (a.temps_ms - b.temps_ms);
 
   // ---------- Records et badges (stockage local, sans XP) ----------
@@ -99,7 +104,10 @@
   const cle = (profil) => "quotidien_defi_" + profil;
   function lire(profil) {
     const e = store.get(cle(profil)) || {};
-    return { parties: e.parties | 0, record: e.record || null, badges: e.badges || {}, salons: Array.isArray(e.salons) ? e.salons : [], dernieres: Array.isArray(e.dernieres) ? e.dernieres : [] };
+    // Records obtenus avec les anciennes règles (30 s par palier) : pas comparables, on les met de côté. Les badges restent.
+    if (e.parties && e.regles !== REGLES) { e.ancienRecord = e.record || null; e.record = null; e.dernieres = []; }
+    e.regles = REGLES;
+    return { regles: REGLES, ancienRecord: e.ancienRecord || null, parties: e.parties | 0, record: e.record || null, badges: e.badges || {}, salons: Array.isArray(e.salons) ? e.salons : [], dernieres: Array.isArray(e.dernieres) ? e.dernieres : [] };
   }
   function ecrire(profil, e) { store.set(cle(profil), e); }
   // partie = { paliers, temps_ms, serieSansErreur, meilleurPalierMs, salon }
@@ -132,6 +140,6 @@
     ecrire(profil, e);
   }
 
-  window.QuotidienDefi = { DUREE_MS, PENALITE_MS, MAX_PALIERS, BADGES, format, aleatoire, nouvelleGraine, genererPalier, genererSuite, groupeDe, comparer,
+  window.QuotidienDefi = { REGLES, DUREE_MS, BONUS_MS, PENALITE_MS, MAX_PALIERS, BADGES, format, aleatoire, nouvelleGraine, genererPalier, genererSuite, groupeDe, comparer,
     lire, enregistrerPartie, marquerChampion, memoriserSalon, BANQUE };
 })();

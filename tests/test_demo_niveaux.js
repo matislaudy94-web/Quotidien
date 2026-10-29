@@ -50,8 +50,12 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     await p.click('#carte-grilles [data-grille="g1"]'); await p.waitForSelector(".tile");
     await gagner(G[0]);
     ok(/Grille 2 débloquée/.test(await p.locator("#suite-demo").innerText()), "« 🔓 Grille 2 débloquée ! » sous le résultat");
-    const pos = await p.evaluate(() => [document.getElementById("demo-suivante").getBoundingClientRect().top, document.getElementById("solution").getBoundingClientRect().top]);
-    ok(pos[0] < pos[1], "le bouton « Jouer la grille 2 » est placé avant la solution");
+    const pos = await p.evaluate(() => { window.scrollTo(0, 0); return [document.getElementById("solution").getBoundingClientRect().top, window.innerHeight, document.getElementById("demo-suivante").getBoundingClientRect().top, document.getElementById("bloc-recompenses").getBoundingClientRect().top]; });
+    ok(pos[0] < pos[1] * 0.75, `la solution commence dans le premier écran, sans descendre (à ${Math.round(pos[0])} px sur ${pos[1]})`);
+    ok(pos[0] < pos[2] && pos[2] < pos[3], "ordre : résultat, solution, « Jouer la grille 2 », puis le détail de l'XP");
+    ok(/\+\d+ XP/.test(await p.locator("#resume .gain-heros").innerText()), "l'XP gagnée reste annoncée dans le résultat");
+    await p.waitForTimeout(400);
+    ok(await p.locator("#cta-collant.visible").count() === 0, "au premier écran, aucun bandeau ne recouvre la solution");
     ok(await p.locator("#questionnaire-panel").isHidden(), "pas de questionnaire en démo (rien n'est envoyé)");
     await p.waitForTimeout(1800); await p.screenshot({ path: path.join(CAPT, "demo_2_fin_reussie.png"), fullPage: true });
     await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(600);

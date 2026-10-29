@@ -15,7 +15,7 @@ window.QUOTIDIEN_GRILLES = [
      "HARPE",
      "BANJO"
     ],
-    "explication": "Quatre instruments de musique à cordes."
+    "explication": "Le VIOLON est le seul des quatre qu'on joue d'ordinaire avec un archet ; on pince ou on gratte les cordes de la GUITARE, de la HARPE et du BANJO."
    },
    {
     "categorie": "Ils ont des dents",
@@ -26,7 +26,7 @@ window.QUOTIDIEN_GRILLES = [
      "FOURCHETTE",
      "RÂTEAU"
     ],
-    "explication": "Des objets qui ont des dents : celles du peigne, de la scie, de la fourchette et du râteau."
+    "explication": "Les dents du PEIGNE démêlent, celles de la SCIE coupent, celles de la FOURCHETTE piquent et celles du RÂTEAU ramassent les feuilles."
    },
    {
     "categorie": "Mal de ___",
@@ -37,7 +37,7 @@ window.QUOTIDIEN_GRILLES = [
      "GORGE",
      "TÊTE"
     ],
-    "explication": "Mal de mer, mal de dos, mal de gorge, mal de tête."
+    "explication": "Le mal de MER vient du roulis du bateau, qui déroute l'oreille interne. Piège : on dit aussi « prendre la MER » et « prendre la TÊTE »."
    },
    {
     "categorie": "Prendre la ___",
@@ -48,7 +48,7 @@ window.QUOTIDIEN_GRILLES = [
      "FUITE",
      "PAROLE"
     ],
-    "explication": "Prendre la porte, prendre la mouche, prendre la fuite, prendre la parole. On dit aussi « prendre la mer » et « prendre la tête », mais ces deux mots sont indispensables au groupe « Mal de ___ »."
+    "explication": "Prendre la MOUCHE, c'est se vexer pour un rien ; prendre la PORTE, sortir (souvent poussé dehors) ; prendre la PAROLE, parler devant les autres."
    }
   ],
   "rattachements_plausibles": {
@@ -75,7 +75,7 @@ window.QUOTIDIEN_GRILLES = [
      "SATURNE",
      "JUPITER"
     ],
-    "explication": "Quatre planètes."
+    "explication": "Toutes portent le nom d'un dieu romain : JUPITER, la plus grosse planète, SATURNE et ses anneaux, MARS la rouge et VÉNUS, la plus brillante des planètes."
    },
    {
     "categorie": "Danses",
@@ -86,7 +86,7 @@ window.QUOTIDIEN_GRILLES = [
      "VALSE",
      "RUMBA"
     ],
-    "explication": "Quatre danses de couple. Le blues est aussi une danse, mais il manque au groupe « Avoir le ___ »."
+    "explication": "Le TANGO vient du Río de la Plata, la VALSE d'Europe, la SALSA et la RUMBA ont des racines cubaines. Toutes se dansent en couple."
    },
    {
     "categorie": "Avoir le ___ (être triste)",
@@ -97,7 +97,7 @@ window.QUOTIDIEN_GRILLES = [
      "BLUES",
      "SPLEEN"
     ],
-    "explication": "Avoir le cafard, le bourdon, le blues, le spleen : quatre façons de dire qu'on n'a pas le moral."
+    "explication": "Quatre synonymes de déprime ; le SPLEEN est cher à Baudelaire. Piège : on danse le BLUES, et CAFARD et BOURDON sont des insectes entiers, pas cachés."
    },
    {
     "categorie": "Un animal caché dans le mot",
@@ -108,7 +108,7 @@ window.QUOTIDIEN_GRILLES = [
      "LOUPE",
      "PIRATE"
     ],
-    "explication": "BOUC-herie, CHEVAL-et, LOUP-e, pi-RAT-e. Le cafard et le bourdon sont des animaux entiers, pas cachés : ils servent au groupe « Avoir le ___ »."
+    "explication": "BOUC se cache dans BOUCHERIE, CHEVAL dans CHEVALET, LOUP dans LOUPE et RAT dans PIRATE : chaque mot contient un animal."
    }
   ],
   "rattachements_plausibles": {
@@ -138,7 +138,7 @@ window.QUOTIDIEN_GRILLES = [
      "LITCHI",
      "PASTÈQUE"
     ],
-    "explication": "Quatre fruits qui ne désignent pas de couleur. Ils se trouvent une fois qu'on a compris ce qui distingue les quatre autres fruits."
+    "explication": "Contrairement à ORANGE ou PÊCHE, aucun de ces fruits ne nomme une couleur. L'ANANAS et le LITCHI sont tropicaux, la PASTÈQUE est cousine du melon."
    },
    {
     "categorie": "Porte-___",
@@ -149,7 +149,7 @@ window.QUOTIDIEN_GRILLES = [
      "BONHEUR",
      "AVION"
     ],
-    "explication": "Porte-monnaie, porte-clé, porte-bonheur, porte-avions."
+    "explication": "Un porte-AVIONS est un navire d'où décollent des avions, un porte-BONHEUR un objet censé porter chance ; porte-MONNAIE et porte-CLÉ vont dans la poche."
    },
    {
     "categorie": "Pierres qui sont aussi des couleurs",
@@ -160,7 +160,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉMERAUDE",
      "TURQUOISE"
     ],
-    "explication": "Rubis, saphir, émeraude, turquoise : quatre pierres qui ont donné leur nom à une couleur."
+    "explication": "Le RUBIS est rouge, le SAPHIR bleu, l'ÉMERAUDE verte et la TURQUOISE bleu-vert. RUBIS et SAPHIR sont en fait le même minéral, le corindon."
    },
    {
     "categorie": "Fruits qui sont aussi des couleurs",
@@ -171,7 +171,7 @@ window.QUOTIDIEN_GRILLES = [
      "PRUNE",
      "PÊCHE"
     ],
-    "explication": "Orange, cerise, prune et pêche désignent un fruit et une couleur. Il y avait huit fruits : il fallait trouver ce qui sépare ces quatre-là des autres."
+    "explication": "ORANGE, CERISE, PRUNE et PÊCHE nomment à la fois un fruit et une couleur. Piège : ils semblaient aller avec les fruits, il fallait voir ce double sens."
    }
   ],
   "rattachements_plausibles": {
@@ -205,7 +205,7 @@ window.QUOTIDIEN_GRILLES = [
      "BROCOLI",
      "HARICOT"
     ],
-    "explication": "Quatre légumes verts."
+    "explication": "Selon le légume, on mange la feuille (ÉPINARD), les boutons de fleurs (BROCOLI) ou le fruit (COURGETTE, HARICOT vert)."
    },
    {
     "categorie": "Pièces de la maison",
@@ -216,7 +216,7 @@ window.QUOTIDIEN_GRILLES = [
      "CHAMBRE",
      "GRENIER"
     ],
-    "explication": "Quatre pièces d'une maison."
+    "explication": "Le GRENIER, sous le toit, tire son nom du grain qu'on y stockait autrefois ; CUISINE, SALON et CHAMBRE sont les pièces où l'on vit."
    },
    {
     "categorie": "Métiers de la santé",
@@ -227,7 +227,7 @@ window.QUOTIDIEN_GRILLES = [
      "DENTISTE",
      "PHARMACIEN"
     ],
-    "explication": "Quatre professions de santé."
+    "explication": "Le PHARMACIEN délivre les médicaments prescrits par le MÉDECIN ou le DENTISTE ; l'INFIRMIER fait les soins, les pansements et les piqûres."
    },
    {
     "categorie": "Bain de ___",
@@ -238,7 +238,7 @@ window.QUOTIDIEN_GRILLES = [
      "FOULE",
      "BOUE"
     ],
-    "explication": "Bain de soleil, bain de minuit, bain de foule, bain de boue."
+    "explication": "Un bain de FOULE, c'est aller au contact du public, comme un élu qui serre des mains ; un bain de MINUIT, c'est une baignade nocturne."
    }
   ],
   "rattachements_plausibles": {}
@@ -258,7 +258,7 @@ window.QUOTIDIEN_GRILLES = [
      "SQUASH",
      "PADEL"
     ],
-    "explication": "Quatre sports qui se jouent avec une raquette."
+    "explication": "Au BADMINTON, on frappe un volant et non une balle ; au SQUASH et au PADEL, la balle peut rebondir sur les murs du terrain."
    },
    {
     "categorie": "Oiseaux",
@@ -269,7 +269,7 @@ window.QUOTIDIEN_GRILLES = [
      "CORBEAU",
      "HIRONDELLE"
     ],
-    "explication": "Quatre oiseaux."
+    "explication": "L'HIRONDELLE passe l'hiver en Afrique et revient au printemps ; le MOINEAU et le PIGEON sont des habitués des villes, le CORBEAU a le plumage noir."
    },
    {
     "categorie": "Desserts",
@@ -280,7 +280,7 @@ window.QUOTIDIEN_GRILLES = [
      "FLAN",
      "CLAFOUTIS"
     ],
-    "explication": "Quatre desserts."
+    "explication": "Le CLAFOUTIS, spécialité du Limousin, se prépare traditionnellement avec des cerises non dénoyautées ; le FLAN et la MOUSSE se mangent frais."
    },
    {
     "categorie": "___ d'or",
@@ -291,7 +291,7 @@ window.QUOTIDIEN_GRILLES = [
      "NOMBRE",
      "CŒUR"
     ],
-    "explication": "Ballon d'or, âge d'or, nombre d'or, cœur d'or."
+    "explication": "Le NOMBRE d'or vaut environ 1,618, un CŒUR d'or est très généreux, l'ÂGE d'or une époque faste. Piège : le BALLON n'a rien à voir avec la raquette."
    }
   ],
   "rattachements_plausibles": {
@@ -315,7 +315,7 @@ window.QUOTIDIEN_GRILLES = [
      "MARGUERITE",
      "PIVOINE"
     ],
-    "explication": "Quatre fleurs."
+    "explication": "La TULIPE et la JONQUILLE poussent à partir d'un bulbe et fleurissent au printemps ; la MARGUERITE est celle qu'on effeuille : « il m'aime, un peu… »."
    },
    {
     "categorie": "Outils",
@@ -326,7 +326,7 @@ window.QUOTIDIEN_GRILLES = [
      "PINCE",
      "PERCEUSE"
     ],
-    "explication": "Quatre outils de bricolage."
+    "explication": "Le MARTEAU enfonce les clous, le TOURNEVIS serre les vis, la PINCE saisit ou coupe, et la PERCEUSE fait des trous."
    },
    {
     "categorie": "Transports urbains",
@@ -337,7 +337,7 @@ window.QUOTIDIEN_GRILLES = [
      "VÉLO",
      "TROTTINETTE"
     ],
-    "explication": "Quatre façons de se déplacer en ville."
+    "explication": "Le TRAMWAY et le MÉTRO sont des transports en commun sur rails ; le VÉLO et la TROTTINETTE se louent souvent en libre-service."
    },
    {
     "categorie": "Carte ___",
@@ -348,7 +348,7 @@ window.QUOTIDIEN_GRILLES = [
      "VITALE",
      "GRISE"
     ],
-    "explication": "Carte bleue, carte postale, carte Vitale, carte grise."
+    "explication": "La carte VITALE sert à se faire rembourser ses soins, la carte GRISE est le certificat d'immatriculation d'un véhicule, la carte BLEUE une carte bancaire."
    }
   ],
   "rattachements_plausibles": {}
@@ -368,7 +368,7 @@ window.QUOTIDIEN_GRILLES = [
      "COMTÉ",
      "REBLOCHON"
     ],
-    "explication": "Quatre fromages français."
+    "explication": "Le ROQUEFORT est le seul au lait de brebis ; le CAMEMBERT vient de Normandie, le COMTÉ du Jura et le REBLOCHON de Savoie."
    },
    {
     "categorie": "Pays d'Europe",
@@ -379,7 +379,7 @@ window.QUOTIDIEN_GRILLES = [
      "PORTUGAL",
      "BELGIQUE"
     ],
-    "explication": "Quatre pays européens."
+    "explication": "Trois pays du sud de l'Europe (ITALIE, ESPAGNE, PORTUGAL) et la BELGIQUE au nord : tous font partie de l'Union européenne et utilisent l'euro."
    },
    {
     "categorie": "Instruments à vent",
@@ -390,7 +390,7 @@ window.QUOTIDIEN_GRILLES = [
      "CLARINETTE",
      "SAXOPHONE"
     ],
-    "explication": "Quatre instruments dans lesquels on souffle."
+    "explication": "Le SAXOPHONE est en métal mais classé parmi les bois, car il a une anche comme la CLARINETTE ; la TROMPETTE, elle, est un cuivre."
    },
    {
     "categorie": "Noms de vents",
@@ -401,7 +401,7 @@ window.QUOTIDIEN_GRILLES = [
      "SIROCCO",
      "ALIZÉ"
     ],
-    "explication": "Quatre vents : mistral, tramontane, sirocco, alizé."
+    "explication": "Le MISTRAL descend la vallée du Rhône, la TRAMONTANE souffle sur le Languedoc-Roussillon, le SIROCCO vient du Sahara, l'ALIZÉ souffle sous les tropiques."
    }
   ],
   "rattachements_plausibles": {}
@@ -421,7 +421,7 @@ window.QUOTIDIEN_GRILLES = [
      "POULE",
      "MOUTON"
     ],
-    "explication": "Quatre animaux de la ferme."
+    "explication": "La POULE est le seul oiseau du groupe ; la VACHE donne le lait, le MOUTON la laine et le COCHON le jambon."
    },
    {
     "categorie": "Formes géométriques",
@@ -432,7 +432,7 @@ window.QUOTIDIEN_GRILLES = [
      "TRIANGLE",
      "LOSANGE"
     ],
-    "explication": "Quatre formes."
+    "explication": "Le CERCLE n'a aucun côté, le TRIANGLE en a trois ; le CARRÉ et le LOSANGE ont quatre côtés égaux, mais seul le carré a des angles droits."
    },
    {
     "categorie": "Boissons chaudes",
@@ -443,7 +443,7 @@ window.QUOTIDIEN_GRILLES = [
      "TISANE",
      "CAPPUCCINO"
     ],
-    "explication": "Quatre boissons que l'on boit chaudes."
+    "explication": "Le CAPPUCCINO est un expresso surmonté de lait mousseux ; la TISANE est une infusion de plantes, comme la verveine ou la camomille."
    },
    {
     "categorie": "Salle de ___",
@@ -454,7 +454,7 @@ window.QUOTIDIEN_GRILLES = [
      "SPORT",
      "SÉJOUR"
     ],
-    "explication": "Salle de bain, salle de classe, salle de sport, salle de séjour."
+    "explication": "La salle de SÉJOUR est la pièce où l'on vit au quotidien ; pour la salle de BAIN, on peut aussi écrire « salle de bains », avec un s."
    }
   ],
   "rattachements_plausibles": {}
@@ -474,7 +474,7 @@ window.QUOTIDIEN_GRILLES = [
      "PAPILLON",
      "COCCINELLE"
     ],
-    "explication": "Quatre insectes."
+    "explication": "Comme tous les insectes, ils ont six pattes ; la FOURMI et l'ABEILLE vivent en colonies. Piège : le nœud PAPILLON ne fait pas du papillon un vêtement."
    },
    {
     "categorie": "Vêtements",
@@ -485,7 +485,7 @@ window.QUOTIDIEN_GRILLES = [
      "MANTEAU",
      "ÉCHARPE"
     ],
-    "explication": "Quatre vêtements. Le nœud papillon en est presque un, mais le papillon est d'abord un insecte."
+    "explication": "L'ÉCHARPE se porte autour du cou et le MANTEAU par-dessus tout le reste ; la CHEMISE et le PANTALON forment la tenue de base."
    },
    {
     "categorie": "Métaux",
@@ -496,7 +496,7 @@ window.QUOTIDIEN_GRILLES = [
      "ARGENT",
      "PLOMB"
     ],
-    "explication": "Quatre métaux. L'argent est aussi la monnaie, mais aucun autre groupe ne parle d'argent."
+    "explication": "Le CUIVRE sert aux fils électriques, le PLOMB est très lourd, l'ARGENT brille en bijouterie. Piège : on donne un « coup de FER » au linge, mais c'est un métal."
    },
    {
     "categorie": "Coup de ___",
@@ -507,7 +507,7 @@ window.QUOTIDIEN_GRILLES = [
      "THÉÂTRE",
      "FIL"
     ],
-    "explication": "Coup de foudre, coup de pouce, coup de théâtre, coup de fil."
+    "explication": "Un coup de THÉÂTRE est un rebondissement inattendu, un coup de POUCE une petite aide, un coup de FIL un appel, un coup de FOUDRE un amour immédiat."
    }
   ],
   "rattachements_plausibles": {
@@ -534,7 +534,7 @@ window.QUOTIDIEN_GRILLES = [
      "NOIR",
      "VIOLET"
     ],
-    "explication": "Quatre couleurs. Rouge en est une aussi, mais il faut quatre poissons."
+    "explication": "En peinture, le VERT naît du mélange du bleu et du JAUNE, le VIOLET de celui du bleu et du rouge. Le NOIR, lui, assombrit toutes les autres."
    },
    {
     "categorie": "Mois de l'année",
@@ -545,7 +545,7 @@ window.QUOTIDIEN_GRILLES = [
      "JUILLET",
      "OCTOBRE"
     ],
-    "explication": "Quatre mois."
+    "explication": "JUILLET doit son nom à Jules César et JANVIER au dieu Janus ; OCTOBRE était le huitième mois de l'ancien calendrier romain."
    },
    {
     "categorie": "Fruits de mer",
@@ -556,7 +556,7 @@ window.QUOTIDIEN_GRILLES = [
      "CREVETTE",
      "HOMARD"
     ],
-    "explication": "Quatre fruits de mer."
+    "explication": "L'HUÎTRE et la MOULE sont des coquillages, donc des mollusques ; la CREVETTE et le HOMARD sont des crustacés, avec une carapace et des pattes."
    },
    {
     "categorie": "Poisson ___",
@@ -567,7 +567,7 @@ window.QUOTIDIEN_GRILLES = [
      "CLOWN",
      "PANÉ"
     ],
-    "explication": "Poisson rouge, poisson-chat, poisson-clown, poisson pané."
+    "explication": "Le poisson-CLOWN vit parmi les anémones de mer, le poisson-CHAT doit son nom à ses barbillons. Piège : ROUGE est une couleur, mais il complète « poisson »."
    }
   ],
   "rattachements_plausibles": {
@@ -591,7 +591,7 @@ window.QUOTIDIEN_GRILLES = [
      "MADRID",
      "LISBONNE"
     ],
-    "explication": "Quatre capitales."
+    "explication": "LISBONNE, sur l'estuaire du Tage, est la capitale la plus à l'ouest de l'Europe continentale ; ROME est traversée par le Tibre, PARIS par la Seine."
    },
    {
     "categorie": "Parties du visage",
@@ -602,7 +602,7 @@ window.QUOTIDIEN_GRILLES = [
      "JOUE",
      "MENTON"
     ],
-    "explication": "Quatre parties du visage."
+    "explication": "Le NEZ, la BOUCHE, les JOUES et le MENTON : la fossette, ce petit creux, peut se nicher dans la joue comme dans le menton."
    },
    {
     "categorie": "Ustensiles de cuisine",
@@ -613,7 +613,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉCUMOIRE",
      "SPATULE"
     ],
-    "explication": "Quatre ustensiles."
+    "explication": "La LOUCHE sert la soupe, la PASSOIRE égoutte les pâtes, l'ÉCUMOIRE trouée retire l'écume ou sort les fritures, la SPATULE retourne et racle."
    },
    {
     "categorie": "Table de ___",
@@ -624,7 +624,7 @@ window.QUOTIDIEN_GRILLES = [
      "MULTIPLICATION",
      "MIXAGE"
     ],
-    "explication": "Table de jardin, table de chevet, table de multiplication, table de mixage."
+    "explication": "La table de CHEVET se place à côté du lit ; la table de MIXAGE sert aux DJ et aux ingénieurs du son pour mélanger plusieurs sources sonores."
    }
   ],
   "rattachements_plausibles": {}
@@ -644,7 +644,7 @@ window.QUOTIDIEN_GRILLES = [
      "GUÉPARD",
      "PANTHÈRE"
     ],
-    "explication": "Quatre félins."
+    "explication": "Le TIGRE est le plus grand des félins, le GUÉPARD l'animal terrestre le plus rapide, et le LION le seul à vivre en groupe."
    },
    {
     "categorie": "Sports d'hiver",
@@ -655,7 +655,7 @@ window.QUOTIDIEN_GRILLES = [
      "PATINAGE",
      "BIATHLON"
     ],
-    "explication": "Quatre sports d'hiver."
+    "explication": "Le BIATHLON associe ski de fond et tir à la carabine ; en LUGE, on dévale une piste glacée allongé sur le dos, les pieds devant."
    },
    {
     "categorie": "Pâtes",
@@ -666,7 +666,7 @@ window.QUOTIDIEN_GRILLES = [
      "LASAGNE",
      "RAVIOLI"
     ],
-    "explication": "Quatre sortes de pâtes."
+    "explication": "Les RAVIOLI sont farcis, la LASAGNE se cuit en plaques au four, et les PENNE (« plumes » en italien) sont coupées en biseau."
    },
    {
     "categorie": "___ blanc",
@@ -677,7 +677,7 @@ window.QUOTIDIEN_GRILLES = [
      "BULLETIN",
      "EXAMEN"
     ],
-    "explication": "Vin blanc, mariage blanc, bulletin blanc, examen blanc."
+    "explication": "Un MARIAGE blanc est fictif, un BULLETIN blanc ne désigne aucun candidat, un EXAMEN blanc sert d'entraînement avant le vrai."
    }
   ],
   "rattachements_plausibles": {}
@@ -697,7 +697,7 @@ window.QUOTIDIEN_GRILLES = [
      "GRAINE",
      "FIGURE"
     ],
-    "explication": "Casser la croûte, casser la baraque, casser la graine, casser la figure."
+    "explication": "Casser la CROÛTE ou la GRAINE, c'est manger ; casser la BARAQUE, c'est faire un triomphe ; se casser la FIGURE, c'est tomber."
    },
    {
     "categorie": "Types de pain",
@@ -708,7 +708,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOULE",
      "BÂTARD"
     ],
-    "explication": "Quatre formes de pain : la baguette, la ficelle, la boule, le bâtard."
+    "explication": "BAGUETTE, FICELLE et BOULE sont aussi des objets ; le BÂTARD est un pain plus court et plus épais que la baguette, la FICELLE un pain plus fin."
    },
    {
     "categorie": "Matériel de pêche",
@@ -719,7 +719,7 @@ window.QUOTIDIEN_GRILLES = [
      "MOULINET",
      "APPÂT"
     ],
-    "explication": "Ce qu'il faut pour pêcher."
+    "explication": "L'APPÂT attire le poisson, l'HAMEÇON l'accroche, et le MOULINET fixé sur la CANNE enroule le fil pour le remonter."
    },
    {
     "categorie": "Chapeaux",
@@ -730,7 +730,7 @@ window.QUOTIDIEN_GRILLES = [
      "MELON",
      "PANAMA"
     ],
-    "explication": "Quatre couvre-chefs. Le melon et le panama ne sont pas ici un fruit ni un pays."
+    "explication": "Le MELON est un chapeau rond et rigide ; le PANAMA, chapeau de paille, est en réalité fabriqué en Équateur. Ni fruit ni pays ici !"
    }
   ],
   "rattachements_plausibles": {}
@@ -750,7 +750,7 @@ window.QUOTIDIEN_GRILLES = [
      "PIEDS",
      "POINTS"
     ],
-    "explication": "Mettre les voiles, mettre les formes, mettre les pieds dans le plat, mettre les points sur les i."
+    "explication": "Mettre les VOILES : partir. Mettre les FORMES : y mettre du tact. Mettre les POINTS sur les i : préciser. Piège : VOILES et POINTS semblaient aller ailleurs."
    },
    {
     "categorie": "Parties d'un bateau",
@@ -761,7 +761,7 @@ window.QUOTIDIEN_GRILLES = [
      "MÂT",
      "GOUVERNAIL"
     ],
-    "explication": "Quatre parties d'un bateau. Les voiles aussi, mais elles servent à l'expression."
+    "explication": "La COQUE est la carcasse qui flotte, le PONT le plancher du dessus, le MÂT porte les voiles et le GOUVERNAIL sert à diriger le bateau."
    },
    {
     "categorie": "Jeux de cartes",
@@ -772,7 +772,7 @@ window.QUOTIDIEN_GRILLES = [
      "TAROT",
      "BRIDGE"
     ],
-    "explication": "Quatre jeux de cartes."
+    "explication": "Le TAROT se joue avec 78 cartes, la BELOTE avec 32 ; le BRIDGE et le POKER utilisent le jeu complet de 52 cartes."
    },
    {
     "categorie": "Signes de ponctuation",
@@ -783,7 +783,7 @@ window.QUOTIDIEN_GRILLES = [
      "PARENTHÈSE",
      "CROCHET"
     ],
-    "explication": "Quatre signes de ponctuation. Le point aussi, mais il faut le mettre sur les i."
+    "explication": "PARENTHÈSES et CROCHETS vont par paires pour isoler un passage ; le TIRET peut introduire un dialogue. Piège : le point en est un aussi, mais les POINTS se mettent sur les i."
    }
   ],
   "rattachements_plausibles": {
@@ -810,7 +810,7 @@ window.QUOTIDIEN_GRILLES = [
      "CASSEROLE",
      "POÊLE"
     ],
-    "explication": "Queue de comète, queue de billard, queue de casserole, queue de poêle."
+    "explication": "La queue d'une COMÈTE est une traînée de gaz et de poussières, au BILLARD c'est le bâton. Piège : la COMÈTE a aussi une tête, mais il fallait sa queue."
    },
    {
     "categorie": "Ils ont un pied",
@@ -821,7 +821,7 @@ window.QUOTIDIEN_GRILLES = [
      "BICHE",
      "VIGNE"
     ],
-    "explication": "Pied de lampe, pied de verre, pied de vigne, pied-de-biche."
+    "explication": "Le pied-de-BICHE est un levier pour arracher les clous ; un pied de VIGNE est un cep, et le pied d'un VERRE est sa base."
    },
    {
     "categorie": "Ils ont une tête",
@@ -832,7 +832,7 @@ window.QUOTIDIEN_GRILLES = [
      "CLOU",
      "LECTURE"
     ],
-    "explication": "Tête de lit, tête d'épingle, tête de clou, tête de lecture. Le lit a aussi un pied, mais on avait déjà quatre pieds."
+    "explication": "La tête de LECTURE lit les disques ou les cassettes, et une tête d'ÉPINGLE désigne une toute petite chose. Piège : le LIT a aussi un pied."
    },
    {
     "categorie": "Ils ont un cœur",
@@ -843,7 +843,7 @@ window.QUOTIDIEN_GRILLES = [
      "CIBLE",
      "VILLE"
     ],
-    "explication": "Cœur de métier, cœur de palmier, cœur de cible, cœur de ville."
+    "explication": "Le cœur de PALMIER se mange en salade ; le cœur de CIBLE, ce sont les clients visés en priorité, et le cœur de MÉTIER l'activité principale."
    }
   ],
   "rattachements_plausibles": {
@@ -870,7 +870,7 @@ window.QUOTIDIEN_GRILLES = [
      "MOUTARDE",
      "PAILLE"
     ],
-    "explication": "Jaune safran, jaune poussin, jaune moutarde, jaune paille."
+    "explication": "Le jaune POUSSIN est vif, le jaune PAILLE pâle, le jaune MOUTARDE plus terne ; le SAFRAN, épice la plus chère du monde, colore le riz de la paella."
    },
    {
     "categorie": "Vert ___",
@@ -881,7 +881,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOUTEILLE",
      "SAPIN"
     ],
-    "explication": "Vert pomme, vert olive, vert bouteille, vert sapin."
+    "explication": "Le vert POMME est vif et clair, le vert OLIVE tire sur le brun, tandis que le vert BOUTEILLE et le vert SAPIN sont foncés."
    },
    {
     "categorie": "Bleu ___",
@@ -892,7 +892,7 @@ window.QUOTIDIEN_GRILLES = [
      "ROI",
      "CANARD"
     ],
-    "explication": "Bleu marine, bleu ciel, bleu roi, bleu canard."
+    "explication": "Le bleu MARINE est très foncé, le bleu CIEL très clair, le bleu ROI vif. Piège : on entend parfois « vert canard », mais CANARD complète les bleus."
    },
    {
     "categorie": "Rouge ___",
@@ -903,7 +903,7 @@ window.QUOTIDIEN_GRILLES = [
      "COQUELICOT",
      "SANG"
     ],
-    "explication": "Rouge tomate, rouge brique, rouge coquelicot, rouge sang."
+    "explication": "Être rouge comme une TOMATE, c'est rougir de gêne ; le rouge BRIQUE tire sur l'orangé, et le rouge SANG est sombre et profond."
    }
   ],
   "rattachements_plausibles": {
@@ -927,7 +927,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉTÉ",
      "ICI"
     ],
-    "explication": "Ces mots se lisent dans les deux sens."
+    "explication": "KAYAK, RADAR, ÉTÉ et ICI se lisent de la même façon de gauche à droite et de droite à gauche. Piège : le KAYAK est aussi une embarcation."
    },
    {
     "categorie": "Mots à syllabe doublée",
@@ -938,7 +938,7 @@ window.QUOTIDIEN_GRILLES = [
      "YO-YO",
      "TAM-TAM"
     ],
-    "explication": "Bon-bon, cous-cous, yo-yo, tam-tam."
+    "explication": "BON-BON, COUS-COUS, YO-YO, TAM-TAM : la même syllabe répétée deux fois. Piège : le TAM-TAM est une percussion, mais il fallait sa syllabe doublée."
    },
    {
     "categorie": "Embarcations",
@@ -949,7 +949,7 @@ window.QUOTIDIEN_GRILLES = [
      "VOILIER",
      "GONDOLE"
     ],
-    "explication": "Quatre bateaux. Le kayak aussi, mais c'est un palindrome."
+    "explication": "La GONDOLE est la barque de Venise, la PIROGUE est souvent creusée dans un tronc, le VOILIER avance grâce au vent. Le KAYAK, lui, est un palindrome."
    },
    {
     "categorie": "Percussions",
@@ -960,7 +960,7 @@ window.QUOTIDIEN_GRILLES = [
      "MARACAS",
      "XYLOPHONE"
     ],
-    "explication": "Quatre percussions. Le tam-tam aussi, mais sa syllabe se double."
+    "explication": "Le XYLOPHONE a des lames de bois qu'on frappe avec des baguettes, et les MARACAS se secouent comme des hochets. Le TAM-TAM, lui, double sa syllabe."
    }
   ],
   "rattachements_plausibles": {
@@ -987,7 +987,7 @@ window.QUOTIDIEN_GRILLES = [
      "TÉLÉPHONE",
      "ACCORDÉON"
     ],
-    "explication": "On appuie sur leurs touches."
+    "explication": "Un PIANO standard compte 88 touches blanches et noires ; l'ACCORDÉON a souvent un clavier d'un côté et des boutons de l'autre."
    },
    {
     "categorie": "Ils ont des aiguilles",
@@ -998,7 +998,7 @@ window.QUOTIDIEN_GRILLES = [
      "SERINGUE",
      "PIN"
     ],
-    "explication": "Aiguilles d'horloge, de boussole, de seringue, de pin."
+    "explication": "L'aiguille de la BOUSSOLE est aimantée et indique le nord, celle de la SERINGUE pique, et celles du PIN sont ses feuilles. Piège : le PIN a aussi des branches."
    },
    {
     "categorie": "Ils ont des branches",
@@ -1009,7 +1009,7 @@ window.QUOTIDIEN_GRILLES = [
      "FAMILLE",
      "CHANDELIER"
     ],
-    "explication": "Branches d'une étoile, de lunettes, d'une famille, d'un chandelier. Le pin aussi, mais il fallait ses aiguilles."
+    "explication": "Les branches des LUNETTES tiennent sur les oreilles, celles d'une FAMILLE descendent d'un même ancêtre ; une ÉTOILE dessinée en a souvent cinq."
    },
    {
     "categorie": "Ils ont des ailes",
@@ -1020,7 +1020,7 @@ window.QUOTIDIEN_GRILLES = [
      "HÔPITAL",
      "ANGE"
     ],
-    "explication": "Ailes de moulin, de château, d'hôpital, d'ange."
+    "explication": "Les ailes d'un MOULIN tournent avec le vent, celles d'un CHÂTEAU ou d'un HÔPITAL sont des parties du bâtiment, et l'ANGE est représenté ailé."
    }
   ],
   "rattachements_plausibles": {
@@ -1044,7 +1044,7 @@ window.QUOTIDIEN_GRILLES = [
      "GUILLEMETS",
      "ÉCOUTILLES"
     ],
-    "explication": "Fermer les yeux, fermer les volets, fermer les guillemets, fermer les écoutilles."
+    "explication": "Les ÉCOUTILLES sont les ouvertures du pont d'un navire : les fermer, c'est se protéger. Fermer les GUILLEMETS, c'est terminer une citation."
    },
    {
     "categorie": "Battre ___",
@@ -1055,7 +1055,7 @@ window.QUOTIDIEN_GRILLES = [
      "PAVILLON",
      "CAMPAGNE"
     ],
-    "explication": "Battre un record, battre en retraite, battre pavillon, battre la campagne."
+    "explication": "Battre en RETRAITE, c'est reculer ; battre PAVILLON, naviguer sous le drapeau d'un pays ; battre la CAMPAGNE, la parcourir en tous sens ou divaguer."
    },
    {
     "categorie": "Météo",
@@ -1066,7 +1066,7 @@ window.QUOTIDIEN_GRILLES = [
      "GIBOULÉE",
      "VERGLAS"
     ],
-    "explication": "Quatre phénomènes météo."
+    "explication": "La GIBOULÉE est une averse soudaine, typique de mars ; le VERGLAS, une fine couche de glace sur le sol ; la GRÊLE tombe en billes de glace."
    },
    {
     "categorie": "Fleuves de France",
@@ -1077,7 +1077,7 @@ window.QUOTIDIEN_GRILLES = [
      "RHÔNE",
      "GARONNE"
     ],
-    "explication": "Quatre fleuves français."
+    "explication": "La LOIRE est le plus long fleuve de France ; le RHÔNE prend sa source en Suisse, la SEINE traverse Paris et la GARONNE Bordeaux."
    }
   ],
   "rattachements_plausibles": {}
@@ -1097,7 +1097,7 @@ window.QUOTIDIEN_GRILLES = [
      "PHILIPPE",
      "HENRI"
     ],
-    "explication": "Prénoms portés par des rois de France."
+    "explication": "LOUIS XIV, CHARLES VII, PHILIPPE le Bel, HENRI IV : quatre prénoms de rois. Piège : le LOUIS est aussi une pièce d'or, mais ici c'est le prénom du roi."
    },
    {
     "categorie": "Prénoms qui sont des mots",
@@ -1108,7 +1108,7 @@ window.QUOTIDIEN_GRILLES = [
      "CONSTANCE",
      "BLANCHE"
     ],
-    "explication": "Des prénoms qui sont aussi des noms communs ou des adjectifs."
+    "explication": "Une PIERRE est un caillou, la VICTOIRE un succès, la CONSTANCE une persévérance, BLANCHE une couleur : chacun de ces prénoms est aussi un mot."
    },
    {
     "categorie": "Anciennes monnaies",
@@ -1119,7 +1119,7 @@ window.QUOTIDIEN_GRILLES = [
      "SOU",
      "DENIER"
     ],
-    "explication": "Quatre monnaies d'autrefois. Le louis aussi, mais c'était d'abord un roi."
+    "explication": "Le FRANC a été la monnaie de la France jusqu'aux pièces en euros, en 2002 ; le SOU survit dans « être sans le sou ». Le LOUIS, lui, était d'abord un roi."
    },
    {
     "categorie": "Parties d'une église",
@@ -1130,7 +1130,7 @@ window.QUOTIDIEN_GRILLES = [
      "CLOCHER",
      "AUTEL"
     ],
-    "explication": "Quatre parties d'une église."
+    "explication": "La NEF accueille les fidèles, le CHŒUR entoure l'AUTEL où le prêtre célèbre la messe, et le CLOCHER abrite les cloches."
    }
   ],
   "rattachements_plausibles": {
@@ -1154,7 +1154,7 @@ window.QUOTIDIEN_GRILLES = [
      "ROUGEOLE",
      "GRISOU"
     ],
-    "explication": "VERT-ige, ROSE-au, ROUGE-ole, GRIS-ou."
+    "explication": "VERT-ige, ROSE-au, ROUGE-ole, GRIS-ou : chacun commence par une couleur. Piège : ROSEAU, ROUGEOLE et VERTIGE semblaient aller dans les autres groupes."
    },
    {
     "categorie": "Plantes d'eau",
@@ -1165,7 +1165,7 @@ window.QUOTIDIEN_GRILLES = [
      "PAPYRUS",
      "LOTUS"
     ],
-    "explication": "Quatre plantes des eaux et des marais. Le roseau aussi, mais il cache une couleur."
+    "explication": "Les Égyptiens faisaient du papier avec le PAPYRUS, le LOTUS est une fleur sacrée en Asie et le JONC sert à tresser. Piège : le ROSEAU aussi, mais il cache ROSE."
    },
    {
     "categorie": "Maladies infantiles",
@@ -1176,7 +1176,7 @@ window.QUOTIDIEN_GRILLES = [
      "RUBÉOLE",
      "COQUELUCHE"
     ],
-    "explication": "Quatre maladies de l'enfance. La rougeole aussi, mais elle cache une couleur."
+    "explication": "La COQUELUCHE provoque des quintes de toux, la VARICELLE des boutons qui démangent. Piège : la ROUGEOLE aussi, mais elle commence par ROUGE."
    },
    {
     "categorie": "Sensations désagréables",
@@ -1187,7 +1187,7 @@ window.QUOTIDIEN_GRILLES = [
      "CRAMPE",
      "MIGRAINE"
     ],
-    "explication": "Quatre sensations pénibles. Le vertige aussi, mais il cache une couleur."
+    "explication": "La CRAMPE contracte un muscle d'un coup, la MIGRAINE est un mal de tête intense, souvent d'un seul côté. Piège : le VERTIGE aussi, mais il commence par VERT."
    }
   ],
   "rattachements_plausibles": {
@@ -1217,7 +1217,7 @@ window.QUOTIDIEN_GRILLES = [
      "BÉNÉDICTION",
      "CHANCE"
     ],
-    "explication": "Donner sa langue au chat, donner sa démission, donner sa bénédiction, donner sa chance."
+    "explication": "Donner sa LANGUE au chat, c'est renoncer à trouver la réponse ; donner sa CHANCE à quelqu'un, le laisser faire ses preuves. Piège : la LANGUE est aussi dans la bouche."
    },
    {
     "categorie": "Parties de la bouche",
@@ -1228,7 +1228,7 @@ window.QUOTIDIEN_GRILLES = [
      "PALAIS",
      "GENCIVE"
     ],
-    "explication": "Quatre parties de la bouche. La langue aussi, mais on la donne au chat."
+    "explication": "Le PALAIS forme le plafond de la bouche et la GENCIVE entoure la base des DENTS ; un adulte a 32 dents en comptant celles de sagesse."
    },
    {
     "categorie": "Jeux de société",
@@ -1239,7 +1239,7 @@ window.QUOTIDIEN_GRILLES = [
      "DOMINOS",
      "BATAILLE"
     ],
-    "explication": "Quatre jeux. Les dames sont un jeu, même si la dame est aussi une pièce d'échecs."
+    "explication": "La BATAILLE se joue avec des cartes, les DAMES sur un damier de 100 cases dans la version internationale. Piège : la dame est une pièce d'échecs, mais les DAMES sont un jeu."
    },
    {
     "categorie": "Pièces d'échecs",
@@ -1250,7 +1250,7 @@ window.QUOTIDIEN_GRILLES = [
      "FOU",
      "CAVALIER"
     ],
-    "explication": "Quatre pièces du jeu d'échecs."
+    "explication": "Le CAVALIER se déplace en L et peut sauter par-dessus les autres pièces ; la REINE, qu'on appelle aussi la dame, est la pièce la plus puissante."
    }
   ],
   "rattachements_plausibles": {
@@ -1277,7 +1277,7 @@ window.QUOTIDIEN_GRILLES = [
      "SIROP",
      "RÉSEAU"
     ],
-    "explication": "SOL-dat, LA-vabo, SI-rop, RÉ-seau."
+    "explication": "SOLDAT, LAVABO, SIROP et RÉSEAU commencent par SOL, LA, SI et RÉ. Piège : SOLDAT, LAVABO et SIROP semblaient aller dans d'autres groupes."
    },
    {
     "categorie": "Grades militaires",
@@ -1288,7 +1288,7 @@ window.QUOTIDIEN_GRILLES = [
      "COLONEL",
      "GÉNÉRAL"
     ],
-    "explication": "Quatre grades de l'armée. Le soldat est au bas de l'échelle, et surtout il commence par une note."
+    "explication": "Du plus bas au plus haut : CAPORAL, SERGENT, COLONEL, GÉNÉRAL. Piège : le SOLDAT est au bas de l'échelle, mais il commence par la note SOL."
    },
    {
     "categorie": "Dans la salle de bain",
@@ -1299,7 +1299,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉPONGE",
      "SERVIETTE"
     ],
-    "explication": "Quatre objets de salle de bain. Le lavabo aussi, mais il cache une note."
+    "explication": "BAIGNOIRE, SAVON, ÉPONGE et SERVIETTE servent à se laver et se sécher ; l'éponge naturelle est un animal marin. Piège : le LAVABO commence par LA."
    },
    {
     "categorie": "Formes de médicaments",
@@ -1310,7 +1310,7 @@ window.QUOTIDIEN_GRILLES = [
      "POMMADE",
      "PASTILLE"
     ],
-    "explication": "Quatre formes de médicaments. Le sirop aussi, mais il cache une note."
+    "explication": "La GÉLULE est une capsule, le COMPRIMÉ une poudre pressée, la POMMADE s'étale sur la peau, la PASTILLE se suce. Piège : le SIROP commence par SI."
    }
   ],
   "rattachements_plausibles": {
@@ -1340,7 +1340,7 @@ window.QUOTIDIEN_GRILLES = [
      "HACHE",
      "CAS"
     ],
-    "explication": "T, D, H, K."
+    "explication": "Dits à voix haute, THÉ sonne comme T, DÉ comme D, HACHE comme H et CAS comme K. Piège : DÉ, HACHE et CAS semblaient aller dans d'autres groupes."
    },
    {
     "categorie": "Accessoires de jeu de société",
@@ -1351,7 +1351,7 @@ window.QUOTIDIEN_GRILLES = [
      "PLATEAU",
      "SABLIER"
     ],
-    "explication": "Quatre accessoires. Le dé aussi, mais il se prononce comme une lettre."
+    "explication": "Le PLATEAU sert de terrain, le PION s'y déplace, le JETON compte ou mise, le SABLIER limite le temps. Piège : le DÉ aussi, mais il se prononce comme la lettre D."
    },
    {
     "categorie": "Armes du Moyen Âge",
@@ -1362,7 +1362,7 @@ window.QUOTIDIEN_GRILLES = [
      "MASSE",
      "ARBALÈTE"
     ],
-    "explication": "Quatre armes anciennes. La hache aussi, mais elle se prononce comme une lettre."
+    "explication": "L'ARBALÈTE tire des carreaux, la MASSE frappe pour assommer, ÉPÉE et LANCE sont des armes de chevalier. Piège : la HACHE aussi, mais elle se dit comme la lettre H."
    },
    {
     "categorie": "Au tribunal",
@@ -1373,7 +1373,7 @@ window.QUOTIDIEN_GRILLES = [
      "GREFFIER",
      "VERDICT"
     ],
-    "explication": "Quatre mots du tribunal."
+    "explication": "Le JUGE tranche, l'AVOCAT défend, le GREFFIER consigne les débats et le VERDICT est la décision rendue. Piège : on juge un CAS, mais il se prononce comme K."
    }
   ],
   "rattachements_plausibles": {
@@ -1403,7 +1403,7 @@ window.QUOTIDIEN_GRILLES = [
      "FUNÉRAILLES",
      "MŒURS"
     ],
-    "explication": "Des ciseaux, des fiançailles, des funérailles, les mœurs : on ne les emploie pas au singulier (le ciseau du sculpteur est un autre outil)."
+    "explication": "Des CISEAUX, des FIANÇAILLES, des FUNÉRAILLES, les MŒURS : ces mots ne s'emploient qu'au pluriel (le ciseau du sculpteur est un autre outil)."
    },
    {
     "categorie": "Fournitures scolaires",
@@ -1414,7 +1414,7 @@ window.QUOTIDIEN_GRILLES = [
      "TROUSSE",
      "COMPAS"
     ],
-    "explication": "Quatre fournitures. Les ciseaux aussi, mais ils n'ont pas de singulier."
+    "explication": "Le COMPAS trace des cercles, la RÈGLE des traits droits, la GOMME efface et la TROUSSE range le tout. Piège : les CISEAUX aussi, mais ils n'existent qu'au pluriel."
    },
    {
     "categorie": "Cérémonies",
@@ -1425,7 +1425,7 @@ window.QUOTIDIEN_GRILLES = [
      "SACRE",
      "COURONNEMENT"
     ],
-    "explication": "Quatre cérémonies. Les fiançailles et les funérailles aussi, mais elles n'ont pas de singulier."
+    "explication": "Le BAPTÊME et la COMMUNION sont des sacrements chrétiens ; le SACRE et le COURONNEMENT célèbrent un nouveau roi. Piège : FIANÇAILLES et FUNÉRAILLES n'ont pas de singulier."
    },
    {
     "categorie": "Habitudes",
@@ -1436,7 +1436,7 @@ window.QUOTIDIEN_GRILLES = [
      "ROUTINE",
      "TRADITION"
     ],
-    "explication": "Quatre mots pour une habitude. Les mœurs aussi, mais elles n'ont pas de singulier."
+    "explication": "COUTUME et USAGE se partagent dans un groupe, la TRADITION se transmet entre générations, la ROUTINE est personnelle. Piège : les MŒURS n'ont pas de singulier."
    }
   ],
   "rattachements_plausibles": {
@@ -1469,7 +1469,7 @@ window.QUOTIDIEN_GRILLES = [
      "MACHINE",
      "MALICE"
     ],
-    "explication": "d-INDE, r-OMAN, ma-CHINE, MALI-ce."
+    "explication": "DINDE cache l'INDE, ROMAN cache OMAN, MACHINE cache la CHINE et MALICE cache le MALI. DINDE, ROMAN et MALICE semblaient d'abord aller ailleurs."
    },
    {
     "categorie": "Volailles",
@@ -1480,7 +1480,7 @@ window.QUOTIDIEN_GRILLES = [
      "PINTADE",
      "CAILLE"
     ],
-    "explication": "Quatre volailles. La dinde aussi, mais elle cache un pays."
+    "explication": "La CAILLE est la plus petite des quatre, l'OIE la plus grande. Piège : la DINDE est bien une volaille, mais elle cache l'INDE."
    },
    {
     "categorie": "Genres littéraires",
@@ -1491,7 +1491,7 @@ window.QUOTIDIEN_GRILLES = [
      "ESSAI",
      "CONTE"
     ],
-    "explication": "Quatre genres. Le roman aussi, mais il cache un pays."
+    "explication": "La NOUVELLE est un récit court, le CONTE fait souvent place au merveilleux, l'ESSAI défend une réflexion. Piège : le ROMAN aussi, mais il cache OMAN."
    },
    {
     "categorie": "Défauts",
@@ -1502,7 +1502,7 @@ window.QUOTIDIEN_GRILLES = [
      "ORGUEIL",
      "JALOUSIE"
     ],
-    "explication": "Quatre défauts. La malice aussi, mais elle cache un pays."
+    "explication": "AVARICE, PARESSE et ORGUEIL font partie des sept péchés capitaux ; la JALOUSIE est voisine de l'envie. Piège : la MALICE cache le MALI."
    }
   ],
   "rattachements_plausibles": {
@@ -1532,7 +1532,7 @@ window.QUOTIDIEN_GRILLES = [
      "COMPTE",
      "ROUTE"
     ],
-    "explication": "Tenir sa promesse, tenir la chandelle, tenir compte, tenir la route."
+    "explication": "Tenir la CHANDELLE, c'est être le troisième de trop face à un couple ; tenir COMPTE, prendre en considération. Pièges : on coupe aussi la ROUTE et on rend COMPTE."
    },
    {
     "categorie": "Couper ___",
@@ -1543,7 +1543,7 @@ window.QUOTIDIEN_GRILLES = [
      "COURT",
      "SIFFLET"
     ],
-    "explication": "Couper le souffle, couper l'herbe sous le pied, couper court, couper le sifflet. On coupe aussi la route, mais il faut la tenir."
+    "explication": "Couper l'HERBE sous le pied, c'est devancer quelqu'un ; couper le SIFFLET, le faire taire ; couper COURT, abréger. Piège : on peut aussi perdre son SOUFFLE."
    },
    {
     "categorie": "Perdre ___",
@@ -1554,7 +1554,7 @@ window.QUOTIDIEN_GRILLES = [
      "PATIENCE",
      "CONNAISSANCE"
     ],
-    "explication": "Perdre le nord, perdre la face, perdre patience, perdre connaissance. On perd aussi son souffle et le compte, mais il faut couper l'un et tenir l'autre."
+    "explication": "Perdre le NORD, c'est ne plus savoir où l'on en est ; perdre la FACE, être humilié ; perdre CONNAISSANCE, s'évanouir. Piège : on perd aussi le COMPTE."
    },
    {
     "categorie": "Rendre ___",
@@ -1565,7 +1565,7 @@ window.QUOTIDIEN_GRILLES = [
      "HOMMAGE",
      "JUSTICE"
     ],
-    "explication": "Rendre l'âme, rendre visite, rendre hommage, rendre justice. On rend aussi compte, mais il faut en tenir."
+    "explication": "Rendre l'ÂME, c'est mourir ; rendre JUSTICE à quelqu'un, reconnaître ses mérites. Pièges : on rend aussi COMPTE, et l'on peut perdre son ÂME."
    }
   ],
   "rattachements_plausibles": {
@@ -1601,7 +1601,7 @@ window.QUOTIDIEN_GRILLES = [
      "GIDE",
      "CÉLINE"
     ],
-    "explication": "Pierre Corneille, Jean Racine, André Gide, Louis-Ferdinand Céline."
+    "explication": "CORNEILLE et RACINE sont les grands auteurs de tragédies du XVIIe siècle ; GIDE a reçu le prix Nobel en 1947 ; CÉLINE a écrit Voyage au bout de la nuit."
    },
    {
     "categorie": "Oiseaux des jardins",
@@ -1612,7 +1612,7 @@ window.QUOTIDIEN_GRILLES = [
      "GEAI",
      "ÉTOURNEAU"
     ],
-    "explication": "Quatre oiseaux communs. La corneille aussi, mais c'est surtout un dramaturge ici."
+    "explication": "La PIE et le GEAI sont de la famille des corvidés, comme la CORNEILLE. Piège : CORNEILLE est bien un oiseau, mais ici c'est le dramaturge."
    },
    {
     "categorie": "Parties d'une plante",
@@ -1623,7 +1623,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOURGEON",
      "PÉTALE"
     ],
-    "explication": "Quatre parties d'une plante. La racine aussi, mais c'est un dramaturge ici."
+    "explication": "Le BOURGEON s'ouvre en feuilles ou en fleurs, le PÉTALE colore la fleur. Piège : la RACINE est aussi une partie de la plante, mais ici c'est l'auteur de Phèdre."
    },
    {
     "categorie": "Prénoms féminins",
@@ -1634,7 +1634,7 @@ window.QUOTIDIEN_GRILLES = [
      "LÉA",
      "CHLOÉ"
     ],
-    "explication": "Quatre prénoms. Céline aussi, mais c'est un romancier ici."
+    "explication": "SOPHIE vient du grec et signifie « sagesse », LÉA est un prénom biblique. Piège : CÉLINE est aussi un prénom, mais ici c'est le romancier."
    }
   ],
   "rattachements_plausibles": {
@@ -1664,7 +1664,7 @@ window.QUOTIDIEN_GRILLES = [
      "PUCE",
      "CHENILLE"
     ],
-    "explication": "La grue de chantier, la souris d'ordinateur, la puce électronique, la chenille d'un char."
+    "explication": "La GRUE soulève les charges, la SOURIS pilote l'ordinateur, la PUCE est électronique et la CHENILLE fait avancer les chars. Tous sont d'abord des animaux."
    },
    {
     "categorie": "Rongeurs",
@@ -1675,7 +1675,7 @@ window.QUOTIDIEN_GRILLES = [
      "CASTOR",
      "MULOT"
     ],
-    "explication": "Quatre rongeurs. La souris aussi, mais c'est aussi un objet technique."
+    "explication": "Le CASTOR construit des barrages, l'ÉCUREUIL fait des réserves pour l'hiver, le MULOT vit dans les champs et les bois. Piège : la SOURIS, ici objet technique."
    },
    {
     "categorie": "Engins de chantier",
@@ -1686,7 +1686,7 @@ window.QUOTIDIEN_GRILLES = [
      "BÉTONNIÈRE",
      "ROULEAU"
     ],
-    "explication": "Quatre engins. La grue aussi, mais elle est aussi un animal."
+    "explication": "La PELLETEUSE creuse, le BULLDOZER pousse la terre, la BÉTONNIÈRE malaxe le béton, le ROULEAU tasse le sol. Piège : la GRUE est aussi un oiseau."
    },
    {
     "categorie": "Insectes qui piquent",
@@ -1697,7 +1697,7 @@ window.QUOTIDIEN_GRILLES = [
      "TAON",
      "FRELON"
     ],
-    "explication": "Quatre insectes piqueurs. La puce aussi, mais c'est aussi un objet technique."
+    "explication": "GUÊPE et FRELON piquent avec un dard ; chez le MOUSTIQUE et le TAON, seules les femelles piquent, pour le sang. Pièges : PUCE et CHENILLE, ici objets techniques."
    }
   ],
   "rattachements_plausibles": {
@@ -1730,7 +1730,7 @@ window.QUOTIDIEN_GRILLES = [
      "MAXIMUM",
      "ÉVALUER"
     ],
-    "explication": "LUC-arne, MARC-hand, MAX-imum, ÉVA-luer."
+    "explication": "LUCARNE commence par LUC, MARCHAND par MARC, MAXIMUM par MAX et ÉVALUER par ÉVA. Trois d'entre eux semblaient aller dans un autre groupe."
    },
    {
     "categorie": "Ouvertures pour l'air et la lumière",
@@ -1741,7 +1741,7 @@ window.QUOTIDIEN_GRILLES = [
      "VASISTAS",
      "SOUPIRAIL"
     ],
-    "explication": "Quatre ouvertures. La lucarne aussi, mais elle cache un prénom."
+    "explication": "Le HUBLOT équipe bateaux et avions, le VASISTAS est un petit vantail dans une porte ou une fenêtre, le SOUPIRAIL aère une cave. Piège : LUCARNE commence par LUC."
    },
    {
     "categorie": "Le plus haut point",
@@ -1752,7 +1752,7 @@ window.QUOTIDIEN_GRILLES = [
      "ZÉNITH",
      "COMBLE"
     ],
-    "explication": "Quatre mots pour le point le plus haut. Le maximum aussi, mais il cache un prénom."
+    "explication": "Le ZÉNITH est le point du ciel à la verticale de l'observateur ; on dit « c'est un COMBLE ! » pour le plus haut degré. Piège : MAXIMUM commence par MAX."
    },
    {
     "categorie": "Juger la valeur",
@@ -1763,7 +1763,7 @@ window.QUOTIDIEN_GRILLES = [
      "JAUGER",
      "APPRÉCIER"
     ],
-    "explication": "Quatre verbes pour juger une valeur. Évaluer aussi, mais il commence par un prénom."
+    "explication": "JAUGER, c'est d'abord mesurer la contenance d'un récipient ; EXPERTISER, faire examiner un objet par un spécialiste. Piège : ÉVALUER commence par ÉVA."
    }
   ],
   "rattachements_plausibles": {
@@ -1793,7 +1793,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉLÉPHANT",
      "HIPPOPOTAME"
     ],
-    "explication": "Quatre grands animaux d'Afrique."
+    "explication": "La GIRAFE est l'animal terrestre le plus haut, l'ÉLÉPHANT le plus lourd, et l'HIPPOPOTAME passe ses journées dans l'eau. Le ZÈBRE, lui, vit en troupeaux."
    },
    {
     "categorie": "Fruits rouges",
@@ -1804,7 +1804,7 @@ window.QUOTIDIEN_GRILLES = [
      "MYRTILLE",
      "GROSEILLE"
     ],
-    "explication": "Petits fruits de l'été."
+    "explication": "La MYRTILLE est bleue, mais on la range parmi les fruits rouges ; la GROSEILLE pousse en petites grappes sur un arbuste, le groseillier."
    },
    {
     "categorie": "Dans un cartable",
@@ -1815,7 +1815,7 @@ window.QUOTIDIEN_GRILLES = [
      "ARDOISE",
      "CLASSEUR"
     ],
-    "explication": "Le matériel d'un écolier."
+    "explication": "L'ARDOISE, où l'on écrit puis efface, sert surtout à l'école primaire ; le CLASSEUR range les feuilles perforées, le CAHIER les garde reliées."
    },
    {
     "categorie": "Eau de ___",
@@ -1826,7 +1826,7 @@ window.QUOTIDIEN_GRILLES = [
      "JAVEL",
      "ROSE"
     ],
-    "explication": "Eau de vie, eau de toilette, eau de Javel, eau de rose."
+    "explication": "L'eau-de-VIE est un alcool fort obtenu par distillation ; l'eau de JAVEL tient son nom de Javel, ancien village aujourd'hui dans Paris, où on la fabriquait."
    }
   ],
   "rattachements_plausibles": {}
@@ -1846,7 +1846,7 @@ window.QUOTIDIEN_GRILLES = [
      "CONSERVE",
      "DIALOGUE"
     ],
-    "explication": "Boîte de nuit, boîte de vitesses, boîte de conserve, boîte de dialogue."
+    "explication": "La boîte de VITESSES transmet la force du moteur aux roues ; la boîte de DIALOGUE est la petite fenêtre qui s'ouvre à l'écran pour poser une question."
    },
    {
     "categorie": "Sports collectifs",
@@ -1857,7 +1857,7 @@ window.QUOTIDIEN_GRILLES = [
      "HANDBALL",
      "VOLLEY"
     ],
-    "explication": "Quatre sports d'équipe."
+    "explication": "Sur le terrain, chaque équipe aligne 11 joueurs au FOOTBALL, 15 au RUGBY à XV, 7 au HANDBALL et 6 au VOLLEY."
    },
    {
     "categorie": "Légumes racines",
@@ -1868,7 +1868,7 @@ window.QUOTIDIEN_GRILLES = [
      "RADIS",
      "BETTERAVE"
     ],
-    "explication": "On mange la racine."
+    "explication": "Pour ces quatre légumes, on mange la racine. Une variété de BETTERAVE, la betterave sucrière, sert à fabriquer du sucre."
    },
    {
     "categorie": "Mammifères marins",
@@ -1879,7 +1879,7 @@ window.QUOTIDIEN_GRILLES = [
      "PHOQUE",
      "OTARIE"
     ],
-    "explication": "Ils vivent dans l'eau mais respirent de l'air."
+    "explication": "Tous respirent de l'air à la surface. L'OTARIE se distingue du PHOQUE par ses petites oreilles visibles et ses nageoires qui lui permettent de marcher."
    }
   ],
   "rattachements_plausibles": {}
@@ -1899,7 +1899,7 @@ window.QUOTIDIEN_GRILLES = [
      "MAIN",
      "GENOU"
     ],
-    "explication": "Des parties du corps."
+    "explication": "Pour les anatomistes, le BRAS va de l'épaule au coude et la JAMBE du GENOU à la cheville ; la MAIN termine le membre supérieur."
    },
    {
     "categorie": "Condiments",
@@ -1910,7 +1910,7 @@ window.QUOTIDIEN_GRILLES = [
      "KETCHUP",
      "MAYONNAISE"
     ],
-    "explication": "Pour relever un plat."
+    "explication": "La MAYONNAISE se monte avec un jaune d'œuf et de l'huile, le KETCHUP est à base de tomate, et le SEL est le seul minéral du groupe."
    },
    {
     "categorie": "Jours de la semaine",
@@ -1921,7 +1921,7 @@ window.QUOTIDIEN_GRILLES = [
      "JEUDI",
      "SAMEDI"
     ],
-    "explication": "Quatre des sept jours."
+    "explication": "LUNDI vient de la Lune, MARDI de Mars, JEUDI de Jupiter, et SAMEDI du sabbat. Mercredi, vendredi et dimanche manquent à l'appel."
    },
    {
     "categorie": "Chaussures",
@@ -1932,7 +1932,7 @@ window.QUOTIDIEN_GRILLES = [
      "MOCASSIN",
      "ESCARPIN"
     ],
-    "explication": "Quatre types de chaussures."
+    "explication": "Le MOCASSIN, sans lacets, vient des peuples amérindiens ; l'ESCARPIN est un soulier fin et découvert, souvent à talon."
    }
   ],
   "rattachements_plausibles": {}
@@ -1952,7 +1952,7 @@ window.QUOTIDIEN_GRILLES = [
      "COMÉDIE",
      "SÉCURITÉ"
     ],
-    "explication": "Jouer la victime, jouer la montre, jouer la comédie, jouer la sécurité."
+    "explication": "Jouer la MONTRE, c'est gagner du temps en retardant l'action ; jouer la SÉCURITÉ, prendre le moins de risques possible ; jouer la COMÉDIE, faire semblant."
    },
    {
     "categorie": "Véhicules à moteur",
@@ -1963,7 +1963,7 @@ window.QUOTIDIEN_GRILLES = [
      "MOTO",
      "TRACTEUR"
     ],
-    "explication": "Ils roulent avec un moteur."
+    "explication": "La MOTO est la seule à deux roues, le TRACTEUR le seul fait pour les champs ; le CAMION transporte des marchandises et le BUS des passagers."
    },
    {
     "categorie": "Arbres",
@@ -1974,7 +1974,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOULEAU",
      "PLATANE"
     ],
-    "explication": "Quatre arbres de nos régions."
+    "explication": "Le CHÊNE donne des glands, le HÊTRE des faînes ; le BOULEAU se reconnaît à son écorce blanche, le PLATANE à son écorce qui part en plaques."
    },
    {
     "categorie": "Produits laitiers",
@@ -1985,7 +1985,7 @@ window.QUOTIDIEN_GRILLES = [
      "CRÈME",
      "LAIT"
     ],
-    "explication": "Le lait et ce qu'on en fait."
+    "explication": "La CRÈME est la partie grasse du LAIT ; barattée, elle donne le BEURRE. Le YAOURT naît de la fermentation du lait par des bactéries."
    }
   ],
   "rattachements_plausibles": {}
@@ -2005,7 +2005,7 @@ window.QUOTIDIEN_GRILLES = [
      "MANDARINE",
      "CLÉMENTINE"
     ],
-    "explication": "Des fruits juteux et acidulés de la famille des citrons."
+    "explication": "La CLÉMENTINE est issue d'un croisement entre MANDARINE et orange ; le PAMPLEMOUSSE vendu en France est en réalité, pour les botanistes, un pomelo."
    },
    {
     "categorie": "Métiers du bâtiment",
@@ -2016,7 +2016,7 @@ window.QUOTIDIEN_GRILLES = [
      "COUVREUR",
      "CHARPENTIER"
     ],
-    "explication": "Ils construisent les maisons."
+    "explication": "Le MAÇON monte les murs, le CHARPENTIER pose la charpente, le COUVREUR la recouvre de tuiles ou d'ardoises, et l'ÉLECTRICIEN installe le courant."
    },
    {
     "categorie": "Reptiles",
@@ -2027,7 +2027,7 @@ window.QUOTIDIEN_GRILLES = [
      "CROCODILE",
      "TORTUE"
     ],
-    "explication": "Animaux à sang froid et à écailles."
+    "explication": "Tous ont des écailles et le sang froid ; la TORTUE est la seule à porter une carapace, le SERPENT le seul sans pattes."
    },
    {
     "categorie": "___ de neige",
@@ -2038,7 +2038,7 @@ window.QUOTIDIEN_GRILLES = [
      "CHUTE",
      "TEMPÊTE"
     ],
-    "explication": "Flocon de neige, bonhomme de neige, chute de neige, tempête de neige."
+    "explication": "Un FLOCON est fait de cristaux de glace ; une TEMPÊTE de neige ajoute un vent violent à la CHUTE. Le BONHOMME, lui, se fabrique avec la neige tombée."
    }
   ],
   "rattachements_plausibles": {}
@@ -2058,7 +2058,7 @@ window.QUOTIDIEN_GRILLES = [
      "FLEMME",
      "BANANE"
     ],
-    "explication": "Avoir la frite, avoir la dalle, avoir la flemme, avoir la banane."
+    "explication": "Avoir la FRITE ou la BANANE, c'est être en forme et de bonne humeur ; avoir la DALLE, avoir faim ; avoir la FLEMME, n'avoir envie de rien faire."
    },
    {
     "categorie": "Ils ont un manche",
@@ -2069,7 +2069,7 @@ window.QUOTIDIEN_GRILLES = [
      "PELLE",
      "VESTE"
     ],
-    "explication": "Le manche du couteau, du balai, de la pelle… et les manches de la veste."
+    "explication": "COUTEAU, BALAI et PELLE ont un manche (masculin), qu'on tient en main ; la VESTE a des manches (féminin), qui couvrent les bras."
    },
    {
     "categorie": "Nuages",
@@ -2080,7 +2080,7 @@ window.QUOTIDIEN_GRILLES = [
      "STRATUS",
      "CUMULONIMBUS"
     ],
-    "explication": "Quatre types de nuages."
+    "explication": "Le CIRRUS forme de fins filaments très haut, le STRATUS une couche grise, le CUMULUS des boules cotonneuses ; le CUMULONIMBUS est le nuage d'orage."
    },
    {
     "categorie": "Monnaies actuelles",
@@ -2091,7 +2091,7 @@ window.QUOTIDIEN_GRILLES = [
      "YEN",
      "LIVRE"
     ],
-    "explication": "L'euro, le dollar, le yen et la livre sterling."
+    "explication": "Le YEN est la monnaie du Japon, la LIVRE sterling celle du Royaume-Uni ; les pièces et billets en EURO ont remplacé le franc en 2002."
    }
   ],
   "rattachements_plausibles": {}
@@ -2111,7 +2111,7 @@ window.QUOTIDIEN_GRILLES = [
      "VIERGE",
      "CANCER"
     ],
-    "explication": "Quatre des douze signes."
+    "explication": "Le BÉLIER ouvre le zodiaque au printemps, la BALANCE est le seul signe représenté par un objet. Pièges : la BALANCE mesure et le BÉLIER a des cornes."
    },
    {
     "categorie": "Instruments de mesure",
@@ -2122,7 +2122,7 @@ window.QUOTIDIEN_GRILLES = [
      "CHRONOMÈTRE",
      "BAROMÈTRE"
     ],
-    "explication": "Ils mesurent la température, la longueur, le temps, la pression. La balance en est un aussi, mais elle est prise par le zodiaque."
+    "explication": "Tous finissent par -MÈTRE, du grec « mesure » : température, longueur, temps, pression. Piège : la BALANCE mesure aussi, mais c'est un signe du zodiaque."
    },
    {
     "categorie": "Ils ont des cornes",
@@ -2133,7 +2133,7 @@ window.QUOTIDIEN_GRILLES = [
      "ESCARGOT",
      "RHINOCÉROS"
     ],
-    "explication": "Le bélier aussi, mais il est pris par le zodiaque."
+    "explication": "Les cornes de l'ESCARGOT sont molles et portent ses yeux ; celle du RHINOCÉROS est en kératine, comme nos ongles. Piège : le BÉLIER, ici signe du zodiaque."
    },
    {
     "categorie": "À un mariage",
@@ -2144,7 +2144,7 @@ window.QUOTIDIEN_GRILLES = [
      "TÉMOIN",
      "ROBE"
     ],
-    "explication": "Ce qu'on voit à un mariage."
+    "explication": "En France, le TÉMOIN signe l'acte de mariage à la mairie, la mariée lance son BOUQUET et l'ALLIANCE se porte traditionnellement à l'annulaire gauche."
    }
   ],
   "rattachements_plausibles": {
@@ -2171,7 +2171,7 @@ window.QUOTIDIEN_GRILLES = [
      "MANCHE",
      "BISE"
     ],
-    "explication": "Faire la queue, faire la fête, faire la manche, faire la bise."
+    "explication": "Faire la MANCHE, c'est demander l'aumône dans la rue ; faire la BISE, s'embrasser sur les joues pour se saluer ; faire la QUEUE, attendre son tour."
    },
    {
     "categorie": "Oiseaux qui ne volent pas",
@@ -2182,7 +2182,7 @@ window.QUOTIDIEN_GRILLES = [
      "KIWI",
      "ÉMEU"
     ],
-    "explication": "Quatre oiseaux incapables de voler. Le kiwi est aussi un fruit, mais il est pris."
+    "explication": "L'AUTRUCHE est le plus grand oiseau du monde, le MANCHOT nage au lieu de voler, le KIWI vit en Nouvelle-Zélande et l'ÉMEU en Australie."
    },
    {
     "categorie": "Fruits exotiques",
@@ -2193,7 +2193,7 @@ window.QUOTIDIEN_GRILLES = [
      "GOYAVE",
      "GRENADE"
     ],
-    "explication": "Quatre fruits des pays chauds."
+    "explication": "La GRENADE renferme des centaines de graines rouges et juteuses ; MANGUE et PAPAYE ont une chair orangée. Piège : le KIWI est un fruit, mais ici c'est l'oiseau."
    },
    {
     "categorie": "Jeux de cour de récréation",
@@ -2204,7 +2204,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉLASTIQUE",
      "CORDE"
     ],
-    "explication": "On y joue à la récré."
+    "explication": "À la MARELLE, on saute à cloche-pied de case en case ; on saute aussi à la CORDE et à l'ÉLASTIQUE, tandis qu'aux BILLES, on vise."
    }
   ],
   "rattachements_plausibles": {
@@ -2228,7 +2228,7 @@ window.QUOTIDIEN_GRILLES = [
      "CAPOT",
      "PHARE"
     ],
-    "explication": "Sur une voiture."
+    "explication": "Le CAPOT couvre le moteur, le VOLANT oriente les roues. Piège : le PHARE éclaire et a son gardien, mais seul ce groupe pouvait encore l'accueillir."
    },
    {
     "categorie": "Ils éclairent",
@@ -2239,7 +2239,7 @@ window.QUOTIDIEN_GRILLES = [
      "TORCHE",
      "LAMPION"
     ],
-    "explication": "Des sources de lumière. Le phare aussi, mais il est pris."
+    "explication": "Le LAMPION est une lanterne en papier des soirs de fête, le FLAMBEAU une torche qu'on porte à la main. Piège : le PHARE éclaire aussi, mais il va sur la voiture."
    },
    {
     "categorie": "Sports de combat",
@@ -2250,7 +2250,7 @@ window.QUOTIDIEN_GRILLES = [
      "KARATÉ",
      "ESCRIME"
     ],
-    "explication": "Un contre un."
+    "explication": "Le JUDO et le KARATÉ viennent du Japon ; l'ESCRIME se pratique à l'épée, au fleuret ou au sabre, et la BOXE avec des gants."
    },
    {
     "categorie": "Gardien de ___",
@@ -2261,7 +2261,7 @@ window.QUOTIDIEN_GRILLES = [
      "MUSÉE",
      "PRISON"
     ],
-    "explication": "Gardien de but, de zoo, de musée, de prison. Gardien de phare aussi, mais le phare est pris."
+    "explication": "Au football, le gardien de BUT est le seul joueur qui peut prendre le ballon à la main dans sa surface. Piège : il existe un gardien de PHARE, mais le PHARE va sur la voiture."
    }
   ],
   "rattachements_plausibles": {
@@ -2286,7 +2286,7 @@ window.QUOTIDIEN_GRILLES = [
      "OSEILLE",
      "THUNE"
     ],
-    "explication": "Quatre mots familiers pour l'argent."
+    "explication": "BLÉ et OSEILLE viennent des plantes, et la THUNE désignait autrefois une pièce de cinq francs. Pièges : le BLÉ est aussi une céréale, l'OSEILLE une herbe."
    },
    {
     "categorie": "Céréales",
@@ -2297,7 +2297,7 @@ window.QUOTIDIEN_GRILLES = [
      "AVOINE",
      "ORGE"
     ],
-    "explication": "Le blé en est une aussi, mais il est pris."
+    "explication": "Le MAÏS est originaire d'Amérique, l'ORGE sert à brasser la bière, l'AVOINE donne les flocons du porridge. Piège : le BLÉ est une céréale, mais ici c'est l'argent."
    },
    {
     "categorie": "Herbes aromatiques",
@@ -2308,7 +2308,7 @@ window.QUOTIDIEN_GRILLES = [
      "CIBOULETTE",
      "MENTHE"
     ],
-    "explication": "L'oseille en est une aussi, mais elle est prise."
+    "explication": "Le BASILIC est la base du pesto, la CIBOULETTE est une cousine de l'oignon. Piège : l'OSEILLE se cuisine aussi, mais ici c'est l'argent."
    },
    {
     "categorie": "Tomber dans ___",
@@ -2319,7 +2319,7 @@ window.QUOTIDIEN_GRILLES = [
      "OUBLI",
      "EXCÈS"
     ],
-    "explication": "Tomber dans le panneau, dans le piège, dans l'oubli, dans l'excès."
+    "explication": "Tomber dans le PANNEAU, c'est se laisser duper ; tomber dans l'OUBLI, ne plus être connu de personne ; tomber dans l'EXCÈS, exagérer."
    }
   ],
   "rattachements_plausibles": {
@@ -2346,7 +2346,7 @@ window.QUOTIDIEN_GRILLES = [
      "ARGENTINE",
      "PLOMBIER"
     ],
-    "explication": "FERmier, ORage, ARGENTine, PLOMBier."
+    "explication": "FERMIER cache le FER, ORAGE l'OR, ARGENTINE l'ARGENT et PLOMBIER le PLOMB. Le plombier tire d'ailleurs son nom de ce métal."
    },
    {
     "categorie": "Pays d'Amérique du Sud",
@@ -2357,7 +2357,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOLIVIE",
      "COLOMBIE"
     ],
-    "explication": "L'Argentine aussi, mais elle cache un métal."
+    "explication": "La BOLIVIE porte le nom de Simón Bolívar et la COLOMBIE celui de Christophe Colomb. Piège : l'ARGENTINE aussi, mais elle cache de l'ARGENT."
    },
    {
     "categorie": "Vents violents",
@@ -2368,7 +2368,7 @@ window.QUOTIDIEN_GRILLES = [
      "TYPHON",
      "BOURRASQUE"
     ],
-    "explication": "L'orage n'est pas un vent et cache de l'or."
+    "explication": "OURAGAN, CYCLONE et TYPHON désignent le même phénomène selon l'océan ; la BOURRASQUE est un coup de vent bref. Piège : l'ORAGE cache de l'OR."
    },
    {
     "categorie": "Métiers de la campagne",
@@ -2379,7 +2379,7 @@ window.QUOTIDIEN_GRILLES = [
      "MEUNIER",
      "ÉLEVEUR"
     ],
-    "explication": "Le fermier aussi, mais il cache du fer."
+    "explication": "Le BERGER garde les moutons, le VIGNERON cultive la vigne et fait le vin, le MEUNIER moud le grain. Piège : le FERMIER cache du FER."
    }
   ],
   "rattachements_plausibles": {
@@ -2409,7 +2409,7 @@ window.QUOTIDIEN_GRILLES = [
      "AUTOMOBILE",
      "MOUSTIQUAIRE"
     ],
-    "explication": "Chacun contient a, e, i, o et u."
+    "explication": "OISEAU réunit A, E, I, O et U en six lettres seulement ; BOULANGERIE, AUTOMOBILE et MOUSTIQUAIRE contiennent aussi les cinq voyelles."
    },
    {
     "categorie": "Commerces",
@@ -2420,7 +2420,7 @@ window.QUOTIDIEN_GRILLES = [
      "MERCERIE",
      "ÉPICERIE"
     ],
-    "explication": "La boulangerie aussi, mais elle a les cinq voyelles."
+    "explication": "La MERCERIE vend fils, boutons et rubans ; la LIBRAIRIE vend les livres que la bibliothèque prête. Piège : la BOULANGERIE contient les cinq voyelles."
    },
    {
     "categorie": "Ils volent",
@@ -2431,7 +2431,7 @@ window.QUOTIDIEN_GRILLES = [
      "DRONE",
      "MONTGOLFIÈRE"
     ],
-    "explication": "L'oiseau aussi, mais il a les cinq voyelles."
+    "explication": "La MONTGOLFIÈRE doit son nom aux frères Montgolfier, pionniers du ballon en 1783 ; le DRONE vole sans pilote à bord. Piège : l'OISEAU a les cinq voyelles."
    },
    {
     "categorie": "Pour dormir",
@@ -2442,7 +2442,7 @@ window.QUOTIDIEN_GRILLES = [
      "MATELAS",
      "DRAP"
     ],
-    "explication": "La moustiquaire aussi, mais elle a les cinq voyelles."
+    "explication": "Le DRAP couvre le MATELAS, la COUETTE nous tient chaud et l'OREILLER soutient la tête. Piège : la MOUSTIQUAIRE protège le sommeil, mais elle a les cinq voyelles."
    }
   ],
   "rattachements_plausibles": {
@@ -2472,7 +2472,7 @@ window.QUOTIDIEN_GRILLES = [
      "MAINTENANT",
      "ACCIDENT"
     ],
-    "explication": "BRASserie, DOSsier, MAINtenant, acciDENT."
+    "explication": "BRASSERIE cache le BRAS, DOSSIER le DOS, MAINTENANT la MAIN et ACCIDENT une DENT. Seul ACCIDENT la cache en fin de mot."
    },
    {
     "categorie": "Où l'on boit un verre",
@@ -2483,7 +2483,7 @@ window.QUOTIDIEN_GRILLES = [
      "PUB",
      "TAVERNE"
     ],
-    "explication": "La brasserie aussi, mais elle cache un bras."
+    "explication": "Le PUB vient des îles Britanniques, la TAVERNE évoque les auberges d'autrefois. Piège : la BRASSERIE sert aussi à boire, mais elle cache le BRAS."
    },
    {
     "categorie": "Fournitures de bureau",
@@ -2494,7 +2494,7 @@ window.QUOTIDIEN_GRILLES = [
      "SURLIGNEUR",
      "PERFORATRICE"
     ],
-    "explication": "Le dossier aussi, mais il cache le dos."
+    "explication": "Le TROMBONE partage son nom avec l'instrument de musique, la PERFORATRICE fait les trous pour le classeur. Piège : le DOSSIER cache le DOS."
    },
    {
     "categorie": "Adverbes de temps",
@@ -2505,7 +2505,7 @@ window.QUOTIDIEN_GRILLES = [
      "JADIS",
      "SOUVENT"
     ],
-    "explication": "Maintenant aussi, mais il cache une main."
+    "explication": "JADIS renvoie à un passé lointain, HIER à la veille, BIENTÔT à un futur proche, SOUVENT à la fréquence. Piège : MAINTENANT cache la MAIN."
    }
   ],
   "rattachements_plausibles": {
@@ -2535,7 +2535,7 @@ window.QUOTIDIEN_GRILLES = [
      "TRAVAIL",
      "CORAIL"
     ],
-    "explication": "Yeux, aïeux, travaux, coraux."
+    "explication": "ŒIL devient yeux, AÏEUL aïeux (au sens d'ancêtres), TRAVAIL travaux et CORAIL coraux, alors que la plupart des mots prennent un simple S."
    },
    {
     "categorie": "Organes",
@@ -2546,7 +2546,7 @@ window.QUOTIDIEN_GRILLES = [
      "POUMON",
      "ESTOMAC"
     ],
-    "explication": "L'œil aussi, mais son pluriel est irrégulier."
+    "explication": "Le FOIE est le plus gros organe interne ; nous avons deux REINS et deux POUMONS. Piège : l'ŒIL est aussi un organe, mais son pluriel est yeux."
    },
    {
     "categorie": "Vivent dans la mer",
@@ -2557,7 +2557,7 @@ window.QUOTIDIEN_GRILLES = [
      "ANÉMONE",
      "HIPPOCAMPE"
     ],
-    "explication": "Le corail aussi, mais son pluriel est irrégulier."
+    "explication": "L'HIPPOCAMPE est un poisson dont le mâle porte les petits ; l'ANÉMONE de mer est un animal, pas une fleur. Piège : le CORAIL, dont le pluriel est coraux."
    },
    {
     "categorie": "Synonymes de travail",
@@ -2568,7 +2568,7 @@ window.QUOTIDIEN_GRILLES = [
      "BESOGNE",
      "OUVRAGE"
     ],
-    "explication": "Le mot travail lui-même est pris par les pluriels."
+    "explication": "BOULOT est familier, BESOGNE évoque une tâche souvent pénible, OUVRAGE un travail soigné. Piège : TRAVAIL lui-même va avec les pluriels irréguliers."
    }
   ],
   "rattachements_plausibles": {
@@ -2598,7 +2598,7 @@ window.QUOTIDIEN_GRILLES = [
      "LIMACE",
      "HIBERNER"
     ],
-    "explication": "BERLINgot, pROMEnade, LIMAce, hiBERNEr."
+    "explication": "BERLINGOT cache BERLIN, PROMENADE cache ROME, LIMACE cache LIMA (Pérou) et HIBERNER cache BERNE (Suisse). Trois semblaient avoir leur place ailleurs."
    },
    {
     "categorie": "Bonbons",
@@ -2609,7 +2609,7 @@ window.QUOTIDIEN_GRILLES = [
      "RÉGLISSE",
      "GUIMAUVE"
     ],
-    "explication": "Le berlingot aussi, mais il cache Berlin."
+    "explication": "Le NOUGAT de Montélimar est célèbre ; la GUIMAUVE et la RÉGLISSE sont d'abord des plantes. Piège : le BERLINGOT est un bonbon, mais il cache BERLIN."
    },
    {
     "categorie": "Mollusques",
@@ -2620,7 +2620,7 @@ window.QUOTIDIEN_GRILLES = [
      "SEICHE",
      "BULOT"
     ],
-    "explication": "La limace aussi, mais elle cache Lima."
+    "explication": "PIEUVRE, CALMAR et SEICHE sont des céphalopodes qui projettent de l'encre ; le BULOT est un escargot de mer. Piège : la LIMACE cache LIMA."
    },
    {
     "categorie": "Verbes d'hiver",
@@ -2631,7 +2631,7 @@ window.QUOTIDIEN_GRILLES = [
      "GRELOTTER",
      "DÉNEIGER"
     ],
-    "explication": "Hiberner aussi, mais il cache Berne."
+    "explication": "GRELOTTER, c'est trembler de froid ; DÉNEIGER, dégager la neige d'une route ou d'un toit. Piège : HIBERNER, comme la marmotte, cache BERNE."
    }
   ],
   "rattachements_plausibles": {

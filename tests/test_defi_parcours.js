@@ -53,10 +53,10 @@ async function jouerPaliers(page, n) { const vus = []; for (let i = 0; i < n; i+
     console.log("1. Accès au Défi");
     const { page: pa } = await nouveau();
     await pa.goto(`${BASE}/?p=${A}`); await pa.waitForSelector("#carte-defi");
-    ok(await pa.locator("#carte-defi").isVisible() && /30 secondes par palier/.test(await pa.locator("#carte-defi").innerText()), "accueil : carte « Défi express » visible");
+    ok(await pa.locator("#carte-defi").isVisible() && /30 s au chrono/.test(await pa.locator("#carte-defi").innerText()), "accueil : carte « Défi express » visible");
     ok(await pa.locator('#nav-bas [data-ecran="defi"]').count() === 1, "onglet « Défi » dans la barre du bas");
     await pa.click('#nav-bas [data-ecran="defi"]'); await pa.waitForSelector("#defi-solo");
-    ok(/5 secondes/.test(await pa.locator("#ecran-defi").innerText()), "règles du Défi affichées (30 s par palier, −5 s par erreur)");
+    ok(/30 secondes pour toute la partie/.test(await pa.locator("#ecran-defi").innerText()) && /rajoute 2 secondes/.test(await pa.locator("#ecran-defi").innerText()) && /en retire 2/.test(await pa.locator("#ecran-defi").innerText()), "règles du Défi affichées (30 s pour toute la partie, +2 s par groupe, −2 s par erreur)");
     await pa.screenshot({ path: path.join(CAPT, "defi_1_accueil.png"), fullPage: true });
 
     console.log("2. Partie solo : paliers, chrono, erreur, fin");
@@ -68,11 +68,32 @@ async function jouerPaliers(page, n) { const vus = []; for (let i = 0; i < n; i+
     await pa.screenshot({ path: path.join(CAPT, "defi_2_palier1.png") });
     await resoudrePalier(pa, { faux: 1 });
     ok(/Palier 2/.test(await pa.locator(".defi-tete").innerText()), "palier 1 réussi malgré une erreur → palier 2");
-    await jouerPaliers(pa, 3);
+    // Un seul chrono : il continue d'un palier à l'autre (pas de remise à 30 s), +2 s par groupe, −2 s par erreur.
+    const sec = async () => parseInt(await pa.locator("#defi-chrono b").innerText(), 10);
+    const lirePrecis = () => pa.evaluate(() => window.__resteDefi() / 1000);
+    const groupesP2 = await pa.evaluate((mots) => { const cats = window.QUOTIDIEN_DEFI.categories, g = {};
+      for (const m of mots) { const c = cats.find(c => c.mots.includes(m)); (g[c.id] = g[c.id] || []).push(m); } return Object.values(g); },
+      await pa.$$eval("#defi-plateau [data-mot]", t => t.map(x => x.dataset.mot)));
+    const avantErr = await lirePrecis();
+    await pa.click(`#defi-plateau [data-mot="${groupesP2[0][0]}"]`); await pa.click(`#defi-plateau [data-mot="${groupesP2[1][0]}"]`);
+    await pa.waitForTimeout(600);
+    const apresErr = await lirePrecis();
+    ok(avantErr - apresErr >= 1.8 && avantErr - apresErr <= 3, `une erreur retire 2 s (${avantErr.toFixed(1)} → ${apresErr.toFixed(1)} s)`);
+    for (const m of groupesP2[0]) await pa.click(`#defi-plateau [data-mot="${m}"]`);
+    await pa.waitForTimeout(350);
+    const apresGroupe = await lirePrecis();
+    ok(apresGroupe - apresErr >= 1.2 && apresGroupe - apresErr <= 2.1, `un groupe trouvé rajoute 2 s (${apresErr.toFixed(1)} → ${apresGroupe.toFixed(1)} s)`);
+    const avantDernier = await lirePrecis();
+    for (const m of groupesP2[1]) await pa.click(`#defi-plateau [data-mot="${m}"]`);
+    await pa.waitForTimeout(1100);
+    const palier3 = await lirePrecis();
+    ok(/Palier 3/.test(await pa.locator(".defi-tete").innerText()) && palier3 - avantDernier >= 1.2 && palier3 - avantDernier <= 2.1,
+      `le chrono continue d'un palier à l'autre, avec le bonus du dernier groupe et sans remise à 30 s (${avantDernier.toFixed(1)} → ${palier3.toFixed(1)} s)`);
+    await jouerPaliers(pa, 2);
     ok(/Palier 5/.test(await pa.locator(".defi-tete").innerText()) && await pa.locator("#defi-plateau [data-mot]").count() === 6, "palier 5 : 6 mots (2 groupes de 3)");
     await pa.screenshot({ path: path.join(CAPT, "defi_3_palier5.png") });
     // Laisser le temps s'écouler sur le palier 5
-    await pa.waitForSelector("#fin-rejouer", { timeout: 40000 });
+    await pa.waitForSelector("#fin-rejouer", { timeout: 70000 });
     const fin = await pa.locator("#ecran-defi").innerText();
     ok(/4 paliers/.test(fin) && /Temps écoulé au palier 5/.test(fin), "temps écoulé : 4 paliers réussis, fin au palier 5");
     ok(/Nouveau record/.test(fin), "premier score = nouveau record");

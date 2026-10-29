@@ -17,7 +17,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VIPÈRE",
       "COBRA"
      ],
-     "explication": "Quatre reptiles."
+     "explication": "Deux lézards et deux serpents : le CAMÉLÉON change de couleur et bouge ses yeux séparément, la VIPÈRE et le COBRA sont venimeux."
     },
     {
      "categorie": "Fromages",
@@ -28,7 +28,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRUYÈRE",
       "MUNSTER"
      ],
-     "explication": "Quatre fromages."
+     "explication": "Le BRIE vient de la Brie, à l'est de Paris, le MUNSTER d'Alsace et des Vosges ; l'EMMENTAL et le GRUYÈRE, deux pâtes pressées cuites, sont nés en Suisse."
     },
     {
      "categorie": "Pain ___",
@@ -39,7 +39,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRILLÉ",
       "BRIOCHÉ"
      ],
-     "explication": "Pain perdu, pain complet, pain grillé, pain brioché."
+     "explication": "Le pain PERDU est du pain rassis trempé dans du lait et de l'œuf puis doré à la poêle ; le pain COMPLET garde le son de la farine."
     },
     {
      "categorie": "Œuf ___",
@@ -50,7 +50,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POCHÉ",
       "COCOTTE"
      ],
-     "explication": "Œuf dur, œuf mollet, œuf poché, œuf cocotte. On dit aussi « pain dur », mais les quatre autres pains sont déjà au complet."
+     "explication": "L'œuf MOLLET a le jaune coulant, l'œuf POCHÉ cuit sans coquille dans l'eau frémissante, l'œuf COCOTTE au four. Piège : on dit aussi pain DUR ou pain MOLLET."
     }
    ],
    "rattachements_plausibles": {
@@ -80,7 +80,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHIHUAHUA",
       "DALMATIEN"
      ],
-     "explication": "Quatre races de chiens."
+     "explication": "Le CHIHUAHUA, qui porte le nom d'un État du Mexique, est la plus petite race de chiens ; le DALMATIEN a une robe blanche tachetée de noir ou de brun."
     },
     {
      "categorie": "Légumes du marché",
@@ -91,7 +91,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POIVRON",
       "FENOUIL"
      ],
-     "explication": "Quatre légumes."
+     "explication": "Botaniquement, l'ARTICHAUT est un bouton de fleur et le POIVRON un fruit ; de l'ASPERGE, on mange la jeune pousse, et le FENOUIL a un goût anisé."
     },
     {
      "categorie": "Coupe-___",
@@ -102,7 +102,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PAPIER",
       "FEU"
      ],
-     "explication": "Coupe-faim, coupe-circuit, coupe-papier, coupe-feu."
+     "explication": "Un coupe-FAIM calme l'appétit, un coupe-CIRCUIT interrompt le courant, un coupe-FEU freine un incendie. Piège : le garde-feu existe aussi."
     },
     {
      "categorie": "Garde-___",
@@ -113,7 +113,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHASSE",
       "MALADE"
      ],
-     "explication": "Garde-manger, garde-côte, garde-chasse, garde-malade. Le garde-feu existe aussi, mais FEU est indispensable au groupe « Coupe-___ »."
+     "explication": "Le garde-MANGER est un placard à provisions ; le garde-CÔTE surveille le littoral, le garde-CHASSE le gibier, et le garde-MALADE veille sur un malade."
     }
    ],
    "rattachements_plausibles": {
@@ -139,7 +139,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LYNX",
       "OURS"
      ],
-     "explication": "Quatre mammifères qui vivent dans les forêts. Le loup aussi, mais il manque au groupe « ___ de mer »."
+     "explication": "Le CHEVREUIL est un cervidé, la BELETTE un petit carnivore au corps allongé, le LYNX un félin aux oreilles terminées par des pinceaux de poils."
     },
     {
      "categorie": "Parties du corps",
@@ -150,7 +150,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHEVILLE",
       "NUQUE"
      ],
-     "explication": "Quatre parties du corps. Le front aussi, mais il sert au groupe « ___ de mer »."
+     "explication": "Trois articulations, l'ÉPAULE, le POIGNET et la CHEVILLE, et la NUQUE, qui désigne l'arrière du cou."
     },
     {
      "categorie": "Faire la ___",
@@ -161,7 +161,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MOUE",
       "LESSIVE"
      ],
-     "explication": "Faire la sieste, faire la vaisselle, faire la moue, faire la lessive."
+     "explication": "Faire la MOUE, c'est avancer les lèvres pour montrer qu'on boude ou qu'on n'est pas convaincu. SIESTE, VAISSELLE et LESSIVE rythment le quotidien."
     },
     {
      "categorie": "___ de mer",
@@ -172,7 +172,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FRONT",
       "BORD"
      ],
-     "explication": "Loup de mer, araignée de mer, front de mer, bord de mer."
+     "explication": "Le LOUP de mer est un marin aguerri, l'ARAIGNÉE de mer un crabe aux longues pattes. Piège : LOUP et FRONT semblaient aller avec les animaux et le corps."
     }
    ],
    "rattachements_plausibles": {
@@ -199,7 +199,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PERRUCHE",
       "CANARI"
      ],
-     "explication": "Quatre animaux que l'on garde à la maison. Le chien aussi, mais il manque au groupe « Avoir du ___ »."
+     "explication": "Deux mammifères, le LAPIN et le FURET (forme domestiquée du putois), et deux oiseaux de cage, la PERRUCHE et le CANARI. Piège : le CHIEN complète « avoir du ___ »."
     },
     {
      "categorie": "Au jeu de cartes",
@@ -210,7 +210,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CARREAU",
       "JOKER"
      ],
-     "explication": "Une figure (le valet), deux couleurs (trèfle et carreau) et une carte spéciale (le joker)."
+     "explication": "Une figure (le VALET), deux des quatre couleurs (TRÈFLE et CARREAU, avec cœur et pique) et une carte spéciale, le JOKER."
     },
     {
      "categorie": "Poids ___",
@@ -221,7 +221,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COQ",
       "MORT"
      ],
-     "explication": "Poids plume, poids lourd, poids coq, poids mort."
+     "explication": "Poids PLUME et poids COQ sont des catégories de boxe ; un poids LOURD est aussi un camion, et un poids MORT une charge inutile qui freine tout."
     },
     {
      "categorie": "Avoir du ___",
@@ -232,7 +232,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TOUPET",
       "CHIEN"
      ],
-     "explication": "Avoir du cran, du culot, du toupet, du chien (du charme)."
+     "explication": "Du CRAN, c'est du courage ; du CULOT ou du TOUPET, une audace un peu effrontée ; du CHIEN, du charme. Piège : CHIEN n'est pas ici l'animal de compagnie."
     }
    ],
    "rattachements_plausibles": {
@@ -258,7 +258,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POULAIN",
       "VEAU"
      ],
-     "explication": "Les petits du chat, du mouton, du cheval et de la vache."
+     "explication": "Le CHATON est le petit du chat, l'AGNEAU celui de la brebis, le POULAIN celui de la jument et le VEAU celui de la vache."
     },
     {
      "categorie": "Lettres grecques",
@@ -269,7 +269,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GAMMA",
       "DELTA"
      ],
-     "explication": "Les quatre premières lettres de l'alphabet grec. « Bêta » se dit aussi d'une personne un peu niaise, mais il manque une lettre sans lui."
+     "explication": "Les quatre premières lettres de l'alphabet grec, dans l'ordre : le mot « alphabet » vient d'ailleurs d'alpha et bêta. Piège : BÊTA désigne aussi un niais."
     },
     {
      "categorie": "Traits de caractère",
@@ -280,7 +280,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BAVARD",
       "JALOUX"
      ],
-     "explication": "Quatre traits de caractère qui ne cachent aucune partie du corps. Ils se trouvent une fois qu'on a compris ce qui distingue les quatre autres."
+     "explication": "Des traits de caractère qui, eux, ne cachent aucune partie du corps : c'est ce qui les sépare des quatre autres traits de la grille."
     },
     {
      "categorie": "Une partie du corps cachée",
@@ -291,7 +291,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DOCILE",
       "COURAGEUX"
      ],
-     "explication": "se-REIN, pru-DENT, do-CIL-e, COU-rageux. Ce sont aussi des traits de caractère : il fallait trouver ce qui sépare ces quatre-là des autres."
+     "explication": "SEREIN cache REIN, PRUDENT cache DENT, DOCILE cache CIL et COURAGEUX cache COU. Piège : ce sont aussi des traits de caractère."
     }
    ],
    "rattachements_plausibles": {
@@ -327,7 +327,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CORNÉE",
       "CRISTALLIN"
      ],
-     "explication": "Quatre parties de l'œil. L'iris en est une aussi, mais il sert au groupe des fleurs-prénoms."
+     "explication": "La CORNÉE est la vitre transparente à l'avant de l'œil, le CRISTALLIN une lentille qui fait la mise au point, la RÉTINE capte la lumière au fond."
     },
     {
      "categorie": "Prénoms",
@@ -338,7 +338,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉLISE",
       "MANON"
      ],
-     "explication": "Quatre prénoms qui ne sont pas des noms de fleurs."
+     "explication": "Deux prénoms de garçon et deux de fille, sans aucun lien avec les fleurs : c'est ce qui les distingue des prénoms fleuris."
     },
     {
      "categorie": "Fleurs du jardin",
@@ -349,7 +349,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TOURNESOL",
       "BÉGONIA"
      ],
-     "explication": "Quatre fleurs qui ne sont pas des prénoms."
+     "explication": "Des fleurs qui ne sont pas des prénoms. Jeune, le TOURNESOL tourne sa tête vers le soleil au fil de la journée, d'où son nom."
     },
     {
      "categorie": "Fleurs qui sont aussi des prénoms",
@@ -360,7 +360,7 @@ window.QUOTIDIEN_VARIANTES = {
       "IRIS",
       "JACINTHE"
      ],
-     "explication": "Violette, Capucine, Iris et Jacinthe sont à la fois des fleurs et des prénoms. Il fallait trouver ce qui sépare ces quatre-là des autres fleurs et des autres prénoms."
+     "explication": "VIOLETTE, CAPUCINE, IRIS et JACINTHE sont à la fois des fleurs et des prénoms. Piège : l'IRIS est aussi la partie colorée de l'œil."
     }
    ],
    "rattachements_plausibles": {
@@ -400,7 +400,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TILLEUL",
       "PEUPLIER"
      ],
-     "explication": "Quatre arbres."
+     "explication": "La feuille d'ÉRABLE orne le drapeau du Canada, la fleur de TILLEUL donne une tisane, et le SAULE pleureur laisse retomber ses branches."
     },
     {
      "categorie": "Oiseaux d'eau",
@@ -411,7 +411,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PÉLICAN",
       "FLAMANT"
      ],
-     "explication": "Quatre oiseaux qui vivent au bord de l'eau."
+     "explication": "Le FLAMANT doit sa couleur rose à son alimentation, le PÉLICAN a une poche sous le bec, le HÉRON pêche immobile sur ses longues pattes."
     },
     {
      "categorie": "Instruments de musique",
@@ -422,7 +422,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HAUTBOIS",
       "TUBA"
      ],
-     "explication": "Quatre instruments de musique."
+     "explication": "Une percussion (la BATTERIE), une corde frottée (le VIOLONCELLE), un bois à anche double (le HAUTBOIS) et un cuivre (le TUBA)."
     },
     {
      "categorie": "Crème ___",
@@ -433,7 +433,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ANGLAISE",
       "CHANTILLY"
      ],
-     "explication": "Crème brûlée, crème fraîche, crème anglaise, crème chantilly."
+     "explication": "La crème BRÛLÉE est caramélisée en surface, la crème ANGLAISE est une sauce aux jaunes d'œufs, la CHANTILLY une crème fouettée sucrée."
     }
    ],
    "rattachements_plausibles": {}
@@ -453,7 +453,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FINLANDE",
       "DANEMARK"
      ],
-     "explication": "Quatre pays du nord de l'Europe."
+     "explication": "Leurs drapeaux portent tous une croix décalée vers la gauche, la croix nordique. La NORVÈGE est la seule des quatre hors de l'Union européenne."
     },
     {
      "categorie": "Meubles",
@@ -464,7 +464,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CANAPÉ",
       "FAUTEUIL"
      ],
-     "explication": "Quatre meubles."
+     "explication": "Deux meubles de rangement, l'ARMOIRE et la COMMODE (à tiroirs), et deux pour s'asseoir, le CANAPÉ et le FAUTEUIL."
     },
     {
      "categorie": "Matériel d'écolier",
@@ -475,7 +475,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CARTABLE",
       "ÉQUERRE"
      ],
-     "explication": "Quatre fournitures d'écolier."
+     "explication": "On écrit au CRAYON et au FEUTRE, on trace des angles droits avec l'ÉQUERRE, et on range le tout dans le CARTABLE."
     },
     {
      "categorie": "Chaise ___",
@@ -486,7 +486,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉLECTRIQUE",
       "PLIANTE"
      ],
-     "explication": "Chaise longue, chaise haute, chaise électrique, chaise pliante."
+     "explication": "La chaise LONGUE sert à s'allonger, la chaise HAUTE à faire manger bébé à table, la chaise PLIANTE se range à plat ; l'ÉLECTRIQUE sert aux exécutions."
     }
    ],
    "rattachements_plausibles": {}
@@ -508,7 +508,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BASEBALL",
       "WATER-POLO"
      ],
-     "explication": "Quatre sports qui se jouent en équipe."
+     "explication": "Le WATER-POLO se joue dans l'eau, le HOCKEY avec une crosse, le BASEBALL avec une batte, et au BASKET on marque dans un panier."
     },
     {
      "categorie": "Poissons de nos assiettes",
@@ -519,7 +519,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MORUE",
       "DORADE"
      ],
-     "explication": "Quatre poissons."
+     "explication": "Le cabillaud est le nom de la MORUE fraîche ; le SAUMON et la TRUITE sont de la même famille, celle des salmonidés."
     },
     {
      "categorie": "Fruits du marché",
@@ -530,7 +530,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NECTARINE",
       "MIRABELLE"
      ],
-     "explication": "Quatre fruits."
+     "explication": "La DATTE pousse sur un palmier, la MIRABELLE est une petite prune jaune emblème de la Lorraine, et la NECTARINE une pêche à peau lisse."
     },
     {
      "categorie": "Café ___",
@@ -541,7 +541,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GOURMAND",
       "LIÉGEOIS"
      ],
-     "explication": "Café serré, café allongé, café gourmand, café liégeois."
+     "explication": "Un café SERRÉ est très concentré, un ALLONGÉ coupé d'eau ; le GOURMAND arrive avec des mignardises, le LIÉGEOIS est glacé avec de la chantilly."
     }
    ],
    "rattachements_plausibles": {}
@@ -561,7 +561,7 @@ window.QUOTIDIEN_VARIANTES = {
       "KUNG-FU",
       "SUMO"
      ],
-     "explication": "Quatre sports de combat venus d'Asie."
+     "explication": "Le TAEKWONDO vient de Corée, l'AÏKIDO et le SUMO du Japon, le KUNG-FU de Chine."
     },
     {
      "categorie": "Mammifères marins",
@@ -572,7 +572,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NARVAL",
       "MORSE"
      ],
-     "explication": "Quatre grands mammifères marins."
+     "explication": "L'ORQUE, le CACHALOT et le NARVAL sont des cétacés, le MORSE un pinnipède à défenses. La « corne » du narval est en fait une dent."
     },
     {
      "categorie": "Plats français",
@@ -583,7 +583,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHOUCROUTE",
       "BLANQUETTE"
      ],
-     "explication": "Quatre plats de la cuisine française."
+     "explication": "La RATATOUILLE vient de Provence, le CASSOULET du Sud-Ouest, la CHOUCROUTE d'Alsace ; la BLANQUETTE se fait le plus souvent avec du veau."
     },
     {
      "categorie": "Grain de ___",
@@ -594,7 +594,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FOLIE",
       "RAISIN"
      ],
-     "explication": "Grain de beauté, grain de sable, grain de folie, grain de raisin."
+     "explication": "Un grain de BEAUTÉ est une petite tache sur la peau, un grain de SABLE peut enrayer une machine, un grain de FOLIE est une touche de fantaisie."
     }
    ],
    "rattachements_plausibles": {}
@@ -616,7 +616,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PÉNICHE",
       "PAQUEBOT"
      ],
-     "explication": "Quatre bateaux."
+     "explication": "Le CATAMARAN a deux coques, la PÉNICHE transporte des marchandises sur les canaux et les fleuves, le PAQUEBOT des passagers en mer."
     },
     {
      "categorie": "Épices du placard",
@@ -627,7 +627,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VANILLE",
       "PIMENT"
      ],
-     "explication": "Quatre épices."
+     "explication": "La VANILLE est le fruit d'une orchidée, le GINGEMBRE un rhizome, la MUSCADE la graine d'un arbre, le muscadier."
     },
     {
      "categorie": "Métiers",
@@ -638,7 +638,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MENUISIER",
       "JARDINIER"
      ],
-     "explication": "Quatre métiers."
+     "explication": "Le MENUISIER travaille le bois, le BOUCHER la viande, le COIFFEUR les cheveux et le JARDINIER les plantes : à chacun sa matière."
     },
     {
      "categorie": "Boîte de ___",
@@ -649,7 +649,7 @@ window.QUOTIDIEN_VARIANTES = {
       "RÉCEPTION",
       "RANGEMENT"
      ],
-     "explication": "Boîte de Pandore, boîte de mouchoirs, boîte de réception, boîte de rangement."
+     "explication": "Dans la mythologie grecque, la boîte de PANDORE libéra tous les maux de l'humanité ; la boîte de RÉCEPTION, elle, reçoit nos e-mails."
     }
    ],
    "rattachements_plausibles": {}
@@ -669,7 +669,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NEPTUNE",
       "TERRE"
      ],
-     "explication": "Quatre planètes du système solaire."
+     "explication": "MERCURE est la plus proche du Soleil et NEPTUNE la plus lointaine ; URANUS tourne couchée sur le côté, et la TERRE est la seule où la vie est connue."
     },
     {
      "categorie": "Singes",
@@ -680,7 +680,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BABOUIN",
       "OUISTITI"
      ],
-     "explication": "Quatre singes."
+     "explication": "Le GORILLE est le plus grand des singes, le OUISTITI l'un des plus petits ; le CHIMPANZÉ est, avec le bonobo, notre plus proche cousin."
     },
     {
      "categorie": "Pâtes italiennes",
@@ -691,7 +691,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MACARONI",
       "CANNELLONI"
      ],
-     "explication": "Quatre sortes de pâtes."
+     "explication": "Les TAGLIATELLE sont des rubans, les FUSILLI des spirales, les MACARONI de petits tubes et les CANNELLONI de gros tubes qu'on farcit."
     },
     {
      "categorie": "Salade ___",
@@ -702,7 +702,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CÉSAR",
       "VERTE"
      ],
-     "explication": "Salade niçoise, salade composée, salade César, salade verte."
+     "explication": "La NIÇOISE mêle tomates, œufs durs et olives, la CÉSAR des croûtons et du parmesan ; la COMPOSÉE réunit plusieurs ingrédients, la VERTE n'a que des feuilles."
     }
    ],
    "rattachements_plausibles": {}
@@ -724,7 +724,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MATISSE",
       "CÉZANNE"
      ],
-     "explication": "Quatre peintres célèbres."
+     "explication": "« Impression, soleil levant » de MONET a donné son nom à l'impressionnisme ; PICASSO a fondé le cubisme avec Braque, MATISSE a mené le fauvisme."
     },
     {
      "categorie": "Langues du monde",
@@ -735,7 +735,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ARABE",
       "JAPONAIS"
      ],
-     "explication": "Quatre langues."
+     "explication": "L'ITALIEN et l'ESPAGNOL sont des langues latines comme le français ; l'ARABE s'écrit de droite à gauche, le JAPONAIS mêle plusieurs écritures."
     },
     {
      "categorie": "Ils vivent dans la savane",
@@ -746,7 +746,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GNOU",
       "BUFFLE"
      ],
-     "explication": "Quatre animaux de la savane africaine."
+     "explication": "Le GNOU est célèbre pour ses grandes migrations, la HYÈNE pour son cri qui ressemble à un rire ; la GAZELLE et le BUFFLE sont herbivores."
     },
     {
      "categorie": "Point de ___",
@@ -757,7 +757,7 @@ window.QUOTIDIEN_VARIANTES = {
       "REPÈRE",
       "RENCONTRE"
      ],
-     "explication": "Point de vue, point de côté, point de repère, point de rencontre."
+     "explication": "Un point de CÔTÉ est une douleur vive sous les côtes, souvent en courant ; un point de REPÈRE aide à s'orienter ; un point de VUE est une opinion."
     }
    ],
    "rattachements_plausibles": {}
@@ -777,7 +777,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BEETHOVEN",
       "CHOPIN"
      ],
-     "explication": "Quatre compositeurs de musique classique."
+     "explication": "BACH, du baroque, est le plus ancien des quatre ; BEETHOVEN a continué à composer en devenant sourd ; CHOPIN a écrit presque uniquement pour le piano."
     },
     {
      "categorie": "Grandes villes françaises",
@@ -788,7 +788,7 @@ window.QUOTIDIEN_VARIANTES = {
       "STRASBOURG",
       "RENNES"
      ],
-     "explication": "Quatre villes de France."
+     "explication": "MARSEILLE au sud, LILLE au nord, STRASBOURG à l'est et RENNES à l'ouest : quatre grandes villes, une par point cardinal."
     },
     {
      "categorie": "Insectes de l'été",
@@ -799,7 +799,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRILLON",
       "CIGALE"
      ],
-     "explication": "Quatre insectes qu'on entend chanter l'été."
+     "explication": "CRIQUET, SAUTERELLE et GRILLON chantent en frottant leurs ailes ou leurs pattes ; la CIGALE, elle, fait vibrer des membranes de son abdomen."
     },
     {
      "categorie": "Fin de ___",
@@ -810,7 +810,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PARTIE",
       "CARRIÈRE"
      ],
-     "explication": "Fin de mois, fin de saison, fin de partie, fin de carrière."
+     "explication": "Les fins de MOIS sont difficiles quand l'argent manque, la fin de SAISON amène les soldes, et « Fin de PARTIE » est aussi une pièce de Beckett."
     }
    ],
    "rattachements_plausibles": {}
@@ -832,7 +832,7 @@ window.QUOTIDIEN_VARIANTES = {
       "WHISKY",
       "RHUM"
      ],
-     "explication": "Quatre boissons alcoolisées."
+     "explication": "La BIÈRE et le WHISKY sont faits à partir de céréales, le CHAMPAGNE de raisin, et le RHUM de canne à sucre."
     },
     {
      "categorie": "Dinosaures",
@@ -843,7 +843,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DIPLODOCUS",
       "VÉLOCIRAPTOR"
      ],
-     "explication": "Quatre dinosaures."
+     "explication": "Le DIPLODOCUS était un herbivore au très long cou, le TRICÉRATOPS avait trois cornes ; le TYRANNOSAURE et le VÉLOCIRAPTOR étaient carnivores."
     },
     {
      "categorie": "Bijoux à porter",
@@ -854,7 +854,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHEVALIÈRE",
       "DIADÈME"
      ],
-     "explication": "Quatre bijoux."
+     "explication": "Le PENDENTIF se porte au cou, la GOURMETTE au poignet, la CHEVALIÈRE au doigt et le DIADÈME sur la tête : un bijou par endroit."
     },
     {
      "categorie": "Sous-___",
@@ -865,7 +865,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SOL",
       "VÊTEMENT"
      ],
-     "explication": "Sous-titre, sous-chef, sous-sol, sous-vêtement."
+     "explication": "Le sous-CHEF seconde le chef en cuisine, le sous-TITRE traduit un film en bas de l'écran, le sous-SOL se trouve sous le rez-de-chaussée."
     }
    ],
    "rattachements_plausibles": {}
@@ -885,7 +885,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ALSACE",
       "PROVENCE"
      ],
-     "explication": "Quatre provinces historiques de France."
+     "explication": "Quatre provinces de l'Ancien Régime : la BRETAGNE et la NORMANDIE sont aujourd'hui des régions, l'ALSACE fait partie du Grand Est."
     },
     {
      "categorie": "Charcuterie",
@@ -896,7 +896,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PÂTÉ",
       "RILLETTES"
      ],
-     "explication": "Quatre produits de charcuterie."
+     "explication": "Les RILLETTES, spécialité du Mans et de Tours, sont de la viande cuite longuement dans sa graisse puis effilochée ; le SAUCISSON, lui, est séché."
     },
     {
      "categorie": "Étoffes",
@@ -907,7 +907,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CACHEMIRE",
       "DENIM"
      ],
-     "explication": "Quatre tissus."
+     "explication": "Le LIN vient d'une plante, le CACHEMIRE du poil d'une chèvre ; le SATIN est un tissage brillant et le DENIM la toile des jeans, la « serge de Nîmes »."
     },
     {
      "categorie": "Passe-___",
@@ -918,7 +918,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MONTAGNE",
       "DROIT"
      ],
-     "explication": "Passe-partout, passe-temps, passe-montagne, passe-droit."
+     "explication": "Un passe-PARTOUT ouvre toutes les portes, un passe-MONTAGNE couvre la tête et le cou, un passe-DROIT est une faveur contraire au règlement."
     }
    ],
    "rattachements_plausibles": {}
@@ -940,7 +940,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHINCHILLA",
       "PORC-ÉPIC"
      ],
-     "explication": "Quatre rongeurs."
+     "explication": "Le PORC-ÉPIC est bien un rongeur, malgré ses piquants ; le CHINCHILLA vient des Andes et a une fourrure très douce."
     },
     {
      "categorie": "Aux pieds",
@@ -951,7 +951,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TONG",
       "ESPADRILLE"
      ],
-     "explication": "Quatre sortes de chaussures."
+     "explication": "La BOTTINE monte jusqu'à la cheville, la BALLERINE est plate comme un chausson de danse, et l'ESPADRILLE a une semelle de corde tressée."
     },
     {
      "categorie": "Pierres de bijouterie",
@@ -962,7 +962,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ONYX",
       "AGATE"
      ],
-     "explication": "Quatre pierres utilisées en bijouterie."
+     "explication": "Le DIAMANT est le minéral naturel le plus dur ; le JADE est souvent vert, l'ONYX souvent noir, et l'AGATE striée de bandes colorées."
     },
     {
      "categorie": "Tour de ___",
@@ -973,7 +973,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PASSE-PASSE",
       "FRANCE"
      ],
-     "explication": "Tour de magie, tour de taille, tour de passe-passe, Tour de France."
+     "explication": "Un tour de PASSE-PASSE est un tour d'adresse qui trompe le regard ; le tour de TAILLE se mesure à la ceinture, et le Tour de FRANCE se court à vélo."
     }
    ],
    "rattachements_plausibles": {}
@@ -993,7 +993,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MICRO-ONDES",
       "CAFETIÈRE"
      ],
-     "explication": "Quatre appareils électroménagers."
+     "explication": "Un pour nettoyer (l'ASPIRATEUR), un pour conserver (le CONGÉLATEUR), un pour réchauffer (le MICRO-ONDES) et un pour le café du matin."
     },
     {
      "categorie": "Champignons",
@@ -1004,7 +1004,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MORILLE",
       "TRUFFE"
      ],
-     "explication": "Quatre champignons comestibles."
+     "explication": "La MORILLE a un chapeau creusé d'alvéoles, la GIROLLE est jaune orangé, et la TRUFFE pousse sous terre, cherchée avec un chien ou un cochon."
     },
     {
      "categorie": "Les Trois Mousquetaires",
@@ -1015,7 +1015,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ARAMIS",
       "D'ARTAGNAN"
      ],
-     "explication": "Athos, Porthos et Aramis, les trois mousquetaires d'Alexandre Dumas, et leur ami d'Artagnan."
+     "explication": "ATHOS, PORTHOS et ARAMIS sont les trois mousquetaires d'Alexandre Dumas ; D'ARTAGNAN, le héros, les rejoint : ils sont donc quatre !"
     },
     {
      "categorie": "Mise en ___",
@@ -1026,7 +1026,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GARDE",
       "PLIS"
      ],
-     "explication": "Mise en boîte, mise en orbite, mise en garde, mise en plis."
+     "explication": "Une mise en BOÎTE est une moquerie, une mise en GARDE un avertissement, la mise en ORBITE celle d'un satellite, et la mise en PLIS une coiffure."
     }
    ],
    "rattachements_plausibles": {}
@@ -1048,7 +1048,7 @@ window.QUOTIDIEN_VARIANTES = {
       "APHRODITE",
       "ARTÉMIS"
      ],
-     "explication": "Quatre dieux de la mythologie grecque."
+     "explication": "POSÉIDON règne sur la mer, HADÈS sur les Enfers, APHRODITE sur l'amour, ARTÉMIS sur la chasse. Les Romains les nommaient Neptune, Pluton, Vénus, Diane."
     },
     {
      "categorie": "Jeux de société",
@@ -1059,7 +1059,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CLUEDO",
       "MIKADO"
      ],
-     "explication": "Quatre jeux de société."
+     "explication": "Au MONOPOLY on achète des rues, au SCRABBLE on forme des mots, au CLUEDO on cherche le coupable, au MIKADO on retire des baguettes sans rien faire bouger."
     },
     {
      "categorie": "Fleurs parfumées",
@@ -1070,7 +1070,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAGNOLIA",
       "JASMIN"
      ],
-     "explication": "Quatre plantes connues pour le parfum de leurs fleurs."
+     "explication": "Le MIMOSA fleurit en jaune en plein hiver, la LAVANDE colore la Provence en été, et le JASMIN est très utilisé en parfumerie."
     },
     {
      "categorie": "___ noir",
@@ -1081,7 +1081,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TROU",
       "HUMOUR"
      ],
-     "explication": "Marché noir, tableau noir, trou noir, humour noir."
+     "explication": "Le MARCHÉ noir est un commerce illégal, le TROU noir un astre dont même la lumière ne s'échappe pas, l'HUMOUR noir rit de sujets graves."
     }
    ],
    "rattachements_plausibles": {}
@@ -1101,7 +1101,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BRÉSIL",
       "CUBA"
      ],
-     "explication": "Quatre pays du continent américain."
+     "explication": "Le CANADA et le MEXIQUE sont en Amérique du Nord, CUBA est une île des Caraïbes, et le BRÉSIL est le plus grand pays d'Amérique du Sud."
     },
     {
      "categorie": "Confiseries",
@@ -1112,7 +1112,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PRALINE",
       "CALISSON"
      ],
-     "explication": "Quatre confiseries."
+     "explication": "Le CALISSON d'Aix-en-Provence est fait d'amandes et de melon confit ; la DRAGÉE, une amande enrobée de sucre, se distribue aux baptêmes."
     },
     {
      "categorie": "Sports de précision",
@@ -1123,7 +1123,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GOLF",
       "FLÉCHETTES"
      ],
-     "explication": "Quatre sports où il faut viser juste."
+     "explication": "Le cochonnet à la PÉTANQUE, les quilles au BOWLING, le trou au GOLF, le centre de la cible aux FLÉCHETTES : à chaque fois, il faut viser juste."
     },
     {
      "categorie": "___ rouge",
@@ -1134,7 +1134,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CROIX",
       "ALERTE"
      ],
-     "explication": "Tapis rouge, carton rouge, Croix-Rouge, alerte rouge."
+     "explication": "Le TAPIS rouge accueille les stars, le CARTON rouge expulse un joueur, la CROIX-Rouge porte secours, l'ALERTE rouge signale un danger maximal."
     }
    ],
    "rattachements_plausibles": {}
@@ -1156,7 +1156,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GANGE",
       "VOLGA"
      ],
-     "explication": "Quatre fleuves du monde."
+     "explication": "La TAMISE traverse Londres, la VOLGA est le plus long fleuve d'Europe, le GANGE est sacré en Inde et le RHIN longe la frontière franco-allemande."
     },
     {
      "categorie": "Super-héros",
@@ -1167,7 +1167,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HULK",
       "SPIDER-MAN"
      ],
-     "explication": "Quatre super-héros de bande dessinée."
+     "explication": "BATMAN et SUPERMAN viennent de chez DC Comics, HULK et SPIDER-MAN de chez Marvel. Seul Batman n'a aucun superpouvoir."
     },
     {
      "categorie": "Aromates",
@@ -1178,7 +1178,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LAURIER",
       "ORIGAN"
      ],
-     "explication": "Quatre herbes aromatiques."
+     "explication": "Le THYM et le LAURIER forment le bouquet garni avec le persil ; le ROMARIN parfume souvent l'agneau, et l'ORIGAN la pizza."
     },
     {
      "categorie": "Bonne ___",
@@ -1189,7 +1189,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MINE",
       "SOIRÉE"
      ],
-     "explication": "Bonne humeur, bonne année, bonne mine, bonne soirée."
+     "explication": "Avoir bonne MINE, c'est avoir l'air en forme ; bonne ANNÉE et bonne SOIRÉE sont des vœux, la bonne HUMEUR un état d'esprit."
     }
    ],
    "rattachements_plausibles": {}
@@ -1209,7 +1209,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SAGITTAIRE",
       "VERSEAU"
      ],
-     "explication": "Quatre signes du zodiaque."
+     "explication": "Le SAGITTAIRE est un archer mi-homme mi-cheval, le VERSEAU verse de l'eau, les GÉMEAUX sont des jumeaux et le SCORPION un animal."
     },
     {
      "categorie": "Dans Astérix",
@@ -1220,7 +1220,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PANORAMIX",
       "ASSURANCETOURIX"
      ],
-     "explication": "Quatre personnages d'Astérix."
+     "explication": "OBÉLIX est tombé dans la potion magique étant petit, IDÉFIX est son chien, PANORAMIX le druide, ASSURANCETOURIX le barde que personne ne veut entendre."
     },
     {
      "categorie": "Boutiques",
@@ -1231,7 +1231,7 @@ window.QUOTIDIEN_VARIANTES = {
       "QUINCAILLERIE",
       "PARFUMERIE"
      ],
-     "explication": "Quatre commerces."
+     "explication": "À la QUINCAILLERIE, on trouve des vis, des clous et des outils ; les trois autres boutiques portent le nom de ce qu'elles vendent."
     },
     {
      "categorie": "Gros ___",
@@ -1242,7 +1242,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PLAN",
       "BONNET"
      ],
-     "explication": "Gros lot, gros mot, gros plan, gros bonnet."
+     "explication": "Un gros BONNET est un personnage important, un gros PLAN une image cadrée de très près, un gros MOT une grossièreté ; le gros LOT se gagne au loto."
     }
    ],
    "rattachements_plausibles": {}
@@ -1264,7 +1264,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SIRÈNE",
       "CYCLOPE"
      ],
-     "explication": "Quatre créatures des légendes."
+     "explication": "La LICORNE a une corne au front, le CYCLOPE un seul œil, la SIRÈNE est mi-femme mi-poisson, et le DRAGON crache du feu."
     },
     {
      "categorie": "Monnaies du monde",
@@ -1275,7 +1275,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ROUPIE",
       "DINAR"
      ],
-     "explication": "Quatre monnaies utilisées aujourd'hui."
+     "explication": "Le ROUBLE est la monnaie de la Russie, la ROUPIE celle de l'Inde ; le PESO circule au Mexique, et le DINAR en Tunisie ou en Algérie."
     },
     {
      "categorie": "Maladies courantes",
@@ -1286,7 +1286,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ANGINE",
       "OTITE"
      ],
-     "explication": "Quatre maladies courantes."
+     "explication": "L'ANGINE touche la gorge, l'OTITE l'oreille, le RHUME le nez ; la GRIPPE, elle, donne de la fièvre et des courbatures dans tout le corps."
     },
     {
      "categorie": "___ noire",
@@ -1297,7 +1297,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BÊTE",
       "SÉRIE"
      ],
-     "explication": "Marée noire, liste noire, bête noire, série noire."
+     "explication": "La MARÉE noire est une pollution au pétrole, la BÊTE noire ce qu'on déteste le plus, la SÉRIE noire une suite de malheurs, la LISTE noire celle des indésirables."
     }
    ],
    "rattachements_plausibles": {}
@@ -1317,7 +1317,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VILLA",
       "MANOIR"
      ],
-     "explication": "Quatre sortes d'habitations."
+     "explication": "Deux abris démontables, la TENTE et le TIPI des peuples des Plaines d'Amérique du Nord, et deux belles demeures, la VILLA et le MANOIR."
     },
     {
      "categorie": "Verbes de cris d'animaux",
@@ -1328,7 +1328,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HENNIR",
       "BÊLER"
      ],
-     "explication": "Le chat miaule, le chien aboie, le cheval hennit, le mouton bêle."
+     "explication": "Le chat MIAULE, le chien ABOIE, le cheval HENNIT et le mouton BÊLE. La chèvre, elle aussi, bêle."
     },
     {
      "categorie": "Morceaux de viande",
@@ -1339,7 +1339,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TOURNEDOS",
       "MAGRET"
      ],
-     "explication": "Quatre morceaux de viande."
+     "explication": "Le MAGRET est le filet d'un canard engraissé, le TOURNEDOS une tranche épaisse de filet de bœuf ; l'ESCALOPE est une tranche fine, la CÔTELETTE garde son os."
     },
     {
      "categorie": "Carnet de ___",
@@ -1350,7 +1350,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHÈQUES",
       "VOYAGE"
      ],
-     "explication": "Carnet de notes, carnet de bal, carnet de chèques, carnet de voyage."
+     "explication": "Autrefois, le carnet de BAL servait aux jeunes filles à noter leurs cavaliers pour chaque danse ; le carnet de NOTES rapporte les résultats scolaires."
     }
    ],
    "rattachements_plausibles": {}
@@ -1372,7 +1372,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FARINE",
       "OR"
      ],
-     "explication": "Rouler sa bosse, rouler des mécaniques, rouler quelqu'un dans la farine, rouler sur l'or."
+     "explication": "Rouler sa BOSSE, c'est beaucoup voyager ; rouler des MÉCANIQUES, faire le fier ; rouler dans la FARINE, duper ; rouler sur l'OR, être très riche."
     },
     {
      "categorie": "Conjonctions de coordination",
@@ -1383,7 +1383,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NI",
       "CAR"
      ],
-     "explication": "Quatre des sept conjonctions de coordination (mais, ou, et, donc, or, ni, car). Or en est une aussi, mais on roule sur l'or."
+     "explication": "Quatre des sept conjonctions, qu'on retient avec « Mais où est donc Ornicar ? ». Piège : OR en est une aussi, mais on roule sur l'or."
     },
     {
      "categorie": "Dans le gâteau au yaourt",
@@ -1394,7 +1394,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ŒUFS",
       "SUCRE"
      ],
-     "explication": "Ce qu'on met dans le gâteau au yaourt. La farine aussi, mais on roule quelqu'un dans la farine."
+     "explication": "Le pot de yaourt vide sert de mesure pour les autres ingrédients. Piège : la FARINE en fait partie aussi, mais on roule quelqu'un dans la farine."
     },
     {
      "categorie": "Techniques de dessin et de peinture",
@@ -1405,7 +1405,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PASTEL",
       "FUSAIN"
      ],
-     "explication": "On peint à l'aquarelle ou à la gouache, on dessine au pastel ou au fusain."
+     "explication": "L'AQUARELLE et la GOUACHE se diluent à l'eau, la gouache étant plus couvrante ; le PASTEL est un bâtonnet de pigment, le FUSAIN un charbon de bois."
     }
    ],
    "rattachements_plausibles": {
@@ -1432,7 +1432,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NOISE",
       "FORTUNE"
      ],
-     "explication": "Chercher midi à quatorze heures, chercher des poux, chercher noise, chercher fortune."
+     "explication": "Chercher MIDI à quatorze heures, c'est compliquer ce qui est simple ; chercher des POUX ou chercher NOISE, c'est chercher la dispute."
     },
     {
      "categorie": "Parasites",
@@ -1443,7 +1443,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SANGSUE",
       "TÉNIA"
      ],
-     "explication": "Quatre parasites. Les poux aussi, mais on les cherche."
+     "explication": "La TIQUE, la PUNAISE de lit et la SANGSUE se nourrissent de sang ; le TÉNIA, ou ver solitaire, vit dans l'intestin. Piège : les POUX, on les cherche."
     },
     {
      "categorie": "Moments de la journée",
@@ -1454,7 +1454,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CRÉPUSCULE",
       "SOIR"
      ],
-     "explication": "Quatre moments de la journée. Midi aussi, mais on le cherche à quatorze heures."
+     "explication": "L'AUBE est la première lueur avant le lever du soleil, le CRÉPUSCULE celle qui suit son coucher. Piège : MIDI, on le cherche à quatorze heures."
     },
     {
      "categorie": "Au football",
@@ -1465,7 +1465,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HORS-JEU",
       "TACLE"
      ],
-     "explication": "Corner, penalty, hors-jeu, tacle : le vocabulaire d'un match de foot. On dit aussi d'un joueur qu'il « cherche le penalty », mais l'expression a déjà ses quatre mots."
+     "explication": "Le PENALTY se tire à onze mètres, le CORNER depuis le coin du terrain, et le TACLE prend le ballon en glissant. Piège : on dit aussi « chercher le penalty »."
     }
    ],
    "rattachements_plausibles": {
@@ -1497,7 +1497,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MÉMÉ",
       "VICE"
      ],
-     "explication": "Pousser la chansonnette, pousser le bouchon (trop loin), pousser mémé dans les orties, pousser le vice (jusqu'à…)."
+     "explication": "Pousser le BOUCHON ou le VICE, c'est aller trop loin ; pousser la CHANSONNETTE, chanter ; « faut pas pousser MÉMÉ dans les orties » : faut pas exagérer."
     },
     {
      "categorie": "Vocabulaire de la chanson",
@@ -1508,7 +1508,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MÉLODIE",
       "TEMPO"
      ],
-     "explication": "Quatre mots pour décrire une chanson. La chansonnette aussi, mais on la pousse."
+     "explication": "Le REFRAIN revient entre les COUPLETS, la MÉLODIE est l'air qu'on fredonne, le TEMPO la vitesse du morceau. Piège : la CHANSONNETTE, on la pousse."
     },
     {
      "categorie": "Installation électrique",
@@ -1519,7 +1519,7 @@ window.QUOTIDIEN_VARIANTES = {
       "INTERRUPTEUR",
       "AMPOULE"
      ],
-     "explication": "Quatre éléments de l'électricité d'une maison."
+     "explication": "Le FUSIBLE et le DISJONCTEUR coupent le courant en cas de surcharge ou de court-circuit ; l'INTERRUPTEUR allume ou éteint l'AMPOULE."
     },
     {
      "categorie": "Ils ferment un récipient",
@@ -1530,7 +1530,7 @@ window.QUOTIDIEN_VARIANTES = {
       "OPERCULE",
       "CAPUCHON"
      ],
-     "explication": "Le couvercle d'une casserole, la capsule d'une bouteille, l'opercule d'un pot de yaourt, le capuchon d'un stylo ou d'un flacon. Le bouchon aussi, mais on le pousse trop loin."
+     "explication": "Le COUVERCLE d'une casserole, la CAPSULE d'une bouteille, l'OPERCULE d'un yaourt, le CAPUCHON d'un stylo. Piège : le BOUCHON, on le pousse trop loin."
     }
    ],
    "rattachements_plausibles": {
@@ -1557,7 +1557,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GUI",
       "SCEAU"
      ],
-     "explication": "Être sous le charme, vendre sous le comptoir, s'embrasser sous le gui, garder sous le sceau du secret."
+     "explication": "Être sous le CHARME, c'est être séduit ; vendre sous le COMPTOIR, en cachette ; sous le SCEAU du secret, sans rien dire ; et on s'embrasse sous le GUI."
     },
     {
      "categorie": "Sorcellerie",
@@ -1568,7 +1568,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POTION",
       "INCANTATION"
      ],
-     "explication": "L'attirail de la sorcière. Le charme aussi (un sortilège), et les druides cueillent le gui, mais on est sous le charme et on s'embrasse sous le gui."
+     "explication": "La sorcière prépare sa POTION dans son CHAUDRON, d'après son GRIMOIRE, son livre de formules. Piège : le CHARME et le GUI semblaient magiques aussi."
     },
     {
      "categorie": "Au bistrot",
@@ -1579,7 +1579,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DEMI",
       "GARÇON"
      ],
-     "explication": "Le zinc, la terrasse, le demi de bière, le garçon de café. Le comptoir aussi, mais on vend sous le comptoir."
+     "explication": "Le ZINC, c'est le comptoir ; le DEMI, un verre de bière ; le GARÇON, le serveur. Piège : le COMPTOIR aussi, mais on vend sous le comptoir."
     },
     {
      "categorie": "Desserts glacés",
@@ -1590,7 +1590,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRANITÉ",
       "CORNET"
      ],
-     "explication": "Quatre desserts glacés."
+     "explication": "Le SORBET est sans lait, le GRANITÉ fait de cristaux de glace aromatisée ; l'ESQUIMAU est une glace sur bâton enrobée de chocolat, le CORNET un biscuit en cône."
     }
    ],
    "rattachements_plausibles": {
@@ -1622,7 +1622,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POLO",
       "FLACON"
      ],
-     "explication": "Col de chemisier, col du fémur, col de polo, col du flacon."
+     "explication": "Le col du FÉMUR est la partie étroite sous la tête de l'os, celui du FLACON son goulot ; le CHEMISIER et le POLO ont un col de vêtement."
     },
     {
      "categorie": "Ils ont des bras",
@@ -1633,7 +1633,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ROBOT",
       "POULPE"
      ],
-     "explication": "Le bras de la tractopelle, les bras d'un fleuve, le bras du robot, les huit bras du poulpe."
+     "explication": "La TRACTOPELLE et le ROBOT ont un bras articulé, le FLEUVE se divise en bras, le POULPE a huit bras. Piège : la tractopelle a aussi des dents."
     },
     {
      "categorie": "Ils ont des dents",
@@ -1644,7 +1644,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CRÉMAILLÈRE",
       "TRONÇONNEUSE"
      ],
-     "explication": "Les dents du timbre, de l'engrenage, de la crémaillère et de la chaîne de tronçonneuse. La tractopelle aussi (celles de son godet), mais il faut son bras."
+     "explication": "Le TIMBRE a des dents tout autour, l'ENGRENAGE et la CRÉMAILLÈRE s'emboîtent par leurs dents, la TRONÇONNEUSE a une chaîne dentée."
     },
     {
      "categorie": "Ils ont des poils",
@@ -1655,7 +1655,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PELUCHE",
       "PINCEAU"
      ],
-     "explication": "Poils de brosse, de moquette, de peluche, de pinceau. La peluche a souvent des bras, mais il faut ses poils."
+     "explication": "La BROSSE, le PINCEAU, la MOQUETTE et la PELUCHE ont tous des poils. Piège : la peluche a souvent des bras, mais il faut ses poils."
     }
    ],
    "rattachements_plausibles": {
@@ -1682,7 +1682,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AMOUR",
       "REINETTE"
      ],
-     "explication": "Pomme de discorde, pomme de douche, pomme d'amour, pomme de reinette."
+     "explication": "La pomme de DISCORDE est la pomme d'or lancée par Éris dans la mythologie grecque ; la pomme d'AMOUR est enrobée de sucre rouge, la REINETTE une variété."
     },
     {
      "categorie": "Crise de ___",
@@ -1693,7 +1693,7 @@ window.QUOTIDIEN_VARIANTES = {
       "QUARANTAINE",
       "ANGOISSE"
      ],
-     "explication": "Crise de rire, crise de larmes, crise de la quarantaine, crise d'angoisse."
+     "explication": "La crise de la QUARANTAINE, ce sont les doutes sur sa vie vers 40 ans ; une crise de RIRE ou de LARMES, c'est quand on ne peut plus s'arrêter."
     },
     {
      "categorie": "Bouche de ___",
@@ -1704,7 +1704,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AÉRATION",
       "CHALEUR"
      ],
-     "explication": "Bouche d'égout, bouche d'incendie, bouche d'aération, bouche de chaleur."
+     "explication": "Des ouvertures : la bouche d'ÉGOUT avale l'eau de pluie, la bouche d'INCENDIE fournit l'eau aux pompiers, celles d'AÉRATION et de CHALEUR soufflent l'air."
     },
     {
      "categorie": "Pas de ___",
@@ -1715,7 +1715,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VIS",
       "DANSE"
      ],
-     "explication": "Pas de géant, pas de deux, pas de vis, pas de danse."
+     "explication": "Un pas de GÉANT est un grand progrès, le pas de DEUX une danse à deux en ballet, le pas de VIS le filetage d'une vis."
     }
    ],
    "rattachements_plausibles": {}
@@ -1737,7 +1737,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CENDRÉ",
       "TAUPE"
      ],
-     "explication": "Gris perle, gris tourterelle, gris cendré, gris taupe. On entend parfois blanc perle, mais le blanc a déjà ses quatre nuances."
+     "explication": "Des gris empruntés à la nature : la PERLE, le plumage de la TOURTERELLE, la cendre (CENDRÉ) et le pelage de la TAUPE. Piège : on dit aussi blanc perle."
     },
     {
      "categorie": "Rose ___",
@@ -1748,7 +1748,7 @@ window.QUOTIDIEN_VARIANTES = {
       "INDIEN",
       "BÉBÉ"
      ],
-     "explication": "Rose poudré, rose fluo, rose indien, rose bébé."
+     "explication": "Le rose POUDRÉ est doux et légèrement grisé, le rose FLUO éclatant, le rose BÉBÉ très pâle, et le rose INDIEN vif et soutenu."
     },
     {
      "categorie": "Noir ___",
@@ -1759,7 +1759,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉBÈNE",
       "CHARBON"
      ],
-     "explication": "Noir de jais, noir d'encre, noir ébène, noir charbon. On dit aussi gris charbon, mais le gris a déjà ses quatre nuances."
+     "explication": "Le JAIS est une pierre fossile noire et brillante, l'ÉBÈNE un bois très sombre ; l'ENCRE et le CHARBON complètent ce noir profond. Piège : on dit aussi gris charbon."
     },
     {
      "categorie": "Blanc ___",
@@ -1770,7 +1770,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NEIGE",
       "IMMACULÉ"
      ],
-     "explication": "Blanc cassé, blanc ivoire, blanc neige, blanc immaculé. On dit aussi blanc perle, mais la perle est prise par le gris."
+     "explication": "Le blanc CASSÉ est légèrement teinté, le blanc IVOIRE rappelle la défense d'éléphant ; blanc NEIGE et blanc IMMACULÉ évoquent une blancheur parfaite."
     }
    ],
    "rattachements_plausibles": {
@@ -1797,7 +1797,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VOIX",
       "DAME"
      ],
-     "explication": "Arme blanche, page blanche, voix blanche, dame blanche. La carte blanche, la zone blanche, la lumière blanche et la matière blanche du cerveau existent aussi, mais ces mots servent ailleurs."
+     "explication": "Une ARME blanche a une lame, une VOIX blanche est sans timbre sous l'émotion, la PAGE blanche angoisse l'écrivain ; la DAME blanche est un dessert glacé."
     },
     {
      "categorie": "___ verte",
@@ -1808,7 +1808,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FÉE",
       "VOIE"
      ],
-     "explication": "Plante verte, salade verte, fée verte (l'absinthe), voie verte (la piste réservée aux vélos et aux piétons). La fée bleue de Pinocchio existe aussi, mais le bleu est complet."
+     "explication": "La FÉE verte est le surnom de l'absinthe, la VOIE verte une piste réservée aux vélos et aux piétons. Piège : la fée bleue de Pinocchio existe aussi."
     },
     {
      "categorie": "___ bleue",
@@ -1819,7 +1819,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HEURE",
       "LUMIÈRE"
      ],
-     "explication": "Être fleur bleue, la planète bleue (la Terre), l'heure bleue (juste après le coucher du soleil), la lumière bleue des écrans. La lumière blanche existe aussi, mais le blanc est complet."
+     "explication": "Être FLEUR bleue, c'est être romantique ; la PLANÈTE bleue, c'est la Terre ; l'HEURE bleue, le crépuscule bleuté. Piège : la LUMIÈRE blanche existe aussi."
     },
     {
      "categorie": "___ grise",
@@ -1830,7 +1830,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CARTE",
       "ZONE"
      ],
-     "explication": "Matière grise, éminence grise, carte grise, zone grise. Carte et zone vont avec presque toutes les couleurs (carte blanche, verte ou bleue ; zone blanche, verte ou bleue), mais seul le gris a besoin d'elles."
+     "explication": "La MATIÈRE grise désigne l'intelligence, l'ÉMINENCE grise un conseiller de l'ombre, la CARTE grise le papier d'un véhicule. Piège : CARTE et ZONE vont aussi avec blanche."
     }
    ],
    "rattachements_plausibles": {
@@ -1872,7 +1872,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BAÏONNETTE",
       "PÉKINOIS"
      ],
-     "explication": "Le hamburger vient de Hambourg, la berline de Berlin, la baïonnette de Bayonne, le pékinois de Pékin."
+     "explication": "Le HAMBURGER vient de Hambourg, la BERLINE de Berlin, la BAÏONNETTE de Bayonne et le PÉKINOIS de Pékin."
     },
     {
      "categorie": "Onomatopées",
@@ -1883,7 +1883,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BOUM",
       "PATATRAS"
      ],
-     "explication": "Quatre mots qui imitent un bruit."
+     "explication": "PLOUF, on tombe à l'eau ; VLAN, une porte claque ; BOUM, ça explose ; PATATRAS, tout s'écroule : quatre mots qui imitent un bruit."
     },
     {
      "categorie": "Restauration rapide",
@@ -1894,7 +1894,7 @@ window.QUOTIDIEN_VARIANTES = {
       "KEBAB",
       "HOT-DOG"
      ],
-     "explication": "Quatre classiques de la restauration rapide. Le hamburger aussi, mais il doit son nom à Hambourg."
+     "explication": "La PIZZA est née à Naples, le HOT-DOG est une saucisse dans un pain, le KEBAB de la viande grillée. Piège : le HAMBURGER doit son nom à Hambourg."
     },
     {
      "categorie": "Carrosseries de voiture",
@@ -1905,7 +1905,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PICK-UP",
       "DÉCAPOTABLE"
      ],
-     "explication": "Quatre types de voitures. La berline aussi, mais elle doit son nom à Berlin."
+     "explication": "Le COUPÉ a en général deux portes, le MONOSPACE une grande cabine, le PICK-UP une benne ouverte, la DÉCAPOTABLE un toit qui se replie. Piège : la BERLINE vient de Berlin."
     }
    ],
    "rattachements_plausibles": {
@@ -1932,7 +1932,7 @@ window.QUOTIDIEN_VARIANTES = {
       "RANCE",
       "ANCRE"
      ],
-     "explication": "Les mêmes cinq lettres A, C, E, N, R, dans un ordre différent (sans compter les accents)."
+     "explication": "NACRE, CRÂNE, RANCE et ANCRE utilisent les cinq mêmes lettres A, C, E, N, R dans un ordre différent (accents mis à part)."
     },
     {
      "categorie": "Os du squelette",
@@ -1943,7 +1943,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VERTÈBRE",
       "CLAVICULE"
      ],
-     "explication": "Quatre os du corps humain. Le crâne aussi, mais il est une anagramme."
+     "explication": "Le TIBIA est l'os de la jambe, la ROTULE celui du genou, les VERTÈBRES forment la colonne, la CLAVICULE relie l'épaule au sternum. Piège : CRÂNE est une anagramme."
     },
     {
      "categorie": "Dans un port",
@@ -1954,7 +1954,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DIGUE",
       "BOUÉE"
      ],
-     "explication": "Quatre choses qu'on voit dans un port. L'ancre aussi, mais elle est une anagramme."
+     "explication": "Le QUAI et le PONTON servent à amarrer, la DIGUE protège des vagues, la BOUÉE balise le passage. Piège : l'ANCRE est une anagramme."
     },
     {
      "categorie": "Plateau de fruits de mer",
@@ -1965,7 +1965,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BIGORNEAU",
       "TOURTEAU"
      ],
-     "explication": "Quatre fruits de mer. La nacre tapisse certains coquillages, mais elle est une anagramme."
+     "explication": "Le TOURTEAU est un gros crabe, la LANGOUSTINE un petit crustacé, la PALOURDE et le BIGORNEAU des coquillages. Piège : la NACRE est une anagramme."
     }
    ],
    "rattachements_plausibles": {
@@ -1997,7 +1997,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SUPERMARCHÉ",
       "BIBLIOTHÈQUE"
      ],
-     "explication": "Les rayons d'une roue, d'une ruche (les rayons de miel), d'un supermarché, d'une bibliothèque."
+     "explication": "Les rayons d'une ROUE partent du moyeu, ceux d'une RUCHE sont les gâteaux de cire remplis de miel ; SUPERMARCHÉ et BIBLIOTHÈQUE ont des étagères."
     },
     {
      "categorie": "Ils ont des lames",
@@ -2008,7 +2008,7 @@ window.QUOTIDIEN_VARIANTES = {
       "STORE",
       "PATIN"
      ],
-     "explication": "Lames de rasoir, de parquet, de store, de patin à glace."
+     "explication": "La lame de RASOIR coupe, la lame de PARQUET est une planche, celles du STORE filtrent la lumière, celle du PATIN glisse sur la glace."
     },
     {
      "categorie": "Ils ont des cases",
@@ -2019,7 +2019,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FORMULAIRE",
       "SUDOKU"
      ],
-     "explication": "On coche ou on remplit leurs cases."
+     "explication": "Les cases de l'ÉCHIQUIER (64), du CALENDRIER (une par jour), du FORMULAIRE (à cocher) et du SUDOKU (81, à remplir de chiffres)."
     },
     {
      "categorie": "Ils ont des épines",
@@ -2030,7 +2030,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHARDON",
       "RONCE"
      ],
-     "explication": "Quatre plantes qui piquent."
+     "explication": "Le CACTUS, le ROSIER, le CHARDON et la RONCE piquent tous ; la ronce donne les mûres sauvages, et le chardon est l'emblème de l'Écosse."
     }
    ],
    "rattachements_plausibles": {}
@@ -2050,7 +2050,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉCREVISSE",
       "PERCE-OREILLE"
      ],
-     "explication": "Quatre animaux à pinces : le crabe, l'étrille (un petit crabe de nos côtes), l'écrevisse et le perce-oreille."
+     "explication": "Le CRABE, l'ÉTRILLE (un petit crabe de nos côtes), l'ÉCREVISSE et le PERCE-OREILLE. Piège : ils ont tous aussi des antennes, mais il faut leurs pinces."
     },
     {
      "categorie": "Ils ont des antennes",
@@ -2061,7 +2061,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SATELLITE",
       "TALKIE-WALKIE"
      ],
-     "explication": "Un insecte et trois appareils à antenne. Le crabe, l'étrille, l'écrevisse et le perce-oreille en ont aussi, mais il faut leurs pinces."
+     "explication": "Le HANNETON est un insecte aux antennes en éventail ; la RADIO, le SATELLITE et le TALKIE-WALKIE ont une antenne pour capter ou émettre."
     },
     {
      "categorie": "Ils ont des taches",
@@ -2072,7 +2072,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GENETTE",
       "FAON"
      ],
-     "explication": "Le léopard, la salamandre tachetée, la genette et le faon ont une robe tachetée."
+     "explication": "Le LÉOPARD a des rosettes, la SALAMANDRE des taches jaunes sur fond noir, la GENETTE un pelage tacheté, le FAON des taches blanches qui partent en grandissant."
     },
     {
      "categorie": "Ils ont des pédales",
@@ -2083,7 +2083,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POUBELLE",
       "TRICYCLE"
      ],
-     "explication": "On les fait marcher avec les pieds : le pédalo, l'orgue, la poubelle à pédale et le tricycle."
+     "explication": "On les fait marcher avec les pieds : le PÉDALO, l'ORGUE et son pédalier, la POUBELLE à pédale et le TRICYCLE."
     }
    ],
    "rattachements_plausibles": {
@@ -2118,7 +2118,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DÉBAT",
       "BEC"
      ],
-     "explication": "Ouvrir le jeu, ouvrir le score, ouvrir le débat, ouvrir le bec (ne pas l'ouvrir, c'est ne rien dire)."
+     "explication": "Ouvrir le SCORE, c'est marquer le premier ; ouvrir le JEU, attaquer davantage ; ouvrir le DÉBAT, lancer la discussion ; ouvrir le BEC, parler."
     },
     {
      "categorie": "Rompre ___",
@@ -2129,7 +2129,7 @@ window.QUOTIDIEN_VARIANTES = {
       "RANGS",
       "SILENCE"
      ],
-     "explication": "Rompre la glace, rompre le jeûne, rompre les rangs, rompre le silence."
+     "explication": "Rompre la GLACE, c'est dissiper la gêne du début ; rompre le JEÛNE, manger à nouveau ; rompre les RANGS, se disperser ; rompre le SILENCE, parler enfin."
     },
     {
      "categorie": "Gâteaux de pâtissier",
@@ -2140,7 +2140,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PARIS-BREST",
       "SAINT-HONORÉ"
      ],
-     "explication": "Quatre grands gâteaux de la pâtisserie française."
+     "explication": "Le PARIS-BREST a la forme d'une roue en hommage à la course cycliste Paris-Brest ; le SAINT-HONORÉ porte le nom du patron des boulangers."
     },
     {
      "categorie": "Îles françaises",
@@ -2151,7 +2151,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MARTINIQUE",
       "GUADELOUPE"
      ],
-     "explication": "Quatre îles françaises."
+     "explication": "La CORSE est en Méditerranée, OLÉRON dans l'Atlantique, la MARTINIQUE et la GUADELOUPE aux Antilles, dans la mer des Caraïbes."
     }
    ],
    "rattachements_plausibles": {}
@@ -2171,7 +2171,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VÉCU",
       "RENFERMÉ"
      ],
-     "explication": "Sentir le roussi (mal tourner), sentir le soufre (avoir une réputation sulfureuse), sentir le vécu, sentir le renfermé."
+     "explication": "Sentir le ROUSSI (mal tourner), sentir le SOUFRE (avoir une réputation sulfureuse), sentir le VÉCU, sentir le RENFERMÉ."
     },
     {
      "categorie": "Boire ___",
@@ -2182,7 +2182,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SUISSE",
       "TIRE-LARIGOT"
      ],
-     "explication": "Boire les paroles de quelqu'un, boire du petit-lait, boire en Suisse (boire seul, sans partager), boire à tire-larigot (beaucoup)."
+     "explication": "Boire les PAROLES de quelqu'un, boire du PETIT-LAIT, boire en SUISSE (boire seul, sans partager), boire à TIRE-LARIGOT (beaucoup)."
     },
     {
      "categorie": "Pays des Balkans",
@@ -2193,7 +2193,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ALBANIE",
       "BULGARIE"
      ],
-     "explication": "Quatre pays de la péninsule des Balkans. La Suisse est un pays aussi, mais pas des Balkans : on boit en Suisse."
+     "explication": "Quatre pays de la péninsule des Balkans. La SUISSE est un pays aussi, mais pas des Balkans : on boit en Suisse."
     },
     {
      "categorie": "Sauces",
@@ -2204,7 +2204,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AÏOLI",
       "PESTO"
      ],
-     "explication": "Quatre sauces."
+     "explication": "La BÉCHAMEL mêle lait, beurre et farine, la BÉARNAISE beurre, jaunes d'œufs et estragon ; l'AÏOLI est à l'ail et le PESTO au basilic."
     }
    ],
    "rattachements_plausibles": {
@@ -2230,7 +2230,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MITTERRAND",
       "GISCARD"
      ],
-     "explication": "Quatre présidents de la Ve République. Hollande aussi, mais il manque aux régions d'Europe."
+     "explication": "POMPIDOU, GISCARD, MITTERRAND et CHIRAC se sont succédé de 1969 à 2007 ; Mitterrand est resté le plus longtemps, quatorze ans."
     },
     {
      "categorie": "Régions d'Europe",
@@ -2241,7 +2241,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BAVIÈRE",
       "CATALOGNE"
      ],
-     "explication": "Quatre régions : aux Pays-Bas, en Italie, en Allemagne et en Espagne."
+     "explication": "La HOLLANDE aux Pays-Bas, la TOSCANE en Italie, la BAVIÈRE en Allemagne, la CATALOGNE en Espagne. Piège : Hollande a aussi été président."
     },
     {
      "categorie": "Château fort",
@@ -2252,7 +2252,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CRÉNEAU",
       "DOUVES"
      ],
-     "explication": "Quatre éléments d'un château fort."
+     "explication": "Le DONJON est la tour principale, les DOUVES le fossé qu'enjambe le PONT-LEVIS, les CRÉNEAUX les ouvertures en haut des remparts."
     },
     {
      "categorie": "Anciennes unités de mesure",
@@ -2263,7 +2263,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TOISE",
       "AUNE"
      ],
-     "explication": "Quatre mesures d'autrefois : la lieue, l'arpent, la toise, l'aune."
+     "explication": "La LIEUE servait aux distances, l'ARPENT aux terrains, la TOISE aux longueurs et l'AUNE aux tissus. Le système métrique les a remplacées."
     }
    ],
    "rattachements_plausibles": {
@@ -2287,7 +2287,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DIDEROT",
       "MONTESQUIEU"
      ],
-     "explication": "Quatre philosophes du XVIIIe siècle."
+     "explication": "VOLTAIRE a écrit Candide, ROUSSEAU Du contrat social, MONTESQUIEU De l'esprit des lois, et DIDEROT a dirigé l'Encyclopédie. Piège : le voltaire est aussi un fauteuil."
     },
     {
      "categorie": "Types de fauteuils",
@@ -2298,7 +2298,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CLUB",
       "CABRIOLET"
      ],
-     "explication": "La bergère, le crapaud, le club et le cabriolet sont des fauteuils. Le voltaire aussi, mais il faut le philosophe."
+     "explication": "La BERGÈRE est un fauteuil garni de coussins, le CABRIOLET a un dossier incurvé, le CRAPAUD est bas et trapu, le CLUB est en cuir."
     },
     {
      "categorie": "Accessoires de mode",
@@ -2309,7 +2309,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POCHETTE",
       "CEINTURE"
      ],
-     "explication": "Quatre accessoires de mode."
+     "explication": "Le FOULARD se noue au cou, l'ÉTOLE se pose sur les épaules, la POCHETTE se glisse dans la veste ou se tient à la main, la CEINTURE tient le pantalon."
     },
     {
      "categorie": "Grands couturiers",
@@ -2320,7 +2320,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GIVENCHY",
       "GAULTIER"
      ],
-     "explication": "Quatre couturiers français."
+     "explication": "CHANEL a popularisé la petite robe noire, DIOR a lancé le « New Look » en 1947, GIVENCHY a habillé Audrey Hepburn, GAULTIER les tenues de scène de Madonna."
     }
    ],
    "rattachements_plausibles": {
@@ -2346,7 +2346,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MASSEUR",
       "CLÉMENCE"
      ],
-     "explication": "SCIE-nce, SERPE-ntin, MASSE-ur, CLÉ-mence."
+     "explication": "SCIENCE commence par SCIE, SERPENTIN par SERPE, MASSEUR par MASSE et CLÉMENCE par CLÉ : un outil en tête de chaque mot."
     },
     {
      "categorie": "Pour faire la fête",
@@ -2357,7 +2357,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GUIRLANDE",
       "MIRLITON"
      ],
-     "explication": "Quatre accessoires de fête. Le serpentin aussi, mais il commence par une serpe."
+     "explication": "CONFETTIS, COTILLONS, GUIRLANDE et MIRLITON (petit instrument au son nasillard) animent la fête. Piège : le SERPENTIN aussi, mais il commence par une serpe."
     },
     {
      "categorie": "Professions paramédicales",
@@ -2368,7 +2368,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ERGOTHÉRAPEUTE",
       "DIÉTÉTICIEN"
      ],
-     "explication": "Quatre professions paramédicales. Le masseur(-kinésithérapeute) aussi, mais il commence par une masse."
+     "explication": "L'ORTHOPHONISTE soigne la parole, le PODOLOGUE les pieds, le DIÉTÉTICIEN l'alimentation. Piège : le MASSEUR aussi, mais il commence par une masse."
     },
     {
      "categorie": "Pardonner facilement",
@@ -2379,7 +2379,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MISÉRICORDE",
       "TOLÉRANCE"
      ],
-     "explication": "Quatre façons de pardonner facilement. La clémence aussi, mais elle commence par une clé."
+     "explication": "La MANSUÉTUDE est une indulgence pleine de bonté, la MISÉRICORDE un pardon accordé par pitié. Piège : la CLÉMENCE aussi, mais elle commence par une clé."
     }
    ],
    "rattachements_plausibles": {
@@ -2409,7 +2409,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LAITUE",
       "ESTHÉTICIENNE"
      ],
-     "explication": "RHUM-atisme, GIN-givite, LAIT-ue, es-THÉ-ticienne."
+     "explication": "RHUMATISME cache RHUM, GINGIVITE cache GIN, LAITUE cache LAIT et ESTHÉTICIENNE cache THÉ."
     },
     {
      "categorie": "Douleurs et inflammations",
@@ -2420,7 +2420,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TENDINITE",
       "NÉVRALGIE"
      ],
-     "explication": "Quatre maux qui font souffrir. Le rhumatisme et la gingivite aussi, mais ils cachent une boisson."
+     "explication": "Le LUMBAGO touche le bas du dos, la SCIATIQUE la jambe, la TENDINITE un tendon, la NÉVRALGIE un nerf. Piège : RHUMATISME et GINGIVITE cachent une boisson."
     },
     {
      "categorie": "Salades",
@@ -2431,7 +2431,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FRISÉE",
       "CRESSON"
      ],
-     "explication": "Quatre salades. La laitue aussi, mais elle cache du lait."
+     "explication": "La MÂCHE est douce, la ROQUETTE poivrée, la FRISÉE a des feuilles découpées, et le CRESSON pousse dans l'eau. Piège : la LAITUE cache du lait."
     },
     {
      "categorie": "Métiers de la beauté",
@@ -2442,7 +2442,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAQUILLEUSE",
       "BARBIER"
      ],
-     "explication": "Quatre métiers de la beauté. L'esthéticienne aussi, mais elle cache du thé."
+     "explication": "Le VISAGISTE adapte la coiffure au visage, la MANUCURE soigne les mains, le BARBIER taille la barbe. Piège : l'ESTHÉTICIENNE cache du thé."
     }
    ],
    "rattachements_plausibles": {
@@ -2477,7 +2477,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COURAGE",
       "ENVOL"
      ],
-     "explication": "Prendre son élan, prendre son mal en patience, prendre son courage à deux mains, prendre son envol."
+     "explication": "Prendre son MAL en patience, c'est attendre sans se plaindre ; prendre son COURAGE à deux mains, se décider ; prendre son ENVOL, devenir autonome."
     },
     {
      "categorie": "Ils ont des bois",
@@ -2488,7 +2488,7 @@ window.QUOTIDIEN_VARIANTES = {
       "WAPITI",
       "ORCHESTRE"
      ],
-     "explication": "Les bois du renne, du daim et du wapiti ; les bois de l'orchestre (flûtes, clarinettes, hautbois…). L'élan aussi a des bois, mais on prend son élan."
+     "explication": "Le RENNE, le DAIM et le WAPITI portent des bois ; ceux de l'ORCHESTRE sont les flûtes, clarinettes, hautbois… Piège : l'ÉLAN aussi, mais on prend son élan."
     },
     {
      "categorie": "Qualités",
@@ -2499,7 +2499,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GÉNÉROSITÉ",
       "HONNÊTETÉ"
      ],
-     "explication": "Quatre qualités. Le courage aussi, mais on le prend à deux mains."
+     "explication": "La FRANCHISE, c'est dire ce qu'on pense ; la GÉNÉROSITÉ, donner volontiers. Piège : le COURAGE est une qualité aussi, mais on le prend à deux mains."
     },
     {
      "categorie": "Dans une salle de classe",
@@ -2510,7 +2510,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BUREAU",
       "CRAIE"
      ],
-     "explication": "Quatre choses qu'on trouve dans une salle de classe."
+     "explication": "La MAPPEMONDE montre le monde entier, l'ESTRADE surélève le BUREAU du maître, et la CRAIE sert à écrire au tableau."
     }
    ],
    "rattachements_plausibles": {
@@ -2537,7 +2537,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BÉGUIN",
       "TOURNIS"
      ],
-     "explication": "Avoir le trac, avoir le dessus, avoir le béguin, avoir le tournis."
+     "explication": "Avoir le TRAC, c'est avoir peur avant d'entrer en scène ; le DESSUS, dominer ; le BÉGUIN, être amoureux ; le TOURNIS, avoir la tête qui tourne."
     },
     {
      "categorie": "Le monde du théâtre",
@@ -2548,7 +2548,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ENTRACTE",
       "SOUFFLEUR"
      ],
-     "explication": "Quatre mots du théâtre. Le trac aussi, mais on l'a."
+     "explication": "L'acteur se prépare dans sa LOGE, le SOUFFLEUR lui rappelle sa RÉPLIQUE, l'ENTRACTE est la pause entre deux actes. Piège : le TRAC aussi, mais on l'a."
     },
     {
      "categorie": "Adverbes de lieu",
@@ -2559,7 +2559,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DEDANS",
       "LOIN"
      ],
-     "explication": "Quatre adverbes de lieu. Dessus aussi, mais on a le dessus."
+     "explication": "Ils répondent à la question « où ? ». Piège : DESSUS en est un aussi, mais on a le dessus."
     },
     {
      "categorie": "Séisme",
@@ -2570,7 +2570,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAGNITUDE",
       "FAILLE"
      ],
-     "explication": "Quatre mots du séisme. La réplique aussi (la secousse qui suit), mais elle se donne au théâtre."
+     "explication": "L'ÉPICENTRE est le point en surface au-dessus du foyer, la MAGNITUDE mesure l'énergie libérée. Piège : une RÉPLIQUE suit un séisme, mais elle va au théâtre."
     }
    ],
    "rattachements_plausibles": {
@@ -2602,7 +2602,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CANETTE",
       "PICHET"
      ],
-     "explication": "j-OIE, tou-PIE, CANE-tte, PIC-het."
+     "explication": "JOIE cache l'OIE, TOUPIE la PIE, CANETTE la CANE et PICHET le PIC : un oiseau glissé dans chaque mot du quotidien."
     },
     {
      "categorie": "Émotions",
@@ -2613,7 +2613,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TRISTESSE",
       "SURPRISE"
      ],
-     "explication": "Quatre émotions. La joie aussi, mais elle cache une oie."
+     "explication": "COLÈRE, PEUR, TRISTESSE et SURPRISE comptent parmi les émotions de base des psychologues. Piège : JOIE en est une aussi, mais elle cache une OIE."
     },
     {
      "categorie": "Jouets d'autrefois",
@@ -2624,7 +2624,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CERCEAU",
       "OSSELETS"
      ],
-     "explication": "Quatre jouets anciens. La toupie aussi, mais elle cache une pie."
+     "explication": "Le DIABOLO roule sur une ficelle, le BILBOQUET se rattrape sur une pointe, le CERCEAU se pousse avec un bâton. Piège : TOUPIE cache une PIE."
     },
     {
      "categorie": "Récipients à boisson",
@@ -2635,7 +2635,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GOBELET",
       "THERMOS"
      ],
-     "explication": "Quatre récipients pour boire ou emporter à boire. La canette et le pichet aussi, mais ils cachent une cane et un pic."
+     "explication": "Le THERMOS (une marque à l'origine) garde au chaud, la FLASQUE plate se glisse dans la poche. Piège : CANETTE et PICHET cachent une CANE et un PIC."
     }
    ],
    "rattachements_plausibles": {
@@ -2668,7 +2668,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PÉPÉ",
       "ÂGÉ"
      ],
-     "explication": "A-B, A-C, P-P, A-G."
+     "explication": "Dites-les à voix haute : ABBÉ sonne A-B, ASSEZ A-C, PÉPÉ P-P et ÂGÉ A-G. Chacun se prononce comme deux lettres de l'alphabet."
     },
     {
      "categorie": "Hommes d'Église",
@@ -2679,7 +2679,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CARDINAL",
       "MOINE"
      ],
-     "explication": "Quatre hommes d'Église. L'abbé aussi, mais il se prononce A-B."
+     "explication": "Le CURÉ a une paroisse, l'ÉVÊQUE un diocèse, le CARDINAL peut élire le pape et le MOINE vit au monastère. Piège : ABBÉ sonne A-B."
     },
     {
      "categorie": "Adverbes de quantité",
@@ -2690,7 +2690,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PEU",
       "TELLEMENT"
      ],
-     "explication": "Quatre adverbes de quantité. Assez aussi, mais il se prononce A-C."
+     "explication": "Ils répondent à « combien ? » : BEAUCOUP, TROP, PEU ou TELLEMENT de sucre. Piège : ASSEZ en est un aussi, mais il se prononce A-C."
     },
     {
      "categorie": "Vieillesse",
@@ -2701,7 +2701,7 @@ window.QUOTIDIEN_VARIANTES = {
       "RETRAITÉ",
       "CENTENAIRE"
      ],
-     "explication": "Quatre mots pour les personnes âgées. Pépé et âgé aussi, mais ils se prononcent P-P et A-G."
+     "explication": "Le CENTENAIRE a au moins 100 ans, le RETRAITÉ a cessé de travailler. Piège : PÉPÉ et ÂGÉ parlent aussi de vieillesse, mais sonnent P-P et A-G."
     }
    ],
    "rattachements_plausibles": {
@@ -2736,7 +2736,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VAIN",
       "SANS"
      ],
-     "explication": "Trois, sept, vingt, cent."
+     "explication": "TROYES se dit comme trois, SÈTE comme sept, VAIN comme vingt et SANS comme cent : quatre homophones de nombres."
     },
     {
      "categorie": "Villes de France",
@@ -2747,7 +2747,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NICE",
       "DIJON"
      ],
-     "explication": "Quatre villes françaises. Troyes et Sète aussi, mais elles se prononcent comme trois et sept."
+     "explication": "ROUEN en Normandie, BREST au bout du Finistère, NICE sur la Côte d'Azur, DIJON et sa moutarde. Piège : TROYES et SÈTE sonnent trois et sept."
     },
     {
      "categorie": "Synonymes d'inutile",
@@ -2758,7 +2758,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SUPERFLU",
       "INEFFICACE"
      ],
-     "explication": "Quatre façons de dire « qui ne sert à rien ». Vain aussi, mais il se prononce comme vingt."
+     "explication": "Un débat STÉRILE ne mène à rien, un détail SUPERFLU est en trop, un souci FUTILE est sans importance. Piège : VAIN aussi, mais il sonne comme vingt."
     },
     {
      "categorie": "Prépositions",
@@ -2769,7 +2769,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PARMI",
       "MALGRÉ"
      ],
-     "explication": "Quatre prépositions. Sans aussi, mais il se prononce comme cent."
+     "explication": "Ces petits mots invariables introduisent un complément : AVEC toi, CHEZ moi, PARMI nous, MALGRÉ tout. Piège : SANS en est une aussi, mais il sonne comme cent."
     }
    ],
    "rattachements_plausibles": {
@@ -2802,7 +2802,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COR",
       "NOM"
      ],
-     "explication": "SET → TES, LET → TEL, COR → ROC, NOM → MON."
+     "explication": "Lus de droite à gauche, SET donne TES, LET donne TEL, COR donne ROC et NOM donne MON : quatre mots retournables."
     },
     {
      "categorie": "Vocabulaire du tennis",
@@ -2813,7 +2813,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VOLÉE",
       "LIFT"
      ],
-     "explication": "Quatre mots du tennis. Le set et le let aussi, mais ils se lisent à l'envers."
+     "explication": "L'ACE est un service que l'adversaire ne touche pas, le BREAK un jeu gagné sur son service. Piège : SET et LET sont du tennis, mais se lisent à l'envers."
     },
     {
      "categorie": "Maux de pieds",
@@ -2824,7 +2824,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VERRUE",
       "MYCOSE"
      ],
-     "explication": "Quatre petits maux des pieds. Le cor aussi (le cor au pied), mais il se lit à l'envers."
+     "explication": "L'OIGNON est une déformation à la base du gros orteil, le DURILLON un épaississement de la peau. Piège : COR aussi (au pied), mais il donne ROC."
     },
     {
      "categorie": "Tissus",
@@ -2835,7 +2835,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TWEED",
       "JERSEY"
      ],
-     "explication": "Quatre tissus : la mousseline, la gabardine, le tweed et le jersey."
+     "explication": "La MOUSSELINE tire son nom de la ville de Mossoul, le JERSEY de l'île anglo-normande ; le TWEED est une laine écossaise."
     }
    ],
    "rattachements_plausibles": {
@@ -2867,7 +2867,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MÉDIOCRE",
       "PATINOIRE"
      ],
-     "explication": "BRUN-o, ROSE-line, médi-OCRE, pati-NOIR-e."
+     "explication": "BRUNO cache BRUN, ROSELINE ROSE, MÉDIOCRE OCRE et PATINOIRE NOIR : une couleur glissée dans chaque mot."
     },
     {
      "categorie": "Prénoms courants",
@@ -2878,7 +2878,7 @@ window.QUOTIDIEN_VARIANTES = {
       "NICOLAS",
       "ÉLODIE"
      ],
-     "explication": "Quatre prénoms. Bruno et Roseline aussi, mais ils cachent une couleur."
+     "explication": "Deux prénoms de garçon, ANTOINE et NICOLAS, et deux de fille, MATHILDE et ÉLODIE. Piège : BRUNO et ROSELINE aussi, mais ils cachent BRUN et ROSE."
     },
     {
      "categorie": "Sans plus",
@@ -2889,7 +2889,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BANAL",
       "MOYEN"
      ],
-     "explication": "Quatre façons de dire « ordinaire, pas terrible » (le citoyen lambda). Médiocre aussi, mais il cache l'ocre."
+     "explication": "LAMBDA, lettre grecque, désigne en français quelqu'un de tout à fait ordinaire : le citoyen lambda. Piège : MÉDIOCRE aussi, mais il cache l'OCRE."
     },
     {
      "categorie": "Équipements sportifs",
@@ -2900,7 +2900,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PISCINE",
       "VÉLODROME"
      ],
-     "explication": "Quatre lieux où l'on fait du sport. La patinoire aussi, mais elle cache le noir."
+     "explication": "Le VÉLODROME a une piste aux virages relevés pour le cyclisme ; GYMNASE, STADE et PISCINE complètent la liste. Piège : PATINOIRE cache NOIR."
     }
    ],
    "rattachements_plausibles": {
@@ -2933,7 +2933,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CARDIGAN",
       "MANSARDE"
      ],
-     "explication": "Le fuchsia doit son nom au botaniste Leonhart Fuchs, le gardénia au naturaliste Alexander Garden, le cardigan au comte de Cardigan, la mansarde à l'architecte François Mansart."
+     "explication": "FUCHSIA vient du botaniste Fuchs, GARDÉNIA du naturaliste Garden, CARDIGAN du comte de Cardigan et MANSARDE de l'architecte Mansart."
     },
     {
      "categorie": "Noms de fleurs",
@@ -2944,7 +2944,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PRIMEVÈRE",
       "CROCUS"
      ],
-     "explication": "Quatre fleurs. Le fuchsia et le gardénia aussi, mais ils doivent leur nom à une personne."
+     "explication": "La PRIMEVÈRE et le CROCUS annoncent le printemps ; la PÂQUERETTE tient son nom de Pâques. Piège : FUCHSIA et GARDÉNIA doivent leur nom à une personne."
     },
     {
      "categorie": "Lainages",
@@ -2955,7 +2955,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHÂLE",
       "PONCHO"
      ],
-     "explication": "Quatre vêtements en laine ou en maille. Le cardigan aussi, mais il doit son nom au comte de Cardigan."
+     "explication": "Le PONCHO, venu d'Amérique du Sud, est une pièce d'étoffe percée pour la tête ; le CHÂLE se pose sur les épaules. Piège : CARDIGAN vient d'un comte."
     },
     {
      "categorie": "Logements",
@@ -2966,7 +2966,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LOFT",
       "PIED-À-TERRE"
      ],
-     "explication": "Quatre façons de se loger. La mansarde aussi, mais elle doit son nom à l'architecte Mansart."
+     "explication": "Le DUPLEX s'étend sur deux niveaux, le LOFT est souvent un ancien local industriel. Piège : MANSARDE est un logement, mais vient de l'architecte Mansart."
     }
    ],
    "rattachements_plausibles": {
@@ -3001,7 +3001,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CONSIDÉRABLE",
       "CANIF"
      ],
-     "explication": "PIN-gouin, én-ORME, consid-ÉRABLE, can-IF."
+     "explication": "PINGOUIN cache le PIN, ÉNORME l'ORME, CONSIDÉRABLE l'ÉRABLE et CANIF l'IF : un arbre dans chaque mot."
     },
     {
      "categorie": "Très grand",
@@ -3012,7 +3012,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COLOSSAL",
       "GIGANTESQUE"
      ],
-     "explication": "Quatre mots pour « très grand ». Énorme et considérable aussi, mais ils cachent un arbre."
+     "explication": "COLOSSAL vient du colosse, statue géante, et GIGANTESQUE du géant. Piège : ÉNORME et CONSIDÉRABLE aussi, mais ils cachent l'ORME et l'ÉRABLE."
     },
     {
      "categorie": "Animaux noir et blanc",
@@ -3023,7 +3023,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉPAULARD",
       "CIGOGNE"
      ],
-     "explication": "Quatre animaux au pelage ou au plumage noir et blanc (l'épaulard est l'autre nom de l'orque ; la cigogne blanche a les ailes bordées de noir). Le pingouin aussi, mais il cache le pin."
+     "explication": "L'ÉPAULARD est l'autre nom de l'orque ; la CIGOGNE blanche a les grandes plumes des ailes noires. Piège : PINGOUIN aussi, mais il cache le PIN."
     },
     {
      "categorie": "Lames",
@@ -3034,7 +3034,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DAGUE",
       "MACHETTE"
      ],
-     "explication": "Quatre armes ou outils à lame. Le canif aussi, mais il cache l'if."
+     "explication": "La MACHETTE sert à se frayer un chemin dans la végétation ; POIGNARD et DAGUE sont des lames courtes. Piège : CANIF a une lame, mais il cache l'IF."
     }
    ],
    "rattachements_plausibles": {
@@ -3067,7 +3067,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SUPERCHERIE",
       "CALOTTE"
      ],
-     "explication": "py-THON, BAR-atin, su-PERCHE-rie, ca-LOTTE."
+     "explication": "PYTHON cache le THON, BARATIN le BAR, SUPERCHERIE la PERCHE et CALOTTE la LOTTE : un poisson dans chaque mot."
     },
     {
      "categorie": "Serpents",
@@ -3078,7 +3078,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAMBA",
       "CROTALE"
      ],
-     "explication": "Quatre serpents. Le python aussi, mais il cache le thon."
+     "explication": "Le CROTALE est le serpent à sonnette, le MAMBA un serpent venimeux d'Afrique, l'ANACONDA étouffe ses proies. Piège : PYTHON cache le THON."
     },
     {
      "categorie": "Tromperies",
@@ -3089,7 +3089,7 @@ window.QUOTIDIEN_VARIANTES = {
       "IMPOSTURE",
       "FRAUDE"
      ],
-     "explication": "Quatre façons de tromper. Le baratin et la supercherie aussi, mais ils cachent un poisson."
+     "explication": "L'IMPOSTURE consiste à se faire passer pour ce qu'on n'est pas. Piège : BARATIN et SUPERCHERIE trompent aussi, mais cachent le BAR et la PERCHE."
     },
     {
      "categorie": "Couvre-chefs",
@@ -3100,7 +3100,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TOQUE",
       "BICORNE"
      ],
-     "explication": "Quatre choses qu'on porte sur la tête. La calotte aussi, mais elle cache la lotte."
+     "explication": "Le KÉPI coiffe militaires et gendarmes, la TOQUE les cuisiniers, et le BICORNE évoque Napoléon. Piège : CALOTTE aussi, mais elle cache la LOTTE."
     }
    ],
    "rattachements_plausibles": {
@@ -3135,7 +3135,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COMMANDE",
       "AVEUX"
      ],
-     "explication": "Passer le permis, passer à la trappe, passer commande, passer aux aveux."
+     "explication": "Passer à la TRAPPE, c'est être oublié ou supprimé ; passer aux AVEUX, avouer. On passe aussi son PERMIS et COMMANDE."
     },
     {
      "categorie": "Porter ___",
@@ -3146,7 +3146,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ATTEINTE",
       "FRUITS"
      ],
-     "explication": "Porter plainte, porter secours, porter atteinte, porter ses fruits."
+     "explication": "Porter ses FRUITS, c'est donner de bons résultats ; porter ATTEINTE, nuire. Piège : on peut aussi prêter SECOURS, mais ici on le porte."
     },
     {
      "categorie": "Prêter ___",
@@ -3157,7 +3157,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FLANC",
       "ALLÉGEANCE"
      ],
-     "explication": "Prêter serment, prêter main-forte, prêter le flanc (à la critique), prêter allégeance. On prête aussi secours, mais il faut ici le porter."
+     "explication": "Prêter le FLANC, c'est s'exposer à la critique ; prêter MAIN-FORTE, venir aider ; prêter ALLÉGEANCE, jurer fidélité ; prêter SERMENT, jurer."
     },
     {
      "categorie": "Piquer ___",
@@ -3168,7 +3168,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ROUPILLON",
       "SUÉE"
      ],
-     "explication": "Piquer un sprint, piquer une crise, piquer un roupillon, piquer une suée (familier)."
+     "explication": "Un ROUPILLON est un petit somme, une SUÉE une grosse transpiration : en familier, on les « pique » d'un coup, comme un SPRINT ou une CRISE."
     }
    ],
    "rattachements_plausibles": {
@@ -3192,7 +3192,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BÂTON",
       "EMBUSCADE"
      ],
-     "explication": "Tendre la perche, tendre l'oreille, tendre le bâton pour se faire battre, tendre une embuscade."
+     "explication": "Tendre la PERCHE, c'est offrir une chance de s'en sortir ; tendre le BÂTON pour se faire battre, s'exposer soi-même. Piège : on monte aussi une EMBUSCADE."
     },
     {
      "categorie": "Brûler ___",
@@ -3203,7 +3203,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VAISSEAUX",
       "CARTOUCHES"
      ],
-     "explication": "Brûler les étapes, brûler la politesse, brûler ses vaisseaux, brûler ses dernières cartouches."
+     "explication": "Brûler les ÉTAPES, c'est aller trop vite ; brûler la POLITESSE, partir sans saluer ; brûler ses VAISSEAUX, s'interdire tout retour en arrière."
     },
     {
      "categorie": "Mener ___",
@@ -3214,7 +3214,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ENQUÊTE",
       "TRAIN"
      ],
-     "explication": "Mener en bateau, mener sa barque, mener l'enquête, mener grand train."
+     "explication": "Mener quelqu'un en BATEAU, c'est le tromper ; mener sa BARQUE, conduire sa vie ; mener grand TRAIN, vivre dans le luxe. Piège : on monte aussi un BATEAU."
     },
     {
      "categorie": "Monter ___",
@@ -3225,7 +3225,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PLANCHES",
       "ERGOTS"
      ],
-     "explication": "Monter en flèche, monter sur ses grands chevaux, monter sur les planches, monter sur ses ergots. On brûle aussi les planches, on monte un bateau à quelqu'un ou une embuscade, mais une seule répartition utilise les 16 mots."
+     "explication": "Monter sur ses grands CHEVAUX ou sur ses ERGOTS, c'est s'emporter ; monter sur les PLANCHES, faire du théâtre. Piège : on brûle aussi les PLANCHES."
     }
    ],
    "rattachements_plausibles": {
@@ -3257,7 +3257,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CORNICHON",
       "COURGE"
      ],
-     "explication": "Espèce d'andouille, de buse, de cornichon, de courge !"
+     "explication": "Une charcuterie (ANDOUILLE), un rapace (BUSE) et deux légumes (CORNICHON, COURGE) servent aussi à traiter quelqu'un d'idiot : « Espèce d'andouille ! »"
     },
     {
      "categorie": "Oiseaux de proie",
@@ -3268,7 +3268,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CONDOR",
       "CRÉCERELLE"
      ],
-     "explication": "Quatre rapaces. La buse aussi, mais c'est une insulte ici."
+     "explication": "Le CONDOR des Andes est l'un des plus grands oiseaux volants ; la CRÉCERELLE fait du surplace en vol. Piège : BUSE est un rapace, mais ici une insulte."
     },
     {
      "categorie": "Chez le charcutier",
@@ -3279,7 +3279,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHIPOLATA",
       "MORTADELLE"
      ],
-     "explication": "Quatre produits de charcuterie. L'andouille aussi, mais c'est une insulte ici."
+     "explication": "La MORTADELLE vient de Bologne, la CHIPOLATA est une fine saucisse à griller, le CERVELAS une saucisse cuite. Piège : ANDOUILLE est ici une insulte."
     },
     {
      "categorie": "Au potager",
@@ -3290,7 +3290,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PANAIS",
       "RUTABAGA"
      ],
-     "explication": "Quatre légumes du potager. Le cornichon et la courge aussi, mais ce sont des insultes ici."
+     "explication": "Le PANAIS et le RUTABAGA sont des légumes anciens ; de la BLETTE, on mange les côtes et les feuilles. Piège : CORNICHON et COURGE sont ici des insultes."
     }
    ],
    "rattachements_plausibles": {
@@ -3323,7 +3323,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DAVID",
       "RAPHAËL"
      ],
-     "explication": "Jean-François Millet, Georges Braque, Jacques-Louis David, Raphaël."
+     "explication": "MILLET a peint L'Angélus, DAVID Le Sacre de Napoléon ; BRAQUE a inventé le cubisme avec Picasso, RAPHAËL est un maître de la Renaissance."
     },
     {
      "categorie": "Céréales cultivées",
@@ -3334,7 +3334,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SORGHO",
       "SARRASIN"
      ],
-     "explication": "Quatre grains cultivés comme des céréales. Le sarrasin, ou « blé noir », n'est pas une graminée mais une pseudo-céréale (de la famille de l'oseille) ; on le cultive et on le cuisine pourtant comme une céréale. Le millet aussi, mais c'est un peintre ici."
+     "explication": "Le SARRASIN, ou blé noir, sert aux galettes bretonnes mais n'est pas une vraie céréale. Piège : le MILLET en est une aussi, mais c'est ici un peintre."
     },
     {
      "categorie": "Un peu fou",
@@ -3345,7 +3345,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ZINZIN",
       "SIPHONNÉ"
      ],
-     "explication": "Quatre façons familières de dire « un peu fou ». Braque aussi (« il est un peu braque »), mais c'est un peintre ici."
+     "explication": "MABOUL vient d'un mot arabe signifiant « fou ». Piège : BRAQUE veut aussi dire un peu fou (« il est un peu braque »), mais c'est ici un peintre."
     },
     {
      "categorie": "Prénoms masculins",
@@ -3356,7 +3356,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAXIME",
       "BENOÎT"
      ],
-     "explication": "Quatre prénoms. David et Raphaël aussi, mais ce sont des peintres ici."
+     "explication": "THOMAS, JULIEN, MAXIME et BENOÎT (qui signifie « béni ») sont de simples prénoms. Piège : DAVID et RAPHAËL aussi, mais ce sont ici des peintres."
     }
    ],
    "rattachements_plausibles": {
@@ -3391,7 +3391,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ICÔNE",
       "TOILE"
      ],
-     "explication": "Le menu déroulant, l'onglet du navigateur, l'icône d'un programme, la Toile (le Web)."
+     "explication": "Le MENU déroulant, l'ONGLET du navigateur, l'ICÔNE d'une application et la TOILE, autre nom du Web : quatre mots repris par l'informatique."
     },
     {
      "categorie": "Chez le boucher",
@@ -3402,7 +3402,7 @@ window.QUOTIDIEN_VARIANTES = {
       "JARRET",
       "FAUX-FILET"
      ],
-     "explication": "Quatre morceaux de bœuf. L'onglet aussi, mais c'est aussi un mot d'informatique."
+     "explication": "La HAMPE se grille, le JARRET et le PALERON vont dans le pot-au-feu. Piège : ONGLET est aussi un morceau de bœuf à griller, mais il est ici informatique."
     },
     {
      "categorie": "Au restaurant",
@@ -3413,7 +3413,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COUVERT",
       "RÉSERVATION"
      ],
-     "explication": "Quatre choses du restaurant. Le menu aussi, mais c'est aussi un mot d'informatique."
+     "explication": "Le POURBOIRE était à l'origine de l'argent donné « pour boire » un verre. Piège : MENU aussi est au restaurant, mais il sert ici l'informatique."
     },
     {
      "categorie": "Œuvres peintes",
@@ -3424,7 +3424,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TRIPTYQUE",
       "ENLUMINURE"
      ],
-     "explication": "Quatre sortes d'œuvres souvent peintes (retables et triptyques ornent souvent les autels). L'icône et la toile aussi, mais ce sont aussi des mots d'informatique."
+     "explication": "La FRESQUE se peint sur un enduit frais, le TRIPTYQUE compte trois panneaux, l'ENLUMINURE orne les manuscrits. Piège : ICÔNE et TOILE sont informatiques."
     }
    ],
    "rattachements_plausibles": {
@@ -3457,7 +3457,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHOUETTE",
       "COUCOU"
      ],
-     "explication": "Le duc (grand-duc, petit-duc), le pic, la chouette et le coucou sont des oiseaux."
+     "explication": "Le grand-DUC est un hibou, le PIC tambourine sur les troncs, la CHOUETTE chasse la nuit et le COUCOU pond dans le nid des autres."
     },
     {
      "categorie": "Titres de noblesse",
@@ -3468,7 +3468,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BARON",
       "VICOMTE"
      ],
-     "explication": "Quatre titres de noblesse. Le duc aussi, mais c'est aussi un oiseau."
+     "explication": "Dans l'ordre, au-dessus du BARON viennent le VICOMTE, le COMTE puis le MARQUIS. Piège : DUC est un titre encore plus élevé, mais c'est ici un oiseau."
     },
     {
      "categorie": "En montagne",
@@ -3479,7 +3479,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COL",
       "VERSANT"
      ],
-     "explication": "Quatre mots du relief montagneux. Le pic aussi, mais c'est aussi un oiseau."
+     "explication": "Le COL est un passage entre deux sommets, le VERSANT une pente, la CRÊTE une ligne de sommets. Piège : PIC aussi, mais c'est ici un oiseau."
     },
     {
      "categorie": "Exclamations",
@@ -3490,7 +3490,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HOURRA",
       "GÉNIAL"
      ],
-     "explication": "Quatre exclamations. « Chouette ! » et « Coucou ! » aussi, mais ce sont aussi des oiseaux."
+     "explication": "BRAVO et HOURRA saluent un exploit, YOUPI et GÉNIAL crient la joie. Piège : « CHOUETTE ! » et « COUCOU ! » aussi, mais ce sont ici des oiseaux."
     }
    ],
    "rattachements_plausibles": {
@@ -3525,7 +3525,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ZODIAC",
       "JET-SKI"
      ],
-     "explication": "Scotch (le ruban adhésif), Caddie (le chariot), Zodiac (le canot pneumatique) et Jet-Ski (le scooter des mers) sont des marques déposées."
+     "explication": "SCOTCH pour le ruban adhésif, CADDIE pour le chariot, ZODIAC pour le canot pneumatique, JET-SKI pour le scooter des mers : des marques déposées."
     },
     {
      "categorie": "Spiritueux",
@@ -3536,7 +3536,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRAPPA",
       "ABSINTHE"
      ],
-     "explication": "Quatre alcools forts. Le scotch aussi (un whisky écossais), mais c'est surtout une marque de ruban adhésif ici."
+     "explication": "Le CALVADOS est distillé à partir de cidre, l'ARMAGNAC de vin, la GRAPPA de marc de raisin. Piège : SCOTCH est aussi un whisky, mais ici une marque."
     },
     {
      "categorie": "Au golf",
@@ -3547,7 +3547,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PUTTER",
       "SWING"
      ],
-     "explication": "Quatre mots du golf. Le caddie aussi (celui qui porte les clubs), mais c'est surtout une marque de chariot ici."
+     "explication": "Le BUNKER est un obstacle de sable, le PUTTER le club qui fait rouler la balle sur le GREEN. Piège : le CADDIE porte les clubs, mais c'est ici une marque."
     },
     {
      "categorie": "Petites embarcations",
@@ -3558,7 +3558,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHALOUPE",
       "DÉRIVEUR"
      ],
-     "explication": "Quatre petits bateaux. Le zodiac et le jet-ski vont aussi sur l'eau, mais ce sont des marques."
+     "explication": "Le DÉRIVEUR est un petit voilier, la CHALOUPE un canot embarqué sur un navire. Piège : ZODIAC et JET-SKI vont sur l'eau, mais ce sont ici des marques."
     }
    ],
    "rattachements_plausibles": {
@@ -3591,7 +3591,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CALICE",
       "ÉGLISE"
      ],
-     "explication": "él-ÈVE, philo-SOPHIE, c-ALICE, ég-LISE."
+     "explication": "ÉLÈVE finit par ÈVE, PHILOSOPHIE par SOPHIE, CALICE par ALICE et ÉGLISE par LISE : un prénom en dernière partie."
     },
     {
      "categorie": "Au lycée",
@@ -3602,7 +3602,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SURVEILLANT",
       "PERMANENCE"
      ],
-     "explication": "Quatre mots du lycée. L'élève et la philosophie aussi, mais ils finissent par un prénom."
+     "explication": "Le PROVISEUR dirige le lycée ; en PERMANENCE, on travaille entre deux cours. Piège : ÉLÈVE et PHILOSOPHIE aussi, mais ils finissent par ÈVE et SOPHIE."
     },
     {
      "categorie": "Parties d'une fleur",
@@ -3613,7 +3613,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SÉPALE",
       "COROLLE"
      ],
-     "explication": "Quatre parties d'une fleur. Le calice aussi, mais il finit par Alice."
+     "explication": "La COROLLE réunit les pétales, le PISTIL est l'organe femelle, dont l'OVAIRE renferme les ovules. Piège : CALICE, l'ensemble des SÉPALES, finit par ALICE."
     },
     {
      "categorie": "Lieux de culte",
@@ -3624,7 +3624,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MOSQUÉE",
       "SYNAGOGUE"
      ],
-     "explication": "Quatre lieux de culte. L'église aussi, mais elle finit par Lise."
+     "explication": "La MOSQUÉE accueille les musulmans, la SYNAGOGUE les juifs ; CHAPELLE et BASILIQUE sont chrétiennes. Piège : ÉGLISE aussi, mais elle finit par LISE."
     }
    ],
    "rattachements_plausibles": {
@@ -3659,7 +3659,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CONTACT",
       "DOUZE"
      ],
-     "explication": "Clé de voûte, clé de fa, clé de contact, clé de douze."
+     "explication": "La clé de VOÛTE bloque le sommet d'un arc, la clé de FA se lit sur la portée, la clé de DOUZE serre un écrou de 12 mm, la clé de CONTACT démarre."
     },
     {
      "categorie": "Parties d'un vélo",
@@ -3670,7 +3670,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PÉDALE",
       "DÉRAILLEUR"
      ],
-     "explication": "On les trouve sur une bicyclette."
+     "explication": "Le DÉRAILLEUR fait passer la chaîne d'un pignon à l'autre pour changer de vitesse ; GUIDON, SELLE et PÉDALE complètent le vélo."
     },
     {
      "categorie": "Trousse de secours",
@@ -3681,7 +3681,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DÉSINFECTANT",
       "ATTELLE"
      ],
-     "explication": "Pour les premiers soins."
+     "explication": "On nettoie la plaie au DÉSINFECTANT, on la couvre d'une COMPRESSE tenue par du SPARADRAP ; l'ATTELLE immobilise un membre blessé."
     },
     {
      "categorie": "Plats italiens",
@@ -3692,7 +3692,7 @@ window.QUOTIDIEN_VARIANTES = {
       "OSSO-BUCO",
       "GNOCCHIS"
      ],
-     "explication": "Quatre spécialités italiennes."
+     "explication": "Le RISOTTO se fait avec du riz, les GNOCCHIS souvent avec de la pomme de terre, et l'OSSO-BUCO est un jarret de veau mijoté."
     }
    ],
    "rattachements_plausibles": {}
@@ -3712,7 +3712,7 @@ window.QUOTIDIEN_VARIANTES = {
       "KENYA",
       "ÉGYPTE"
      ],
-     "explication": "Quatre pays africains."
+     "explication": "Leurs capitales : Rabat pour le MAROC, Dakar pour le SÉNÉGAL, Nairobi pour le KENYA et Le Caire pour l'ÉGYPTE."
     },
     {
      "categorie": "Fleurs ornementales",
@@ -3723,7 +3723,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CAMÉLIA",
       "HORTENSIA"
      ],
-     "explication": "Quatre fleurs."
+     "explication": "Le DAHLIA vient du Mexique, le CAMÉLIA d'Asie ; la couleur de l'HORTENSIA varie selon l'acidité du sol, du rose au bleu."
     },
     {
      "categorie": "Boissons fraîches",
@@ -3734,7 +3734,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ORANGEADE",
       "GRENADINE"
      ],
-     "explication": "À boire bien frais."
+     "explication": "La GRENADINE est un sirop qu'on allonge d'eau ou de LIMONADE ; l'ORANGEADE est à l'orange, le SODA une boisson gazeuse sucrée."
     },
     {
      "categorie": "Pommes ___",
@@ -3745,7 +3745,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DAUPHINE",
       "SAUTÉES"
      ],
-     "explication": "Pommes frites, pommes vapeur, pommes dauphine, pommes sautées."
+     "explication": "Les pommes DAUPHINE sont des boulettes de purée et de pâte à choux frites ; les pommes VAPEUR cuisent à la vapeur, les SAUTÉES à la poêle."
     }
    ],
    "rattachements_plausibles": {}
@@ -3767,7 +3767,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FRISER",
       "SOUDER"
      ],
-     "explication": "Fer à repasser, fer à cheval, fer à friser, fer à souder."
+     "explication": "Le fer à REPASSER défroisse le linge, le fer à CHEVAL se cloue sous le sabot, le fer à FRISER boucle les cheveux, le fer à SOUDER fait fondre la soudure."
     },
     {
      "categorie": "Soupes",
@@ -3778,7 +3778,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VELOUTÉ",
       "BOUILLON"
      ],
-     "explication": "À servir dans une assiette creuse ou un bol."
+     "explication": "Le GASPACHO andalou se sert froid, le MINESTRONE italien regorge de légumes ; le VELOUTÉ est onctueux, le BOUILLON clair."
     },
     {
      "categorie": "Pays asiatiques",
@@ -3789,7 +3789,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CAMBODGE",
       "MONGOLIE"
      ],
-     "explication": "Quatre pays d'Asie."
+     "explication": "Vientiane (LAOS), Katmandou (NÉPAL), Phnom Penh (CAMBODGE), Oulan-Bator (MONGOLIE). Seul le Cambodge a un accès à la mer."
     },
     {
      "categorie": "Parties d'un arbre",
@@ -3800,7 +3800,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉCORCE",
       "SOUCHE"
      ],
-     "explication": "Du pied jusqu'aux rameaux."
+     "explication": "L'ÉCORCE protège le TRONC ; la SOUCHE est ce qui reste dans le sol, avec les racines, quand l'arbre est coupé."
     }
    ],
    "rattachements_plausibles": {}
@@ -3820,7 +3820,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FRAPPE",
       "COUCHAGE"
      ],
-     "explication": "Sac de nœuds, sac de plage, sac de frappe, sac de couchage."
+     "explication": "Un sac de NŒUDS est une situation embrouillée ; le sac de FRAPPE encaisse les coups des boxeurs, le sac de COUCHAGE sert à dormir."
     },
     {
      "categorie": "Oiseaux de mer",
@@ -3831,7 +3831,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CORMORAN",
       "ALBATROS"
      ],
-     "explication": "Quatre oiseaux du bord de mer."
+     "explication": "Le GOÉLAND est plus grand que la MOUETTE ; le CORMORAN plonge pour pêcher et l'ALBATROS hurleur a la plus grande envergure des oiseaux actuels."
     },
     {
      "categorie": "Trousse de toilette",
@@ -3842,7 +3842,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DÉODORANT",
       "SAVONNETTE"
      ],
-     "explication": "Pour se laver et se préparer."
+     "explication": "La SAVONNETTE est un petit savon, le SHAMPOING lave les cheveux, le DENTIFRICE les dents, et le DÉODORANT combat les odeurs."
     },
     {
      "categorie": "Légumineuses",
@@ -3853,7 +3853,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FÈVE",
       "SOJA"
      ],
-     "explication": "Quatre plantes dont on mange les graines, qui poussent dans des gousses."
+     "explication": "Elles poussent dans des gousses et sont riches en protéines ; le FLAGEOLET est un petit haricot vert pâle, classique avec le gigot."
     }
    ],
    "rattachements_plausibles": {}
@@ -3875,7 +3875,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AOÛT",
       "DÉCEMBRE"
      ],
-     "explication": "Quatre des douze mois."
+     "explication": "FÉVRIER est le seul mois de moins de 30 jours ; AOÛT et DÉCEMBRE en comptent 31, AVRIL 30."
     },
     {
      "categorie": "Vêtements du quotidien",
@@ -3886,7 +3886,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GILET",
       "BLOUSON"
      ],
-     "explication": "Des vêtements de tous les jours."
+     "explication": "Le GILET se boutonne devant, alors que le PULL s'enfile par la tête ; le BLOUSON est une veste courte, la JUPE un classique."
     },
     {
      "categorie": "Moyens de transport",
@@ -3897,7 +3897,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SCOOTER",
       "AUTOCAR"
      ],
-     "explication": "Pour se déplacer."
+     "explication": "L'HÉLICOPTÈRE vole grâce à ses pales, le TÉLÉPHÉRIQUE est suspendu à un câble, l'AUTOCAR relie les villes et le SCOOTER se faufile."
     },
     {
      "categorie": "Espaces de la maison",
@@ -3908,7 +3908,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COULOIR",
       "VÉRANDA"
      ],
-     "explication": "Des parties de la maison."
+     "explication": "La CAVE est sous la maison, la VÉRANDA est une pièce vitrée, le COULOIR relie les pièces et le GARAGE abrite la voiture."
     }
    ],
    "rattachements_plausibles": {}
@@ -3928,7 +3928,7 @@ window.QUOTIDIEN_VARIANTES = {
       "QUINZE",
       "VINGT"
      ],
-     "explication": "Quatre nombres écrits en lettres."
+     "explication": "SEPT et ONZE sont des nombres premiers ; QUINZE vaut trois fois cinq, et VINGT sert de base à quatre-vingts."
     },
     {
      "categorie": "Petites bêtes du jardin",
@@ -3939,7 +3939,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CLOPORTE",
       "MILLE-PATTES"
      ],
-     "explication": "On les croise sous une pierre ou sur une feuille."
+     "explication": "Le CLOPORTE n'est pas un insecte mais un crustacé ; le LOMBRIC est le ver de terre, et le PUCERON suce la sève des plantes."
     },
     {
      "categorie": "À la plage",
@@ -3950,7 +3950,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SEAU",
       "MAILLOT"
      ],
-     "explication": "Pour une journée au bord de la mer."
+     "explication": "Le PARASOL protège du soleil, les TONGS du sable brûlant, le SEAU sert aux châteaux de sable et le MAILLOT à la baignade."
     },
     {
      "categorie": "Pays européens",
@@ -3961,7 +3961,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GRÈCE",
       "POLOGNE"
      ],
-     "explication": "Quatre pays d'Europe."
+     "explication": "Leurs capitales : Vienne pour l'AUTRICHE, Dublin pour l'IRLANDE, Athènes pour la GRÈCE et Varsovie pour la POLOGNE."
     }
    ],
    "rattachements_plausibles": {}
@@ -3983,7 +3983,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VŒUX",
       "MEMBRE"
      ],
-     "explication": "Carte de crédit, carte de fidélité, carte de vœux, carte de membre."
+     "explication": "La carte de FIDÉLITÉ donne des avantages en magasin, la carte de VŒUX souhaite la bonne année, la carte de MEMBRE prouve qu'on adhère à un club."
     },
     {
      "categorie": "Dans l'espace",
@@ -3994,7 +3994,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GALAXIE",
       "ASTÉROÏDE"
      ],
-     "explication": "Tout là-haut, au-delà du ciel."
+     "explication": "Notre GALAXIE s'appelle la Voie lactée ; l'ASTÉROÏDE est un petit corps rocheux, et l'ASTRONAUTE part à bord d'une FUSÉE."
     },
     {
      "categorie": "Au camping",
@@ -4005,7 +4005,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DUVET",
       "HAMAC"
      ],
-     "explication": "Pour les vacances en plein air."
+     "explication": "La GLACIÈRE garde les boissons au frais, le DUVET est un sac de couchage, la CARAVANE une maison tractée ; le HAMAC se tend entre deux arbres."
     },
     {
      "categorie": "À la boulangerie",
@@ -4016,7 +4016,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHOUQUETTE",
       "TARTELETTE"
      ],
-     "explication": "On les achète chez le boulanger."
+     "explication": "La CHOUQUETTE est un petit chou couvert de sucre en grains ; le CHAUSSON aux pommes est une pâte feuilletée en demi-cercle garnie de compote."
     }
    ],
    "rattachements_plausibles": {}
@@ -4036,7 +4036,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DÉTRESSE",
       "BENGALE"
      ],
-     "explication": "Feu de cheminée, feu de forêt, feu de détresse, feu de Bengale."
+     "explication": "Les feux de DÉTRESSE allument tous les clignotants en même temps ; le feu de BENGALE est une flamme colorée de fête ou de signalisation."
     },
     {
      "categorie": "Pour faire cuire",
@@ -4047,7 +4047,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FAITOUT",
       "SAUTEUSE"
      ],
-     "explication": "Quatre récipients de cuisson."
+     "explication": "Le WOK vient d'Asie, la SAUTEUSE sert à faire revenir à feu vif, et le FAITOUT, comme son nom l'indique, sert à presque tout cuire."
     },
     {
      "categorie": "Commerçants",
@@ -4058,7 +4058,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POISSONNIER",
       "FROMAGER"
      ],
-     "explication": "Ils tiennent une boutique."
+     "explication": "Le FLEURISTE vend des fleurs, le CHARCUTIER le porc préparé, le POISSONNIER le poisson et le FROMAGER les fromages : chacun sa boutique."
     },
     {
      "categorie": "Jouets",
@@ -4069,7 +4069,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PANTIN",
       "HOCHET"
      ],
-     "explication": "Pour jouer quand on est petit."
+     "explication": "Le HOCHET fait du bruit quand bébé l'agite ; le PANTIN bouge bras et jambes quand on tire un fil, la MARIONNETTE s'anime à la main ou aux fils."
     }
    ],
    "rattachements_plausibles": {}
@@ -4091,7 +4091,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VOISINS",
       "LUMIÈRES"
      ],
-     "explication": "Fête des mères, fête des pères, fête des voisins, fête des Lumières (à Lyon)."
+     "explication": "La fête des LUMIÈRES illumine Lyon chaque mois de décembre ; la fête des VOISINS invite les habitants d'un immeuble ou d'un quartier à partager un repas."
     },
     {
      "categorie": "Capitales",
@@ -4102,7 +4102,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ATHÈNES",
       "VARSOVIE"
      ],
-     "explication": "Les capitales de l'Allemagne, du Royaume-Uni, de la Grèce et de la Pologne."
+     "explication": "BERLIN (Allemagne), LONDRES (Royaume-Uni), ATHÈNES (Grèce) et VARSOVIE (Pologne). Athènes a accueilli les premiers Jeux olympiques modernes en 1896."
     },
     {
      "categorie": "Jeux",
@@ -4113,7 +4113,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LOTO",
       "BINGO"
      ],
-     "explication": "Pour jouer seul ou à plusieurs."
+     "explication": "Le MORPION se joue à deux avec des croix et des ronds, le PUZZLE seul ou en famille ; au LOTO comme au BINGO, on coche les numéros tirés."
     },
     {
      "categorie": "Outils du bricoleur",
@@ -4124,7 +4124,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BURIN",
       "PONCEUSE"
      ],
-     "explication": "Quatre outils de l'atelier."
+     "explication": "Le RABOT aplanit le bois, l'ÉTAU serre la pièce à travailler, le BURIN taille le métal ou la pierre, la PONCEUSE lisse les surfaces."
     }
    ],
    "rattachements_plausibles": {}
@@ -4144,7 +4144,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MOTTE",
       "ARMÉE"
      ],
-     "explication": "Ver de terre, tremblement de terre, motte de terre, armée de terre."
+     "explication": "Le VER de terre aère le sol, le TREMBLEMENT de terre le secoue, une MOTTE de terre en est un petit bloc et l'ARMÉE de terre combat au sol."
     },
     {
      "categorie": "Félins sauvages",
@@ -4155,7 +4155,7 @@ window.QUOTIDIEN_VARIANTES = {
       "OCELOT",
       "SERVAL"
      ],
-     "explication": "Quatre félins sauvages."
+     "explication": "Le JAGUAR, le PUMA et l'OCELOT vivent en Amérique ; le SERVAL, reconnaissable à ses grandes oreilles, vit en Afrique."
     },
     {
      "categorie": "Vêtements d'hiver",
@@ -4166,7 +4166,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MOUFLES",
       "CAGOULE"
      ],
-     "explication": "Pour avoir chaud quand il fait froid."
+     "explication": "L'ANORAK vient des Inuits ; les MOUFLES ne séparent que le pouce des autres doigts, et la CAGOULE couvre la tête et le cou."
     },
     {
      "categorie": "Parties d'un livre",
@@ -4177,7 +4177,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PRÉFACE",
       "RELIURE"
      ],
-     "explication": "On les trouve dans un livre ou sur sa couverture."
+     "explication": "La PRÉFACE ouvre le livre, le SOMMAIRE liste les CHAPITRES, et la RELIURE assemble les pages sous la couverture."
     }
    ],
    "rattachements_plausibles": {}
@@ -4199,7 +4199,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VEINE",
       "TENUE"
      ],
-     "explication": "Avoir de la jugeote, avoir de la conversation, avoir de la veine, avoir de la tenue."
+     "explication": "Avoir de la JUGEOTE, c'est avoir du bon sens ; de la VEINE, de la chance ; de la CONVERSATION, savoir discuter ; de la TENUE, bien se tenir."
     },
     {
      "categorie": "Ils ont un noyau",
@@ -4210,7 +4210,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ATOME",
       "CELLULE"
      ],
-     "explication": "Le noyau de la quetsche et du brugnon… et celui de l'atome et de la cellule."
+     "explication": "La QUETSCHE (une prune) et le BRUGNON (proche de la nectarine) ont un noyau, tout comme l'ATOME et la CELLULE au sens scientifique."
     },
     {
      "categorie": "Races de chats",
@@ -4221,7 +4221,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHARTREUX",
       "SPHYNX"
      ],
-     "explication": "Quatre races de chats. Le chartreux est aussi un moine, mais les religieux sont déjà quatre."
+     "explication": "Le SPHYNX est presque sans poils, le PERSAN a le poil long, le CHARTREUX un pelage gris-bleu. Piège : CHARTREUX désigne aussi un moine."
     },
     {
      "categorie": "Membres d'un ordre religieux",
@@ -4232,7 +4232,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FRANCISCAIN",
       "DOMINICAIN"
      ],
-     "explication": "Des religieux de l'ordre de saint Benoît, de la Trappe, de saint François et de saint Dominique. Le chartreux aussi, mais il est pris par les chats."
+     "explication": "Le BÉNÉDICTIN suit saint Benoît, le FRANCISCAIN saint François d'Assise, le DOMINICAIN saint Dominique ; le TRAPPISTE est moine de la Trappe."
     }
    ],
    "rattachements_plausibles": {
@@ -4256,7 +4256,7 @@ window.QUOTIDIEN_VARIANTES = {
       "POULS",
       "MAQUIS"
      ],
-     "explication": "Prendre le large, prendre le frais, prendre le pouls, prendre le maquis."
+     "explication": "Prendre le LARGE, c'est s'en aller ; prendre le MAQUIS, entrer dans la clandestinité ; prendre le POULS, compter les battements du cœur. Piège : MAQUIS est aussi une végétation."
     },
     {
      "categorie": "Ils ont des piquants",
@@ -4267,7 +4267,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HOUX",
       "AUBÉPINE"
      ],
-     "explication": "Le hérisson, la châtaigne (dans sa bogue), le houx et l'aubépine piquent."
+     "explication": "Le HÉRISSON a des piquants, la CHÂTAIGNE une bogue hérissée, le HOUX des feuilles piquantes et l'AUBÉPINE des épines."
     },
     {
      "categorie": "Personnages de contes",
@@ -4278,7 +4278,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BLANCHE-NEIGE",
       "BARBE-BLEUE"
      ],
-     "explication": "Des héros de contes de Perrault et des frères Grimm."
+     "explication": "CENDRILLON se lit chez Perrault comme chez Grimm ; BLANCHE-NEIGE et RAIPONCE figurent dans les contes des frères Grimm, BARBE-BLEUE chez Perrault."
     },
     {
      "categorie": "Types de végétation",
@@ -4289,7 +4289,7 @@ window.QUOTIDIEN_VARIANTES = {
       "STEPPE",
       "TOUNDRA"
      ],
-     "explication": "Quatre formations végétales. Le maquis aussi, mais il est pris par « prendre le maquis »."
+     "explication": "La GARRIGUE pousse sur les sols calcaires méditerranéens, la TOUNDRA sur les terres glacées du Grand Nord ; la STEPPE est une vaste plaine d'herbes."
     }
    ],
    "rattachements_plausibles": {
@@ -4315,7 +4315,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BARYTON",
       "ALTO"
      ],
-     "explication": "Quatre tessitures de chanteurs. L'alto est aussi un instrument à cordes, mais il faut quatre voix."
+     "explication": "La SOPRANO est la voix féminine la plus aiguë, le TÉNOR la voix d'homme aiguë, le BARYTON une voix d'homme médiane. Piège : ALTO est aussi un instrument."
     },
     {
      "categorie": "Instruments à cordes",
@@ -4326,7 +4326,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BALALAÏKA",
       "BOUZOUKI"
      ],
-     "explication": "Quatre instruments à cordes. La mandoline est aussi un ustensile, mais elle est prise ici."
+     "explication": "La BALALAÏKA russe a une caisse triangulaire, le BOUZOUKI vient de Grèce, le UKULÉLÉ d'Hawaï. Piège : MANDOLINE est aussi un ustensile de cuisine."
     },
     {
      "categorie": "Ustensiles du cuisinier",
@@ -4337,7 +4337,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ZESTEUR",
       "HACHOIR"
      ],
-     "explication": "Ils servent en cuisine. La mandoline aussi, mais elle est prise par les instruments."
+     "explication": "L'ÉCONOME épluche les légumes en ôtant peu de peau, le ZESTEUR prélève l'écorce des agrumes, le HACHOIR coupe menu et le PRESSE-AIL écrase l'ail."
     },
     {
      "categorie": "Faire un ___",
@@ -4348,7 +4348,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FLOP",
       "TRIOMPHE"
      ],
-     "explication": "Faire un tabac, faire un bide, faire un flop, faire un triomphe : réussir ou échouer."
+     "explication": "Faire un TABAC ou un TRIOMPHE, c'est avoir un énorme succès ; faire un BIDE ou un FLOP, c'est échouer complètement."
     }
    ],
    "rattachements_plausibles": {
@@ -4375,7 +4375,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BÉTON",
       "MORTIER"
      ],
-     "explication": "Le maçon les utilise. Le mortier est aussi une pièce d'artillerie, mais il est pris ici."
+     "explication": "Le BÉTON mêle CIMENT, sable, gravier et eau ; le MORTIER, sans gravier, lie les briques et les pierres. Piège : MORTIER est aussi une arme."
     },
     {
      "categorie": "Armes à feu",
@@ -4386,7 +4386,7 @@ window.QUOTIDIEN_VARIANTES = {
       "REVOLVER",
       "CARABINE"
      ],
-     "explication": "Quatre armes à feu. Le mortier et le canon aussi, mais ils sont pris ailleurs."
+     "explication": "Le REVOLVER doit son nom à son barillet qui tourne ; la CARABINE est un fusil court et léger. FUSIL et PISTOLET complètent ces armes à feu."
     },
     {
      "categorie": "Pièces d'une arme à feu",
@@ -4397,7 +4397,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GÂCHETTE",
       "CULASSE"
      ],
-     "explication": "Le canon, la crosse, la gâchette et la culasse d'un fusil. Le canon est aussi une arme, mais il faut quatre pièces."
+     "explication": "La CROSSE s'appuie contre l'épaule, la GÂCHETTE déclenche le tir, la CULASSE ferme l'arrière du CANON. Piège : CANON désigne aussi une arme."
     },
     {
      "categorie": "Tenir le ___",
@@ -4408,7 +4408,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CRACHOIR",
       "CAP"
      ],
-     "explication": "Tenir le coup, tenir le choc, tenir le crachoir, tenir le cap."
+     "explication": "Tenir le CRACHOIR, c'est monopoliser la parole ; tenir le CAP, garder sa direction ; tenir le COUP ou le CHOC, résister."
     }
    ],
    "rattachements_plausibles": {
@@ -4437,7 +4437,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CROCS",
       "NERFS"
      ],
-     "explication": "Avoir les boules, avoir les chocottes, avoir les crocs, avoir les nerfs."
+     "explication": "Avoir les BOULES ou les NERFS, c'est être énervé ou dépité ; avoir les CHOCOTTES, avoir peur ; avoir les CROCS, avoir très faim."
     },
     {
      "categorie": "Pour faire un feu",
@@ -4448,7 +4448,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BRIQUET",
       "BÛCHE"
      ],
-     "explication": "On s'en sert pour allumer ou entretenir un feu. La bûche est aussi un dessert, mais elle est prise ici."
+     "explication": "On allume avec une ALLUMETTE ou un BRIQUET, on démarre avec des BRINDILLES et on entretient avec des BÛCHES. Piège : BÛCHE est aussi un dessert de Noël."
     },
     {
      "categorie": "Desserts au chocolat",
@@ -4459,7 +4459,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PROFITEROLES",
       "FORÊT-NOIRE"
      ],
-     "explication": "Quatre desserts au chocolat. La bûche en est souvent un, mais elle est prise par le feu."
+     "explication": "Les PROFITEROLES sont des choux nappés de chocolat chaud ; la FORÊT-NOIRE, gâteau allemand, marie chocolat, crème et cerises."
     },
     {
      "categorie": "Épreuves d'athlétisme",
@@ -4470,7 +4470,7 @@ window.QUOTIDIEN_VARIANTES = {
       "HAIES",
       "DÉCATHLON"
      ],
-     "explication": "Quatre épreuves d'athlétisme."
+     "explication": "Le MARATHON fait 42,195 km ; le DÉCATHLON enchaîne dix épreuves sur deux jours, dont le JAVELOT et le 110 m HAIES."
     }
    ],
    "rattachements_plausibles": {
@@ -4494,7 +4494,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LA",
       "SIGNAL"
      ],
-     "explication": "Donner le change, donner le ton, donner le la, donner le signal. Le ton est aussi une teinte, mais il est pris ici."
+     "explication": "Donner le CHANGE, c'est tromper sur ses intentions ; donner le LA, la note qui accorde l'orchestre ; donner le SIGNAL, lancer. Piège : TON est aussi une teinte."
     },
     {
      "categorie": "Synonymes de couleur",
@@ -4505,7 +4505,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COLORIS",
       "TONALITÉ"
      ],
-     "explication": "Quatre mots pour parler d'une couleur. Le ton aussi, mais il est pris par « donner le ton »."
+     "explication": "On parle d'une NUANCE de bleu, d'une TEINTE claire, d'un COLORIS à la mode ou d'une TONALITÉ chaude pour décrire une couleur."
     },
     {
      "categorie": "De la famille du chien",
@@ -4516,7 +4516,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FENNEC",
       "DINGO"
      ],
-     "explication": "Quatre canidés sauvages."
+     "explication": "Le FENNEC, renard du désert, a d'immenses oreilles ; le COYOTE vit en Amérique du Nord, le DINGO en Australie, le CHACAL en Afrique et en Asie."
     },
     {
      "categorie": "Poissons d'eau douce",
@@ -4527,7 +4527,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GARDON",
       "CARPE"
      ],
-     "explication": "Ils vivent en rivière ou en étang."
+     "explication": "Le BROCHET et le SANDRE sont des carnassiers prisés des pêcheurs ; la CARPE et le GARDON appartiennent à la famille des cyprinidés."
     }
    ],
    "rattachements_plausibles": {
@@ -4553,7 +4553,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CAPELINE",
       "CLOCHE"
      ],
-     "explication": "Quatre chapeaux : la cloche est un chapeau de femme."
+     "explication": "Le CANOTIER est en paille rigide, la CAPELINE a de larges bords, la CLOCHE emboîte la tête. Piège : CLOCHE sonne aussi, à l'église."
     },
     {
      "categorie": "Ils sonnent",
@@ -4564,7 +4564,7 @@ window.QUOTIDIEN_VARIANTES = {
       "KLAXON",
       "CARILLON"
      ],
-     "explication": "Ils font du bruit pour prévenir. La cloche aussi, mais elle est prise par les chapeaux."
+     "explication": "KLAXON est à l'origine une marque ; le CARILLON est un ensemble de cloches. Piège : CARILLON se trouve aussi à l'église."
     },
     {
      "categorie": "À l'église",
@@ -4575,7 +4575,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VITRAIL",
       "CHAIRE"
      ],
-     "explication": "On les trouve dans une église. La cloche et le carillon aussi, mais ils sont pris."
+     "explication": "On trempe ses doigts dans le BÉNITIER, le prêtre prêche du haut de la CHAIRE et entend les péchés au CONFESSIONNAL ; le VITRAIL colore la lumière."
     },
     {
      "categorie": "Être au ___",
@@ -4586,7 +4586,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COURANT",
       "REGRET"
      ],
-     "explication": "Être au parfum, être au taquet, être au courant, être au regret."
+     "explication": "Être au PARFUM, c'est être dans la confidence ; au TAQUET, donner tout ; au REGRET, désolé ; au COURANT, informé."
     }
    ],
    "rattachements_plausibles": {
@@ -4614,7 +4614,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MÉLASSE",
       "CONFIDENCE"
      ],
-     "explication": "Être dans la lune, être dans la panade, être dans la mélasse, être dans la confidence."
+     "explication": "Être dans la LUNE, c'est rêvasser ; dans la PANADE ou la MÉLASSE, avoir des ennuis ; dans la CONFIDENCE, partager un secret."
     },
     {
      "categorie": "Mensonges, sornettes",
@@ -4625,7 +4625,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BALIVERNE",
       "PIPEAU"
      ],
-     "explication": "Un bobard, une craque, une baliverne, du pipeau : des choses fausses. Le pipeau est aussi une petite flûte, mais il est pris ici."
+     "explication": "Raconter des BOBARDS ou des CRAQUES, c'est mentir ; « c'est du PIPEAU » veut dire que c'est faux. Piège : PIPEAU est aussi une petite flûte."
     },
     {
      "categorie": "Instruments où l'on souffle",
@@ -4636,7 +4636,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FIFRE",
       "BINIOU"
      ],
-     "explication": "On souffle dedans pour jouer. Le pipeau aussi, mais il est pris par les mensonges."
+     "explication": "Le BINIOU est une cornemuse bretonne, le PICCOLO une petite flûte très aiguë, le FIFRE une flûte militaire, le CLAIRON sonne aux armées."
     },
     {
      "categorie": "Châteaux célèbres",
@@ -4647,7 +4647,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHENONCEAU",
       "FONTAINEBLEAU"
      ],
-     "explication": "Quatre châteaux français célèbres."
+     "explication": "CHAMBORD et CHENONCEAU sont des châteaux de la Loire, CHENONCEAU enjambant le Cher ; VERSAILLES et FONTAINEBLEAU sont en Île-de-France."
     }
    ],
    "rattachements_plausibles": {
@@ -4673,7 +4673,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CITROUILLE",
       "FIOLE"
      ],
-     "explication": "Quatre mots familiers pour la tête (« se payer la fiole de quelqu'un »)."
+     "explication": "« Se payer la FIOLE de quelqu'un », c'est se moquer de lui. Piège : CITROUILLE est aussi une courge et FIOLE de la verrerie, mais ici c'est la tête."
     },
     {
      "categorie": "Courges",
@@ -4684,7 +4684,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BUTTERNUT",
       "POTIRON"
      ],
-     "explication": "Quatre courges. La citrouille en est une aussi, mais elle est prise."
+     "explication": "Le POTIMARRON a un goût de châtaigne, le PÂTISSON une forme de soucoupe, la BUTTERNUT une forme de poire ; le POTIRON est le plus gros."
     },
     {
      "categorie": "Verrerie de laboratoire",
@@ -4695,7 +4695,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BÉCHER",
       "BURETTE"
      ],
-     "explication": "Le matériel en verre du chimiste. La fiole aussi, mais elle est prise par la tête."
+     "explication": "La PIPETTE et la BURETTE mesurent des volumes précis de liquide, le BÉCHER est un gobelet à bec verseur, l'ÉPROUVETTE un tube."
     },
     {
      "categorie": "Rentrer dans le ___",
@@ -4706,7 +4706,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DÉCOR",
       "TAS"
      ],
-     "explication": "Rentrer dans le rang, rentrer dans le lard, rentrer dans le décor, rentrer dans le tas."
+     "explication": "Rentrer dans le RANG, c'est se soumettre ; dans le LARD ou dans le TAS, attaquer sans retenue ; dans le DÉCOR, sortir de la route."
     }
    ],
    "rattachements_plausibles": {
@@ -4733,7 +4733,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TATANES",
       "POMPES"
      ],
-     "explication": "Quatre mots familiers pour les chaussures. Les pompes sont aussi un exercice, mais elles sont prises ici."
+     "explication": "GODASSES, GROLLES, TATANES et POMPES désignent toutes des chaussures en argot. Piège : les POMPES sont aussi un exercice de musculation."
     },
     {
      "categorie": "À la salle de sport",
@@ -4744,7 +4744,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GAINAGE",
       "FENTES"
      ],
-     "explication": "Ce qu'on fait à la salle de sport. Les pompes et la séance aussi, mais elles sont prises."
+     "explication": "Les TRACTIONS font monter le menton au-dessus d'une barre, le GAINAGE renforce la sangle abdominale, les FENTES travaillent les jambes."
     },
     {
      "categorie": "Au cinéma",
@@ -4755,7 +4755,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SÉANCE",
       "GÉNÉRIQUE"
      ],
-     "explication": "Ce qu'on trouve au cinéma. La séance existe aussi à la salle de sport, et le générique à la pharmacie, mais ils sont pris ici."
+     "explication": "La BANDE-ANNONCE présente un film à venir, le GÉNÉRIQUE liste ceux qui l'ont fait. Piège : SÉANCE de sport et médicament GÉNÉRIQUE existent aussi."
     },
     {
      "categorie": "À la pharmacie",
@@ -4766,7 +4766,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COLLYRE",
       "SUPPOSITOIRE"
      ],
-     "explication": "Un médicament générique aussi, mais le générique est pris par le cinéma."
+     "explication": "L'ORDONNANCE est la prescription du médecin, le COLLYRE se met dans les yeux, le PANSEMENT protège une plaie."
     }
    ],
    "rattachements_plausibles": {
@@ -4798,7 +4798,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AGIOS",
       "BIJOU"
      ],
-     "explication": "F-I-L-O-U, C-H-I-O-T, A-G-I-O-S, B-I-J-O-U : chaque lettre vient après la précédente dans l'alphabet."
+     "explication": "Dans FILOU, CHIOT, AGIOS et BIJOU, les lettres sont rangées dans l'ordre de l'alphabet : F-I-L-O-U. Piège : FILOU est une canaille, CHIOT un petit, AGIOS un mot de banque."
     },
     {
      "categorie": "Canailles",
@@ -4809,7 +4809,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHENAPAN",
       "GREDIN"
      ],
-     "explication": "Quatre mauvais sujets. Le filou aussi, mais ses lettres sont dans l'ordre alphabétique."
+     "explication": "Un VAURIEN, littéralement, ne vaut rien ; CHENAPAN, FRIPOUILLE et GREDIN désignent aussi un mauvais sujet. Piège : FILOU en est un aussi."
     },
     {
      "categorie": "Petits d'animaux",
@@ -4820,7 +4820,7 @@ window.QUOTIDIEN_VARIANTES = {
       "OURSON",
       "LOUVETEAU"
      ],
-     "explication": "Les petits du lion, du sanglier, de l'ours et du loup. Le chiot aussi, mais ses lettres sont dans l'ordre alphabétique."
+     "explication": "Le MARCASSIN est le petit du sanglier, le LOUVETEAU celui du loup, le LIONCEAU du lion et l'OURSON de l'ours. Piège : CHIOT aussi."
     },
     {
      "categorie": "À la banque",
@@ -4831,7 +4831,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHÉQUIER",
       "PRÊT"
      ],
-     "explication": "Le vocabulaire de la banque. Les agios aussi, mais leurs lettres sont dans l'ordre alphabétique."
+     "explication": "Être à DÉCOUVERT, c'est avoir un compte en négatif ; le VIREMENT transfère de l'argent d'un compte à un autre. Piège : AGIOS aussi."
     }
    ],
    "rattachements_plausibles": {
@@ -4861,7 +4861,7 @@ window.QUOTIDIEN_VARIANTES = {
       "TULLE",
       "COGNAC"
      ],
-     "explication": "Vannes (Morbihan), Vichy (Allier), Tulle (Corrèze), Cognac (Charente)."
+     "explication": "VANNES (Morbihan), VICHY (Allier), TULLE (Corrèze), COGNAC (Charente). Piège : les VANNES sont des blagues, VICHY et TULLE des tissus, COGNAC un alcool."
     },
     {
      "categorie": "Plaisanteries",
@@ -4872,7 +4872,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CALEMBOUR",
       "CANULAR"
      ],
-     "explication": "Des vannes aussi, mais Vannes est une ville."
+     "explication": "Le CALEMBOUR est un jeu de mots sur les sons, le CANULAR une farce montée de toutes pièces, la BOUTADE un trait d'esprit."
     },
     {
      "categorie": "Textiles",
@@ -4883,7 +4883,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MOLLETON",
       "POPELINE"
      ],
-     "explication": "Quatre tissus. Le vichy et le tulle aussi, mais ce sont des villes."
+     "explication": "La FLANELLE et le MOLLETON sont doux et chauds, le TAFFETAS est un tissu brillant et raide, la POPELINE sert à faire des chemises."
     },
     {
      "categorie": "Spiritueux",
@@ -4894,7 +4894,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MEZCAL",
       "OUZO"
      ],
-     "explication": "Quatre alcools forts. Le cognac aussi, mais c'est une ville."
+     "explication": "Le KIRSCH est une eau-de-vie de cerise, le MEZCAL est tiré de l'agave au Mexique, et l'OUZO grec est parfumé à l'anis."
     }
    ],
    "rattachements_plausibles": {
@@ -4929,7 +4929,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHAMAN",
       "BAZAR"
      ],
-     "explication": "Cancan, lambada, chaman, bazar : aucune autre voyelle que le a."
+     "explication": "CANCAN, LAMBADA, CHAMAN et BAZAR n'ont pas d'autre voyelle que le A. Piège : CANCAN et LAMBADA sont des danses, CHAMAN un magicien, BAZAR un désordre."
     },
     {
      "categorie": "Ça se danse",
@@ -4940,7 +4940,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MAZURKA",
       "MENUET"
      ],
-     "explication": "Quatre danses. Le cancan et la lambada aussi, mais ils n'ont que des a."
+     "explication": "La MAZURKA vient de Pologne, le BOLÉRO d'Espagne, le MENUET de la cour de France au XVIIe siècle ; le TWIST a fait fureur dans les années 1960."
     },
     {
      "categorie": "Ils pratiquent la magie",
@@ -4951,7 +4951,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DRUIDE",
       "MAGICIEN"
      ],
-     "explication": "Le chaman aussi, mais il n'a que des a."
+     "explication": "Le DRUIDE était le prêtre des Gaulois, comme Panoramix ; le MARABOUT est un guérisseur ou devin en Afrique de l'Ouest."
     },
     {
      "categorie": "Grand désordre",
@@ -4962,7 +4962,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PAGAILLE",
       "CAPHARNAÜM"
      ],
-     "explication": "Le bazar aussi, mais il n'a que des a."
+     "explication": "CAPHARNAÜM est le nom d'une ville de Galilée citée dans les Évangiles, devenu en français synonyme de grand désordre."
     }
    ],
    "rattachements_plausibles": {
@@ -4995,7 +4995,7 @@ window.QUOTIDIEN_VARIANTES = {
       "STOP",
       "ÉTAPE"
      ],
-     "explication": "Émir → rime, snob → bons, stop → pots, étape → épate (accents mis à part)."
+     "explication": "À l'envers, ÉMIR donne RIME, SNOB donne BONS, STOP donne POTS et ÉTAPE donne ÉPATE, si l'on ne tient pas compte des accents."
     },
     {
      "categorie": "Souverains",
@@ -5006,7 +5006,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PHARAON",
       "MAHARADJA"
      ],
-     "explication": "L'émir aussi, mais il donne « rime » à l'envers."
+     "explication": "Le SULTAN régnait sur l'Empire ottoman, le TSAR sur la Russie, le PHARAON sur l'Égypte antique et le MAHARADJA en Inde. Piège : ÉMIR aussi."
     },
     {
      "categorie": "Qui se croit supérieur",
@@ -5017,7 +5017,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VANITEUX",
       "PRÉTENTIEUX"
      ],
-     "explication": "Le snob aussi, mais il donne « bons » à l'envers."
+     "explication": "Le VANITEUX est fier de lui, le PRÉTENTIEUX se croit plus qu'il n'est. Piège : SNOB aussi, mais à l'envers il donne BONS."
     },
     {
      "categorie": "Arrêts",
@@ -5028,7 +5028,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PAUSE",
       "RÉPIT"
      ],
-     "explication": "Le stop et l'étape aussi, mais ils donnent « pots » et « épate » à l'envers."
+     "explication": "L'ESCALE est un arrêt en cours de voyage, le RÉPIT une pause dans une épreuve. Piège : STOP et ÉTAPE aussi, mais ils se lisent à l'envers."
     }
    ],
    "rattachements_plausibles": {
@@ -5063,7 +5063,7 @@ window.QUOTIDIEN_VARIANTES = {
       "GLOTTE",
       "ÉCAILLE"
      ],
-     "explication": "éMULE, cOURS, gLOTTE, éCAILLE : la mule, l'ours, la lotte, la caille."
+     "explication": "Sans leur première lettre, ÉMULE donne MULE, COURS donne OURS, GLOTTE donne LOTTE et ÉCAILLE donne CAILLE."
     },
     {
      "categorie": "Ceux qui suivent un maître",
@@ -5074,7 +5074,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PARTISAN",
       "APÔTRE"
      ],
-     "explication": "L'émule aussi, mais sans son é il donne une mule."
+     "explication": "Les APÔTRES sont les douze disciples de Jésus ; le PARTISAN soutient une cause, l'ADEPTE suit une doctrine. Piège : ÉMULE aussi, mais il cache une MULE."
     },
     {
      "categorie": "À l'école",
@@ -5085,7 +5085,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DICTÉE",
       "BUVARD"
      ],
-     "explication": "Le cours aussi, mais sans son c il donne un ours."
+     "explication": "Le BUVARD absorbait l'encre en trop sur les cahiers ; le PUPITRE est la table de l'écolier. Piège : COURS aussi, mais sans son C c'est un OURS."
     },
     {
      "categorie": "Dans la gorge",
@@ -5096,7 +5096,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AMYGDALES",
       "LUETTE"
      ],
-     "explication": "La glotte aussi, mais sans son g elle donne une lotte."
+     "explication": "Le LARYNX abrite les cordes vocales, la LUETTE pend au fond du palais. Piège : GLOTTE est aussi dans la gorge, mais sans son G c'est une LOTTE."
     }
    ],
    "rattachements_plausibles": {
@@ -5126,7 +5126,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHARPENTE",
       "CORNICHE"
      ],
-     "explication": "mORGUE, inTUBAtion, cHARPEnte, CORniche : l'orgue, le tuba, la harpe, le cor."
+     "explication": "MORGUE cache l'ORGUE, INTUBATION le TUBA, CHARPENTE la HARPE et CORNICHE le COR : un instrument dans chaque mot."
     },
     {
      "categorie": "À l'hôpital",
@@ -5137,7 +5137,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PERFUSION",
       "SCANNER"
      ],
-     "explication": "La morgue et l'intubation aussi, mais elles cachent un orgue et un tuba."
+     "explication": "Le BRANCARD transporte le patient, la PERFUSION lui injecte un liquide goutte à goutte. Piège : MORGUE et INTUBATION cachent un ORGUE et un TUBA."
     },
     {
      "categorie": "Toiture",
@@ -5148,7 +5148,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHEVRON",
       "POUTRE"
      ],
-     "explication": "La charpente et la corniche aussi, mais elles cachent une harpe et un cor."
+     "explication": "La GOUTTIÈRE recueille l'eau de pluie, les CHEVRONS soutiennent la couverture. Piège : CHARPENTE et CORNICHE cachent une HARPE et un COR."
     },
     {
      "categorie": "Pour pêcher",
@@ -5159,7 +5159,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHALUT",
       "LEURRE"
      ],
-     "explication": "Du matériel de pêche."
+     "explication": "L'ÉPUISETTE sort le poisson de l'eau, la NASSE est un piège en panier, le CHALUT un grand filet tiré par un bateau, le LEURRE un faux appât."
     }
    ],
    "rattachements_plausibles": {
@@ -5194,7 +5194,7 @@ window.QUOTIDIEN_VARIANTES = {
       "COÛT",
       "POUSSE"
      ],
-     "explication": "Do / dos, Pô / peau, coût / cou, pousse / pouce."
+     "explication": "DO sonne comme dos, PÔ comme peau, COÛT comme cou et POUSSE comme pouce : quatre parties du corps, à l'oreille."
     },
     {
      "categorie": "Fleuves d'Europe",
@@ -5205,7 +5205,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MEUSE",
       "ODER"
      ],
-     "explication": "Le Pô aussi, mais il se prononce comme « peau »."
+     "explication": "Le TIBRE traverse Rome, la MEUSE naît en France, l'ODER marque une partie de la frontière germano-polonaise. Piège : PÔ aussi, mais il sonne « peau »."
     },
     {
      "categorie": "Ce que ça coûte",
@@ -5216,7 +5216,7 @@ window.QUOTIDIEN_VARIANTES = {
       "FACTURE",
       "DOULOUREUSE"
      ],
-     "explication": "La douloureuse, c'est l'addition, familièrement. Le coût aussi, mais il se prononce comme « cou »."
+     "explication": "La DOULOUREUSE, c'est l'addition, en langage familier ; le MONTANT est la somme à payer. Piège : COÛT aussi, mais il sonne « cou »."
     },
     {
      "categorie": "Jeunes plantes",
@@ -5227,7 +5227,7 @@ window.QUOTIDIEN_VARIANTES = {
       "SEMIS",
       "BOUTURE"
      ],
-     "explication": "La pousse aussi, mais elle se prononce comme « pouce »."
+     "explication": "La BOUTURE est un morceau de plante qu'on fait prendre racine ; le SEMIS part d'une graine. Piège : POUSSE aussi, mais elle sonne « pouce »."
     }
    ],
    "rattachements_plausibles": {
@@ -5257,7 +5257,7 @@ window.QUOTIDIEN_VARIANTES = {
       "AVANT",
       "ENTIER"
      ],
-     "explication": "Sortie, sangle, savant, sentier."
+     "explication": "Avec un S devant, ORTIE devient SORTIE, ANGLE devient SANGLE, AVANT devient SAVANT et ENTIER devient SENTIER."
     },
     {
      "categorie": "Mauvaises herbes",
@@ -5268,7 +5268,7 @@ window.QUOTIDIEN_VARIANTES = {
       "LISERON",
       "MOURON"
      ],
-     "explication": "L'ortie aussi, mais avec un S elle devient une sortie."
+     "explication": "Le PISSENLIT se mange en salade, le LISERON s'enroule autour des tiges. Piège : ORTIE aussi, mais avec un S elle devient SORTIE."
     },
     {
      "categorie": "Au rugby",
@@ -5279,7 +5279,7 @@ window.QUOTIDIEN_VARIANTES = {
       "MÊLÉE",
       "AILIER"
      ],
-     "explication": "Les avants aussi, mais avec un S, avant devient savant."
+     "explication": "PILIER et TALONNEUR forment la première ligne de la MÊLÉE, l'AILIER court le long de la touche. Piège : AVANT aussi, mais il donne SAVANT."
     },
     {
      "categorie": "En maths",
@@ -5290,7 +5290,7 @@ window.QUOTIDIEN_VARIANTES = {
       "DIAGONALE",
       "ÉQUATION"
      ],
-     "explication": "L'angle et le nombre entier aussi, mais ils donnent sangle et sentier."
+     "explication": "L'HYPOTÉNUSE est le côté opposé à l'angle droit d'un triangle rectangle. Piège : ANGLE et ENTIER aussi, mais ils donnent SANGLE et SENTIER."
     }
    ],
    "rattachements_plausibles": {
@@ -5325,7 +5325,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PICODON",
       "MILANAISE"
      ],
-     "explication": "COQuillette, CANElé, PICodon, MILANaise : le coq, la cane, le pic, le milan."
+     "explication": "COQUILLETTE commence par COQ, CANELÉ par CANE, PICODON par PIC et MILANAISE par MILAN : un oiseau en tête de chaque mot."
     },
     {
      "categorie": "Variétés de pâtes",
@@ -5336,7 +5336,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PAPPARDELLE",
       "ORECCHIETTE"
      ],
-     "explication": "Quatre pâtes italiennes. Les coquillettes aussi, mais elles commencent par un coq."
+     "explication": "Les ORECCHIETTE ont la forme de petites oreilles, les LINGUINE de fines langues. Piège : COQUILLETTE aussi, mais elle commence par COQ."
     },
     {
      "categorie": "Fromages de chèvre",
@@ -5347,7 +5347,7 @@ window.QUOTIDIEN_VARIANTES = {
       "VALENÇAY",
       "CHABICHOU"
      ],
-     "explication": "Quatre fromages de chèvre. Le picodon aussi, mais il commence par un pic."
+     "explication": "Le CROTTIN vient de Chavignol, le VALENÇAY a une forme de pyramide tronquée. Piège : PICODON est aussi un chèvre, mais il commence par PIC."
     },
     {
      "categorie": "Douceurs régionales",
@@ -5358,7 +5358,7 @@ window.QUOTIDIEN_VARIANTES = {
       "BUGNE",
       "TROPÉZIENNE"
      ],
-     "explication": "Le kouglof d'Alsace, la navette de Marseille, la bugne lyonnaise, la tarte tropézienne. Le canelé de Bordeaux aussi, mais il commence par une cane."
+     "explication": "Le KOUGLOF vient d'Alsace, la NAVETTE de Marseille, la BUGNE de Lyon, la TROPÉZIENNE de Saint-Tropez. Piège : CANELÉ aussi, mais il commence par CANE."
     }
    ],
    "rattachements_plausibles": {
@@ -5388,7 +5388,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CHENIL",
       "OTAGE"
      ],
-     "explication": "gLOIRE, raYONNEment, cheNIL, oTAGE : la Loire, l'Yonne, le Nil, le Tage."
+     "explication": "GLOIRE cache la LOIRE, RAYONNEMENT l'YONNE, CHENIL le NIL et OTAGE le TAGE, le fleuve qui se jette dans l'Atlantique à Lisbonne."
     },
     {
      "categorie": "Le fait d'être connu",
@@ -5399,7 +5399,7 @@ window.QUOTIDIEN_VARIANTES = {
       "PRESTIGE",
       "RENOMMÉE"
      ],
-     "explication": "La gloire et le rayonnement aussi, mais ils cachent la Loire et l'Yonne."
+     "explication": "La CÉLÉBRITÉ et la RENOMMÉE font qu'on parle de vous. Piège : GLOIRE et RAYONNEMENT aussi, mais ils cachent la LOIRE et l'YONNE."
     },
     {
      "categorie": "Abris pour animaux",
@@ -5410,7 +5410,7 @@ window.QUOTIDIEN_VARIANTES = {
       "ÉCURIE",
       "BERGERIE"
      ],
-     "explication": "Le chenil aussi, mais il cache le Nil."
+     "explication": "Le CLAPIER abrite les lapins d'élevage, l'ÉCURIE les chevaux, la BERGERIE les moutons, le TERRIER les animaux qui creusent. Piège : CHENIL cache le NIL."
     },
     {
      "categorie": "Privés de liberté",
@@ -5421,7 +5421,7 @@ window.QUOTIDIEN_VARIANTES = {
       "CAPTIF",
       "BAGNARD"
      ],
-     "explication": "L'otage aussi, mais il cache le Tage."
+     "explication": "Le BAGNARD purgeait sa peine au bagne, le DÉTENU en prison ; le CAPTIF est retenu de force. Piège : OTAGE aussi, mais il cache le TAGE."
     }
    ],
    "rattachements_plausibles": {

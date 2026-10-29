@@ -185,6 +185,14 @@
   .stat:nth-child(3) { background: var(--c2); box-shadow: inset 0 calc(-1 * var(--depth)) 0 var(--c2e); }
   .stat .v { font-family: var(--title); font-weight: 700; font-size: 24px; line-height: 1.1; }
   .stat .l { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; opacity: .8; }
+  .gain-heros { display: block; width: fit-content; margin: 12px auto 0 !important; background: var(--plate); color: var(--c0); font-family: var(--title); font-weight: 700; font-size: 17px;
+    border-radius: var(--pill); padding: 5px 16px 6px; box-shadow: 0 3px 0 var(--plate-edge); animation: pop-xp .5s cubic-bezier(.2,.9,.3,1.4) .2s both; }
+  /* Écran de fin compact : la solution doit apparaître dès le premier écran. */
+  #resume .titre-victoire { font-size: 30px !important; }
+  #resume .stats { margin: 10px 0 4px; } #resume .stat { padding: 7px 4px 6px; } #resume .stat .v { font-size: 20px; }
+  #resume .gain-heros { margin-top: 8px !important; font-size: 15px; padding: 4px 14px 5px; }
+  #fin-actions .panel { margin-top: 14px; } #fin-actions .suite-rapide, #fin-actions .actions-fin { margin-top: 0; }
+  #fin-partage h2 { margin-bottom: 8px; }
   .summary-grid { font-size: 20px; line-height: 1.15; letter-spacing: 2px; margin: 4px 0 14px; text-align: center; }
   .found.solution { gap: 10px; }
   .small { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
@@ -356,6 +364,7 @@
   .defi-pied { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-weight: 800; color: var(--muted); font-size: 14px; }
   .flottant { position: fixed; left: 50%; top: 38%; transform: translate(-50%, -50%); font-family: var(--title); font-weight: 700; font-size: 34px; color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,.35); pointer-events: none; z-index: 20; animation: flotte .8s ease-out forwards; text-align: center; }
   .flottant.moins { color: #ff8080; font-size: 28px; top: 30%; }
+  .flottant.plus { color: var(--c1); font-size: 26px; top: 24%; }
   .flottant small { display: block; font-size: 16px; color: var(--c0); }
   @keyframes flotte { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.8); } 20% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } 100% { opacity: 0; transform: translate(-50%, -80%) scale(1); } }
   .classement { width: 100%; border-collapse: collapse; margin-top: 8px; font-weight: 700; font-size: 14.5px; }
@@ -512,9 +521,13 @@
   </section>
 
   <section id="fin" class="hidden">
-    <div id="recompenses"></div>
+    <!-- Ordre de l'écran de fin : résultat, puis tout de suite la solution (sans avoir à descendre), puis la suite,
+         l'XP gagnée et le partage. -->
     <div class="panel" id="resume"></div>
     <div class="panel" id="solution"></div>
+    <div id="fin-actions"></div>
+    <div id="recompenses"></div>
+    <div class="panel hidden" id="fin-partage"></div>
     <div class="panel" id="suite"></div>
     <div class="panel" id="questionnaire-panel">
       <h2>Ton avis</h2><p class="sous-titre">Facultatif · 20 secondes</p>
@@ -908,17 +921,18 @@
   function rendreDefiAccueil() {
     const ed = DF.lire(profilDefi()), el = $("ecran-defi");
     el.innerHTML = `${visiteurDefi ? `<p class="visiteur-defi">Quotidien est un jeu de mots en cours de test. Ici, tu joues seulement au Défi.</p>` : ""}
-      <span class="mode-badge defi">Défi express</span><h2 class="titre-ecran" style="margin-top:4px">30 secondes par palier</h2>
+      <span class="mode-badge defi">Défi express</span><h2 class="titre-ecran" style="margin-top:4px">30 secondes pour aller le plus loin</h2>
       <div class="panel" style="margin-top:8px"><ul class="regles-defi">
+        <li>Tu démarres avec <strong>30 secondes pour toute la partie</strong>.</li>
+        <li>Chaque groupe trouvé <strong>rajoute 2 secondes</strong>, chaque erreur <strong>en retire 2</strong>. La partie s'arrête quand le chrono tombe à zéro.</li>
         <li>Regroupe les mots par catégorie : touche les mots d'un même groupe, la vérification est automatique.</li>
-        <li>Chaque erreur coûte <strong>5 secondes</strong>.</li>
         <li>Les paliers grandissent : de 2 groupes de 2 mots jusqu'à 4 groupes de 3 (30 paliers).</li>
         <li>Les mots sont tirés au hasard à chaque partie. Le chrono ne s'arrête pas si tu quittes l'écran.</li></ul>
         <div class="actions-fin"><button class="btn primary btn-large" id="defi-solo">Jouer en solo</button>
         <div class="rang"><button class="btn" id="defi-creer">Créer un groupe</button><button class="btn" id="defi-rejoindre">Rejoindre un groupe</button></div></div>
         <p class="small" style="margin:8px 0 0">En groupe (2 à 6), comme au petit bac : l'hôte lance la manche, tout le monde joue en même temps le même tirage, et chaque manche rapporte des points.</p></div>
       <div class="carte-xp"><div class="ligne"><div class="niv">${ed.record ? `${ed.record.paliers} <small>palier${ed.record.paliers > 1 ? "s" : ""}</small>` : "– <small>pas encore de record</small>"}</div><div class="xp-txt">Record</div></div>
-        <div class="sous">${ed.record ? `en ${fmtDuree(ed.record.temps_ms)} · ` : ""}${ed.parties} partie${ed.parties > 1 ? "s" : ""} jouée${ed.parties > 1 ? "s" : ""}</div></div>
+        <div class="sous">${ed.record ? `atteint en ${fmtDuree(ed.record.temps_ms)} · ` : ""}${ed.parties} partie${ed.parties > 1 ? "s" : ""} jouée${ed.parties > 1 ? "s" : ""}${!ed.record && ed.ancienRecord ? ` · ancien record (anciennes règles, 30 s par palier) : ${ed.ancienRecord.paliers} palier${ed.ancienRecord.paliers > 1 ? "s" : ""}` : ""}</div></div>
       <div id="defi-form"></div>
       ${ed.salons.length ? `<div class="panel"><h2>Mes groupes</h2>${ed.salons.slice(0, 6).map(x => `<div class="actions" style="justify-content:space-between;align-items:center;margin:6px 0;flex-wrap:nowrap"><span><strong>${esc(x.titre || x.code)}</strong> <span class="small">· ${esc(x.code)}</span></span><button class="btn" data-groupe="${esc(x.code)}">Ouvrir</button></div>`).join("")}</div>` : ""}
       <h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">Des trophées, sans XP.</p>
@@ -1126,7 +1140,7 @@
 
   async function partagerGroupe(g) {
     const pseudo = store.get("quotidien_pseudo") || "Quelqu'un";
-    const texte = `⚡ DÉFI QUOTIDIEN — ${pseudo} t'invite dans le groupe « ${g.nom} » : des manches de 30 secondes par palier, tout le monde en même temps, comme au petit bac (2 à 6 joueurs).\nCode : ${g.code}\n${lienGroupe(g.code)}`;
+    const texte = `⚡ DÉFI QUOTIDIEN — ${pseudo} t'invite dans le groupe « ${g.nom} » : 30 secondes au chrono, +2 s par groupe trouvé, −2 s par erreur, tout le monde en même temps, comme au petit bac (2 à 6 joueurs).\nCode : ${g.code}\n${lienGroupe(g.code)}`;
     try { if (navigator.share) { await navigator.share({ text: texte }); return; } await navigator.clipboard.writeText(texte); }
     catch (e) { if (e && e.name === "AbortError") return; try { await navigator.clipboard.writeText(texte); } catch (e2) {} }
     const c = $("g-copie"); if (c) c.classList.remove("hidden");
@@ -1135,23 +1149,30 @@
   // ---------- Partie de Défi ----------
   function lancerDefi(opts) {
     quitterJeuPrincipal();
+    // Un seul chrono pour toute la partie : P.reste = temps restant au dernier repère (P.repere), hors pauses.
+    // P.ecoule = temps de jeu écoulé ; P.temps = temps écoulé au dernier palier réussi (départage du classement).
     partieDefi = { graine: opts.graine, groupe: opts.groupe || null, suite: DF.genererSuite(opts.graine), n: 1, temps: 0, erreurs: 0,
-      serie: 0, serieMax: 0, meilleur: null, fin: null };
+      serie: 0, serieMax: 0, meilleur: null, fin: null, reste: DF.DUREE_MS, repere: Date.now(), ecoule: 0, pause: false };
     if (partieDefi.groupe) store.set(CLE_ENCOURS, { code: partieDefi.groupe.code, numero: partieDefi.groupe.numero, paliers: 0, temps_ms: 0, profil: profilDefi() });
     afficherEcran("defi-jeu");
     demarrerPalier();
   }
   function demarrerPalier() {
-    const P = partieDefi; P.palier = P.suite[P.n - 1]; P.trouves = []; P.selection = []; P.penalite = 0; P.erreursPalier = 0; P.verrou = false;
-    P.debut = Date.now();
+    const P = partieDefi; P.palier = P.suite[P.n - 1]; P.trouves = []; P.selection = []; P.erreursPalier = 0; P.verrou = false;
+    P.debutPalier = P.ecoule; P.repere = Date.now(); P.pause = false;
     rendreDefiJeu();
     clearInterval(minuterieDefi); minuterieDefi = setInterval(ticDefi, 100); ticDefi();
   }
-  const resteDefi = () => DF.DUREE_MS - (Date.now() - partieDefi.debut) - partieDefi.penalite;
+  const resteDefi = () => partieDefi.pause ? partieDefi.reste : partieDefi.reste - (Date.now() - partieDefi.repere);
+  const ecouleDefi = () => partieDefi.pause ? partieDefi.ecoule : partieDefi.ecoule + (Date.now() - partieDefi.repere);
+  // Fige le chrono à l'instant présent (avant un bonus, une pénalité ou une pause).
+  function figerDefi() { const P = partieDefi; if (P.pause) return; const t = Date.now(); P.reste -= t - P.repere; P.ecoule += t - P.repere; P.repere = t; }
+  window.__resteDefi = () => partieDefi && !partieDefi.fin ? resteDefi() : null; // lecture pour les tests automatiques
+  function ajusterDefi(ms) { const P = partieDefi; figerDefi(); P.reste += ms; }
   function ticDefi() {
-    const P = partieDefi; if (!P || P.fin || P.pause) return;
+    const P = partieDefi; if (!P || P.fin) return;
     const r = resteDefi(), b = $("defi-chrono"); if (!b) return;
-    b.querySelector("i").style.width = Math.max(0, 100 * r / DF.DUREE_MS) + "%";
+    b.querySelector("i").style.width = Math.max(0, Math.min(100, 100 * r / DF.DUREE_MS)) + "%";
     b.querySelector("b").textContent = Math.max(0, Math.ceil(r / 1000)) + " s";
     b.classList.toggle("urgent", r < 8000);
     if (r <= 0) finDefi("temps");
@@ -1165,7 +1186,7 @@
       <div class="chrono-defi" id="defi-chrono" role="timer" aria-label="Temps restant"><i></i><b></b></div>
       <div class="defi-trouves" id="defi-trouves">${P.trouves.map((gi, k) => `<span class="puce c${k % 4}"><b>${esc(p.groupes[gi].nom)}</b> · ${p.groupes[gi].mots.map(esc).join(", ")}</span>`).join("")}</div>
       <div class="board defi ${col}" id="defi-plateau">${restants.map(m => `<button class="tile td ${m.length > 12 ? "l3" : m.length > 9 ? "l2" : ""} ${P.selection.includes(m) ? "sel" : ""}" data-mot="${esc(m)}" aria-pressed="${P.selection.includes(m)}"><span>${esc(m)}</span></button>`).join("")}</div>
-      <div class="defi-pied"><span>${P.temps ? `Temps cumulé : ${fmtDuree(P.temps)}` : "Touche les mots d'un même groupe"}</span><button class="lien-discret" id="defi-abandon">Abandonner</button></div>`;
+      <div class="defi-pied"><span>${P.n > 1 || P.trouves.length ? "+2 s par groupe · −2 s par erreur" : "Touche les mots d'un même groupe"}</span><button class="lien-discret" id="defi-abandon">Abandonner</button></div>`;
     $("defi-plateau").querySelectorAll("[data-mot]").forEach(b => b.addEventListener("click", () => toucherDefi(b.dataset.mot, b)));
     const ab = $("defi-abandon");
     ab.addEventListener("click", () => { if (ab.dataset.confirme) return finDefi("abandon"); ab.dataset.confirme = "1"; ab.textContent = "Confirmer l'abandon ?"; setTimeout(() => { if (ab.isConnected) { delete ab.dataset.confirme; ab.textContent = "Abandonner"; } }, 3000); });
@@ -1182,12 +1203,13 @@
       const gi = DF.groupeDe(P.palier, P.selection);
       if (gi >= 0) {
         P.trouves.push(gi); P.selection = []; vibrer(25);
+        ajusterDefi(DF.BONUS_MS); flottant("+2 s", "plus");
         P.verrou = false;
         if (P.trouves.length === P.palier.groupes.length) return palierReussi();
         rendreDefiJeu();
       } else {
-        P.penalite += DF.PENALITE_MS; P.erreurs++; P.erreursPalier++; vibrer([40, 30, 40]);
-        flottant("−5 s", "moins");
+        ajusterDefi(-DF.PENALITE_MS); P.erreurs++; P.erreursPalier++; vibrer([40, 30, 40]);
+        flottant("−2 s", "moins");
         const fautes = P.selection.slice(); P.selection = [];
         $("defi-plateau").querySelectorAll(".tile.sel").forEach(t => { t.classList.remove("sel"); t.classList.add("faux"); });
         setTimeout(() => { P.verrou = false; if (!P.fin) rendreDefiJeu(); }, 380);
@@ -1197,21 +1219,22 @@
   }
   function palierReussi() {
     const P = partieDefi; clearInterval(minuterieDefi);
-    const duree = Math.min(DF.DUREE_MS, Date.now() - P.debut + P.penalite);
-    P.temps += duree; P.meilleur = P.meilleur == null ? duree : Math.min(P.meilleur, duree);
+    figerDefi(); P.pause = true; // le chrono s'arrête pendant l'animation « Palier réussi »
+    const duree = P.ecoule - P.debutPalier;
+    P.temps = P.ecoule; P.meilleur = P.meilleur == null ? duree : Math.min(P.meilleur, duree);
     P.serie = P.erreursPalier ? 0 : P.serie + 1; P.serieMax = Math.max(P.serieMax, P.serie);
     if (P.groupe) store.set(CLE_ENCOURS, { code: P.groupe.code, numero: P.groupe.numero, paliers: P.n, temps_ms: P.temps, profil: profilDefi() });
-    rendreDefiJeu(); P.pause = true;
+    rendreDefiJeu();
     flottant(`Palier ${P.n} !<small>${(duree / 1000).toFixed(1).replace(".", ",")} s</small>`);
     setTimeout(() => {
-      if (P.fin) return; P.pause = false;
+      if (P.fin) return;
       if (P.n >= DF.MAX_PALIERS) return finDefi("complet");
       P.n++; demarrerPalier();
     }, 800);
   }
   async function finDefi(raison) {
     const P = partieDefi; if (!P || P.fin) return;
-    P.fin = raison; clearInterval(minuterieDefi);
+    figerDefi(); P.fin = raison; clearInterval(minuterieDefi);
     // Pendant l'animation « Palier réussi », le palier en cours est déjà gagné.
     const paliers = raison === "complet" ? DF.MAX_PALIERS : (P.pause ? P.n : P.n - 1);
     const res = DF.enregistrerPartie(profilDefi(), { paliers, temps_ms: P.temps, serieSansErreur: P.serieMax, meilleurPalierMs: P.meilleur, salon: P.groupe ? P.groupe.code : null });
@@ -1231,7 +1254,7 @@
     const motif = { temps: `Temps écoulé au palier ${P.n}.`, abandon: `Partie abandonnée au palier ${P.n}.`, complet: "Les 30 paliers réussis, chapeau !" }[raison];
     $("ecran-defi").innerHTML = `<span class="mode-badge defi">${P.groupe ? "Groupe · manche " + P.groupe.numero : "Défi express"}</span>
       <div class="panel" style="text-align:center"><h2 class="titre-victoire ${paliers ? "gagne" : ""}" style="margin:4px 0">${paliers} palier${paliers > 1 ? "s" : ""}</h2>
-        <p>${motif}${paliers ? ` Temps cumulé : ${fmtDuree(P.temps)}.` : ""}</p>
+        <p>${motif}${paliers ? ` Dernier palier atteint après ${fmtDuree(P.temps)} de jeu.` : ""}</p>
         <div class="stats"><div class="stat"><div class="v">${paliers}</div><div class="l">Paliers</div></div><div class="stat"><div class="v">${P.erreurs}</div><div class="l">Erreur${P.erreurs > 1 ? "s" : ""}</div></div><div class="stat"><div class="v">${ed.record ? ed.record.paliers : 0}</div><div class="l">Record</div></div></div>
         ${res.nouveauRecord ? `<p style="font-family:var(--title);font-weight:700;font-size:20px;color:var(--c3e)">Nouveau record !</p>` : ""}
         ${res.badges.length ? `<div class="recompenses" style="margin-top:10px"><ul>${res.badges.map(b => `<li><span class="ico">${b.icone}</span>Badge : ${b.nom}</li>`).join("")}</ul></div>` : ""}
@@ -1461,7 +1484,7 @@
       cd.classList.remove("hidden");
       cd.innerHTML = `<div class="ico" aria-hidden="true">⚡</div>
         <h3>Défi express</h3>
-        <p class="desc">30 secondes par palier, seul ou en groupe avec tes amis.</p>
+        <p class="desc">30 s au chrono, +2 s par groupe trouvé. Seul ou entre amis.</p>
         <span class="chiffre">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span>
         <button class="btn" id="btn-defi">Jouer au Défi</button>`;
       $("btn-defi").addEventListener("click", e => { e.stopPropagation(); ouvrirDefi(); });
@@ -1950,6 +1973,7 @@
     // En démo, rien n'est envoyé : pas de questionnaire, et la suite est proposée tout de suite sous le résultat.
     if (DEMO) ["questionnaire-panel", "suite", "actions-demo"].forEach(id => $(id).classList.add("hidden"));
     $("recompenses").innerHTML = htmlRecompenses(dernierGain);
+    const gainHeros = dernierGain ? `<p class="gain-heros">+${dernierGain.xp} XP${dernierGain.montee ? " · niveau supérieur !" : ""}</p>` : "";
     if (dernierGain) { const p = progression(), b = barreXp(p); requestAnimationFrame(() => requestAnimationFrame(() => { const i = document.querySelector("#bloc-recompenses .barre i"); if (i) i.style.width = b.pct + "%"; })); vibrer(20); }
     dernierGain = null;
     rendreEntete();
@@ -1961,16 +1985,19 @@
     $("resume").innerHTML = `
       <div class="heros">
         <h2 class="titre-victoire ${etat.gagne ? "gagne" : ""}">${etat.gagne ? "Bravo !" : "Partie terminée"}</h2>
-        <p>${etat.gagne ? `Grille résolue ! Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : elle ne s'affiche que sur une grille réussie.`}</p>
+        <p>${etat.gagne ? `Grille résolue${etat.erreurs ? ` avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}` : " sans aucune erreur"} ! Voici les explications.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : elle ne s'affiche que sur une grille réussie.`}</p>
       </div>
       <div class="stats">
         <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
         <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
       </div>
+      ${gainHeros}`;
+    $("fin-actions").innerHTML = DEMO ? `<div class="panel" id="suite-demo"></div>` : "";
+    const fp = $("fin-partage"); fp.classList.remove("hidden");
+    fp.innerHTML = `<h2>Tes essais</h2>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
-      ${DEMO ? `<div id="suite-demo"></div>` : ""}
-      <button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-partager" ${DEMO ? 'style="margin-top:10px"' : ""}>Inviter quelqu'un à jouer</button>
+      <button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-partager">Inviter quelqu'un à jouer</button>
       <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
     rendreSolution(etat.gagne, tp);
     $("btn-partager").addEventListener("click", partager);
@@ -2018,18 +2045,23 @@
   }
 
   // Bouton « suite » collant en bas d'écran : apparaît quand le bouton principal de la fin sort de l'écran.
-  let observateurCta = null;
+  let observateurCta = null, ctaDefile = () => {};
   function ctaCollant(cible, texte, sousTexte, libelle, action) {
     const c = $("cta-collant");
     if (observateurCta) { observateurCta.disconnect(); observateurCta = null; }
     c.classList.remove("visible"); c.setAttribute("aria-hidden", "true");
-    if (!cible) { c.innerHTML = ""; return; }
+    if (!cible) { c.innerHTML = ""; window.removeEventListener("scroll", ctaDefile); return; }
     c.innerHTML = `<div class="t">${texte}${sousTexte ? `<small>${sousTexte}</small>` : ""}</div><button class="btn primary" id="cta-collant-btn">${libelle}</button>`;
     $("cta-collant-btn").addEventListener("click", () => { cacherCta(); action(); });
     if ("IntersectionObserver" in window) {
-      observateurCta = new IntersectionObserver(([e]) => { const v = !e.isIntersecting && ecranCourant === "jeu" && !$("fin").classList.contains("hidden");
-        c.classList.toggle("visible", v); c.setAttribute("aria-hidden", v ? "false" : "true"); }, { threshold: 0 });
+      // Visible seulement quand le bouton principal est hors écran ET que le joueur a commencé à faire défiler :
+      // au premier écran, rien ne recouvre la solution.
+      let horsEcran = false;
+      const maj = () => { const v = horsEcran && window.scrollY > 60 && ecranCourant === "jeu" && !$("fin").classList.contains("hidden") && cible.isConnected;
+        c.classList.toggle("visible", v); c.setAttribute("aria-hidden", v ? "false" : "true"); };
+      observateurCta = new IntersectionObserver(([e]) => { horsEcran = !e.isIntersecting; maj(); }, { threshold: 0 });
       observateurCta.observe(cible);
+      window.removeEventListener("scroll", ctaDefile); ctaDefile = maj; window.addEventListener("scroll", ctaDefile, { passive: true });
     }
   }
   function cacherCta() { ctaCollant(null); }
@@ -2068,6 +2100,7 @@
     $("nav-bas").classList.remove("hidden"); document.querySelector("main").classList.add("avec-nav");
     // Récompenses (affichées une seule fois, juste après la réussite)
     let rec = "";
+    const dernierGainEntr = dernierGain;
     if (gagne && dernierGain) rec = htmlRecompenses(dernierGain);
     else if (gagne && infoGain) rec = `<div class="recompenses"><p class="small" style="margin:0;text-align:center;color:var(--muted)">${infoGain === "solution" ? "Tu avais consulté la solution : cette réussite ne rapporte pas d'XP." : "Exercice déjà réussi : rejouer ne rapporte pas d'XP."}</p></div>`;
     $("recompenses").innerHTML = rec;
@@ -2084,7 +2117,9 @@
         <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
         <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
-      </div><div id="suite-entr"></div>`;
+      </div>${gagne && dernierGainEntr ? `<p class="gain-heros">+${dernierGainEntr.xp} XP</p>` : ""}`;
+    $("fin-actions").innerHTML = `<div class="panel" id="suite-entr"></div>`;
+    $("fin-partage").classList.add("hidden");
     rendreSolution(gagne, tp, chapitreDe(grille).astuce);
     // Les choix de suite sont placés juste sous le résultat (sans défiler jusqu'aux explications).
     $("suite").classList.add("hidden");

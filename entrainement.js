@@ -45,7 +45,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CONCOMBRE",
       "AUBERGINE"
      ],
-     "explication": "Quatre légumes du potager."
+     "explication": "Pour les botanistes, le CONCOMBRE et l'AUBERGINE sont des fruits car ils portent des graines ; le POIREAU et le CHOU, eux, se récoltent même en hiver."
     },
     {
      "categorie": "Animaux de la forêt",
@@ -56,7 +56,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CERF",
       "BLAIREAU"
      ],
-     "explication": "Ils vivent dans les bois."
+     "explication": "Le CERF perd ses bois chaque année, le BLAIREAU creuse des terriers, la femelle du SANGLIER est la laie et le petit du RENARD, le renardeau."
     },
     {
      "categorie": "Au petit-déjeuner",
@@ -67,7 +67,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CONFITURE",
       "CÉRÉALES"
      ],
-     "explication": "Ce qu'on mange le matin."
+     "explication": "Le CROISSANT est une viennoiserie, un nom qui rappelle Vienne ; la TARTINE se couvre de beurre ou de CONFITURE, et les CÉRÉALES se versent dans le lait."
     },
     {
      "categorie": "Sports nautiques",
@@ -78,7 +78,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "AVIRON",
       "NATATION"
      ],
-     "explication": "Quatre sports qui se pratiquent dans l'eau ou sur l'eau."
+     "explication": "La NATATION et la PLONGÉE se pratiquent dans l'eau ; le SURF, debout sur une planche, et l'AVIRON, dans un bateau à rames, se pratiquent sur l'eau."
     }
    ],
    "rattachements_plausibles": {}
@@ -99,7 +99,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "PHYSIQUE",
       "CHIMIE"
      ],
-     "explication": "Quatre matières du collège et du lycée. Les langues en sont aussi, mais elles forment leur propre groupe."
+     "explication": "Au lycée, la PHYSIQUE et la CHIMIE forment une seule matière, la physique-chimie. Ce sont les quatre seules matières de la grille qui ne sont pas des langues."
     },
     {
      "categorie": "Langues",
@@ -110,7 +110,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CHINOIS",
       "RUSSE"
      ],
-     "explication": "Quatre langues parlées dans le monde."
+     "explication": "Le RUSSE s'écrit en alphabet cyrillique, le CHINOIS avec des caractères. Piège : ces langues s'étudient aussi en classe, mais elles forment leur propre groupe."
     },
     {
      "categorie": "Électroménager",
@@ -121,7 +121,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "LAVE-VAISSELLE",
       "GRILLE-PAIN"
      ],
-     "explication": "Les appareils de la cuisine."
+     "explication": "FRIGO est le diminutif familier de réfrigérateur. LAVE-VAISSELLE et GRILLE-PAIN sont des noms composés d'un verbe et d'un nom : on lave la vaisselle, on grille le pain."
     },
     {
      "categorie": "Pâtisseries",
@@ -132,7 +132,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "MACARON",
       "MADELEINE"
      ],
-     "explication": "Quatre gâteaux de la boulangerie-pâtisserie."
+     "explication": "L'ÉCLAIR est en pâte à choux, le MILLEFEUILLE superpose pâte feuilletée et crème, le MACARON est à base d'amande et la MADELEINE est célèbre grâce à Proust."
     }
    ],
    "rattachements_plausibles": {
@@ -166,7 +166,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BRACELET",
       "BROCHE"
      ],
-     "explication": "Ce qu'on porte pour se parer."
+     "explication": "Chacun a sa place : la BAGUE au doigt, le COLLIER au cou, le BRACELET au poignet et la BROCHE épinglée sur un vêtement."
     },
     {
      "categorie": "Métiers",
@@ -177,7 +177,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "POMPIER",
       "POLICIER"
      ],
-     "explication": "Quatre métiers du quotidien."
+     "explication": "Le FACTEUR distribue le courrier, le BOULANGER fait le pain avant l'aube ; en France, on appelle le POMPIER au 18 et le POLICIER au 17."
     },
     {
      "categorie": "Continents",
@@ -188,7 +188,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "EUROPE",
       "AMÉRIQUE"
      ],
-     "explication": "Quatre des continents."
+     "explication": "L'ASIE est le plus vaste et le plus peuplé des continents. Avec l'Océanie, on obtient les cinq continents symbolisés par les anneaux olympiques."
     },
     {
      "categorie": "Fleurs",
@@ -199,7 +199,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ŒILLET",
       "MUGUET"
      ],
-     "explication": "Quatre fleurs."
+     "explication": "Le MUGUET s'offre le 1er mai pour porter bonheur. Le LILAS pousse sur un arbuste, et l'ŒILLET s'écrit avec un « e dans l'o »."
     }
    ],
    "rattachements_plausibles": {}
@@ -220,7 +220,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SANTÉ",
       "POIGNE"
      ],
-     "explication": "Chemin de fer, rideau de fer, santé de fer, poigne de fer."
+     "explication": "Le CHEMIN de fer, c'est le train ; le RIDEAU de fer séparait l'Europe de l'Ouest du bloc soviétique ; une SANTÉ de fer est très solide, une POIGNE de fer, autoritaire."
     },
     {
      "categorie": "Rapaces",
@@ -231,7 +231,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "VAUTOUR",
       "HIBOU"
      ],
-     "explication": "Des oiseaux chasseurs, de jour ou de nuit."
+     "explication": "Le HIBOU est un rapace nocturne, les trois autres sont diurnes. Le VAUTOUR mange surtout des charognes, et le FAUCON pèlerin est champion de vitesse en piqué."
     },
     {
      "categorie": "Vaisselle",
@@ -242,7 +242,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TASSE",
       "SAUCIÈRE"
      ],
-     "explication": "Ce qu'on pose sur la table."
+     "explication": "La TASSE a une anse, le BOL généralement pas ; la SAUCIÈRE sert la sauce à table, et l'ASSIETTE reçoit le plat."
     },
     {
      "categorie": "Fruits à coque",
@@ -253,7 +253,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "PISTACHE",
       "NOIX"
      ],
-     "explication": "Des fruits secs à casser."
+     "explication": "La NOISETTE pousse sur le noisetier, la NOIX sur le noyer, l'AMANDE sur l'amandier et la PISTACHE sur le pistachier. Pour les manger, il faut casser la coque."
     }
    ],
    "rattachements_plausibles": {}
@@ -274,7 +274,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "LINOTTE",
       "PIOCHE"
      ],
-     "explication": "Tête de Turc, tête de mule, tête de linotte, tête de pioche."
+     "explication": "Une tête de TURC est la cible des moqueries, une tête de LINOTTE est étourdie, une tête de MULE ou de PIOCHE est têtue. Piège : la MULE n'est pas un animal de montagne ici."
     },
     {
      "categorie": "Petit ___",
@@ -285,7 +285,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ÉCRAN",
       "MATIN"
      ],
-     "explication": "Petit pois, petit-déjeuner, petit écran, petit matin."
+     "explication": "Le petit ÉCRAN, c'est la télévision (le grand, c'est le cinéma) ; le petit MATIN, ce sont les toutes premières heures du jour."
     },
     {
      "categorie": "Animaux de montagne",
@@ -296,7 +296,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BOUQUETIN",
       "LAMA"
      ],
-     "explication": "Ils vivent en altitude. La mule aussi, mais c'est une tête dure ici."
+     "explication": "La MARMOTTE hiberne et siffle pour donner l'alerte ; le LAMA vit dans les Andes, le CHAMOIS et le BOUQUETIN notamment dans les Alpes."
     },
     {
      "categorie": "Fêtes",
@@ -307,7 +307,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "HALLOWEEN",
       "CARNAVAL"
      ],
-     "explication": "Quatre fêtes de l'année."
+     "explication": "HALLOWEEN se fête le 31 octobre et NOËL le 25 décembre ; PÂQUES change de date chaque année, et le CARNAVAL précède le Carême."
     }
    ],
    "rattachements_plausibles": {
@@ -332,7 +332,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "FAÇON",
       "ABRI"
      ],
-     "explication": "Sans-gêne, sans souci, sans façon, sans-abri."
+     "explication": "Un sans-GÊNE ne se soucie pas des autres, un sans-ABRI n'a pas de logement ; « sans FAÇON » veut dire simplement, sans cérémonie."
     },
     {
      "categorie": "Faux ___",
@@ -343,7 +343,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "FRÈRE",
       "BOND"
      ],
-     "explication": "Faux départ, faux pas, faux frère, faire faux bond."
+     "explication": "Un faux FRÈRE est un traître, un faux PAS une maladresse ; faire faux BOND, c'est ne pas venir au rendez-vous prévu."
     },
     {
      "categorie": "Arbres fruitiers",
@@ -354,7 +354,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "PRUNIER",
       "ABRICOTIER"
      ],
-     "explication": "Ils donnent des fruits."
+     "explication": "POMMIER, CERISIER, PRUNIER, ABRICOTIER : le nom du fruit suivi de « -ier ». Seule la pomme a des pépins, les trois autres fruits ont un noyau."
     },
     {
      "categorie": "Pays d'Asie",
@@ -365,7 +365,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "VIETNAM",
       "INDONÉSIE"
      ],
-     "explication": "Quatre pays d'Asie."
+     "explication": "Tous sauf le JAPON sont en Asie du Sud-Est. Le JAPON et l'INDONÉSIE sont des archipels ; la THAÏLANDE et le VIETNAM sont sur le continent."
     }
    ],
    "rattachements_plausibles": {}
@@ -386,7 +386,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "RÉVÉRENCE",
       "TRAIT"
      ],
-     "explication": "Tirer profit, tirer parti, tirer sa révérence, tirer un trait."
+     "explication": "Tirer PROFIT et tirer PARTI veulent dire presque la même chose : utiliser au mieux. Tirer sa RÉVÉRENCE, c'est s'en aller ; tirer un TRAIT, tourner la page."
     },
     {
      "categorie": "Garder ___",
@@ -397,7 +397,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CALME",
       "SECRET"
      ],
-     "explication": "Garder le moral, garder la ligne, garder son calme, garder un secret."
+     "explication": "Garder la LIGNE, c'est ne pas grossir ; garder le MORAL, rester optimiste. Piège : on peut aussi tirer une ligne, mais ici la LIGNE se garde."
     },
     {
      "categorie": "Épices",
@@ -408,7 +408,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CURCUMA",
       "PAPRIKA"
      ],
-     "explication": "Quatre épices."
+     "explication": "La CANNELLE est une écorce, le CUMIN une graine, le CURCUMA un rhizome qui colore en jaune, et le PAPRIKA est fait de piments séchés et moulus."
     },
     {
      "categorie": "Tissus",
@@ -419,7 +419,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "LAINE",
       "VELOURS"
      ],
-     "explication": "Quatre matières pour faire des vêtements."
+     "explication": "Le COTON vient d'une plante, la LAINE surtout du mouton, la SOIE du cocon du ver à soie. Le VELOURS n'est pas une fibre mais un tissu à poils courts et serrés."
     }
    ],
    "rattachements_plausibles": {
@@ -444,7 +444,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "VENT",
       "COLLIMATEUR"
      ],
-     "explication": "Être dans le pétrin, dans le brouillard, dans le vent, dans le collimateur."
+     "explication": "Être dans le PÉTRIN, c'est avoir des ennuis ; dans le BROUILLARD, ne rien comprendre ; dans le VENT, à la mode ; dans le COLLIMATEUR, surveillé de près."
     },
     {
      "categorie": "Lever le ___",
@@ -455,7 +455,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "COUDE",
       "SIÈGE"
      ],
-     "explication": "Lever le camp, lever le voile, lever le coude, lever le siège."
+     "explication": "Lever le COUDE, c'est trop boire ; lever le VOILE, révéler un secret ; lever le CAMP, partir ; lever le SIÈGE, cesser d'assiéger ou quitter les lieux."
     },
     {
      "categorie": "Parties d'une chaussure",
@@ -466,7 +466,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TALON",
       "LANGUETTE"
      ],
-     "explication": "Ce qui compose une chaussure."
+     "explication": "La LANGUETTE est la bande placée sous le LACET, sur le dessus du pied ; la SEMELLE touche le sol et le TALON surélève l'arrière."
     },
     {
      "categorie": "Monuments de Paris",
@@ -477,7 +477,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SACRÉ-CŒUR",
       "INVALIDES"
      ],
-     "explication": "Quatre monuments parisiens."
+     "explication": "Le LOUVRE fut un palais royal, le PANTHÉON honore les grandes figures de la Nation, les INVALIDES abritent le tombeau de Napoléon et le SACRÉ-CŒUR domine Montmartre."
     }
    ],
    "rattachements_plausibles": {}
@@ -498,7 +498,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "DYNAMITE",
       "CIERGE"
      ],
-     "explication": "La mèche de la bougie, du pétard, de la dynamite et du cierge."
+     "explication": "Ici, la mèche n'est pas celle des cheveux mais le cordon qu'on allume : celle de la BOUGIE et du CIERGE brûle doucement, celle du PÉTARD et de la DYNAMITE fait exploser."
     },
     {
      "categorie": "En coiffure",
@@ -509,7 +509,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "NATTE",
       "DÉGRADÉ"
      ],
-     "explication": "Ce qu'on demande chez le coiffeur. La raie aussi, mais c'est un poisson ici."
+     "explication": "La FRANGE tombe sur le front, le CHIGNON rassemble les cheveux en rouleau, la NATTE est une tresse et le DÉGRADÉ une coupe aux longueurs étagées."
     },
     {
      "categorie": "Poissons",
@@ -520,7 +520,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SARDINE",
       "RAIE"
      ],
-     "explication": "Quatre poissons de mer."
+     "explication": "La RAIE a un corps aplati et un squelette de cartilage, comme le requin. Piège : une raie se trace aussi dans les cheveux, mais ici elle nage."
     },
     {
      "categorie": "Au cirque",
@@ -531,7 +531,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CHAPITEAU",
       "ACROBATE"
      ],
-     "explication": "Sous le chapiteau."
+     "explication": "Le CHAPITEAU est la grande tente du cirque ; le TRAPÈZE est une barre suspendue à deux cordes où se balance l'ACROBATE, et le JONGLEUR lance des objets."
     }
    ],
    "rattachements_plausibles": {
@@ -556,7 +556,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TOULOUSE",
       "AVIGNON"
      ],
-     "explication": "Quatre villes. Bordeaux aussi, mais c'est une couleur ici."
+     "explication": "TOULOUSE est la Ville rose, AVIGNON la Cité des papes, NANTES la cité des ducs de Bretagne, et LYON est traversée par le Rhône et la Saône."
     },
     {
      "categorie": "Nuances de rouge",
@@ -567,7 +567,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "POURPRE",
       "VERMILLON"
      ],
-     "explication": "Quatre rouges. Le grenat aussi, mais c'est une pierre ici."
+     "explication": "Le CARMIN vient d'un insecte, la cochenille, et le POURPRE d'un coquillage, le murex. Piège : BORDEAUX est aussi une ville, mais ici c'est la couleur du vin."
     },
     {
      "categorie": "Pierres",
@@ -578,7 +578,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TOPAZE",
       "OPALE"
      ],
-     "explication": "Quatre pierres utilisées en bijouterie."
+     "explication": "L'AMÉTHYSTE est un quartz violet, l'OPALE a des reflets changeants. Piège : GRENAT est aussi une nuance de rouge, mais il complète ici les pierres."
     },
     {
      "categorie": "Massifs montagneux",
@@ -589,7 +589,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "VOSGES",
       "JURA"
      ],
-     "explication": "Les montagnes de France."
+     "explication": "Les ALPES portent le plus haut sommet, le mont Blanc ; les PYRÉNÉES séparent la France de l'Espagne ; les VOSGES et le JURA se trouvent à l'est."
     }
    ],
    "rattachements_plausibles": {
@@ -617,7 +617,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ARROSOIR",
       "BOUILLOIRE"
      ],
-     "explication": "Le bec verseur de la théière, de la cruche, de l'arrosoir, de la bouilloire."
+     "explication": "Ici, le bec est le bec verseur de la THÉIÈRE, de la CRUCHE ou de la BOUILLOIRE. Piège : l'ARROSOIR sert au jardin, mais c'est son bec qui le range ici."
     },
     {
      "categorie": "Oiseaux exotiques",
@@ -628,7 +628,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "COLIBRI",
       "ARA"
      ],
-     "explication": "Des oiseaux colorés des pays chauds."
+     "explication": "Le COLIBRI peut voler sur place et même à reculons, le TOUCAN a un bec immense et l'ARA est un grand PERROQUET d'Amérique."
     },
     {
      "categorie": "Outils de jardin",
@@ -639,7 +639,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BROUETTE",
       "TONDEUSE"
      ],
-     "explication": "Pour entretenir le jardin. L'arrosoir aussi, mais il a un bec."
+     "explication": "Le SÉCATEUR taille, la BINETTE ameublit la terre et arrache les herbes, la BROUETTE transporte et la TONDEUSE coupe le gazon."
     },
     {
      "categorie": "Dieux grecs",
@@ -650,7 +650,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "APOLLON",
       "ATHÉNA"
      ],
-     "explication": "Quatre dieux de l'Olympe."
+     "explication": "ZEUS est le roi des dieux, HERMÈS leur messager, APOLLON le dieu de la lumière et des arts, ATHÉNA la déesse de la sagesse et de la guerre."
     }
    ],
    "rattachements_plausibles": {
@@ -675,7 +675,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SMASH",
       "AMORTI"
      ],
-     "explication": "Quatre coups de tennis. Au tennis, il y a aussi le filet, mais c'est de la viande ici."
+     "explication": "Le REVERS se joue du côté opposé à la main qui tient la raquette, le LOB passe au-dessus de l'adversaire, le SMASH frappe fort et l'AMORTI tombe court."
     },
     {
      "categorie": "Morceaux de viande",
@@ -686,7 +686,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "GIGOT",
       "RUMSTECK"
      ],
-     "explication": "Chez le boucher. La bavette aussi, mais elle sert au bébé ici."
+     "explication": "Le GIGOT est la cuisse de l'agneau, l'ENTRECÔTE est prise entre les côtes du bœuf. Piège : le FILET existe aussi au tennis, mais ici on est chez le boucher."
     },
     {
      "categorie": "Pour bébé",
@@ -697,7 +697,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "LANGE",
       "BAVETTE"
      ],
-     "explication": "La bavette est aussi un petit bavoir."
+     "explication": "Le LANGE est un carré de tissu pour envelopper le bébé. Piège : la BAVETTE est aussi un morceau de bœuf, mais ici c'est un petit bavoir."
     },
     {
      "categorie": "Fleuves du monde",
@@ -708,7 +708,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "DANUBE",
       "MISSISSIPPI"
      ],
-     "explication": "Quatre grands fleuves."
+     "explication": "Le NIL et l'AMAZONE se disputent le titre de plus long fleuve du monde ; le DANUBE traverse plusieurs capitales européennes, dont Vienne et Budapest."
     }
    ],
    "rattachements_plausibles": {
@@ -736,7 +736,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ACCENT",
       "NEUFCHÂTEL"
      ],
-     "explication": "brONZE, caMILLE, acCENT, NEUFchâtel."
+     "explication": "BRONZE cache ONZE, CAMILLE cache MILLE, ACCENT cache CENT, et NEUFCHÂTEL, un fromage normand, commence par NEUF."
     },
     {
      "categorie": "Alliages et métaux travaillés",
@@ -747,7 +747,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "FONTE",
       "INOX"
      ],
-     "explication": "Des métaux transformés. Le bronze aussi, mais il cache onze."
+     "explication": "Le LAITON mêle cuivre et zinc, l'ACIER et la FONTE sont du fer avec du carbone, l'INOX résiste à la rouille. Piège : le BRONZE est un alliage, mais il cache ONZE."
     },
     {
      "categorie": "Prénoms mixtes",
@@ -758,7 +758,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SACHA",
       "CHARLIE"
      ],
-     "explication": "Ils se donnent aux filles comme aux garçons. Camille aussi, mais il cache mille."
+     "explication": "SACHA est à l'origine un diminutif russe d'Alexandre. Piège : CAMILLE est aussi un prénom mixte, mais il cache MILLE."
     },
     {
      "categorie": "Signes orthographiques",
@@ -769,7 +769,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "APOSTROPHE",
       "CIRCONFLEXE"
      ],
-     "explication": "Des signes qui s'ajoutent aux lettres ou aux mots. L'accent aussi, mais il cache cent."
+     "explication": "La CÉDILLE va sous le c, le TRÉMA fait prononcer séparément deux voyelles (maïs), le CIRCONFLEXE coiffe la lettre. Piège : ACCENT cache CENT."
     }
    ],
    "rattachements_plausibles": {
@@ -800,7 +800,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "DISCOURS",
       "MILLION"
      ],
-     "explication": "aCHAT, cabÂNE, discOURS, milLION."
+     "explication": "ACHAT finit par CHAT, CABANE par ANE (âne), DISCOURS par OURS et MILLION par LION : l'animal se cache toujours dans les dernières lettres."
     },
     {
      "categorie": "Dans un magasin",
@@ -811,7 +811,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CHARIOT",
       "PROMOTION"
      ],
-     "explication": "Ce qu'on trouve en faisant ses courses. L'achat aussi, mais il finit par chat."
+     "explication": "Le RAYON présente les produits, le CHARIOT les transporte, la PROMOTION baisse leur prix et on paie à la CAISSE. Piège : ACHAT finit par CHAT."
     },
     {
      "categorie": "Petites habitations",
@@ -822,7 +822,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "IGLOO",
       "YOURTE"
      ],
-     "explication": "Des abris simples. La cabane aussi, mais elle finit par âne."
+     "explication": "L'IGLOO est fait de blocs de neige, la YOURTE est la tente ronde des nomades d'Asie centrale. Piège : CABANE finit par ANE (âne)."
     },
     {
      "categorie": "Prises de parole",
@@ -833,7 +833,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ALLOCUTION",
       "PLAIDOIRIE"
      ],
-     "explication": "On parle devant un public. Le discours aussi, mais il finit par ours."
+     "explication": "La PLAIDOIRIE est le discours de l'avocat au tribunal, l'ALLOCUTION un discours bref et souvent officiel. Piège : DISCOURS finit par OURS."
     }
    ],
    "rattachements_plausibles": {
@@ -864,7 +864,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SUBLIME",
       "PÊCHEUR"
      ],
-     "explication": "PRUNElle, POMMEtte, subLIME, PÊCHEur."
+     "explication": "PRUNELLE commence par PRUNE, POMMETTE par POMME, PÊCHEUR par PÊCHE, et SUBLIME finit par LIME, un petit citron vert."
     },
     {
      "categorie": "Gens de mer",
@@ -875,7 +875,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CAPITAINE",
       "MATELOT"
      ],
-     "explication": "Ils travaillent sur un bateau. Le pêcheur aussi, mais il cache une pêche."
+     "explication": "L'AMIRAL commande une flotte, le CAPITAINE un navire, et le MATELOT fait partie de l'équipage. Piège : le PÊCHEUR vit aussi de la mer, mais il cache PÊCHE."
     },
     {
      "categorie": "Très beau",
@@ -886,7 +886,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SUPERBE",
       "RAVISSANT"
      ],
-     "explication": "Quatre façons de dire que c'est beau. Sublime aussi, mais il cache une lime."
+     "explication": "RAVISSANT vient de ravir, au sens de « charmer, enchanter ». Piège : SUBLIME veut aussi dire très beau, mais il finit par LIME."
     },
     {
      "categorie": "Sur le visage",
@@ -897,7 +897,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TEMPE",
       "NARINE"
      ],
-     "explication": "Des parties du visage. La prunelle et la pommette aussi, mais elles cachent une prune et une pomme."
+     "explication": "La TEMPE est sur le côté du front, entre l'œil et l'oreille. Piège : la PRUNELLE (la pupille) et la POMMETTE sont au visage, mais cachent PRUNE et POMME."
     }
    ],
    "rattachements_plausibles": {
@@ -931,7 +931,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SURFACE",
       "TIRELIRE"
      ],
-     "explication": "GOLFe, POLOchon, SURFace, TIRelire."
+     "explication": "GOLFE commence par GOLF, POLOCHON par POLO, SURFACE par SURF et TIRELIRE par TIR : le sport est toujours au début du mot."
     },
     {
      "categorie": "Formes du littoral",
@@ -942,7 +942,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ESTUAIRE",
       "DÉTROIT"
      ],
-     "explication": "Des formes que prend la mer le long des côtes. Le golfe aussi, mais il commence par golf."
+     "explication": "L'ESTUAIRE est l'embouchure évasée d'un fleuve, le DÉTROIT un passage étroit entre deux terres. Piège : le GOLFE est aussi du littoral, mais il cache GOLF."
     },
     {
      "categorie": "Literie",
@@ -953,7 +953,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SOMMIER",
       "PLAID"
      ],
-     "explication": "La literie. Le polochon aussi, mais il commence par polo."
+     "explication": "Le TRAVERSIN est un long oreiller qui traverse le lit, le SOMMIER porte le matelas. Piège : POLOCHON, autre nom du traversin, cache POLO."
     },
     {
      "categorie": "Pour garder son argent",
@@ -964,7 +964,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "COFFRE",
       "CAGNOTTE"
      ],
-     "explication": "Pour ranger ou économiser. La tirelire aussi, mais elle commence par tir."
+     "explication": "La BOURSE est une petite poche à pièces, la CAGNOTTE de l'argent mis en commun. Piège : la TIRELIRE garde aussi l'argent, mais elle commence par TIR."
     }
    ],
    "rattachements_plausibles": {
@@ -995,7 +995,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SOMME",
       "MODE"
      ],
-     "explication": "Le vase / la vase, le crêpe (tissu) / la crêpe, le somme (sieste) / la somme, le mode / la mode."
+     "explication": "Au masculin puis au féminin : le VASE / la vase (boue), le CRÊPE (tissu) / la crêpe, le SOMME (sieste) / la somme, le MODE (manière) / la mode."
     },
     {
      "categorie": "Récipients",
@@ -1006,7 +1006,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "AMPHORE",
       "POT"
      ],
-     "explication": "Pour contenir un liquide ou des aliments. Le vase aussi, mais il change de sens selon le genre."
+     "explication": "L'AMPHORE est un vase antique à deux anses, la JARRE une grande poterie pour l'huile ou l'eau. Piège : le VASE est un récipient, mais la vase est de la boue."
     },
     {
      "categorie": "Spécialités bretonnes",
@@ -1017,7 +1017,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CIDRE",
       "FAR"
      ],
-     "explication": "On les mange ou les boit en Bretagne. La crêpe aussi, mais elle change de sens selon le genre."
+     "explication": "KOUIGN-AMANN signifie « gâteau au beurre » en breton, et le FAR breton se fait souvent aux pruneaux. Piège : la CRÊPE est bretonne, mais le crêpe est un tissu."
     },
     {
      "categorie": "Résultats d'opérations",
@@ -1028,7 +1028,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "DIFFÉRENCE",
       "RESTE"
      ],
-     "explication": "Multiplication, division, soustraction, reste de la division. La somme aussi, mais elle change de sens selon le genre."
+     "explication": "Le PRODUIT vient d'une multiplication, la DIFFÉRENCE d'une soustraction, le QUOTIENT et le RESTE d'une division. Piège : la SOMME, au masculin, est une sieste."
     }
    ],
    "rattachements_plausibles": {
@@ -1059,7 +1059,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "ZARBI",
       "OUF"
      ],
-     "explication": "Relou (lourd), chelou (louche), zarbi (bizarre), ouf (fou)."
+     "explication": "Le verlan inverse les syllabes : RELOU vient de « lourd », CHELOU de « louche », ZARBI de « bizarre » et OUF de « fou »."
     },
     {
      "categorie": "Interjections",
@@ -1070,7 +1070,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BOF",
       "ZUT"
      ],
-     "explication": "Des petits mots qu'on s'exclame. Ouf aussi, mais c'est fou en verlan ici."
+     "explication": "AÏE exprime la douleur, HÉLAS le regret, BOF l'indifférence et ZUT l'agacement. Piège : OUF est aussi une interjection, mais ici c'est « fou » en verlan."
     },
     {
      "categorie": "Bizarre",
@@ -1081,7 +1081,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "CURIEUX",
       "SAUGRENU"
      ],
-     "explication": "Quatre synonymes de bizarre. Zarbi aussi, mais c'est du verlan."
+     "explication": "SAUGRENU qualifie ce qui est bizarre au point d'en être ridicule. Piège : ZARBI et CHELOU veulent aussi dire bizarre, mais ils sont en verlan."
     },
     {
      "categorie": "Très fatigué (familier)",
@@ -1092,7 +1092,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "LESSIVÉ",
       "VIDÉ"
      ],
-     "explication": "Quatre façons familières de dire qu'on est épuisé."
+     "explication": "Quatre façons familières de dire épuisé. NAZE peut aussi vouloir dire nul ou en panne, et VIDÉ décrit quelqu'un qui n'a plus aucune énergie."
     }
    ],
    "rattachements_plausibles": {
@@ -1123,7 +1123,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "VALEUR",
       "CAUSE"
      ],
-     "explication": "Mettre en scène, mettre en demeure, mettre en valeur, mettre en cause."
+     "explication": "Mettre en DEMEURE, c'est exiger officiellement ; mettre en CAUSE, accuser ou impliquer. Piège : SCÈNE évoque le théâtre, mais ici on met en scène."
     },
     {
      "categorie": "Mettre à ___",
@@ -1134,7 +1134,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "NU",
       "SAC"
      ],
-     "explication": "Mettre à jour, mettre à plat, mettre à nu, mettre à sac. On dit aussi « mettre au jour », mais le groupe « au » est déjà complet."
+     "explication": "Mettre à SAC, c'est piller ; mettre à PLAT, tout réexaminer. Piège : « mettre au jour » (découvrir) existe, mais ici c'est mettre à JOUR (actualiser)."
     },
     {
      "categorie": "Mettre au ___",
@@ -1145,7 +1145,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "DÉFI",
       "COIN"
      ],
-     "explication": "Mettre au monde, mettre au pilori, mettre au défi, mettre au coin."
+     "explication": "Le pilori était un poteau où l'on exposait les condamnés : mettre au PILORI, c'est livrer au mépris public. Mettre au MONDE, c'est donner naissance."
     },
     {
      "categorie": "Au théâtre",
@@ -1156,7 +1156,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BALCON",
       "FOSSE"
      ],
-     "explication": "Des parties d'une salle de théâtre. La scène aussi, mais on la met en scène ici."
+     "explication": "Les COULISSES sont cachées sur les côtés et derrière la scène, la FOSSE accueille l'orchestre, le PARTERRE et le BALCON reçoivent le public."
     }
    ],
    "rattachements_plausibles": {
@@ -1184,7 +1184,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "BRUNCH",
       "MOTEL"
      ],
-     "explication": "Français + anglais, courrier + électronique, breakfast + lunch, motor + hotel."
+     "explication": "Deux mots fondus en un : FRANGLAIS (français + anglais), COURRIEL (courrier + électronique), BRUNCH (breakfast + lunch), MOTEL (motor + hotel)."
     },
     {
      "categorie": "Repas",
@@ -1195,7 +1195,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "SOUPER",
       "COLLATION"
      ],
-     "explication": "Les moments où l'on mange. Le brunch aussi, mais c'est un mot-valise."
+     "explication": "En Belgique, en Suisse et au Québec, le DÎNER est le repas de midi et le SOUPER celui du soir. Piège : le BRUNCH est un repas, mais c'est un mot-valise."
     },
     {
      "categorie": "Hébergements",
@@ -1206,7 +1206,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "GÎTE",
       "REFUGE"
      ],
-     "explication": "Pour dormir en voyage. Le motel aussi, mais c'est un mot-valise."
+     "explication": "Le REFUGE accueille les randonneurs en montagne, le GÎTE se loue souvent à la campagne. Piège : le MOTEL est un hébergement, mais c'est un mot-valise."
     },
     {
      "categorie": "Messages",
@@ -1217,7 +1217,7 @@ window.QUOTIDIEN_ENTRAINEMENT = {
       "TÉLÉGRAMME",
       "MISSIVE"
      ],
-     "explication": "Pour écrire à quelqu'un. Le courriel aussi, mais c'est un mot-valise."
+     "explication": "Une MISSIVE est une lettre qu'on envoie, le TÉLÉGRAMME était transmis par télégraphe. Piège : le COURRIEL est un message, mais c'est un mot-valise."
     }
    ],
    "rattachements_plausibles": {

@@ -347,7 +347,28 @@
   .defi-tete { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 0 8px; }
   .defi-tete .palier { font-family: var(--title); font-weight: 700; font-size: 22px; }
   .defi-tete .palier small { font-size: 14px; color: var(--muted); }
-  .defi-tete .format { font-size: 13px; font-weight: 800; color: var(--muted); text-align: right; }
+  .defi-tete .format { font-size: 13px; font-weight: 800; color: var(--muted); text-align: right; border-radius: var(--r-s); padding: 4px 8px; line-height: 1.25; }
+  .defi-tete .format b { color: #fff; font-size: 14px; }
+  /* Nouveau format (ex. on passe de groupes de 2 à groupes de 3) : rappel bien visible pendant tout le palier */
+  .defi-tete .format.change { background: var(--c0); color: var(--ink); box-shadow: 0 3px 0 var(--c0e); animation: format-pulse 1s ease-in-out 3; }
+  .defi-tete .format.change b { color: var(--ink); }
+  .defi-tete .format .nouveau { display: block; font-family: var(--title); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+  @keyframes format-pulse { 0%, 100% { transform: none; } 50% { transform: scale(1.08); } }
+  .defi-prochain { margin: 8px 0 0; text-align: center; font-size: 13px; font-weight: 800; color: var(--c0); }
+  .annonce-format { position: fixed; inset: 0; z-index: 30; background: rgba(10,6,35,.72); display: flex; align-items: center; justify-content: center; padding: 16px; animation: fondu .2s ease-out; cursor: pointer; }
+  .annonce-format .carte { background: var(--cream); color: var(--ink); border-radius: var(--r-l); box-shadow: 0 6px 0 var(--cream-edge); padding: 20px 18px 16px; width: min(360px, 100%); text-align: center;
+    animation: annonce-pop .45s cubic-bezier(.2,.9,.3,1.4); }
+  .annonce-format .surtitre { font-family: var(--title); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+  .annonce-format h2 { font-family: var(--title); font-weight: 700; font-size: 28px; line-height: 1.1; margin: 6px 0 4px; }
+  .annonce-format h2 em { font-style: normal; color: var(--c3e); }
+  .annonce-format .avant { font-size: 13.5px; font-weight: 800; color: var(--ink-soft); margin: 0 0 12px; }
+  .annonce-format .schema { display: flex; flex-direction: column; gap: 6px; align-items: center; margin: 4px 0 12px; }
+  .annonce-format .schema div { display: flex; gap: 6px; }
+  .annonce-format .schema i { width: 30px; height: 22px; border-radius: 6px; display: block; animation: arrivee .35s cubic-bezier(.2,.9,.3,1.3) both; }
+  .annonce-format .consigne { font-size: 15px; font-weight: 800; margin: 0 0 12px; }
+  .annonce-format .btn { width: 100%; }
+  @keyframes annonce-pop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .annonce-format .carte, .annonce-format .schema i, .defi-tete .format.change { animation: none; } }
   .chrono-defi { position: relative; height: 22px; border-radius: var(--pill); background: rgba(255,255,255,.1); overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,.3); }
   .chrono-defi i { position: absolute; inset: 0 auto 0 0; width: 100%; background: linear-gradient(90deg, var(--c1), var(--c0)); border-radius: var(--pill); }
   .chrono-defi.urgent i { background: linear-gradient(90deg, #ff5d5d, #ff9a2e); }
@@ -1152,7 +1173,7 @@
     // Un seul chrono pour toute la partie : P.reste = temps restant au dernier repère (P.repere), hors pauses.
     // P.ecoule = temps de jeu écoulé ; P.temps = temps écoulé au dernier palier réussi (départage du classement).
     partieDefi = { graine: opts.graine, groupe: opts.groupe || null, suite: DF.genererSuite(opts.graine), n: 1, temps: 0, erreurs: 0,
-      serie: 0, serieMax: 0, meilleur: null, fin: null, reste: DF.DUREE_MS, repere: Date.now(), ecoule: 0, pause: false };
+      serie: 0, serieMax: 0, meilleur: null, fin: null, nouveauFormat: false, reste: DF.DUREE_MS, repere: Date.now(), ecoule: 0, pause: false };
     if (partieDefi.groupe) store.set(CLE_ENCOURS, { code: partieDefi.groupe.code, numero: partieDefi.groupe.numero, paliers: 0, temps_ms: 0, profil: profilDefi() });
     afficherEcran("defi-jeu");
     demarrerPalier();
@@ -1182,8 +1203,10 @@
     const restants = p.mots.filter(m => !P.trouves.some(gi => p.groupes[gi].mots.includes(m)));
     const col = p.mots.length <= 4 ? "col2" : "col3";
     $("ecran-defi-jeu").innerHTML = `<div class="defi-tete"><div><span class="mode-badge defi">${P.groupe ? "Groupe · manche " + P.groupe.numero : "Défi express"}</span><div class="palier">Palier ${P.n} <small>/ ${DF.MAX_PALIERS}</small></div></div>
-        <div class="format">${p.groupes.length} groupes<br>de ${p.taille} mots</div></div>
+        <div class="format ${P.nouveauFormat ? "change" : ""}">${P.nouveauFormat ? `<span class="nouveau">Nouveau !</span>` : ""}<b>${p.groupes.length} groupes</b><br>de ${p.taille} mots</div></div>
       <div class="chrono-defi" id="defi-chrono" role="timer" aria-label="Temps restant"><i></i><b></b></div>
+      ${(() => { const q = P.suite[P.n]; return q && P.n < DF.MAX_PALIERS && (q.groupes.length !== p.groupes.length || q.taille !== p.taille)
+        ? `<p class="defi-prochain">Attention : au prochain palier, ${q.groupes.length} groupes de ${q.taille} mots</p>` : ""; })()}
       <div class="defi-trouves" id="defi-trouves">${P.trouves.map((gi, k) => `<span class="puce c${k % 4}"><b>${esc(p.groupes[gi].nom)}</b> · ${p.groupes[gi].mots.map(esc).join(", ")}</span>`).join("")}</div>
       <div class="board defi ${col}" id="defi-plateau">${restants.map(m => `<button class="tile td ${m.length > 12 ? "l3" : m.length > 9 ? "l2" : ""} ${P.selection.includes(m) ? "sel" : ""}" data-mot="${esc(m)}" aria-pressed="${P.selection.includes(m)}"><span>${esc(m)}</span></button>`).join("")}</div>
       <div class="defi-pied"><span>${P.n > 1 || P.trouves.length ? "+2 s par groupe · −2 s par erreur" : "Touche les mots d'un même groupe"}</span><button class="lien-discret" id="defi-abandon">Abandonner</button></div>`;
@@ -1229,12 +1252,38 @@
     setTimeout(() => {
       if (P.fin) return;
       if (P.n >= DF.MAX_PALIERS) return finDefi("complet");
-      P.n++; demarrerPalier();
+      const avant = P.palier, apres = P.suite[P.n];
+      const change = apres.groupes.length !== avant.groupes.length || apres.taille !== avant.taille;
+      const suite = () => { if (P.fin) return; P.n++; P.nouveauFormat = change; demarrerPalier(); };
+      if (change) annoncerFormat(avant, apres, suite); else suite();
     }, 800);
+  }
+  // Changement de format (ex. de 2 groupes de 2 mots à 2 groupes de 3) : annonce plein écran, chrono arrêté.
+  // Elle se ferme d'elle-même après 2,6 s, ou d'un toucher.
+  function annoncerFormat(avant, apres, suite) {
+    const nG = apres.groupes.length, t = apres.taille;
+    const tailleChange = apres.taille !== avant.taille, groupesChange = nG !== avant.groupes.length;
+    const consigne = tailleChange && groupesChange ? `${nG} groupes à trouver, et chaque groupe compte maintenant <b>${t} mots</b>.`
+      : tailleChange ? `Chaque groupe compte maintenant <b>${t} mots</b> : touche ${t} mots pour former un groupe.`
+      : `Il y a maintenant <b>${nG} groupes</b> à trouver.`;
+    const el = document.createElement("div"); el.className = "annonce-format"; el.id = "annonce-format";
+    el.setAttribute("role", "alertdialog"); el.setAttribute("aria-live", "assertive");
+    el.innerHTML = `<div class="carte"><div class="surtitre">Nouveau format · palier ${apres.n}</div>
+      <h2><em>${nG} groupes</em> de <em>${t} mots</em></h2>
+      <p class="avant">Avant : ${avant.groupes.length} groupes de ${avant.taille} mots</p>
+      <div class="schema" aria-hidden="true">${Array.from({ length: nG }, (_, g) => `<div>${Array.from({ length: t }, (_, k) => `<i style="background:var(--c${g % 4});animation-delay:${(g * t + k) * 45}ms"></i>`).join("")}</div>`).join("")}</div>
+      <p class="consigne">${consigne}</p>
+      <button class="btn primary" id="annonce-ok">C'est parti</button></div>`;
+    document.body.appendChild(el); vibrer([20, 40, 20]);
+    let fait = false;
+    const fermer = () => { if (fait) return; fait = true; clearTimeout(minuteur); el.remove(); suite(); };
+    const minuteur = setTimeout(fermer, 2600);
+    el.addEventListener("click", fermer);
   }
   async function finDefi(raison) {
     const P = partieDefi; if (!P || P.fin) return;
     figerDefi(); P.fin = raison; clearInterval(minuterieDefi);
+    const annonce = $("annonce-format"); if (annonce) annonce.remove();
     // Pendant l'animation « Palier réussi », le palier en cours est déjà gagné.
     const paliers = raison === "complet" ? DF.MAX_PALIERS : (P.pause ? P.n : P.n - 1);
     const res = DF.enregistrerPartie(profilDefi(), { paliers, temps_ms: P.temps, serieSansErreur: P.serieMax, meilleurPalierMs: P.meilleur, salon: P.groupe ? P.groupe.code : null });

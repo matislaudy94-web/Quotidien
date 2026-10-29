@@ -89,7 +89,18 @@ async function jouerPaliers(page, n) { const vus = []; for (let i = 0; i < n; i+
     const palier3 = await lirePrecis();
     ok(/Palier 3/.test(await pa.locator(".defi-tete").innerText()) && palier3 - avantDernier >= 1.2 && palier3 - avantDernier <= 2.1,
       `le chrono continue d'un palier à l'autre, avec le bonus du dernier groupe et sans remise à 30 s (${avantDernier.toFixed(1)} → ${palier3.toFixed(1)} s)`);
-    await jouerPaliers(pa, 2);
+    ok(/Attention : au prochain palier, 2 groupes de 3 mots/.test(await pa.locator("#ecran-defi-jeu").innerText()), "palier 3 : le changement de format à venir est signalé (« au prochain palier, 2 groupes de 3 mots »)");
+    await resoudrePalier(pa).catch(() => {});
+    await pa.waitForSelector("#annonce-format", { timeout: 3000 });
+    ok(/2 groupes de 3 mots/.test(await pa.locator("#annonce-format").innerText()) && /Avant : 2 groupes de 2 mots/.test(await pa.locator("#annonce-format").innerText()), "palier 4 : annonce plein écran « Nouveau format : 2 groupes de 3 mots »");
+    const fige1 = await lirePrecis(); await pa.waitForTimeout(700); const fige2 = await lirePrecis();
+    ok(Math.abs(fige1 - fige2) < 0.05, `le chrono est arrêté pendant l'annonce (${fige1.toFixed(2)} → ${fige2.toFixed(2)} s)`);
+    await pa.screenshot({ path: path.join(CAPT, "defi_annonce_format.png") });
+    await pa.click("#annonce-ok"); await pa.waitForSelector("#annonce-format", { state: "detached" });
+    ok(await pa.locator(".defi-tete .format.change").count() === 1 && /Nouveau/i.test(await pa.locator(".defi-tete .format").innerText()), "pendant le palier 4, le format est surligné « Nouveau ! » dans l'en-tête");
+    await pa.screenshot({ path: path.join(CAPT, "defi_palier4_nouveau_format.png") });
+    await jouerPaliers(pa, 1);
+    ok(await pa.locator(".defi-tete .format.change").count() === 0, "au palier 5 (même format), plus de surlignage");
     ok(/Palier 5/.test(await pa.locator(".defi-tete").innerText()) && await pa.locator("#defi-plateau [data-mot]").count() === 6, "palier 5 : 6 mots (2 groupes de 3)");
     await pa.screenshot({ path: path.join(CAPT, "defi_3_palier5.png") });
     // Laisser le temps s'écouler sur le palier 5

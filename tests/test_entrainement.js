@@ -56,7 +56,8 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     console.log("1. Accueil : grille du jour ET mode entraînement visibles");
     await page.goto(`${BASE}/?p=${A}`); await page.waitForSelector("#btn-jouer");
     ok(await page.locator("#carte-jour").isVisible() && await page.locator("#carte-entr").isVisible(), "deux cartes : « La grille du jour » et « Mode entraînement »");
-    ok(/Une nouvelle grille chaque jour/.test(await page.locator("#carte-jour").innerText()) && /Enchaîne les exercices à ton rythme/.test(await page.locator("#carte-entr").innerText()), "les deux modes sont expliqués en une phrase");
+    ok(/Une nouvelle grille chaque jour/.test(await page.locator("#carte-jour").innerText()) && /Entraînement/.test(await page.locator("#carte-entr").innerText()) && /exercices à enchaîner/.test(await page.locator("#carte-entr").innerText()), "les deux modes sont expliqués en une phrase");
+    ok(await page.locator("#mini-jeux").isVisible() && await page.evaluate(() => document.getElementById("mini-jeux").getBoundingClientRect().top > document.getElementById("carte-jour").getBoundingClientRect().top), "les mini-jeux sont mis en avant juste sous la grille du jour");
     ok(await page.locator("#btn-jouer.primary").count() === 1 && await page.locator("#btn-entr.primary").count() === 0, "tant que la grille du jour n'est pas jouée, elle reste le bouton principal");
 
     console.log("2-3. Grille du jour : comportement inchangé");
@@ -74,7 +75,7 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
 
     console.log("4. Ouvrir le mode entraînement");
     await page.click('#nav-bas [data-ecran="accueil"]'); await page.waitForSelector("#btn-entr");
-    ok(await page.locator("#btn-entr.primary").count() === 1, "grille du jour terminée : « S'entraîner » devient le bouton principal");
+    ok(await page.locator("#btn-jouer.primary").count() === 0 && await page.locator("#btn-entr").isVisible(), "grille du jour terminée : « Voir mon résultat » n'est plus le bouton principal, l'entraînement est à portée de main");
     await page.click("#btn-entr"); await page.waitForSelector("#ecran-entrainement:not(.hidden)");
     ok(/Jouer l'exercice 1/.test(await page.locator("#btn-entr-continuer").innerText()), "écran entraînement : « Jouer l'exercice 1 »");
     ok(await page.locator(".exo:not([disabled])").count() === 1 && await page.locator(".exo.verrouille").count() === E.length - 1, "seul l'exercice 1 est ouvert, les autres verrouillés");
@@ -108,8 +109,8 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     await jouer(page, E[1], [], 4);
     await page.waitForSelector("#fin:not(.hidden)", { timeout: 5000 });
     ok(/Pas cette fois/i.test(await page.locator("#resume").innerText()), "écran d'échec « Pas cette fois »");
-    ok(await page.locator("#entr-reessayer").isVisible() && await page.locator("#entr-solution").isVisible() && await page.locator("#entr-passer").isVisible(), "trois choix : Réessayer, Comprendre la solution, Passer");
-    ok(!(await page.locator("#solution").isVisible()), "la solution n'est PAS révélée d'office en entraînement");
+    ok(await page.locator("#entr-reessayer").isVisible() && await page.locator("#entr-passer").isVisible() && await page.locator("#entr-solution").count() === 0, "deux choix : Réessayer, Passer (plus de bouton « Comprendre la solution »)");
+    ok(!(await page.locator("#solution").isVisible()) && /La solution reste cachée/.test(await page.locator("#resume").innerText()), "la solution n'est PAS révélée après un échec");
     ok(!/XP/.test(await page.locator("#recompenses").innerText()), "aucune XP pour un échec");
     ok((await xpDe(page, A, "e02")).partie === null, "l'échec n'entre pas dans le journal de progression");
     await page.screenshot({ path: path.join(CAPT, "entr_4_echec.png"), fullPage: true });
@@ -131,17 +132,21 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     ok(x2.partie === 50, "réussite à la 2e tentative, sans erreur : 50 XP, PAS de bonus sans faute → " + x2.partie);
     ok(/tentative 2/.test(await page.locator("#resume").innerText()), "l'écran indique « tentative 2 »");
 
-    console.log("11. Comprendre la solution");
+    console.log("11. Échec avec un groupe trouvé : seul ce groupe est rappelé, la solution reste cachée");
     await page.click("#entr-suivant"); await page.waitForSelector(".tile");
-    await jouer(page, E[2], [], 4);
-    await page.waitForSelector("#entr-solution");
-    await page.click("#entr-solution"); await page.waitForSelector("#solution:not(.hidden)");
-    ok(await page.locator("#solution .group").count() === 4 && await page.locator("#solution .expl").count() === 4, "les 4 groupes et leurs explications sont affichés");
-    ok(/Réessayer \(sans XP\)/.test(await page.locator("#entr-reessayer").innerText()), "« Réessayer (sans XP) » après avoir vu la solution");
+    await jouer(page, E[2], [0]);
+    for (let i = 0; i < 4; i++) { const x = E[2].groupes[1 + i % 3].mots, y = E[2].groupes[1 + (i + 1) % 3].mots;
+      for (const m of [x[0], x[1], y[i % 4], y[(i + 1) % 4]]) await page.getByRole("button", { name: m, exact: true }).click();
+      await page.getByRole("button", { name: "Valider" }).click(); if (i < 3) await page.getByRole("button", { name: "Désélectionner" }).click(); }
+    await page.waitForSelector("#entr-reessayer");
+    ok(await page.locator("#solution .group").count() === 1 && /Tes groupes trouvés/.test(await page.locator("#solution").innerText()), "seul le groupe trouvé est rappelé");
+    const txt11 = (await page.locator("#fin").innerText()).toUpperCase();
+    ok(E[2].groupes.slice(1).every(g => !txt11.includes(g.categorie.toUpperCase())), "les 3 autres catégories restent secrètes");
     await page.click("#entr-reessayer"); await page.waitForSelector(".tile");
     await jouer(page, E[2], [0, 1, 2, 3]);
     await page.waitForSelector("#fin:not(.hidden)", { timeout: 5000 });
-    ok(/consulté la solution/.test(await page.locator("#recompenses").innerText()) && (await xpDe(page, A, "e03")).partie === null, "réussite après la solution : aucune XP, aucune entrée de progression");
+    ok(await page.locator("#solution .group").count() === 4 && /Les explications/.test(await page.locator("#solution").innerText()), "exercice réussi : la solution complète et les explications s'affichent");
+    ok((await xpDe(page, A, "e03")).partie > 0, "réussite à la 2e tentative : XP créditée (la solution n'avait pas été montrée)");
 
     console.log("12. Passer à la suite sans récompense");
     await page.click("#entr-suivant"); await page.waitForSelector(".tile");
@@ -181,11 +186,11 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     await page.click("#entr-suivant").catch(() => {}); await page.waitForSelector(".tile");
     ok((await xpDe(page, A, "x")).xp === xpTotal, "XP totale inchangée après avoir rejoué et cliqué sur « Exercice suivant » (" + xpTotal + ")");
     const journalE = await page.evaluate((pid) => JSON.parse(localStorage.getItem("quotidien_journal_" + pid)).map(e => e.grille + (e.mode ? ":" + e.mode : "")), A);
-    ok(journalE.join() === "g1,e01:entrainement,e02:entrainement", "journal : g1 (jour), e01 et e02 (entraînement), une seule fois chacun → " + journalE.join());
+    ok(journalE.join() === "g1,e01:entrainement,e02:entrainement,e03:entrainement", "journal : g1 (jour), e01, e02 et e03 (entraînement), une seule fois chacun → " + journalE.join());
 
     console.log("14. Recharger : progression conservée");
     await page.reload(); await page.waitForSelector("#carte-entr");
-    ok(/3\/20 réussis/.test(await page.locator("#carte-entr").innerText()), "après rechargement : 3/20 réussis (e01, e02, e03) → " + (await page.locator("#carte-entr .meta").innerText()).replace(/\s+/g, " "));
+    ok(/3\/20 réussis/.test(await page.locator("#carte-entr").innerText()), "après rechargement : 3/20 réussis (e01, e02, e03) → " + (await page.locator("#carte-entr .chiffre").innerText()).replace(/\s+/g, " "));
     ok(/Terminée/.test(await page.locator("#carte-jour").innerText()), "la grille du jour reste « Terminée »");
 
     console.log("15. Statistiques séparées");
@@ -193,7 +198,7 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     const st = await page.locator("#ecran-stats").innerText();
     ok(/Grilles du jour/i.test(st) && /Entraînement/i.test(st) && /Progression/i.test(st), "trois rubriques : grilles du jour, entraînement, progression");
     ok(/1\s*Grilles terminées/i.test(st) && /100 %/.test(st), "grilles du jour : 1 terminée, 100 % (l'entraînement n'entre pas dans le taux)");
-    ok(/3\/20\s*Exercices réussis/i.test(st) && /2 avec XP/.test(st) && /1\s*Exercices passés/i.test(st), "entraînement : 3/20 réussis dont 2 avec XP, 1 passé");
+    ok(/3\/20\s*Exercices réussis/i.test(st) && /3 avec XP/.test(st) && /1\s*Exercices passés/i.test(st), "entraînement : 3/20 réussis dont 3 avec XP, 1 passé");
     await page.screenshot({ path: path.join(CAPT, "entr_5_stats.png"), fullPage: true });
 
     console.log("17. Données de l'expérimentation non contaminées");
@@ -206,7 +211,7 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     ok(visites.length === 3 && visites.every(v => ["premiere_visite", "revisite_meme_jour"].includes(v.donnees.classe)), "visites : seulement les 3 chargements de page, aucune comptée comme retour spontané (" + visites.map(v => v.donnees.classe).join(", ") + ")");
     const tr = ev.filter(e => e.type === "entrainement");
     const actions = [...new Set(tr.map(e => e.donnees.action))].sort().join();
-    ok(actions === "debut,fin,ouverture,passe,solution", "traces d'entraînement séparées (type « entrainement ») : " + actions);
+    ok(actions === "debut,fin,ouverture,passe", "traces d'entraînement séparées (type « entrainement ») : " + actions);
     ok(tr.filter(e => e.donnees.action === "fin" && e.donnees.gagne).every(e => /^e\d\d$/.test(e.grille)), "les fins d'exercice portent l'identifiant de l'exercice (e01…), jamais une grille du calendrier");
     ok(JSON.stringify(tr).length < 20000 && tr.length < 60, "volume raisonnable : " + tr.length + " traces d'entraînement");
 
@@ -237,7 +242,7 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     await pse.screenshot({ path: path.join(CAPT, "entr_6_iphone_se.png") });
     await jouer(pse, E[0], [], 4);
     await pse.waitForSelector("#entr-reessayer");
-    const boutons = await pse.evaluate(() => ["entr-reessayer", "entr-solution", "entr-passer"].map(id => document.getElementById(id).getBoundingClientRect().height));
+    const boutons = await pse.evaluate(() => ["entr-reessayer", "entr-passer"].map(id => document.getElementById(id).getBoundingClientRect().height));
     ok(boutons.every(h => h >= 44), "boutons de l'écran d'échec ≥ 44 px de haut (" + boutons.map(Math.round).join(", ") + ")");
 
     ok(erreurs.length === 0, "aucune erreur JavaScript " + erreurs.join(" | "));

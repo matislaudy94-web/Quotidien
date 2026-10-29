@@ -307,6 +307,31 @@
   .debloque { text-align: center; font-weight: 800; font-size: 14px; color: var(--ok-edge, #1f8a3a); margin: 10px 0 0; animation: pop-xp .5s cubic-bezier(.2,.9,.3,1.4) .3s both; }
   @media (prefers-reduced-motion: reduce) { .cta-collant { transition: none; } }
 
+  /* ---------- Mini-jeux de l'accueil (entraînement et Défi express) ---------- */
+  .mini-jeux { margin-top: 18px; }
+  .mini-titre { font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; margin: 0 2px 10px; display: flex; align-items: baseline; gap: 8px; }
+  .mini-titre span { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .mini-rang { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mini-rang.seul { grid-template-columns: 1fr; }
+  .mini-jeu { border-radius: var(--r-l); padding: 14px 12px 12px; color: var(--ink); position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px;
+    cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform .12s; animation: mini-arrivee .45s cubic-bezier(.2,.9,.3,1.3) both; }
+  .mini-jeu:active { transform: translateY(3px); }
+  .mini-jeu.bleu { background: var(--c2); box-shadow: 0 5px 0 var(--c2e); }
+  .mini-jeu.rose { background: var(--c3); box-shadow: 0 5px 0 var(--c3e); animation-delay: .08s; }
+  .mini-jeu::before { content: ""; position: absolute; top: -34px; right: -34px; width: 104px; height: 104px; border-radius: 50%; background: #fff; opacity: .18; }
+  .mini-jeu > * { position: relative; }
+  .mini-jeu .ico { width: 46px; height: 46px; border-radius: 14px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 26px;
+    box-shadow: 0 3px 0 rgba(0,0,0,.18); animation: mini-ico 2.8s ease-in-out 1s infinite; }
+  .mini-jeu h3 { font-family: var(--title); font-weight: 700; font-size: 19px; line-height: 1.1; margin: 4px 0 0; }
+  .mini-jeu .desc { font-size: 12.5px; font-weight: 800; line-height: 1.3; margin: 0; color: rgba(34,24,79,.82); flex: 1; }
+  .mini-jeu .chiffre { align-self: flex-start; background: rgba(255,255,255,.55); border-radius: var(--pill); padding: 3px 9px; font-size: 12px; font-weight: 800; }
+  .mini-jeu .btn { width: 100%; min-height: 46px; padding: 8px 6px; font-size: 15.5px; background: var(--cream); color: var(--ink); margin-top: 2px; }
+  .mini-jeu.bleu .btn { box-shadow: 0 var(--depth) 0 var(--c2e); } .mini-jeu.rose .btn { box-shadow: 0 var(--depth) 0 var(--c3e); }
+  @keyframes mini-arrivee { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes mini-ico { 0%, 86%, 100% { transform: none; } 90% { transform: rotate(-10deg) scale(1.08); } 95% { transform: rotate(8deg) scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { .mini-jeu, .mini-jeu .ico { animation: none; } }
+  @media (max-width: 340px) { .mini-rang { grid-template-columns: 1fr; } }
+
   /* ---------- Défi express ---------- */
   .carte-defi::before { background: var(--c3); }
   .carte-defi h2 { font-size: 21px; }
@@ -436,9 +461,14 @@
   <section id="ecran-accueil" class="ecran hidden" aria-label="Accueil">
     <div class="carte-xp" id="carte-xp"></div>
     <div class="carte-jour" id="carte-jour"></div>
+    <div class="mini-jeux hidden" id="mini-jeux">
+      <h2 class="mini-titre">Mini-jeux <span>pour jouer plus</span></h2>
+      <div class="mini-rang">
+        <div class="mini-jeu bleu hidden" id="carte-entr"></div>
+        <div class="mini-jeu rose hidden" id="carte-defi"></div>
+      </div>
+    </div>
     <div class="panel hidden" id="carte-grilles"></div>
-    <div class="carte-jour carte-entr hidden" id="carte-entr"></div>
-    <div class="carte-jour carte-defi hidden" id="carte-defi"></div>
     <div class="panel" id="accueil-objectifs"></div>
     <div class="panel" id="accueil-parcours"></div>
     <div class="raccourcis">
@@ -565,7 +595,7 @@
       <p class="regle-ligne" style="margin:0"><span class="bulle faux" style="display:inline-block;font-size:14px;padding:5px 12px">Ce n'est pas un groupe.</span> = au moins 2 mots sont à revoir.</p>
     </div>
     <p class="regle-ligne" style="margin-top:12px">Bloqué ? Le bouton <b>💡 Indice</b> met en évidence deux mots qui vont ensemble (il coûte un peu d'XP). Le chronomètre ⏱ mesure ton temps de réflexion, sans limite : prends ton temps.</p>
-    <p class="regle-ligne">Au bout de 4 erreurs, la solution s'affiche avec les explications. Une nouvelle grille chaque jour.</p>
+    <p class="regle-ligne">Au bout de 4 erreurs, la partie s'arrête. <b>La solution ne s'affiche que si tu réussis la grille</b>, avec les explications. Une nouvelle grille chaque jour.</p>
   </div>
   <div class="actions" style="margin-top:14px">
     <button class="btn" id="tuto-prec" type="button">Précédent</button>
@@ -1402,7 +1432,7 @@
           <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
         <p>${reussieDemo ? (suivDemo ? `Bravo, grille réussie ! La grille ${indexGrille(suivDemo) + 1} est débloquée.` : "Bravo, tu as réussi la dernière grille !") : DEMO && terminee ? `Pas encore réussie : retente ta chance pour débloquer la grille suivante${grille.nbVersions > 1 ? ", avec d'autres mots" : ""}.` : terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
         ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${indexGrille(suivDemo) + 1} →</button>` : ""}
-        <button class="btn ${suivDemo ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
+        <button class="btn ${suivDemo || (terminee && !DEMO) ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
       $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; viderPlateau(); lancerGrille(); } else allerJouer(); });
       if (suivDemo) $("btn-suivante").addEventListener("click", () => choisirGrilleDemo(suivDemo.id, true));
@@ -1413,15 +1443,15 @@
     const ce = $("carte-entr");
     if (entrainementActif() && ENTR.grilles.length) {
       const st = statutsEntr(), reussis = st.filter(x => x === "reussi").length, i = prochainEntr(st);
-      const jourFini = !grille || ((!DEMO && store.get(cle())) || {}).fin || (DEMO && PROG.lireJournal("demo").some(e => e.grille === grille.id));
       const ch = i >= 0 ? chapitreDe(ENTR.grilles[i]) : null;
       ce.classList.remove("hidden");
-      ce.innerHTML = `<span class="etiquette">Mode entraînement</span>
-        <h2>Enchaîne les exercices à ton rythme</h2>
-        <div class="meta"><span class="tag">${reussis}/${ENTR.grilles.length} réussis</span>${ch ? `<span class="tag">Chapitre ${ch.n} · ${ch.titre}</span>` : `<span class="tag ok">Parcours terminé</span>`}</div>
-        <p>${i >= 0 ? (st[i] === "en_cours" ? `Exercice ${i + 1} en cours : reprends où tu t'étais arrêté.` : `Prochain : exercice ${i + 1}. Des exercices supplémentaires, en dehors de la grille du jour.`) : "Tu as réussi tous les exercices. Tu peux en rejouer un, sans XP."}</p>
-        <button class="btn ${jourFini ? "primary" : ""} btn-large" id="btn-entr">${i >= 0 ? (st[i] === "en_cours" ? "Reprendre l'entraînement" : reussis ? "Continuer l'entraînement" : "S'entraîner") : "Voir le parcours"}</button>`;
-      $("btn-entr").addEventListener("click", ouvrirEntrainement);
+      ce.innerHTML = `<div class="ico" aria-hidden="true">🎯</div>
+        <h3>Entraînement</h3>
+        <p class="desc">${i >= 0 ? (st[i] === "en_cours" ? `Exercice ${i + 1} en cours : reprends où tu en étais.` : `${ENTR.grilles.length} exercices à enchaîner, à ton rythme.`) : "Parcours terminé : rejoue un exercice, sans XP."}</p>
+        <span class="chiffre">${reussis}/${ENTR.grilles.length} réussis${ch ? ` · chap. ${ch.n}` : " ✓"}</span>
+        <button class="btn" id="btn-entr">${i >= 0 ? (st[i] === "en_cours" ? "Reprendre" : reussis ? "Continuer" : "S'entraîner") : "Voir le parcours"}</button>`;
+      $("btn-entr").addEventListener("click", e => { e.stopPropagation(); ouvrirEntrainement(); });
+      ce.onclick = ouvrirEntrainement;
     } else ce.classList.add("hidden");
 
     // Carte « Défi express »
@@ -1429,13 +1459,17 @@
     if (defiActif()) {
       const ed = DF.lire(profilDefi());
       cd.classList.remove("hidden");
-      cd.innerHTML = `<span class="etiquette">Défi express</span>
-        <h2>30 secondes par palier</h2>
-        <div class="meta"><span class="tag">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span><span class="tag">En groupe jusqu'à 6</span></div>
-        <p>Des mots tirés au hasard à chaque partie. Crée un groupe avec tes amis : vous jouez les manches en même temps, comme au petit bac.</p>
-        <button class="btn btn-large" id="btn-defi">Jouer au Défi</button>`;
-      $("btn-defi").addEventListener("click", ouvrirDefi);
+      cd.innerHTML = `<div class="ico" aria-hidden="true">⚡</div>
+        <h3>Défi express</h3>
+        <p class="desc">30 secondes par palier, seul ou en groupe avec tes amis.</p>
+        <span class="chiffre">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span>
+        <button class="btn" id="btn-defi">Jouer au Défi</button>`;
+      $("btn-defi").addEventListener("click", e => { e.stopPropagation(); ouvrirDefi(); });
+      cd.onclick = ouvrirDefi;
     } else cd.classList.add("hidden");
+    const nbMini = [ce, cd].filter(x => !x.classList.contains("hidden")).length;
+    $("mini-jeux").classList.toggle("hidden", !nbMini);
+    $("mini-jeux").querySelector(".mini-rang").classList.toggle("seul", nbMini === 1);
 
     // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
     const restants = p.objectifs.filter(o => !o.termine).slice(0, 3);
@@ -1476,7 +1510,7 @@
         <p>Résolue sans erreur : <strong>+${PROG.BAREME.sansFaute}</strong> XP. Partie terminée sans résoudre : <strong>${PROG.BAREME.terminee}</strong> XP.</p>
         <p>Objectif réalisé : de 30 à 250 XP. Badge débloqué : <strong>+${PROG.BAREME.badge}</strong> XP.</p>
         <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p>
-        <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec, un exercice passé ou une solution consultée avant de réussir ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p></div>`;
+        <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec ou un exercice passé ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p></div>`;
   }
 
   function rendreBadges(cible) {
@@ -1859,10 +1893,8 @@
   function terminer(gagne) {
     chronoPause();
     etat.fin = Date.now(); etat.gagne = gagne;
-    // en cas d'échec, on révèle les groupes restants
+    // Règle : la solution n'est JAMAIS révélée après un échec, dans aucun mode. Elle ne s'affiche qu'une fois la grille réussie.
     const trouvesParJoueur = etat.trouves.slice();
-    // Grille du jour : la solution est révélée. Entraînement : le joueur choisit (réessayer, voir la solution, passer).
-    if (mode !== "entr") for (let i = 0; i < 4; i++) if (!etat.trouves.includes(i)) etat.trouves.push(i);
     etat.trouvesParJoueur = trouvesParJoueur;
     sauver();
     if (DEMO && mode !== "entr" && gagne) marquerReussieDemo(grille.id);
@@ -1929,7 +1961,7 @@
     $("resume").innerHTML = `
       <div class="heros">
         <h2 class="titre-victoire ${etat.gagne ? "gagne" : ""}">${etat.gagne ? "Bravo !" : "Partie terminée"}</h2>
-        <p>${etat.gagne ? `Grille résolue ! Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Voici la solution.`}</p>
+        <p>${etat.gagne ? `Grille résolue ! Les 4 groupes trouvés avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : elle ne s'affiche que sur une grille réussie.`}</p>
       </div>
       <div class="stats">
         <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
@@ -1940,9 +1972,7 @@
       ${DEMO ? `<div id="suite-demo"></div>` : ""}
       <button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-partager" ${DEMO ? 'style="margin-top:10px"' : ""}>Inviter quelqu'un à jouer</button>
       <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
-    $("solution").innerHTML = `
-      <h2>La solution</h2>
-      <div class="found solution">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>`;
+    rendreSolution(etat.gagne, tp);
     $("btn-partager").addEventListener("click", partager);
 
     if (DEMO) rendreSuiteDemo(); else cacherCta();
@@ -1974,6 +2004,19 @@
     } else ce.classList.add("hidden");
   }
 
+  // Panneau de fin : la solution complète seulement après une réussite ; après un échec, uniquement les groupes
+  // que le joueur a lui-même trouvés (rien de ce qu'il n'a pas trouvé n'est montré).
+  function rendreSolution(gagne, trouvesJoueur, astuce) {
+    const el = $("solution");
+    const idx = (gagne ? grille.groupes.map((g, i) => i) : trouvesJoueur.slice()).sort((a, b) => couleurDe(a) - couleurDe(b));
+    el.classList.toggle("hidden", !idx.length);
+    if (!idx.length) { el.innerHTML = ""; return; }
+    el.innerHTML = `<h2>${gagne ? (mode === "entr" ? "Les explications" : "La solution") : `Tes groupes trouvés`}</h2>
+      ${gagne ? "" : `<p class="small" style="margin:0 0 8px">Les autres groupes restent secrets : réussis la grille pour les découvrir.</p>`}
+      <div class="found solution">${idx.map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>
+      ${gagne && astuce ? `<p class="small" style="margin-top:10px">💡 ${astuce}</p>` : ""}`;
+  }
+
   // Bouton « suite » collant en bas d'écran : apparaît quand le bouton principal de la fin sort de l'écran.
   let observateurCta = null;
   function ctaCollant(cible, texte, sousTexte, libelle, action) {
@@ -2003,13 +2046,13 @@
     } else {
       z.innerHTML = `<p class="small" style="text-align:center;margin:10px 0 0">Réussis cette grille pour débloquer la suivante.${grille.nbVersions > 1 ? ` Nouvel essai avec d'autres mots et d'autres groupes (version ${prochaineVersion}/${grille.nbVersions}).` : ""}</p>
         <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">${grille.nbVersions > 1 ? "Réessayer avec d'autres mots" : "Réessayer la grille"}</button>
-          <div class="rang"><button class="btn" id="demo-solution">Voir la solution</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+          <div class="rang"><button class="btn" data-ecran="accueil">Accueil</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
     }
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
     on("demo-suivante", () => choisirGrilleDemo(suiv.id, true));
     on("demo-rejouer", () => choisirGrilleDemo(grille.id, true));
     on("demo-reessayer", () => choisirGrilleDemo(grille.id, true));
-    on("demo-solution", () => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }));
+    brancherNav(z);
     on("demo-carte", () => { ouvrirAccueil(); setTimeout(() => { const c = $("carte-grilles"); if (c) c.scrollIntoView({ behavior: "smooth", block: "center" }); }, 60); });
     const cible = $("demo-suivante") || $("demo-reessayer");
     if (suiv && etat.gagne) ctaCollant(cible, `🔓 Grille ${n} débloquée`, "Continue sur ta lancée", "Jouer →", () => choisirGrilleDemo(suiv.id, true));
@@ -2036,17 +2079,13 @@
     $("resume").innerHTML = `
       <div class="heros">
         <h2 class="titre-victoire ${gagne ? "gagne" : ""}">${gagne ? "Bravo !" : "Pas cette fois"}</h2>
-        <p>${gagne ? `Exercice réussi${etat.tentative > 1 ? ` (tentative ${etat.tentative})` : ""} avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. Tu peux réessayer, comprendre la solution ou passer à la suite.`}</p></div>
+        <p>${gagne ? `Exercice réussi${etat.tentative > 1 ? ` (tentative ${etat.tentative})` : ""} avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : réessaie, ou passe à la suite.`}</p></div>
       <div class="stats">
         <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
         <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
       </div><div id="suite-entr"></div>`;
-    const voirSolution = gagne || meta.solutionVue;
-    $("solution").classList.toggle("hidden", !voirSolution);
-    if (voirSolution) $("solution").innerHTML = `<h2>${gagne ? "Les explications" : "La solution"}</h2>
-      <div class="found solution">${grille.groupes.map((g, i) => i).sort((a, b) => couleurDe(a) - couleurDe(b)).map(i => htmlGroupe(i, couleurDe(i))).join("")}</div>
-      <p class="small" style="margin-top:10px">💡 ${chapitreDe(grille).astuce}</p>`;
+    rendreSolution(gagne, tp, chapitreDe(grille).astuce);
     // Les choix de suite sont placés juste sous le résultat (sans défiler jusqu'aux explications).
     $("suite").classList.add("hidden");
     const suite = $("suite-entr");
@@ -2056,9 +2095,8 @@
         <button class="lien-discret" data-ecran="accueil">Accueil</button></div>`;
     else suite.innerHTML = `<div class="actions-fin">
         <button class="btn primary btn-large" id="entr-reessayer">Réessayer${meta.solutionVue ? " (sans XP)" : ""}</button>
-        ${meta.solutionVue ? "" : `<button class="btn btn-large" id="entr-solution">Comprendre la solution</button>`}
         <button class="btn btn-large" id="entr-passer">${suivant ? "Passer à l'exercice suivant" : "Retour à l'entraînement"}</button>
-        <p class="small" style="text-align:center;margin:0">${meta.solutionVue ? "Solution consultée : une réussite de cet exercice ne rapportera pas d'XP." : "Voir la solution ou passer ne rapporte pas d'XP. Tu pourras revenir à cet exercice depuis le parcours."}</p>
+        <p class="small" style="text-align:center;margin:0">${meta.solutionVue ? "Solution consultée : une réussite de cet exercice ne rapportera pas d'XP." : "La solution et les explications s'affichent une fois l'exercice réussi. Passer ne rapporte pas d'XP : tu pourras revenir à cet exercice depuis le parcours."}</p>
         <button class="lien-discret" data-ecran="accueil">Accueil</button></div>`;
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", () => { b.disabled = true; f(); }); };
     on("entr-suivant", () => ouvrirExercice(suivant.id));
@@ -2068,8 +2106,6 @@
     on("entr-parcours", ouvrirEntrainement); on("entr-parcours2", ouvrirEntrainement);
     const rv = $("entr-revoir"); if (rv) rv.addEventListener("click", () => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }));
     on("entr-reessayer", nouvelleTentative);
-    on("entr-solution", () => { majMetaEntr(grille.id, { solutionVue: true }); journalEntr("solution", { tentative: etat.tentative }); afficherFinEntr();
-      setTimeout(() => $("solution").scrollIntoView({ behavior: "smooth", block: "start" }), 50); });
     on("entr-passer", () => { if (!(metaEntr()[grille.id] || {}).reussi) majMetaEntr(grille.id, { passe: true }); journalEntr("passe", { tentative: etat.tentative });
       if (suivant) ouvrirExercice(suivant.id); else ouvrirEntrainement(); });
     brancherNav(suite);

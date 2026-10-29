@@ -152,7 +152,8 @@ async function jouer(page, groupesAJouer, faux = 0) {
     }
     await pb.waitForSelector("#fin:not(.hidden)");
     ok(await pb.locator("#resume h2").innerText() === "Partie terminée", "défaite après 4 erreurs");
-    ok((await pb.locator("#resume").innerText()).includes("1 groupe trouvé sur 4"), "résumé : 1 groupe sur 4 et solution révélée");
+    ok((await pb.locator("#resume").innerText()).includes("1 groupe trouvé sur 4") && /solution reste cachée/.test(await pb.locator("#resume").innerText()), "résumé : 1 groupe sur 4, solution non révélée");
+    ok(await pb.locator("#solution .group").count() === 1, "seul le groupe trouvé par le joueur est rappelé, les 3 autres restent secrets");
     ok(await pb.locator("#btn-indice").count() === 1, "après 2 erreurs un 2e indice s'était débloqué (bouton présent)");
     d = await db();
     const indB = d.evenements.filter(e => e.participant_id === B && e.type === "indice");

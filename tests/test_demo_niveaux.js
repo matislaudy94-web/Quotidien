@@ -26,6 +26,11 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     const gagner = async (g) => { for (const gr of g.groupes) { for (const m of gr.mots) await clic(m); await p.getByRole("button", { name: "Valider" }).click(); await p.waitForTimeout(450); } await p.waitForSelector("#fin:not(.hidden)"); };
     const perdre = async (g) => { for (let i = 0; i < 4; i++) { const a = g.groupes[i % 4].mots, c = g.groupes[(i + 1) % 4].mots;
       for (const m of [a[0], a[1], c[i % 4], c[(i + 1) % 4]]) await clic(m); await p.getByRole("button", { name: "Valider" }).click(); if (i < 3) await p.getByRole("button", { name: "Désélectionner" }).click(); } await p.waitForSelector("#fin:not(.hidden)"); };
+    const perdreApres1 = async (g) => { for (const m of g.groupes[0].mots) await clic(m); await p.getByRole("button", { name: "Valider" }).click(); await p.waitForTimeout(450);
+      for (let i = 0; i < 4; i++) { const a = g.groupes[1 + i % 3].mots, c = g.groupes[1 + (i + 1) % 3].mots;
+        for (const m of [a[0], a[1], c[i % 4], c[(i + 1) % 4]]) await clic(m); await p.getByRole("button", { name: "Valider" }).click(); if (i < 3) await p.getByRole("button", { name: "Désélectionner" }).click(); }
+      await p.waitForSelector("#fin:not(.hidden)"); };
+    const textesFin = async () => (await p.locator("#fin").innerText()).toUpperCase();
     const plateau = async () => (await p.$$eval("#plateau .tile", t => t.map(x => x.textContent))).sort().join();
     const mots = (g) => g.groupes.flatMap(x => x.mots).sort().join();
     // Version de la grille i actuellement affichée (originale ou version de rechange)
@@ -35,6 +40,11 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     await p.goto(`${BASE}/?demo=1`); await p.waitForSelector("#carte-grilles [data-grille]");
     ok(await p.locator('#carte-grilles [data-grille="g1"]:not([disabled])').count() === 1 && await p.locator('#carte-grilles [data-grille="g2"][disabled]').count() === 1, "grille 1 ouverte, grille 2 verrouillée");
     await p.screenshot({ path: path.join(CAPT, "demo_1_accueil.png"), fullPage: true });
+    const ordre = await p.evaluate(() => ["carte-jour", "mini-jeux", "carte-grilles"].map(id => document.getElementById(id).getBoundingClientRect().top));
+    ok(await p.locator("#mini-jeux").isVisible() && await p.locator("#carte-entr").isVisible() && await p.locator("#carte-defi").isVisible(), "accueil : les deux mini-jeux (Entraînement, Défi express) sont visibles");
+    ok(ordre[0] < ordre[1] && ordre[1] < ordre[2], "les mini-jeux sont placés juste sous la grille, avant la carte des grilles");
+    const hauts = await p.evaluate(() => ["carte-entr", "carte-defi"].map(id => Math.round(document.getElementById(id).getBoundingClientRect().top)));
+    ok(hauts[0] === hauts[1], "les deux mini-jeux sont côte à côte");
 
     console.log("2. Réussir la grille 1 : la grille 2 est débloquée et proposée tout de suite");
     await p.click('#carte-grilles [data-grille="g1"]'); await p.waitForSelector(".tile");
@@ -55,6 +65,9 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     const v1 = await affichee(1);
     ok(v1 && v1.id === "g2" && /version 1\/3/.test(await p.locator("#date-grille").innerText()), "premier essai de la grille 2 : version 1/3 (grille d'origine)");
     await perdre(v1);
+    const tf1 = await textesFin();
+    ok(await p.locator("#solution").isHidden() && v1.groupes.every(g => !tf1.includes(g.categorie.toUpperCase())), "échec sans groupe trouvé : aucune solution affichée (ni groupes, ni catégories)");
+    ok(/La solution reste cachée/i.test(tf1), "le résultat dit que la solution reste cachée");
     ok(/Réessayer avec d'autres mots/.test(await p.locator("#suite-demo").innerText()) && /version 2\/3/.test(await p.locator("#suite-demo").innerText()) && !/débloquée/.test(await p.locator("#suite-demo").innerText()), "échec : « Réessayer avec d'autres mots (version 2/3) », rien de débloqué");
     await p.click("#demo-reessayer"); await p.waitForSelector(".tile");
     ok(await p.locator("#trouves .group").count() === 0 && await p.locator("#points .coeur.used").count() === 0, "nouvelle partie propre (0 groupe, 4 cœurs)");
@@ -71,11 +84,17 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     await p.click("#demo-reessayer"); await p.waitForSelector(".tile");
     const v4 = await affichee(1);
     ok(v4 && v4.id === "g2", "troisième échec : retour à la version 1");
-    await perdre(v4); await p.click("#demo-reessayer"); await p.waitForSelector(".tile");
+    await perdreApres1(v4);
+    const tf4 = await textesFin();
+    ok(await p.locator("#solution .group").count() === 1 && /Tes groupes trouvés/i.test(await p.locator("#solution h2").innerText()), "échec avec 1 groupe trouvé : seul ce groupe est rappelé (« Tes groupes trouvés »)");
+    ok(v4.groupes.slice(1).every(g => !tf4.includes(g.categorie.toUpperCase()) && !g.mots.every(m => tf4.includes(m))), "les 3 groupes non trouvés restent secrets");
+    await p.screenshot({ path: path.join(CAPT, "demo_5_echec_sans_solution.png"), fullPage: true });
+    await p.click("#demo-reessayer"); await p.waitForSelector(".tile");
     const v5 = await affichee(1);
     await gagner(v5);
     ok(/Grille 3 débloquée/.test(await p.locator("#suite-demo").innerText()), "réussie après un échec : « Grille 3 débloquée ! »");
     ok(v5 && v5.id === "g2b", "réussite sur la version 2 : elle compte pour la grille 2");
+    ok(await p.locator("#solution .group").count() === 4 && /La solution/.test(await p.locator("#solution h2").innerText()), "après une réussite, la solution complète et ses explications s'affichent");
     await p.click("#demo-suivante"); await p.waitForSelector(".tile");
     ok(await plateau() === mots(G[2]), "la grille 3 se lance (version 1)");
     await gagner(G[2]);

@@ -1,0 +1,855 @@
+{
+ "version": 1,
+ "expressions": [
+  {
+   "id": "x001",
+   "difficulte": "facile",
+   "categorie": "corps",
+   "texte": "Avoir le cœur sur la ___",
+   "mot": "MAIN",
+   "complete": "Avoir le cœur sur la main",
+   "indice": "Se dit d'une personne très généreuse.",
+   "leurres": [
+    "JOUE",
+    "TÊTE",
+    "PEAU"
+   ],
+   "sens": "Être généreux, toujours prêt à donner ou à rendre service sans rien attendre en retour.",
+   "exemple": "Elle a le cœur sur la main : elle a prêté sa voiture à un voisin qu'elle connaît à peine.",
+   "variantes": []
+  },
+  {
+   "id": "x002",
+   "difficulte": "facile",
+   "categorie": "animaux",
+   "texte": "Poser un ___",
+   "mot": "LAPIN",
+   "complete": "Poser un lapin",
+   "indice": "Se dit quand on ne vient pas à un rendez-vous, sans prévenir.",
+   "leurres": [
+    "LIÈVRE",
+    "RENARD",
+    "HÉRISSON"
+   ],
+   "sens": "Ne pas venir à un rendez-vous convenu, sans prévenir, en laissant l'autre attendre pour rien.",
+   "exemple": "Il m'a posé un lapin : je l'ai attendu une heure devant le cinéma.",
+   "variantes": []
+  },
+  {
+   "id": "x003",
+   "difficulte": "facile",
+   "categorie": "quotidien",
+   "texte": "Il pleut des ___",
+   "mot": "CORDES",
+   "complete": "Il pleut des cordes",
+   "indice": "Se dit quand la pluie tombe très fort.",
+   "leurres": [
+    "FICELLES",
+    "RUBANS",
+    "CHAÎNES"
+   ],
+   "sens": "Il pleut très fort, à verse : la pluie tombe dense, drue et sans interruption.",
+   "exemple": "Prends un parapluie, il pleut des cordes depuis ce matin.",
+   "variantes": []
+  },
+  {
+   "id": "x004",
+   "difficulte": "facile",
+   "categorie": "animaux",
+   "texte": "Être muet comme une ___",
+   "mot": "CARPE",
+   "complete": "Être muet comme une carpe",
+   "indice": "Se dit de quelqu'un qui ne dit pas un seul mot.",
+   "leurres": [
+    "TRUITE",
+    "SOLE",
+    "PERCHE"
+   ],
+   "sens": "Rester complètement silencieux, ne pas prononcer un mot, par timidité, par prudence ou par refus de parler.",
+   "exemple": "Interrogé par ses parents, il est resté muet comme une carpe.",
+   "variantes": []
+  },
+  {
+   "id": "x005",
+   "difficulte": "facile",
+   "categorie": "animaux",
+   "texte": "Quand les ___ auront des dents",
+   "mot": "POULES",
+   "complete": "Quand les poules auront des dents",
+   "indice": "Se dit d'une chose qui n'arrivera jamais.",
+   "leurres": [
+    "OIES",
+    "CANES",
+    "DINDES"
+   ],
+   "sens": "Jamais : se dit pour affirmer qu'une chose est impossible ou n'arrivera sans doute jamais.",
+   "exemple": "Lui, arriver à l'heure ? Quand les poules auront des dents !",
+   "variantes": []
+  },
+  {
+   "id": "x006",
+   "difficulte": "facile",
+   "categorie": "nourriture",
+   "texte": "Avoir une faim de ___",
+   "mot": "LOUP",
+   "complete": "Avoir une faim de loup",
+   "indice": "Se dit quand on est affamé.",
+   "leurres": [
+    "TIGRE",
+    "RENARD",
+    "SANGLIER"
+   ],
+   "sens": "Avoir très faim, être affamé au point de pouvoir avaler un repas énorme.",
+   "exemple": "Après la randonnée, on avait tous une faim de loup.",
+   "variantes": []
+  },
+  {
+   "id": "x007",
+   "difficulte": "facile",
+   "categorie": "corps",
+   "texte": "Prendre ses ___ à son cou",
+   "mot": "JAMBES",
+   "complete": "Prendre ses jambes à son cou",
+   "indice": "Se dit quand on s'enfuit en courant à toute vitesse.",
+   "leurres": [
+    "BRAS",
+    "MAINS",
+    "GENOUX"
+   ],
+   "sens": "S'enfuir très vite, partir en courant le plus rapidement possible, souvent sous l'effet de la peur.",
+   "exemple": "En entendant le chien aboyer, le cambrioleur a pris ses jambes à son cou.",
+   "variantes": []
+  },
+  {
+   "id": "x008",
+   "difficulte": "facile",
+   "categorie": "travail",
+   "texte": "Avoir du ___ sur la planche",
+   "mot": "PAIN",
+   "complete": "Avoir du pain sur la planche",
+   "indice": "Se dit quand beaucoup de travail nous attend.",
+   "leurres": [
+    "JAMBON",
+    "SAUCISSON",
+    "GRUYÈRE"
+   ],
+   "sens": "Avoir beaucoup de travail à faire, une longue liste de tâches qui attendent d'être accomplies.",
+   "exemple": "Avec ce déménagement à préparer, on a du pain sur la planche.",
+   "variantes": []
+  },
+  {
+   "id": "x009",
+   "difficulte": "facile",
+   "categorie": "travail",
+   "texte": "Avoir un ___ dans la main",
+   "mot": "POIL",
+   "complete": "Avoir un poil dans la main",
+   "indice": "Se dit d'une personne paresseuse.",
+   "leurres": [
+    "CLOU",
+    "GRAIN",
+    "CHEVEU"
+   ],
+   "sens": "Être paresseux, ne pas aimer l'effort et éviter de travailler autant que possible.",
+   "exemple": "Il n'a pas levé le petit doigt pour nous aider : il a un poil dans la main.",
+   "variantes": []
+  },
+  {
+   "id": "x010",
+   "difficulte": "facile",
+   "categorie": "nourriture",
+   "texte": "Raconter des ___",
+   "mot": "SALADES",
+   "complete": "Raconter des salades",
+   "indice": "Se dit quand quelqu'un ment ou invente des histoires.",
+   "leurres": [
+    "CAROTTES",
+    "BETTERAVES",
+    "ENDIVES"
+   ],
+   "sens": "Mentir, raconter des histoires inventées ou des boniments pour tromper quelqu'un ou se justifier.",
+   "exemple": "Arrête de me raconter des salades, je sais très bien où tu étais.",
+   "variantes": []
+  },
+  {
+   "id": "x011",
+   "difficulte": "facile",
+   "categorie": "nourriture",
+   "texte": "C'est la cerise sur le ___",
+   "mot": "GÂTEAU",
+   "complete": "C'est la cerise sur le gâteau",
+   "indice": "Se dit d'un petit plus qui vient couronner une chose déjà réussie.",
+   "leurres": [
+    "FLAN",
+    "BISCUIT",
+    "CLAFOUTIS"
+   ],
+   "sens": "Le petit détail en plus qui vient parfaire une chose déjà réussie (se dit aussi, par ironie, d'un ennui de plus).",
+   "exemple": "Le séjour était parfait, et la chambre avec terrasse, c'était la cerise sur le gâteau.",
+   "variantes": []
+  },
+  {
+   "id": "x012",
+   "difficulte": "facile",
+   "categorie": "emotions",
+   "texte": "Ne pas être dans son ___",
+   "mot": "ASSIETTE",
+   "complete": "Ne pas être dans son assiette",
+   "indice": "Se dit quand on ne se sent pas bien, physiquement ou moralement.",
+   "leurres": [
+    "BOL",
+    "PLAT",
+    "PANIER"
+   ],
+   "sens": "Ne pas se sentir bien : être un peu malade, fatigué ou mal à l'aise, pas dans son état habituel.",
+   "exemple": "Tu as l'air pâle, tu n'es pas dans ton assiette aujourd'hui ?",
+   "variantes": []
+  },
+  {
+   "id": "x013",
+   "difficulte": "facile",
+   "categorie": "emotions",
+   "texte": "Être aux ___",
+   "mot": "ANGES",
+   "complete": "Être aux anges",
+   "indice": "Se dit quand on est extrêmement heureux.",
+   "leurres": [
+    "SAINTS",
+    "APÔTRES",
+    "PROPHÈTES"
+   ],
+   "sens": "Être ravi, comblé, dans un état de grande joie ou de parfait contentement.",
+   "exemple": "Depuis qu'elle a reçu la nouvelle, elle est aux anges.",
+   "variantes": []
+  },
+  {
+   "id": "x014",
+   "difficulte": "facile",
+   "categorie": "chance",
+   "texte": "Croiser les ___",
+   "mot": "DOIGTS",
+   "complete": "Croiser les doigts",
+   "indice": "Geste ou formule pour souhaiter que tout se passe bien.",
+   "leurres": [
+    "ORTEILS",
+    "POIGNETS",
+    "COUDES"
+   ],
+   "sens": "Espérer très fort qu'une chose se passe bien, en faisant le geste ou en le disant pour conjurer le mauvais sort.",
+   "exemple": "Je passe mon entretien demain, croise les doigts pour moi !",
+   "variantes": []
+  },
+  {
+   "id": "x015",
+   "difficulte": "facile",
+   "categorie": "chance",
+   "texte": "Toucher du ___",
+   "mot": "BOIS",
+   "complete": "Toucher du bois",
+   "indice": "Formule superstitieuse dite après avoir évoqué quelque chose de positif.",
+   "leurres": [
+    "FER",
+    "VERRE",
+    "MARBRE"
+   ],
+   "sens": "Formule dite pour conjurer le mauvais sort, souvent juste après s'être félicité d'une situation favorable.",
+   "exemple": "Je n'ai jamais eu d'accident de voiture, je touche du bois.",
+   "variantes": []
+  },
+  {
+   "id": "x016",
+   "difficulte": "facile",
+   "categorie": "imagees",
+   "texte": "Tourner autour du ___",
+   "mot": "POT",
+   "complete": "Tourner autour du pot",
+   "indice": "Se dit quand on hésite à dire franchement les choses.",
+   "leurres": [
+    "PLAT",
+    "BOL",
+    "SEAU"
+   ],
+   "sens": "Parler de manière détournée, hésiter à aborder directement un sujet au lieu de dire clairement les choses.",
+   "exemple": "Arrête de tourner autour du pot et dis-moi ce qui ne va pas.",
+   "variantes": []
+  },
+  {
+   "id": "x017",
+   "difficulte": "facile",
+   "categorie": "quotidien",
+   "texte": "Les murs ont des ___",
+   "mot": "OREILLES",
+   "complete": "Les murs ont des oreilles",
+   "indice": "Mise en garde : quelqu'un pourrait entendre ce qu'on dit.",
+   "leurres": [
+    "BOUCHES",
+    "LÈVRES",
+    "ANTENNES"
+   ],
+   "sens": "Il faut rester discret, car on peut être écouté sans le savoir, même quand on se croit à l'abri des indiscrets.",
+   "exemple": "Parle moins fort, les murs ont des oreilles dans cet open space.",
+   "variantes": []
+  },
+  {
+   "id": "x018",
+   "difficulte": "facile",
+   "categorie": "imagees",
+   "texte": "Être dans la ___",
+   "mot": "LUNE",
+   "complete": "Être dans la lune",
+   "indice": "Se dit d'une personne distraite, rêveuse.",
+   "leurres": [
+    "GALAXIE",
+    "STRATOSPHÈRE",
+    "NÉBULEUSE"
+   ],
+   "sens": "Être distrait, rêveur, avoir l'esprit ailleurs sans prêter attention à ce qui se passe autour de soi.",
+   "exemple": "Excuse-moi, j'étais dans la lune, tu peux répéter ta question ?",
+   "variantes": []
+  },
+  {
+   "id": "x019",
+   "difficulte": "facile",
+   "categorie": "quotidien",
+   "texte": "Avoir un ___ de retard",
+   "mot": "TRAIN",
+   "complete": "Avoir un train de retard",
+   "indice": "Se dit de quelqu'un qui n'est pas au courant ou comprend après les autres.",
+   "leurres": [
+    "BATEAU",
+    "VÉLO",
+    "TAXI"
+   ],
+   "sens": "Être en retard sur les autres : ne pas connaître les dernières nouvelles ou comprendre une situation après tout le monde.",
+   "exemple": "Tu ne savais pas qu'ils avaient déménagé ? Tu as un train de retard !",
+   "variantes": []
+  },
+  {
+   "id": "x020",
+   "difficulte": "facile",
+   "categorie": "quotidien",
+   "texte": "Revenir à ses ___",
+   "mot": "MOUTONS",
+   "complete": "Revenir à ses moutons",
+   "indice": "Se dit quand on reprend le sujet principal après une digression.",
+   "leurres": [
+    "CHÈVRES",
+    "VACHES",
+    "COCHONS"
+   ],
+   "sens": "Reprendre le sujet dont on parlait avant de s'en écarter, revenir à l'essentiel après une digression.",
+   "exemple": "Bon, revenons à nos moutons : qui s'occupe des réservations ?",
+   "variantes": []
+  },
+  {
+   "id": "x021",
+   "difficulte": "intermediaire",
+   "categorie": "quotidien",
+   "texte": "Avoir la ___ de bois",
+   "mot": "GUEULE",
+   "complete": "Avoir la gueule de bois",
+   "indice": "Se dit au lendemain d'une soirée trop arrosée.",
+   "leurres": [
+    "BOUCHE",
+    "MINE",
+    "NUQUE"
+   ],
+   "sens": "Se sentir mal (migraine, nausée, fatigue) au lendemain d'un excès d'alcool. Expression familière.",
+   "exemple": "Après le pot de départ d'hier soir, il avait la gueule de bois toute la matinée.",
+   "variantes": []
+  },
+  {
+   "id": "x022",
+   "difficulte": "intermediaire",
+   "categorie": "quotidien",
+   "texte": "Être serrés comme des ___",
+   "mot": "SARDINES",
+   "complete": "Être serrés comme des sardines",
+   "indice": "Se dit quand on est très nombreux dans un espace trop petit.",
+   "leurres": [
+    "ANCHOIS",
+    "HARENGS",
+    "THONS"
+   ],
+   "sens": "Être entassés à plusieurs dans un espace trop étroit, collés les uns aux autres, comme dans un métro bondé.",
+   "exemple": "À l'heure de pointe, on est serrés comme des sardines dans le RER.",
+   "variantes": []
+  },
+  {
+   "id": "x023",
+   "difficulte": "intermediaire",
+   "categorie": "nourriture",
+   "texte": "En faire tout un ___",
+   "mot": "FROMAGE",
+   "complete": "En faire tout un fromage",
+   "indice": "Se dit quand quelqu'un exagère l'importance d'une petite chose.",
+   "leurres": [
+    "YAOURT",
+    "DESSERT",
+    "GRATIN"
+   ],
+   "sens": "Exagérer l'importance d'un détail, faire toute une histoire pour une chose sans gravité.",
+   "exemple": "Ce n'est qu'une petite rayure sur la voiture, pas la peine d'en faire tout un fromage.",
+   "variantes": []
+  },
+  {
+   "id": "x024",
+   "difficulte": "intermediaire",
+   "categorie": "emotions",
+   "texte": "Broyer du ___",
+   "mot": "NOIR",
+   "complete": "Broyer du noir",
+   "indice": "Se dit de quelqu'un qui a des idées tristes, qui déprime.",
+   "leurres": [
+    "GRIS",
+    "BLANC",
+    "VIOLET"
+   ],
+   "sens": "Être triste, mélancolique, ressasser des pensées sombres et voir l'avenir sous son plus mauvais jour.",
+   "exemple": "Depuis sa rupture, il reste enfermé chez lui à broyer du noir.",
+   "variantes": []
+  },
+  {
+   "id": "x025",
+   "difficulte": "intermediaire",
+   "categorie": "chance",
+   "texte": "Être né sous une bonne ___",
+   "mot": "ÉTOILE",
+   "complete": "Être né sous une bonne étoile",
+   "indice": "Se dit d'une personne qui a toujours été favorisée par le sort.",
+   "leurres": [
+    "PLANÈTE",
+    "COMÈTE",
+    "CONSTELLATION"
+   ],
+   "sens": "Avoir de la chance dans la vie, être favorisé par le sort comme si un destin heureux veillait sur soi.",
+   "exemple": "Il gagne à presque toutes les tombolas : il est vraiment né sous une bonne étoile.",
+   "variantes": []
+  },
+  {
+   "id": "x026",
+   "difficulte": "intermediaire",
+   "categorie": "travail",
+   "texte": "Mettre des bâtons dans les ___",
+   "mot": "ROUES",
+   "complete": "Mettre des bâtons dans les roues",
+   "indice": "Se dit quand on fait exprès de gêner les projets de quelqu'un.",
+   "leurres": [
+    "PNEUS",
+    "PÉDALES",
+    "JANTES"
+   ],
+   "sens": "Créer volontairement des obstacles pour gêner quelqu'un ou empêcher un projet d'avancer.",
+   "exemple": "Le service juridique nous met des bâtons dans les roues depuis le début du projet.",
+   "variantes": []
+  },
+  {
+   "id": "x027",
+   "difficulte": "intermediaire",
+   "categorie": "imagees",
+   "texte": "Prendre le taureau par les ___",
+   "mot": "CORNES",
+   "complete": "Prendre le taureau par les cornes",
+   "indice": "Se dit quand on affronte une difficulté avec courage, sans se dérober.",
+   "leurres": [
+    "SABOTS",
+    "NASEAUX",
+    "FLANCS"
+   ],
+   "sens": "Affronter résolument une difficulté, s'attaquer directement à un problème au lieu de l'éviter.",
+   "exemple": "Plutôt que d'attendre, elle a pris le taureau par les cornes et appelé son banquier.",
+   "variantes": []
+  },
+  {
+   "id": "x028",
+   "difficulte": "intermediaire",
+   "categorie": "imagees",
+   "texte": "Avoir une araignée au ___",
+   "mot": "PLAFOND",
+   "complete": "Avoir une araignée au plafond",
+   "indice": "Se dit de quelqu'un d'un peu fou ou farfelu.",
+   "leurres": [
+    "BALCON",
+    "PLANCHER",
+    "CELLIER"
+   ],
+   "sens": "Être un peu dérangé, avoir des idées bizarres ou farfelues ; se dit d'une personne qui semble un peu folle.",
+   "exemple": "Il parle à ses plantes en chantant : il a une araignée au plafond, ton voisin !",
+   "variantes": []
+  },
+  {
+   "id": "x029",
+   "difficulte": "intermediaire",
+   "categorie": "animaux",
+   "texte": "Il y a ___ sous roche",
+   "mot": "ANGUILLE",
+   "complete": "Il y a anguille sous roche",
+   "indice": "Se dit quand on soupçonne qu'une chose est cachée.",
+   "leurres": [
+    "TRUITE",
+    "LIMACE",
+    "COULEUVRE"
+   ],
+   "sens": "Il se passe quelque chose de caché ou de suspect ; on soupçonne qu'une affaire n'est pas aussi simple qu'elle paraît.",
+   "exemple": "Ils se taisent dès que j'entre dans la pièce : il y a anguille sous roche.",
+   "variantes": []
+  },
+  {
+   "id": "x030",
+   "difficulte": "intermediaire",
+   "categorie": "corps",
+   "texte": "Tirer les ___ du nez",
+   "mot": "VERS",
+   "complete": "Tirer les vers du nez",
+   "indice": "Se dit quand on fait avouer peu à peu un secret à quelqu'un.",
+   "leurres": [
+    "CLOUS",
+    "POILS",
+    "GRAINS"
+   ],
+   "sens": "Obtenir d'une personne, à force de questions habiles, des informations ou un secret qu'elle ne voulait pas révéler.",
+   "exemple": "Elle a fini par lui tirer les vers du nez : il a avoué où il avait caché les cadeaux.",
+   "variantes": []
+  },
+  {
+   "id": "x031",
+   "difficulte": "intermediaire",
+   "categorie": "nourriture",
+   "texte": "Mettre du ___ dans les épinards",
+   "mot": "BEURRE",
+   "complete": "Mettre du beurre dans les épinards",
+   "indice": "Se dit d'un revenu en plus qui améliore le quotidien.",
+   "leurres": [
+    "SEL",
+    "SUCRE",
+    "POIVRE"
+   ],
+   "sens": "Améliorer sa situation financière, gagner un peu plus d'argent pour rendre la vie plus confortable.",
+   "exemple": "Ses cours particuliers du samedi mettent du beurre dans les épinards.",
+   "variantes": []
+  },
+  {
+   "id": "x032",
+   "difficulte": "intermediaire",
+   "categorie": "travail",
+   "texte": "Avoir les dents qui rayent le ___",
+   "mot": "PARQUET",
+   "complete": "Avoir les dents qui rayent le parquet",
+   "indice": "Se dit d'une personne très ambitieuse, prête à tout pour réussir.",
+   "leurres": [
+    "CARRELAGE",
+    "LINOLÉUM",
+    "BITUME"
+   ],
+   "sens": "Être extrêmement ambitieux, prêt à tout pour réussir ou monter en grade, quitte à écraser les autres.",
+   "exemple": "Le nouveau stagiaire a les dents qui rayent le parquet : il vise déjà le poste de sa cheffe.",
+   "variantes": []
+  },
+  {
+   "id": "x033",
+   "difficulte": "intermediaire",
+   "categorie": "corps",
+   "texte": "Être sur les ___",
+   "mot": "ROTULES",
+   "complete": "Être sur les rotules",
+   "indice": "Se dit quand on est épuisé.",
+   "leurres": [
+    "CHEVILLES",
+    "HANCHES",
+    "CLAVICULES"
+   ],
+   "sens": "Être épuisé, à bout de forces, après un gros effort ou une longue période de fatigue. Expression familière.",
+   "exemple": "Après ce déménagement, je suis sur les rotules.",
+   "variantes": []
+  },
+  {
+   "id": "x034",
+   "difficulte": "intermediaire",
+   "categorie": "chance",
+   "texte": "Passer entre les ___",
+   "mot": "GOUTTES",
+   "complete": "Passer entre les gouttes",
+   "indice": "Se dit quand on échappe de justesse à un ennui qui touche les autres.",
+   "leurres": [
+    "NUAGES",
+    "FLAQUES",
+    "ÉCLAIRS"
+   ],
+   "sens": "Échapper de justesse à un danger, à une sanction ou à un ennui qui frappe les autres autour de soi.",
+   "exemple": "Tout le service a eu la grippe, mais moi je suis passé entre les gouttes.",
+   "variantes": []
+  },
+  {
+   "id": "x035",
+   "difficulte": "intermediaire",
+   "categorie": "chance",
+   "texte": "Avoir le vent en ___",
+   "mot": "POUPE",
+   "complete": "Avoir le vent en poupe",
+   "indice": "Se dit quand tout réussit, quand on enchaîne les succès.",
+   "leurres": [
+    "PROUE",
+    "QUILLE",
+    "CABINE"
+   ],
+   "sens": "Être dans une période favorable, réussir et progresser facilement, aidé par les circonstances.",
+   "exemple": "Avec ses deux nouvelles boutiques, la jeune marque a le vent en poupe.",
+   "variantes": []
+  },
+  {
+   "id": "x036",
+   "difficulte": "intermediaire",
+   "categorie": "emotions",
+   "texte": "Monter sur ses grands ___",
+   "mot": "CHEVAUX",
+   "complete": "Monter sur ses grands chevaux",
+   "indice": "Se dit quand quelqu'un s'emporte et répond avec hauteur.",
+   "leurres": [
+    "MULETS",
+    "PONEYS",
+    "ÉTALONS"
+   ],
+   "sens": "S'emporter, se mettre en colère et répondre avec hauteur, en prenant un ton offensé ou supérieur.",
+   "exemple": "Dès qu'on critique son projet, il monte sur ses grands chevaux.",
+   "variantes": []
+  },
+  {
+   "id": "x037",
+   "difficulte": "intermediaire",
+   "categorie": "emotions",
+   "texte": "Être soupe au ___",
+   "mot": "LAIT",
+   "complete": "Être soupe au lait",
+   "indice": "Se dit d'une personne qui s'emporte vite, mais se calme aussi vite.",
+   "leurres": [
+    "MIEL",
+    "RIZ",
+    "CHOCOLAT"
+   ],
+   "sens": "Être prompt à s'emporter : se mettre en colère très vite pour peu de chose, puis se calmer aussi rapidement.",
+   "exemple": "Ne le prends pas mal, mon père est un peu soupe au lait.",
+   "variantes": []
+  },
+  {
+   "id": "x038",
+   "difficulte": "intermediaire",
+   "categorie": "travail",
+   "texte": "Tirer son ___ du jeu",
+   "mot": "ÉPINGLE",
+   "complete": "Tirer son épingle du jeu",
+   "indice": "Se dit quand on se sort habilement d'une situation délicate.",
+   "leurres": [
+    "AIGUILLE",
+    "AGRAFE",
+    "ÉPÉE"
+   ],
+   "sens": "Se sortir adroitement d'une situation difficile ou compliquée, en limitant les pertes ou en en retirant un avantage.",
+   "exemple": "Malgré la crise, cette petite entreprise a su tirer son épingle du jeu.",
+   "variantes": []
+  },
+  {
+   "id": "x039",
+   "difficulte": "intermediaire",
+   "categorie": "animaux",
+   "texte": "Vendre la peau de l'___ avant de l'avoir tué",
+   "mot": "OURS",
+   "complete": "Vendre la peau de l'ours avant de l'avoir tué",
+   "indice": "Se dit quand on se réjouit d'un succès qui n'est pas encore acquis.",
+   "leurres": [
+    "ÉLAN",
+    "AIGLE",
+    "ÉLÉPHANT"
+   ],
+   "sens": "Se réjouir trop tôt, considérer comme acquis un résultat ou un gain qu'on n'a pas encore obtenu.",
+   "exemple": "Le contrat n'est pas signé : ne vendons pas la peau de l'ours avant de l'avoir tué.",
+   "variantes": []
+  },
+  {
+   "id": "x040",
+   "difficulte": "intermediaire",
+   "categorie": "nourriture",
+   "texte": "Mi-figue, mi-___",
+   "mot": "RAISIN",
+   "complete": "Mi-figue, mi-raisin",
+   "indice": "Se dit d'un accueil ou d'un avis partagé, entre satisfaction et mécontentement.",
+   "leurres": [
+    "POIRE",
+    "PRUNE",
+    "CERISE"
+   ],
+   "sens": "Ni tout à fait bon ni tout à fait mauvais : qui mêle satisfaction et mécontentement, ou sérieux et plaisanterie.",
+   "exemple": "Sa proposition a reçu un accueil mi-figue, mi-raisin.",
+   "variantes": []
+  },
+  {
+   "id": "x041",
+   "difficulte": "difficile",
+   "categorie": "difficiles",
+   "texte": "Avoir maille à ___",
+   "mot": "PARTIR",
+   "complete": "Avoir maille à partir",
+   "indice": "Se dit quand on a un différend ou des démêlés avec quelqu'un.",
+   "leurres": [
+    "SORTIR",
+    "VENIR",
+    "FINIR"
+   ],
+   "sens": "Avoir un différend, une dispute ou des démêlés avec quelqu'un (ou avec une administration, la justice…).",
+   "exemple": "Il a eu maille à partir avec son propriétaire au sujet de la caution.",
+   "variantes": []
+  },
+  {
+   "id": "x042",
+   "difficulte": "difficile",
+   "categorie": "difficiles",
+   "texte": "Avoir l'___ de l'escalier",
+   "mot": "ESPRIT",
+   "complete": "Avoir l'esprit de l'escalier",
+   "indice": "Se dit de quelqu'un qui trouve la bonne réplique trop tard.",
+   "leurres": [
+    "ÉCHO",
+    "ÉLAN",
+    "ŒIL"
+   ],
+   "sens": "Trouver la réplique parfaite ou la bonne réponse trop tard, une fois la conversation terminée.",
+   "exemple": "J'ai eu l'esprit de l'escalier : la réponse idéale m'est venue une fois rentré chez moi.",
+   "variantes": []
+  },
+  {
+   "id": "x043",
+   "difficulte": "difficile",
+   "categorie": "difficiles",
+   "texte": "Faire amende ___",
+   "mot": "HONORABLE",
+   "complete": "Faire amende honorable",
+   "indice": "Se dit quand on reconnaît ses torts et qu'on s'en excuse.",
+   "leurres": [
+    "VÉRITABLE",
+    "RESPECTABLE",
+    "CONVENABLE"
+   ],
+   "sens": "Reconnaître ses torts, admettre publiquement qu'on s'est trompé et présenter ses excuses.",
+   "exemple": "Après sa remarque déplacée, l'animateur a fait amende honorable devant les téléspectateurs.",
+   "variantes": []
+  },
+  {
+   "id": "x044",
+   "difficulte": "difficile",
+   "categorie": "imagees",
+   "texte": "Tirer des ___ sur la comète",
+   "mot": "PLANS",
+   "complete": "Tirer des plans sur la comète",
+   "indice": "Se dit quand on fait des projets irréalistes sur un avenir incertain.",
+   "leurres": [
+    "TRAITS",
+    "FLÈCHES",
+    "BALLES"
+   ],
+   "sens": "Faire des projets chimériques, échafauder des espoirs sur un avenir très incertain, sans base solide.",
+   "exemple": "Tant qu'on n'a pas l'accord de la banque, inutile de tirer des plans sur la comète pour la déco.",
+   "variantes": []
+  },
+  {
+   "id": "x045",
+   "difficulte": "difficile",
+   "categorie": "travail",
+   "texte": "Avoir voix au ___",
+   "mot": "CHAPITRE",
+   "complete": "Avoir voix au chapitre",
+   "indice": "Se dit quand on a le droit d'être consulté dans une décision.",
+   "leurres": [
+    "COUPLET",
+    "REFRAIN",
+    "PARAGRAPHE"
+   ],
+   "sens": "Avoir le droit de s'exprimer et d'être consulté, avoir son mot à dire dans une discussion ou une décision.",
+   "exemple": "Les stagiaires n'ont pas voix au chapitre lors des réunions budgétaires.",
+   "variantes": []
+  },
+  {
+   "id": "x046",
+   "difficulte": "difficile",
+   "categorie": "emotions",
+   "texte": "Se faire du ___",
+   "mot": "MOURON",
+   "complete": "Se faire du mouron",
+   "indice": "Se dit quand on s'inquiète beaucoup pour quelque chose ou quelqu'un.",
+   "leurres": [
+    "PERSIL",
+    "CRESSON",
+    "THYM"
+   ],
+   "sens": "Se faire beaucoup de souci, s'inquiéter, se tourmenter pour quelqu'un ou pour quelque chose. Expression familière.",
+   "exemple": "Ne te fais pas de mouron, elle a juste oublié de charger son téléphone.",
+   "variantes": []
+  },
+  {
+   "id": "x047",
+   "difficulte": "difficile",
+   "categorie": "difficiles",
+   "texte": "Prêcher pour sa ___",
+   "mot": "PAROISSE",
+   "complete": "Prêcher pour sa paroisse",
+   "indice": "Se dit de quelqu'un qui défend avant tout ses propres intérêts.",
+   "leurres": [
+    "CATHÉDRALE",
+    "BASILIQUE",
+    "MAIRIE"
+   ],
+   "sens": "Défendre ses propres intérêts ou ceux de son camp, tout en ayant l'air de donner un avis neutre.",
+   "exemple": "Quand le vendeur vante cette extension de garantie, il prêche un peu pour sa paroisse.",
+   "variantes": []
+  },
+  {
+   "id": "x048",
+   "difficulte": "difficile",
+   "categorie": "travail",
+   "texte": "Graisser la ___",
+   "mot": "PATTE",
+   "complete": "Graisser la patte",
+   "indice": "Se dit quand on soudoie quelqu'un pour obtenir une faveur.",
+   "leurres": [
+    "POIGNE",
+    "NUQUE",
+    "CHEVILLE"
+   ],
+   "sens": "Donner discrètement de l'argent à quelqu'un pour obtenir un avantage ou une faveur, autrement dit le soudoyer.",
+   "exemple": "Il a graissé la patte au portier pour entrer sans billet.",
+   "variantes": []
+  },
+  {
+   "id": "x049",
+   "difficulte": "difficile",
+   "categorie": "travail",
+   "texte": "Peigner la ___",
+   "mot": "GIRAFE",
+   "complete": "Peigner la girafe",
+   "indice": "Se dit quand on perd son temps à une tâche inutile.",
+   "leurres": [
+    "GAZELLE",
+    "LIONNE",
+    "CHÈVRE"
+   ],
+   "sens": "Faire un travail long et inutile, ou ne rien faire d'efficace ; perdre son temps à des riens.",
+   "exemple": "Pendant que nous bouclions le dossier, lui peignait la girafe.",
+   "variantes": []
+  },
+  {
+   "id": "x050",
+   "difficulte": "difficile",
+   "categorie": "quotidien",
+   "texte": "Être réglé comme du papier à ___",
+   "mot": "MUSIQUE",
+   "complete": "Être réglé comme du papier à musique",
+   "indice": "Se dit d'une chose ou d'une personne extrêmement régulière.",
+   "leurres": [
+    "LETTRES",
+    "DESSIN",
+    "CIGARETTE"
+   ],
+   "sens": "Être parfaitement régulier, organisé et prévisible ; se dérouler exactement comme prévu, sans la moindre surprise.",
+   "exemple": "Tous les matins à 7 h, il promène son chien : c'est réglé comme du papier à musique.",
+   "variantes": []
+  }
+ ]
+}

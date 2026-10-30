@@ -394,6 +394,7 @@
   .tile.ep.faux { background: #ff8a8a; box-shadow: 0 var(--depth) 0 #c94b4b; color: var(--ink); animation: secoue .35s; }
   .tile.ep.eteint { opacity: .55; } .tile.ep:disabled { cursor: default; }
   .panel .recompenses { text-align: left; }
+  .insecable { white-space: nowrap; }
   .expr-complete { font-family: var(--title); font-weight: 700; font-size: 18px; margin: 4px 0 0; }
   @media (max-width: 350px) { .expr-texte { font-size: 20px; } }
 
@@ -1584,7 +1585,12 @@
   }
   function htmlTexteExpr(x, mot, classe) {
     const [avant, apres] = x.texte.split("___");
-    return `« ${esc(avant)}<span class="trou ${classe || ""}">${mot ? esc(mot.toLowerCase()) : "______"}</span>${esc(apres)} »`;
+    const trou = `<span class="trou ${classe || ""}">${mot ? esc(mot.toLowerCase()) : "______"}</span>`;
+    // Le guillemet fermant reste collé au dernier mot (jamais seul sur une ligne) ; espaces insécables comme en typographie française.
+    const m = apres.match(/^(.*?)(\S*)$/);
+    return apres.trim()
+      ? `«&nbsp;${esc(avant)}${trou}${esc(m[1])}<span class="insecable">${esc(m[2])}&nbsp;»</span>`
+      : `«&nbsp;${esc(avant)}<span class="insecable">${trou}&nbsp;»</span>`;
   }
   function rendreExprQuestion() {
     const P = partieExpr, x = P.q[P.i];

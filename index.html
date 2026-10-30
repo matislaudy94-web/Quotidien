@@ -321,7 +321,7 @@
   .mini-titre { font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; margin: 0 2px 10px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .mini-titre span { font-size: 13px; color: var(--muted); font-weight: 600; }
   .lien-titre { margin-left: auto; background: none; border: 0; color: var(--c0); font-family: var(--title); font-weight: 600; font-size: 14px; cursor: pointer; padding: 6px 2px; min-height: 36px; }
-  .mini-rang { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .mini-rang { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .mini-jeu { border-radius: var(--r-l); color: var(--ink); position: relative; overflow: hidden; animation: mini-arrivee .45s cubic-bezier(.2,.9,.3,1.3) both; }
   .mini-jeu.bleu { background: var(--c2); box-shadow: 0 5px 0 var(--c2e); }
   .mini-jeu.rose { background: var(--c3); box-shadow: 0 5px 0 var(--c3e); animation-delay: .05s; }
@@ -371,6 +371,31 @@
   .sommaire a { background: var(--light); color: var(--ink); text-decoration: none; border-radius: var(--r-m); padding: 8px 4px 9px; text-align: center; font-family: var(--title); font-weight: 600; font-size: 12.5px; box-shadow: 0 4px 0 #b4a9df; min-height: 44px; }
   .sommaire a b { display: block; font-size: 17px; }
   .sommaire a:active { transform: translateY(3px); box-shadow: 0 1px 0 #b4a9df; }
+
+  /* ---------- Mini-jeu « Expression mystère » ---------- */
+  .mode-badge.expr { background: #ffab5c; box-shadow: 0 2px 0 #d27321; }
+  .mini-jeu.orange { background: #ffab5c; box-shadow: 0 5px 0 #d27321; animation-delay: .08s; }
+  .carte-jeu.orange { --accent: #ffab5c; --accent-e: #d27321; }
+  .barre-expr { height: 10px; border-radius: var(--pill); background: rgba(255,255,255,.12); overflow: hidden; margin: 10px 0 4px; }
+  .barre-expr i { display: block; height: 100%; background: linear-gradient(90deg, #ffab5c, var(--c0)); border-radius: var(--pill); transition: width .4s ease; }
+  .carte-expr { background: var(--cream); color: var(--ink); border-radius: var(--r-l); padding: 18px 14px 14px; margin-top: 12px; box-shadow: 0 5px 0 var(--cream-edge); text-align: center; }
+  .expr-texte, .expr-demo { font-family: var(--title); font-weight: 700; font-size: 23px; line-height: 1.35; margin: 0; }
+  .expr-demo { font-size: 19px; text-align: center; margin: 0 0 10px; }
+  .trou { display: inline-block; min-width: 3.4em; border-bottom: 3px dashed var(--ink-soft); color: var(--ink-soft); padding: 0 4px; line-height: 1.15; }
+  .trou.rempli { border-bottom-style: solid; color: #2273b8; border-color: #2273b8; }
+  .trou.juste, .trou.fin { border: 0; background: var(--c1); color: var(--ink); border-radius: 8px; box-shadow: 0 2px 0 var(--c1e); }
+  .trou.corrige { border: 0; background: var(--c0); color: var(--ink); border-radius: 8px; box-shadow: 0 2px 0 var(--c0e); }
+  .expl-intrus .trou { min-width: 0; font-size: inherit; }
+  .expr-indice { margin: 12px 0 0; font-size: 15px; font-weight: 700; color: var(--ink-soft); line-height: 1.4; }
+  .expr-props { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+  .tile.ep { height: auto; min-height: 62px; font-size: 17px; white-space: normal; overflow-wrap: anywhere; line-height: 1.15; padding: 8px 6px; }
+  .tile.ep.sel { outline: 3px solid #fff; outline-offset: 2px; }
+  .tile.ep.juste { background: var(--c1); box-shadow: 0 var(--depth) 0 var(--c1e); color: var(--ink); }
+  .tile.ep.faux { background: #ff8a8a; box-shadow: 0 var(--depth) 0 #c94b4b; color: var(--ink); animation: secoue .35s; }
+  .tile.ep.eteint { opacity: .55; } .tile.ep:disabled { cursor: default; }
+  .panel .recompenses { text-align: left; }
+  .expr-complete { font-family: var(--title); font-weight: 700; font-size: 18px; margin: 4px 0 0; }
+  @media (max-width: 350px) { .expr-texte { font-size: 20px; } }
 
   /* ---------- Mini-jeu « Le mot intrus » ---------- */
   .mode-badge.intrus { background: var(--c0); box-shadow: 0 2px 0 var(--c0e); }
@@ -553,6 +578,7 @@
       <h2 class="mini-titre">Jeux <span>en plus de la grille</span><button class="lien-titre" data-ecran="jeux">Tous les jeux →</button></h2>
       <div class="mini-rang">
         <div class="mini-jeu rose hidden" id="carte-defi"></div>
+        <div class="mini-jeu orange hidden" id="carte-expression"></div>
         <div class="mini-jeu jaune hidden" id="carte-intrus"></div>
         <div class="mini-jeu bleu hidden" id="carte-entr"></div>
       </div>
@@ -564,6 +590,7 @@
 
   <section id="ecran-jeux" class="ecran hidden" aria-label="Jeux"></section>
   <section id="ecran-intrus" class="ecran hidden" aria-label="Le mot intrus"></section>
+  <section id="ecran-expression" class="ecran hidden" aria-label="Expression mystère"></section>
   <section id="ecran-progression" class="ecran hidden" aria-label="Ma progression"></section>
   <section id="ecran-entrainement" class="ecran hidden" aria-label="Mode entraînement"></section>
   <section id="ecran-defi" class="ecran hidden" aria-label="Défi express"></section>
@@ -715,6 +742,8 @@
 <script src="defi.js"></script>
 <script src="intrus_banque.js"></script>
 <script src="intrus.js"></script>
+<script src="expressions_banque.js"></script>
+<script src="expression.js"></script>
 <script src="progression.js"></script>
 <script>
 (function () {
@@ -958,9 +987,9 @@
     ecranCourant = nom;
     if (nom !== "jeu" && typeof cacherCta === "function") cacherCta();
     if (nom !== "defi" && typeof arreterSondeGroupe === "function" && nom !== "defi-jeu") { arreterSondeGroupe(); groupeOuvert = null; }
-    ["accueil", "jeu", "jeux", "intrus", "progression", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
+    ["accueil", "jeu", "jeux", "intrus", "expression", "progression", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
     // Onglet allumé : les écrans des jeux (Défi, entraînement, mot intrus) appartiennent à l'onglet « Jeux ».
-    const onglet = { defi: "jeux", "defi-jeu": "jeux", entrainement: "jeux", intrus: "jeux" }[nom] || (nom === "jeu" && mode === "entr" ? "jeux" : nom);
+    const onglet = { defi: "jeux", "defi-jeu": "jeux", entrainement: "jeux", intrus: "jeux", expression: "jeux" }[nom] || (nom === "jeu" && mode === "entr" ? "jeux" : nom);
     document.querySelectorAll("#nav-bas button").forEach(b => { const on = b.dataset.ecran === onglet; b.classList.toggle("on", on); if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
     synchroHistorique(nom);
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
@@ -986,7 +1015,7 @@
     else if (!entreeHistorique) { history.pushState({ quotidien: 1 }, "", location.href); entreeHistorique = true; }
   }
   function parentDe(nom) {
-    return { jeu: mode === "entr" ? "entrainement" : "accueil", entrainement: "jeux", defi: "jeux", intrus: "jeux" }[nom] || "accueil";
+    return { jeu: mode === "entr" ? "entrainement" : "accueil", entrainement: "jeux", defi: "jeux", intrus: "jeux", expression: "jeux" }[nom] || "accueil";
   }
   window.addEventListener("popstate", () => {
     if (ignorerPop) { ignorerPop = false; return; }
@@ -1427,13 +1456,14 @@
   // Derniers résultats réellement enregistrés sur cet appareil (grilles, Défi, mot intrus), du plus récent au plus ancien.
   function derniersResultats() {
     const r = [];
-    PROG.lireJournal(profil()).forEach(e => { if (!e.t) return;
+    PROG.lireJournal(profil()).forEach(e => { if (!e.t || /^expression/.test(e.mode || "")) return;
       const entr = e.mode === "entrainement";
       const num = entr ? -1 : indexGrille(e.grille);
       r.push({ t: e.t, ico: entr ? "🎯" : "📅", titre: entr ? `Exercice ${e.grille.replace("e", "").replace(/^0/, "")}` : (DEMO ? `Grille ${num + 1}` : "Grille du jour"),
         detail: e.gagne ? ` · résolue${e.erreurs ? `, ${e.erreurs} erreur${e.erreurs > 1 ? "s" : ""}` : " sans erreur"}` : ` · ${e.groupes}/4 groupes` }); });
     if (defiActif()) DF.lire(profilDefi()).dernieres.forEach(d => r.push({ t: Date.parse(d.date), ico: "⚡", titre: "Défi express", detail: ` · ${d.paliers} palier${d.paliers > 1 ? "s" : ""}` }));
     if (intrusActif()) IN.lire(profilDefi()).dernieres.forEach(d => r.push({ t: Date.parse(d.date), ico: "🔎", titre: "Le mot intrus", detail: ` · ${d.score}/${d.total}` }));
+    if (exprActif()) EX.lire(profilDefi()).dernieres.forEach(d => r.push({ t: Date.parse(d.date), ico: "💬", titre: "Expression mystère", detail: ` · ${d.score}/${d.total}` }));
     return r.filter(x => x.t).sort((a, b) => b.t - a.t);
   }
   function quand(t) {
@@ -1467,6 +1497,12 @@
       infos: ["⏱ 1 à 3 min", "🧠 Rapidité · catégories", "👥 Seul ou en groupe (2 à 6)"],
       etat: ed.record ? `Ton record : <b>${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}</b> · ${ed.parties} partie${ed.parties > 1 ? "s" : ""}` : "Pas encore de record : à toi de le poser.",
       bouton: ed.parties ? "Rejouer" : "Jouer maintenant", principal: true, action: ouvrirDefi });
+    const ex = exprActif() ? EX.lire(profilDefi()) : null;
+    if (ex) cartes.rapides.push({ id: "expression", couleur: "orange", ico: "💬", nom: "Expression mystère",
+      phrase: "Retrouve le mot qui manque dans une expression française, grâce à un indice.",
+      infos: [`⏱ 2 à 4 min · ${EX.TAILLE} expressions`, "🧠 Expressions · vocabulaire", `⭐ +${PROG.BAREME.expression} XP par expression trouvée la 1re fois`],
+      etat: ex.meilleur != null ? `Ton meilleur score : <b>${ex.meilleur}/${EX.TAILLE}</b> · ${ex.trouvees.length}/${EX.BANQUE.expressions.length} expressions trouvées` : `${EX.BANQUE.expressions.length} expressions vérifiées, avec leur sens et un exemple.`,
+      bouton: ex.parties ? "Rejouer" : "Jouer", action: ouvrirExpression });
     if (ei) cartes.rapides.push({ id: "intrus", couleur: "jaune", ico: "🔎", nom: "Le mot intrus",
       phrase: "Quatre mots, trois vont ensemble : touche celui qui n'a rien à faire là.",
       infos: [`⏱ 2 min · ${IN.TAILLE_SERIE} questions`, "🧠 Logique · vocabulaire", "📖 Une explication à chaque réponse"],
@@ -1490,6 +1526,7 @@
     const m = p.stats.meilleure;
     const lignes = [];
     if (ed) lignes.push(`<li><span>⚡ Défi express</span><b>${ed.record ? `${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "–"}</b></li>`);
+    if (ex) lignes.push(`<li><span>💬 Expression mystère</span><b>${ex.meilleur != null ? `${ex.meilleur}/${EX.TAILLE}` : "–"}</b></li>`);
     if (ei) lignes.push(`<li><span>🔎 Le mot intrus</span><b>${ei.meilleur != null ? `${ei.meilleur}/${IN.TAILLE_SERIE}` : "–"}</b></li>`);
     lignes.push(`<li><span>📅 ${DEMO ? "Grilles de démo" : "Grille du jour"}</span><b>${m ? `${m.erreurs} erreur${m.erreurs > 1 ? "s" : ""}${m.duree_s != null ? ` · ${fmtDuree(m.duree_s * 1000)}` : ""}` : "–"}</b></li>`);
     if (avecEntr) lignes.push(`<li><span>💎 Sans erreur</span><b>${sansErreur}/${ENTR.grilles.length}</b></li>`);
@@ -1505,6 +1542,133 @@
       ${section("challenger", "Pour se challenger", "Viser la perfection et battre tes records.")}`;
     Object.values(cartes).flat().forEach(o => $(`jeu-${o.id}-btn`).addEventListener("click", o.action));
     const bj = $("jeux-jour"); if (bj) bj.addEventListener("click", allerJouer);
+  }
+
+  // ---------- Mini-jeu « Expression mystère » ----------
+  // Partie de 5 expressions. On touche une proposition (on peut changer d'avis), puis « Valider ».
+  // XP par progression.js : +5 par expression trouvée pour la première fois, objectifs dédiés, jamais compté comme une grille.
+  const EX = window.QuotidienExpression;
+  const exprActif = () => !!EX && EX.partiePossible() && ((CFG.expression || "tous") === "tous" || (CFG.expression === "demo" && DEMO));
+  let partieExpr = null, exprOuvertTrace = false;
+  const LIB_NIV_EXPR = { facile: "Facile", intermediaire: "Intermédiaire", difficile: "Difficile" };
+  const TAG_NIV_EXPR = { facile: "facile", intermediaire: "intermediaire", difficile: "difficile" };
+  function ouvrirExpression() {
+    quitterJeuPrincipal(); revenirJour();
+    if (!exprOuvertTrace) { exprOuvertTrace = true; journalMini("expression", "ouverture"); }
+    partieExpr = null; rendreExprAccueil(); afficherEcran("expression");
+  }
+  function rendreExprAccueil() {
+    const ex = EX.lire(profilDefi()), el = $("ecran-expression");
+    if (!EX.partiePossible()) { el.innerHTML = `<div class="vide"><div class="ico">💬</div>Pas assez d'expressions vérifiées pour composer une partie.</div>`; return; }
+    el.innerHTML = `<span class="mode-badge expr">Expression mystère</span><h2 class="titre-ecran" style="margin-top:4px">Retrouve le mot qui manque</h2>
+      <div class="panel" style="margin-top:8px">
+        <p class="expr-demo">« Avoir la tête dans les <span class="trou">______</span> »</p>
+        <ul class="regles-defi">
+          <li>Une expression française, un mot manquant, un <strong>indice</strong> sur son sens et <strong>4 propositions</strong>.</li>
+          <li>Touche une proposition (tu peux changer d'avis), puis <strong>Valider</strong>. Tu découvres le sens et un exemple.</li>
+          <li><strong>${EX.TAILLE} expressions</strong> par partie, de plus en plus difficiles · environ 2 à 4 minutes.</li>
+          <li><strong>+${PROG.BAREME.expression} XP</strong> pour chaque expression trouvée pour la première fois.</li></ul>
+        <div class="actions-fin"><button class="btn primary btn-large" id="expr-go">Jouer</button>
+        <button class="btn" data-ecran="jeux">Retour aux jeux</button></div></div>
+      ${ex.parties ? `<div class="carte-xp"><div class="ligne"><div class="niv">${ex.meilleur}<small>/${EX.TAILLE}</small></div><div class="xp-txt">Meilleur score</div></div>
+        <div class="sous">${ex.parties} partie${ex.parties > 1 ? "s" : ""} · ${Math.round(100 * ex.bonnes / Math.max(1, ex.repondues))} % de bonnes réponses · ${ex.trouvees.length}/${EX.BANQUE.expressions.length} expressions trouvées</div></div>` : ""}`;
+    $("expr-go").addEventListener("click", lancerExpression);
+    brancherNav(el);
+  }
+  function lancerExpression() {
+    const ex = EX.lire(profilDefi());
+    const q = EX.tirerPartie(ex.vues); if (!q) return rendreExprAccueil();
+    partieExpr = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), q, i: 0, choix: null, reponses: [], debut: Date.now(), fini: false };
+    journalMini("expression", "debut", { expressions: q.map(x => x.id) });
+    rendreExprQuestion();
+  }
+  function htmlTexteExpr(x, mot, classe) {
+    const [avant, apres] = x.texte.split("___");
+    return `« ${esc(avant)}<span class="trou ${classe || ""}">${mot ? esc(mot.toLowerCase()) : "______"}</span>${esc(apres)} »`;
+  }
+  function rendreExprQuestion() {
+    const P = partieExpr, x = P.q[P.i];
+    P.choix = null;
+    $("ecran-expression").innerHTML = `<div class="defi-tete"><div><span class="mode-badge expr">Expression mystère</span><div class="palier">Expression ${P.i + 1} <small>/ ${P.q.length}</small></div></div>
+        <span class="tag ${TAG_NIV_EXPR[x.difficulte]}">${LIB_NIV_EXPR[x.difficulte]}</span></div>
+      <div class="barre-expr" role="progressbar" aria-label="Avancement de la partie" aria-valuemin="0" aria-valuemax="${P.q.length}" aria-valuenow="${P.i}"><i style="width:${100 * P.i / P.q.length}%"></i></div>
+      <div class="carte-expr"><p class="expr-texte" id="expr-texte">${htmlTexteExpr(x)}</p><p class="expr-indice"><span aria-hidden="true">💡</span> <b>Indice :</b> ${esc(x.indice)}</p></div>
+      <div class="expr-props" role="radiogroup" aria-label="Propositions">${x.propositions.map(m => `<button class="tile ep" role="radio" aria-checked="false" data-prop="${esc(m)}"><span>${esc(m)}</span></button>`).join("")}</div>
+      <button class="btn primary btn-large" id="expr-valider" disabled style="margin-top:14px">Valider</button>
+      <div id="expr-retour" aria-live="polite"></div>
+      <div class="actions" style="margin-top:12px"><button class="lien-discret" data-ecran="jeux">Quitter la partie</button></div>`;
+    const el = $("ecran-expression");
+    el.querySelectorAll("[data-prop]").forEach(b => b.addEventListener("click", () => choisirExpr(b.dataset.prop)));
+    $("expr-valider").addEventListener("click", validerExpr);
+    brancherNav(el);
+    window.scrollTo(0, 0);
+  }
+  function choisirExpr(m) {
+    const P = partieExpr; if (!P || P.reponses[P.i]) return;
+    P.choix = m; vibrer(8);
+    $("ecran-expression").querySelectorAll("[data-prop]").forEach(b => { const on = b.dataset.prop === m; b.classList.toggle("sel", on); b.setAttribute("aria-checked", on); });
+    $("expr-texte").innerHTML = htmlTexteExpr(P.q[P.i], m, "rempli");
+    $("expr-valider").disabled = false;
+  }
+  function validerExpr() {
+    const P = partieExpr; if (!P || !P.choix || P.reponses[P.i]) return; // un seul enregistrement, même en cas de clics répétés
+    const x = P.q[P.i], juste = P.choix === x.mot;
+    P.reponses[P.i] = { id: x.id, choix: P.choix, juste };
+    vibrer(juste ? 25 : [40, 30, 40]);
+    $("expr-valider").disabled = true; $("expr-valider").classList.add("hidden");
+    $("ecran-expression").querySelectorAll("[data-prop]").forEach(b => {
+      b.disabled = true; const m = b.dataset.prop;
+      if (m === x.mot) { b.classList.remove("sel"); b.classList.add("juste"); b.querySelector("span").textContent = "✓ " + m; }
+      else if (m === P.choix) { b.classList.remove("sel"); b.classList.add("faux"); b.querySelector("span").textContent = "✗ " + m; }
+      else b.classList.add("eteint");
+    });
+    $("expr-texte").innerHTML = htmlTexteExpr(x, x.mot, juste ? "juste" : "corrige");
+    document.querySelector("#ecran-expression .barre-expr i").style.width = `${100 * (P.i + 1) / P.q.length}%`;
+    const derniere = P.i === P.q.length - 1;
+    $("expr-retour").innerHTML = `<div class="panel retour-intrus ${juste ? "bon" : "rate"}">
+      <p class="verdict">${juste ? "✅ Bonne réponse !" : `❌ Raté : la bonne réponse était <b>${esc(x.mot)}</b>.`}</p>
+      <p class="expr-complete">« ${esc(x.complete)} »</p>
+      <p style="margin:6px 0 0"><strong>Sens :</strong> ${esc(x.sens)}</p>
+      <p class="small" style="margin:6px 0 0"><strong>Exemple :</strong> ${esc(x.exemple)}</p>
+      <button class="btn primary btn-large" id="expr-suite" style="margin-top:12px">${derniere ? "Voir mon résultat" : "Expression suivante →"}</button></div>`;
+    const bs = $("expr-suite");
+    bs.addEventListener("click", () => { bs.disabled = true; if (derniere) finExpression(); else { P.i++; rendreExprQuestion(); } });
+    setTimeout(() => { bs.scrollIntoView({ behavior: "smooth", block: "nearest" }); bs.focus({ preventScroll: true }); }, 120);
+  }
+  function finExpression() {
+    const P = partieExpr; if (!P || P.fini) return; P.fini = true;
+    const score = P.reponses.filter(r => r.juste).length, total = P.q.length, duree_s = Math.round((Date.now() - P.debut) / 1000);
+    const trouvees = P.reponses.filter(r => r.juste).map(r => r.id);
+    const res = EX.enregistrerPartie(profilDefi(), { id: P.id, score, total, vues: P.q.map(x => x.id), trouvees, duree_s });
+    const xp = PROG.enregistrerExpression(profil(), { id: P.id, trouvees, score, total, duree_s, jour: jourParis() }, jourParis());
+    journalMini("expression", "fin", { score, total, duree_s, nouvelles: xp.nouvelles.length, xp: xp.gains ? xp.gains.xp : 0, expressions: P.reponses.map(r => ({ id: r.id, juste: r.juste })) });
+    const g = xp.gains;
+    const lignes = g ? [g.nouvelles ? `<li><span class="ico">💬</span>${g.nouvelles} expression${g.nouvelles > 1 ? "s" : ""} trouvée${g.nouvelles > 1 ? "s" : ""} pour la première fois<span class="plus">+${g.xpPartie} XP</span></li>` : ""]
+      .concat(g.objectifs.map(o => `<li><span class="ico">🎯</span>Objectif : ${o.titre}<span class="plus">+${o.xp} XP</span></li>`))
+      .concat(g.badges.map(b => `<li><span class="ico">${b.icone}</span>Badge : ${b.nom}<span class="plus">+${PROG.BAREME.badge} XP</span></li>`)).filter(Boolean) : [];
+    const recompense = g && g.xp > 0 ? `<div class="recompenses" id="bloc-recompenses"><div class="gain-xp">+${g.xp} <small>XP</small></div>
+        ${g.montee ? `<div class="montee">Niveau supérieur ! <b>${g.niveauApres.n} — ${g.niveauApres.nom}</b></div>` : ""}<ul>${lignes.join("")}</ul></div>`
+      : `<p class="small" style="margin:10px 0 0">${score ? "Aucune XP cette fois : ces expressions avaient déjà été trouvées." : "Aucune XP cette fois : il faut trouver une expression pour en gagner."}</p>`;
+    const msg = score === total ? "Parfait, tu connais tes expressions !" : score >= total - 1 ? "Très bien joué !" : score >= Math.ceil(total / 2) ? "Pas mal ! Relis les expressions ratées." : "Pas facile ! Chaque partie t'en fait découvrir de nouvelles.";
+    $("ecran-expression").innerHTML = `<span class="mode-badge expr">Expression mystère</span>
+      <div class="panel" style="text-align:center"><h2 class="titre-victoire ${score >= Math.ceil(total / 2) ? "gagne" : ""}" style="margin:4px 0">${score}/${total}</h2>
+        <p style="margin:2px 0">${msg}</p>
+        <p class="small" style="margin:4px 0">${Math.round(100 * score / total)} % de bonnes réponses · temps : ${fmtDuree(duree_s * 1000)}</p>
+        <ol class="pastilles" aria-label="Résultats">${P.reponses.map((r, k) => `<li class="${r.juste ? "juste" : "faux"}" aria-label="Expression ${k + 1} : ${r.juste ? "trouvée" : "ratée"}">${r.juste ? "✓" : "✗"}</li>`).join("")}</ol>
+        ${res.nouveauRecord ? `<p style="font-family:var(--title);font-weight:700;font-size:20px;color:var(--c3e);margin:8px 0 0">Nouveau record !</p>` : ""}
+        ${recompense}
+        <div class="actions-fin"><button class="btn primary btn-large" id="expr-rejouer">Rejouer</button>
+          <div class="rang"><button class="btn" id="expr-revoir">Revoir les expressions</button><button class="btn" data-ecran="jeux">Retour aux jeux</button></div></div></div>
+      <div class="panel" id="expr-revue"><h2>Les expressions de la partie</h2>${P.q.map((x, k) => { const r = P.reponses[k];
+        return `<div class="expl-intrus ${r.juste ? "juste" : "faux"}"><p class="t">${r.juste ? "✓" : "✗"} ${htmlTexteExpr(x, x.mot, "fin")}</p>
+          ${r.juste ? "" : `<p class="small" style="margin:2px 0">Ta réponse : ${esc(r.choix)}</p>`}
+          <p class="small" style="margin:2px 0"><strong>Sens :</strong> ${esc(x.sens)}</p><p class="small" style="margin:2px 0"><strong>Exemple :</strong> ${esc(x.exemple)}</p></div>`; }).join("")}</div>`;
+    if (score === total) confettis();
+    $("expr-rejouer").addEventListener("click", lancerExpression);
+    $("expr-revoir").addEventListener("click", () => $("expr-revue").scrollIntoView({ behavior: "smooth", block: "start" }));
+    if (g && g.xp > 0) requestAnimationFrame(() => vibrer(20));
+    brancherNav($("ecran-expression"));
+    window.scrollTo(0, 0);
   }
 
   // ---------- Mini-jeu « Le mot intrus » ----------
@@ -1797,9 +1961,10 @@
       el.innerHTML = `<button class="mini-zone" id="btn-${id}" aria-label="${nom} : ${chiffre}"><span class="ico" aria-hidden="true">${ico}</span><h3>${nom}</h3><span class="chiffre">${chiffre}</span></button>`;
       $("btn-" + id).addEventListener("click", action); return 1;
     };
-    const ed = defiActif() ? DF.lire(profilDefi()) : null, ei = intrusActif() ? IN.lire(profilDefi()) : null;
+    const ed = defiActif() ? DF.lire(profilDefi()) : null, ei = intrusActif() ? IN.lire(profilDefi()) : null, exA = exprActif() ? EX.lire(profilDefi()) : null;
     const stE = entrainementActif() && ENTR.grilles.length ? statutsEntr() : [];
     const nbMini = tuile("defi", "⚡", "Défi express", ed && ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "30 s au chrono", ouvrirDefi, !!ed)
+      + tuile("expression", "💬", "Expression mystère", exA && exA.meilleur != null ? `Meilleur : ${exA.meilleur}/${EX.TAILLE}` : `${EX.TAILLE} expressions`, ouvrirExpression, !!exA)
       + tuile("intrus", "🔎", "Le mot intrus", ei && ei.meilleur != null ? `Meilleur : ${ei.meilleur}/${IN.TAILLE_SERIE}` : `${IN.TAILLE_SERIE} questions`, ouvrirIntrus, !!ei)
       + tuile("entr", "🎯", "Entraînement", `${stE.filter(x => x === "reussi").length}/${ENTR.grilles.length} réussis`, ouvrirEntrainement, stE.length > 0);
     $("mini-jeux").classList.toggle("hidden", !nbMini);
@@ -1839,7 +2004,7 @@
     const nbTrophees = (ed ? DF.BADGES.length : 0) + (ei ? IN.BADGES.length : 0);
     const el = $("ecran-progression");
     el.innerHTML = `<h2 class="titre-ecran">Progression</h2>
-      <p class="sous-ecran">L'XP vient de la grille ${DEMO ? "de démo" : "du jour"} et de l'entraînement. Les mini-jeux donnent des records et des trophées, sans XP.</p>
+      <p class="sous-ecran">L'XP vient de la grille ${DEMO ? "de démo" : "du jour"}, de l'entraînement et d'Expression mystère. Le Défi express et le mot intrus donnent des records et des trophées, sans XP.</p>
       <div class="carte-xp" style="margin-top:0"><div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
         <div class="barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${b.pct}"><i style="width:${b.pct}%"></i></div><div class="sous">${b.txt}</div></div>
       <nav class="sommaire" aria-label="Sections de la progression">
@@ -1866,6 +2031,7 @@
         <p>Objectif réalisé : de 30 à 250 XP. Badge débloqué : <strong>+${PROG.BAREME.badge}</strong> XP.</p>
         <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p>
         <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec ou un exercice passé ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p>
+        <p class="small"><strong>Expression mystère :</strong> +${PROG.BAREME.expression} XP par expression trouvée pour la première fois (une expression ne rapporte qu'une fois, rejouer ne rapporte rien de plus), et 4 objectifs dédiés. Ces parties ne comptent ni comme des grilles, ni dans le taux de réussite, ni dans la série.</p>
         <p class="small"><strong>Défi express et mot intrus :</strong> pas d'XP, seulement des records et des trophées, pour ne pas mélanger ces jeux avec la grille ${DEMO ? "de démo" : "du jour"}.</p></div>`;
     el.querySelectorAll("[data-saut]").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const c = $(a.dataset.saut); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); }));
     const ancre = { objectifs: "prog-objectifs", badges: "prog-badges", niveaux: "prog-niveaux", trophees: "prog-trophees" }[cible];
@@ -1875,7 +2041,7 @@
   function rendreStats() {
     const p = progression(), s = p.stats;
     const el = $("ecran-stats");
-    if (!s.terminees && !(defiActif() && DF.lire(profilDefi()).parties) && !(intrusActif() && IN.lire(profilDefi()).series)) {
+    if (!s.terminees && !(defiActif() && DF.lire(profilDefi()).parties) && !(intrusActif() && IN.lire(profilDefi()).series) && !(exprActif() && EX.lire(profilDefi()).parties)) {
       el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><div class="vide"><div class="ico">📊</div>Tes statistiques apparaîtront après ta première partie.</div>${DEMO ? boutonReinit() : ""}`;
       brancherReinit(); return;
     }
@@ -1901,6 +2067,13 @@
         <div class="stat-c"><div class="v">${ed.record ? ed.record.paliers : "–"}</div><div class="l">Record de paliers</div><div class="note">${ed.record ? "en " + fmtDuree(ed.record.temps_ms) : "aucune partie"}</div></div>
         <div class="stat-c"><div class="v">${ed.parties}</div><div class="l">Parties de Défi</div><div class="note">${DF.BADGES.filter(b => ed.badges[b.id]).length}/${DF.BADGES.length} badges du Défi</div></div>
       </div>`; })() : ""}
+      ${exprActif() ? (() => { const ex = EX.lire(profilDefi()); return `<h3 class="titre-stats"><span class="mode-badge expr">Expression mystère</span></h3>
+      ${ex.parties ? `<div class="stats-grille">
+        <div class="stat-c"><div class="v">${ex.parties}</div><div class="l">Parties terminées</div><div class="note">${ex.parfaites} parfaite${ex.parfaites > 1 ? "s" : ""} (5/5)</div></div>
+        <div class="stat-c"><div class="v">${ex.meilleur}/${EX.TAILLE}</div><div class="l">Meilleur score</div></div>
+        <div class="stat-c"><div class="v">${Math.round(100 * ex.bonnes / Math.max(1, ex.repondues))} %</div><div class="l">Réussite moyenne</div><div class="note">${ex.bonnes}/${ex.repondues} réponses justes</div></div>
+        <div class="stat-c"><div class="v">${ex.trouvees.length}/${EX.BANQUE.expressions.length}</div><div class="l">Expressions découvertes</div><div class="note">trouvées au moins une fois</div></div>
+      </div>` : `<div class="vide" style="padding:14px"><div class="ico" style="font-size:26px">💬</div>Joue ta première partie d'Expression mystère pour voir tes statistiques ici.</div>`}`; })() : ""}
       ${intrusActif() ? (() => { const ei = IN.lire(profilDefi()); return `<h3 class="titre-stats"><span class="mode-badge intrus">Le mot intrus</span></h3>
       <div class="stats-grille">
         <div class="stat-c"><div class="v">${ei.meilleur != null ? ei.meilleur + "/" + IN.TAILLE_SERIE : "–"}</div><div class="l">Meilleur score</div><div class="note">${ei.parfaites} série${ei.parfaites > 1 ? "s" : ""} parfaite${ei.parfaites > 1 ? "s" : ""}</div></div>
@@ -1931,6 +2104,7 @@
     if (nom === "defi") { ouvrirDefi(); return; }
     if (nom === "jeux") { ouvrirJeux(); return; }
     if (nom === "intrus") { ouvrirIntrus(); return; }
+    if (nom === "expression") { ouvrirExpression(); return; }
     // Anciennes entrées « parcours » et « badges » : regroupées dans l'onglet Progression.
     if (nom === "parcours" || nom === "badges" || nom === "progression") { cible = cible || (nom === "parcours" ? "niveaux" : nom === "badges" ? "badges" : null); nom = "progression"; rendreProgression(cible); }
     if (nom === "accueil") { revenirJour(); rendreAccueil(); }

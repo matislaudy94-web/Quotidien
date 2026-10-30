@@ -35,3 +35,10 @@ open("intrus_banque.js", "w").write(
     "// Banque du mini-jeu « Le mot intrus » (vérifiée par verifier_intrus.py, relue avant publication).\n"
     "window.QUOTIDIEN_INTRUS = " + json.dumps(it, ensure_ascii=False, indent=1) + ";\n")
 print("intrus_banque.js régénéré :", len(it["questions"]), "questions (version", str(it.get("version")) + ")")
+# Mini-jeu « Expression mystère » (expressions.json) : banque éditoriale vérifiée par verifier_expressions.py.
+ex = json.load(open("expressions.json")) if os.path.exists("expressions.json") else {"version": 0, "expressions": []}
+open("expressions_banque.js", "w").write(
+    "// Fichier généré depuis expressions.json par : python3 generer_grilles_js.py\n"
+    "// Banque du mini-jeu « Expression mystère » (vérifiée par verifier_expressions.py, relue avant publication).\n"
+    "window.QUOTIDIEN_EXPRESSIONS = " + json.dumps(ex, ensure_ascii=False, indent=1) + ";\n")
+print("expressions_banque.js régénéré :", len(ex["expressions"]), "expressions (version", str(ex.get("version")) + ")")

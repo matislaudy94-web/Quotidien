@@ -11,4 +11,7 @@ window.QUOTIDIEN_CONFIG = {
   defi: "tous",
   // Mini-jeu « Le mot intrus » : "tous", "demo" ou "aucun". Hors mesures du test (événements « minijeu » séparés).
   intrus: "tous",
+  // Mini-jeu « Expression mystère » : "tous", "demo" ou "aucun". Hors mesures du test (événements « minijeu »).
+  // Il rapporte de l'XP (+5 par expression trouvée la 1re fois), sans toucher aux statistiques de la grille du jour.
+  expression: "tous",
 };

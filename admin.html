@@ -295,6 +295,9 @@
       ["Défi express : a partagé son score", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "partage")],
       ["Mot intrus : a ouvert le jeu", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "ouverture")],
       ["Mot intrus : a terminé au moins une série", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "fin")],
+      ["Expression mystère : a ouvert le jeu", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "expression" && e.donnees.action === "ouverture")],
+      ["Expression mystère : a terminé au moins une partie", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "expression" && e.donnees.action === "fin")],
+      ["Expression mystère : a fait 5/5 au moins une fois", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "expression" && e.donnees.action === "fin" && e.donnees.score === e.donnees.total)],
       ["Mot intrus : a fait 5/5 au moins une fois", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "fin" && e.donnees.score === e.donnees.total)],
     ];
     let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;

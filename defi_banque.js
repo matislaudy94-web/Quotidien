@@ -758,7 +758,7 @@ window.QUOTIDIEN_DEFI = {
    "mots": [
     "ATLANTIQUE",
     "PACIFIQUE",
-    "INDIEN",
+    "MER ROUGE",
     "ARCTIQUE",
     "MÉDITERRANÉE",
     "BALTIQUE",
@@ -902,7 +902,7 @@ window.QUOTIDIEN_DEFI = {
   },
   {
    "id": "unites",
-   "nom": "Unités de mesure (longueur, masse…)",
+   "nom": "Unités de mesure",
    "famille": "maths",
    "mots": [
     "KILOMÈTRE",
@@ -937,7 +937,7 @@ window.QUOTIDIEN_DEFI = {
     "NEZ",
     "BOUCHE",
     "ŒIL",
-    "OREILLE",
+    "LÈVRE",
     "JOUE",
     "PAUPIÈRE",
     "FRONT",
@@ -1562,6 +1562,90 @@ window.QUOTIDIEN_DEFI = {
   [
    "accessoires",
    "duree"
+  ],
+  [
+   "capitales",
+   "langues"
+  ],
+  [
+   "monde",
+   "asie"
+  ],
+  [
+   "monde",
+   "afrique"
+  ],
+  [
+   "monde",
+   "europe"
+  ],
+  [
+   "monde",
+   "amerique"
+  ],
+  [
+   "italie",
+   "europe"
+  ],
+  [
+   "danses",
+   "amerique"
+  ],
+  [
+   "danses",
+   "europe"
+  ],
+  [
+   "fetes",
+   "creatures"
+  ],
+  [
+   "fetes",
+   "confiseries"
+  ],
+  [
+   "fetes",
+   "bijoux"
+  ],
+  [
+   "fetes",
+   "desserts"
+  ],
+  [
+   "fetes",
+   "arbres"
+  ],
+  [
+   "meteo",
+   "saisons"
+  ],
+  [
+   "ferme",
+   "boissons"
+  ],
+  [
+   "boissons",
+   "vaisselle"
+  ],
+  [
+   "cirque",
+   "savane"
+  ],
+  [
+   "pieces",
+   "restauration"
+  ],
+  [
+   "chapeaux",
+   "amerique"
+  ],
+  [
+   "combat",
+   "asie"
+  ],
+  [
+   "sante",
+   "sdb"
   ]
  ]
 };

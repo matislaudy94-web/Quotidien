@@ -54,8 +54,9 @@ async function jouerPaliers(page, n) { const vus = []; for (let i = 0; i < n; i+
     const { page: pa } = await nouveau();
     await pa.goto(`${BASE}/?p=${A}`); await pa.waitForSelector("#carte-defi");
     ok(await pa.locator("#carte-defi").isVisible() && /30 s au chrono/.test(await pa.locator("#carte-defi").innerText()), "accueil : carte « Défi express » visible");
-    ok(await pa.locator('#nav-bas [data-ecran="defi"]').count() === 1, "onglet « Défi » dans la barre du bas");
-    await pa.click('#nav-bas [data-ecran="defi"]'); await pa.waitForSelector("#defi-solo");
+    await pa.click('#nav-bas [data-ecran="jeux"]'); await pa.waitForSelector("#jeu-defi-btn");
+    ok(/Défi express/.test(await pa.locator("#jeu-defi").innerText()), "onglet Jeux : carte « Défi express »");
+    await pa.click("#jeu-defi-btn"); await pa.waitForSelector("#defi-solo");
     ok(/30 secondes pour toute la partie/.test(await pa.locator("#ecran-defi").innerText()) && /rajoute 2 secondes/.test(await pa.locator("#ecran-defi").innerText()) && /en retire 2/.test(await pa.locator("#ecran-defi").innerText()), "règles du Défi affichées (30 s pour toute la partie, +2 s par groupe, −2 s par erreur)");
     await pa.screenshot({ path: path.join(CAPT, "defi_1_accueil.png"), fullPage: true });
 
@@ -225,10 +226,10 @@ async function jouerPaliers(page, n) { const vus = []; for (let i = 0; i < n; i+
     await jouerPaliers(pd, 1);
     await pd.click("#defi-abandon"); await pd.click("#defi-abandon"); await pd.waitForSelector("#fin-rejouer");
     ok(/1 palier/.test(await pd.locator("#ecran-defi").innerText()) && (await db()).evenements.length === avant, "démo : partie jouée, aucun événement envoyé");
-    await pd.click('[data-ecran="accueil"]'); await pd.waitForSelector("#carte-defi");
+    await pd.click('#nav-bas [data-ecran="accueil"]'); await pd.waitForSelector("#carte-defi");
     ok(/Record : 1 palier/.test(await pd.locator("#carte-defi").innerText()), "démo : record affiché sur la carte de l'accueil");
-    await pd.click('#nav-bas [data-ecran="badges"]'); await pd.waitForSelector("#ecran-badges:not(.hidden)");
-    ok(/Badges du Défi/.test(await pd.locator("#ecran-badges").innerText()) && /sans XP|pas d'XP/i.test(await pd.locator("#ecran-badges").innerText()), "écran Badges : section « Badges du Défi », sans XP");
+    await pd.click('#nav-bas [data-ecran="progression"]'); await pd.waitForSelector("#ecran-progression:not(.hidden)");
+    ok(/Trophées des jeux/.test(await pd.locator("#ecran-progression").innerText()) && /pas d'XP/i.test(await pd.locator("#ecran-progression").innerText()), "écran Progression : trophées du Défi, sans XP");
     await pd.click('#nav-bas [data-ecran="stats"]'); await pd.waitForSelector("#ecran-stats:not(.hidden)");
     ok(/Défi express/i.test(await pd.locator("#ecran-stats").innerText()) && /Record de paliers/i.test(await pd.locator("#ecran-stats").innerText()), "écran Stats : rubrique Défi (record, parties)");
 

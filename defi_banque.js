@@ -926,7 +926,6 @@ window.QUOTIDIEN_DEFI = {
     "OMÉGA",
     "SIGMA",
     "LAMBDA",
-    "DELTA",
     "PI"
    ]
   },
@@ -940,7 +939,7 @@ window.QUOTIDIEN_DEFI = {
     "ŒIL",
     "OREILLE",
     "JOUE",
-    "MENTON",
+    "PAUPIÈRE",
     "FRONT",
     "SOURCIL"
    ]
@@ -1379,10 +1378,6 @@ window.QUOTIDIEN_DEFI = {
   [
    "formes",
    "europe"
-  ],
-  [
-   "grec",
-   "fleuves"
   ],
   [
    "ferme",

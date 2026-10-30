@@ -1,0 +1,19 @@
+{
+ "ambiguites": [
+  {
+   "mot": "MENTON",
+   "categorie": "visage",
+   "aussi_dans": "villes",
+   "correction": "remplacer par LÈVRE",
+   "raison": "Menton est une ville française connue de la Côte d'Azur (fête du Citron, voisine de Nice). Sur un plateau avec NICE, LILLE, NEZ…, le joueur peut ranger MENTON avec les villes de France. « visage » (corps) et « villes » (géographie) ne sont pas déclarées incompatibles."
+  },
+  {
+   "mot": "DELTA",
+   "categorie": "grec",
+   "aussi_dans": "paysages",
+   "correction": "retirer le mot",
+   "raison": "Un delta est une forme de relief au même titre que VALLÉE, MARAIS ou FALAISE (delta du Rhône, du Nil). La paire grec/fleuves est déjà déclarée incompatible pour ce mot, mais la paire grec/paysages ne l'est pas. Une fois DELTA retiré (il reste 7 lettres), l'incompatibilité grec/fleuves ne sert plus à rien."
+  }
+ ],
+ "mots_faux": []
+}

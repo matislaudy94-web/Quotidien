@@ -14,6 +14,8 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 | `defi.js` | Moteur du Défi : tirage reproductible à partir d'une graine, paliers, classement, records et badges (sans XP). |
 | `variantes.json` | **Versions de rechange des grilles de démo** : 2 par grille (90 en tout), même difficulté, autres mots et autres groupes. `variantes.js` est généré à partir d'elle. Vérification : `python3 verifier_variantes.py`. |
 | `entrainement.json` | La banque du **mode entraînement** : 20 exercices en 5 chapitres, distincte du calendrier (aucun mot en commun). `entrainement.js` est généré à partir d'elle par `python3 generer_grilles_js.py`. |
+| `intrus.json` | La banque du mini-jeu **Le mot intrus** : 60 questions éditoriales (25 faciles, 23 moyennes, 12 difficiles), versionnées (`version`). `intrus_banque.js` est généré à partir d'elle. Vérification : `python3 verifier_intrus.py`, puis relecture humaine obligatoire avant toute publication. |
+| `intrus.js` | Moteur du mot intrus : tirage d'une série de 5 questions, records et trophées (sans XP). |
 | `progression.js` | Progression du joueur : barème d'XP, niveaux, objectifs, badges, statistiques. Seule source de vérité, tout est recalculé depuis le journal local des parties terminées. |
 | `config.js` | Adresse de la base Supabase et clé **publique**. |
 | `api.js` | Appels à la base. |
@@ -75,6 +77,58 @@ Les versions de rechange ne servent qu'en démo : les participants jouent toujou
 **Interrupteur.** `config.js` : `defi: "tous"` (valeur actuelle), `"demo"` ou `"aucun"`.
 
 **Stockage.** Base : tables `defi_groupes`, `defi_membres`, `defi_manches`, `defi_resultats` (séparées des tables du test, illisibles par la clé publique), fonctions `g_creer`, `g_rejoindre`, `g_etat`, `g_lancer`, `g_commencer`, `g_score`, `g_cloturer`. Les anciennes tables `defi_salons` / `defi_scores` (salons asynchrones, version du 28/10 après-midi) ne sont plus utilisées par l'interface. Navigateur : `quotidien_defi_<profil>` (record, badges, groupes), `quotidien_defi_encours` (manche en cours), `quotidien_pseudo`.
+
+## Navigation (depuis le 30/10/2026)
+
+Barre du bas : **Accueil · Quotidien · Jeux · Progression · Stats**.
+- **Accueil** : niveau et XP, grille du jour (action principale, bouton vert), trois tuiles de jeux, derniers résultats (seulement s'il y en a), 2 objectifs en cours.
+- **Quotidien** : ouvre directement la grille du jour (en démo : la grille de démo en cours). Aucun accès aux grilles futures.
+- **Jeux** : tous les modes en cartes, en 3 sections (voir plus bas). Les écrans du Défi, de l'entraînement et du mot intrus allument cet onglet.
+- **Progression** : niveau, objectifs, badges (grille + entraînement), trophées des jeux et liste des niveaux, avec un sommaire en haut.
+- **Stats** : statistiques par mode. Pas de page « Profil » : il n'y a pas de compte, on n'en simule pas.
+
+**Bouton retour du téléphone** (geste iPhone, bouton Android) : il ramène à l'écran parent au lieu de fermer Quotidien (exercice → parcours d'entraînement → Jeux → accueil ; mot intrus ou Défi → Jeux ; Progression, Stats, Jeux → accueil). Depuis l'accueil, il quitte normalement. Pendant une partie de Défi, il ne fait rien (le chrono tourne : on quitte avec « Abandonner »). Une boîte de dialogue ouverte se ferme. Technique : une seule entrée d'historique est gardée tant qu'on n'est pas sur l'accueil.
+
+## L'onglet Jeux
+
+Chaque carte indique : nom, une phrase, durée approximative, type de réflexion, état réel du joueur (records, avancement), un bouton. Aucun faux score : une carte sans donnée le dit (« Pas encore de record »). Les boutons des jeux sont à la couleur du jeu ; le vert reste réservé à la grille du jour, rappelée en haut de l'onglet tant qu'elle n'est pas jouée.
+
+| Section | Carte | Ce que c'est |
+|---|---|---|
+| Défis rapides | Défi express | Le Défi existant (solo ou groupe). |
+| Défis rapides | Le mot intrus | Nouveau mini-jeu (ci-dessous). |
+| Pour progresser | Mode entraînement | Le parcours de 20 exercices en 5 chapitres (« parcours par chapitres » : c'est le même mode, les chapitres sont affichés sur la carte). |
+| Pour se challenger | Défi sans erreur | Pas un mode séparé : le défi de réussir un exercice d'entraînement **au premier essai, sans erreur ni indice**. Compteur calculé depuis le journal réel (entrées d'entraînement gagnées, 0 erreur, 0 indice, tentative 1). Le bouton ouvre le prochain exercice. |
+| Pour se challenger | Mes records | Meilleurs résultats réellement enregistrés : Défi (paliers), mot intrus (score), grille (meilleur résultat), sans erreur (compteur). |
+
+Les jeux non développés (feuille de route) n'apparaissent pas dans l'onglet.
+
+## Le mot intrus
+
+**Règles.** Une série = **5 questions** : 2 faciles, 2 moyennes, 1 difficile, dans cet ordre. Chaque question montre une consigne et **4 mots** (ordre mélangé à chaque partie) : trois partagent un point commun, le quatrième est l'intrus. Le joueur touche un mot : réponse immédiate (✓ / ✗, pas seulement des couleurs), puis le critère et l'explication. Il passe à la suite **quand il le décide** (« Question suivante »). Pas de chrono, pas de deuxième essai. À la fin : score sur 5, les 5 explications, « Rejouer » (5 nouvelles questions) et « Autres jeux » ; rien ne se relance tout seul. Quitter en cours de série ne l'enregistre pas.
+
+**Tirage.** Les questions jamais vues d'abord ; quand toute la banque a été vue, le tour recommence. Les questions vues sont mémorisées sur l'appareil.
+
+**Récompenses.** Aucune XP (pour ne pas mélanger avec la grille du jour). Record = meilleur score sur 5. Trophées : Œil de lynx (5/5 une fois), Fin limier (5/5 trois fois), Tour complet (toute la banque vue). Stockage local `quotidien_intrus_<profil>`.
+
+**Banque.** `intrus.json`, version 1, 60 questions. Règles éditoriales : une seule réponse raisonnablement défendable (chaque mot a été testé comme intrus possible par un autre critère), relation des trois autres plus précise que celle qui inclut l'intrus, mots connus du grand public, pas de classification contestable, consigne précise quand plusieurs lectures sont possibles (questions de forme : anagramme, mot caché…). **Aucun mot du calendrier du test** (vérifié par script) : le mini-jeu ne peut pas donner la réponse d'une grille future. Certaines catégories existent aussi dans des grilles (félins, fromages…), avec d'autres mots. Écrite par un rédacteur, contrôlée par `verifier_intrus.py`, relue par un relecteur indépendant (30/10/2026). Pour ajouter des questions : compléter `intrus.json`, augmenter `version`, lancer `python3 verifier_intrus.py`, faire relire, puis `python3 generer_grilles_js.py`. S'il y a moins de 5 questions, le jeu est masqué.
+
+**Données.** Participants seulement : événements de type **`minijeu`** (champ `jeu` = `intrus`, `action` = `ouverture`, `debut`, `fin` avec score et questions, `partage`). Aucun événement du test, aucune visite, aucun lien avec une grille. Interrupteur `intrus` dans `config.js` (`"tous"`, `"demo"`, `"aucun"`).
+
+## Partage des résultats
+
+Le partage est toujours volontaire (bouton). Grille du jour : inchangé (emojis de couleur, jamais les mots ni les catégories). Défi express et mot intrus (nouveau) : score et une ligne d'emojis (✅❌ par question, 🟩 par palier). Feuille de partage du téléphone si elle existe, sinon copie dans le presse-papiers avec un message « Score copié ». **Pas de lien** dans les partages des participants : un lien vers le site inscrirait l'ami au test sans passer par l'invitation mesurée. En démo, le lien de la démo est ajouté (il n'inscrit personne). Une carte image (capture partageable) est dans la feuille de route.
+
+## Feuille de route des mini-jeux (non développés, non affichés aux joueurs)
+
+Architecture prévue : une banque JSON par jeu (contenu séparé du moteur), un script `verifier_<jeu>.py`, un petit moteur (`<jeu>.js`) sur le modèle de `intrus.js`, une carte dans `rendreJeux()` (index.html), des événements `minijeu` avec `jeu = <nom>`, un interrupteur dans `config.js`. Aucun ne sera affiché avant d'être développé et testé.
+
+1. **Expression mystère** : compléter une expression à partir d'un indice (« Prendre la ___ » : partir vite). Saisie libre validée contre une liste éditoriale de réponses acceptées (normalisation des accents et de la casse, variantes listées à la main).
+2. **Mots cachés** : repérer un mot court dans un mot long (un animal caché…). Le mot doit apparaître lettre par lettre ; règle explicite sur les accents (É = E ou non, à fixer et vérifier par script) ; l'explication montre la position exacte.
+3. **Groupe mystère** : retrouver une association parmi 5 ou 6 mots (un seul groupe), avec le savoir-faire éditorial des grilles, sans copier une grille.
+4. **Défi sans erreur (mode dédié)** : variante où la première erreur termine la partie, sans indice, sur les grilles d'entraînement uniquement (jamais le calendrier). Aujourd'hui, seul le compteur « sans erreur » existe.
+5. **Défi personnel** : battre son record sur un exercice compatible, à partir des données réellement enregistrées.
+6. **Carte de résultat image** (canvas) pour le partage, sans solution.
 
 ## La progression du joueur (XP, niveaux, objectifs, badges)
 
@@ -189,6 +243,7 @@ Le séparateur est le point-virgule ; les fichiers s'ouvrent dans Excel ou Googl
 - Clics sur « inviter » et « prochaine grille ».
 - Défi express (participants seulement) : ouverture, fin de partie (paliers, temps, erreurs, solo ou groupe), groupe créé, groupe rejoint, manche lancée. Dans les groupes : le **pseudo**, la présence sur l'écran du groupe et les scores, visibles des membres pendant 30 jours.
 - Mode entraînement : ouverture, début, fin (réussi ou non, erreurs, durée, indices, numéro de tentative), solution consultée, exercice passé.
+- Mot intrus (participants seulement) : ouverture, début (identifiants des questions), fin (score, réponses justes ou fausses, durée), partage.
 - Réponses au questionnaire.
 
 Aucun nom, e-mail, téléphone ou adresse. Pas de publicité, pas d'outil de suivi tiers. Les joueurs voient cette explication en bas de page.
@@ -237,6 +292,13 @@ Après 8 s sans réponse : message + bouton « Réessayer » (qui attend la requ
 - Le bouton « Recommencer » n'existe qu'en mode démo.
 - Le compte à rebours dépend de l'heure du téléphone : un téléphone très mal réglé afficherait une durée fausse. Le changement de fuseau n'a pas d'effet (minuit est calculé en heure de Paris).
 
+## Mettre en ligne (GitHub Pages)
+
+1. Vérifier : `python3 verifier_grilles.py`, `python3 verifier_grilles.py entrainement.json`, `python3 verifier_variantes.py`, `python3 verifier_defi.py`, `python3 verifier_intrus.py`, puis `python3 generer_grilles_js.py`.
+2. Tester : `node tests/test_progression.js`, `node tests/test_defi.js`, `node tests/test_intrus.js`, puis `node tests/test_parcours.js`, `node tests/test_entrainement.js`, `node tests/test_defi_parcours.js`, `node tests/test_demo_niveaux.js`, `node tests/test_jeux.js` (Playwright requis).
+3. Publier : `git push` sur la branche `main` du dépôt `matislaudy94-web/Quotidien`. GitHub Pages republie le site en 1 à 2 minutes (onglet *Actions* du dépôt pour suivre). Adresse : https://matislaudy94-web.github.io/Quotidien/ (Q majuscule).
+4. Côté base : le type d'événement `minijeu` a été ajouté à la fonction `q_evenement` le 30/10/2026 (migration `evenement_type_minijeu`). Rien d'autre à faire.
+
 ## Journal des changements de la logique de collecte
 
 Règle : aucune règle de comptabilisation ne change pendant un test. Tout changement est noté ici avec sa date.
@@ -244,6 +306,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | Date | Changement | Effet sur la lecture des résultats |
 |---|---|---|
 | 28/10/2026 (avant tout test) | Ajout d'un identifiant d'appareil anonyme (aléatoire, par navigateur) envoyé avec chaque visite. Nouvelle colonne « Appareils » et ligne « ⚠ Lien ouvert sur 2 appareils ou plus ». | Permet de repérer les liens transférés. Aucun autre compteur modifié. |
+| 30/10/2026 (avant tout test) | **Réorganisation** : barre du bas Accueil · Quotidien · Jeux · Progression · Stats (avant : Accueil · Jouer · Défi · Badges · Stats) ; onglet **Jeux** (3 sections) ; onglet **Progression** (niveaux, objectifs, badges, trophées réunis) ; accueil allégé (3 tuiles de jeux, derniers résultats, 2 objectifs au lieu de 3, raccourcis supprimés) ; bouton retour du téléphone géré. **Nouveau mini-jeu « Le mot intrus »** (sans XP, records et trophées) avec un **nouveau type d'événement `minijeu`** (base : `q_evenement` accepte `minijeu`). Défi express : bouton « Partager mon score » (sans lien) et « Autres jeux » en fin de partie, trace `defi` action `partage` ; banque : MENTON → PAUPIÈRE (aussi une ville), DELTA retiré (aussi un relief). Tableau de bord : lignes du mot intrus et du partage du Défi dans le tableau hors mesures. | **Change le produit testé** (un jeu de plus, navigation différente) : les participants peuvent jouer davantage le même jour, ce qui peut jouer sur le retour du lendemain, de la même façon pour R et S. Aucun compteur de l'entonnoir, aucun événement du test, aucun classement de visite modifié. Le mot intrus ne crée ni visite ni événement du test. Le changement de banque du Défi modifie les tirages d'une graine donnée (sans effet : aucune manche en cours). |
 | 29/10/2026 (avant tout test) | **Défi express : changements de format signalés** (paliers 4, 8, 13 et 19). Au palier qui précède : « Attention : au prochain palier, N groupes de T mots ». Au changement : annonce plein écran (nouveau format, ancien format, schéma des groupes, consigne), chrono arrêté, fermeture d'un toucher ou après 2,6 s. Pendant tout le palier : format surligné « Nouveau ! » dans l'en-tête. | Hors mesures du test. En groupe, chaque joueur a le chrono arrêté pendant l'annonce : pas d'effet sur le classement. |
 | 29/10/2026 (avant tout test) | **Défi express : un seul chrono de 30 s pour toute la partie, +2 s par groupe trouvé, −2 s par erreur** (avant : 30 s par palier, −5 s par erreur). Départage : temps de jeu au dernier palier réussi. Anciens records locaux mis de côté. **Écran de fin** : la solution et ses explications viennent juste sous le résultat (avant : sous le récapitulatif XP et le partage) ; l'XP gagnée reste annoncée dans le résultat, son détail et le bouton d'invitation passent dessous. **Explications des groupes réécrites** (calendrier, versions de rechange, entraînement) : sens des expressions, mécanisme des mots cachés, pièges signalés ; catégories et mots inchangés. | Défi : hors mesures du test, aucun compteur touché. Écran de fin : l'ordre change mais tous les blocs restent ; « Oui, je veux jouer la prochaine » et le questionnaire gardent leur place après la solution. Aucun événement ni classement de visite modifié. |
 | 29/10/2026 (avant tout test) | **Solution jamais montrée après un échec** (grille du jour, démo, entraînement) : seuls les groupes trouvés par le joueur sont rappelés ; solution et explications après une réussite seulement. Bouton « Comprendre la solution » retiré (l'action `solution` des traces d'entraînement n'est plus émise). Accueil : les mini-jeux (Entraînement, Défi express) sont regroupés en deux tuiles colorées juste sous la grille du jour ; une fois la grille du jour jouée, « Voir mon résultat » n'est plus le bouton vert principal. | **Change ce que voit un participant qui perd** : il ne découvre plus les groupes manqués. Peut jouer sur la frustration, la curiosité et donc le retour du lendemain, dans un sens ou dans l'autre, de la même façon pour les groupes R et S. Aucun compteur, événement ni classement de visite modifié. |
@@ -265,7 +328,9 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 
 `node tests/test_demo_niveaux.js` : démo, rotation des 3 versions (aucun mot déjà vu au réessai, retour à la version 1 après la 3), carte des grilles, déblocage après réussite (y compris réussite après un échec), grille suivante proposée et lancée en un clic, bouton collant, rechargement, XP comptée une seule fois.
 
-`node tests/test_defi.js` (19 vérifications) : reproductibilité du tirage, règles de tirage sur 90 000 paliers, variété, vérification des sélections, classement, records et badges, aucune XP. `node tests/test_defi_parcours.js` (iPhone 13 et SE, plusieurs téléphones en même temps) : partie solo (paliers, chrono, erreur −5 s, temps écoulé, record), nouveau tirage à chaque partie, création de groupe, ami non participant qui rejoint (pseudo déjà pris refusé, non inscrit au test), arrivée en direct dans la salle d'attente, lancement par l'hôte, compte à rebours et départ automatique communs, même tirage, points du petit bac, classement général avec égalités, retardataire renvoyé à la manche suivante, rechargement en pleine manche, absent et clôture par l'hôte, visite `retour_defi`, mesures du test non contaminées, mode démo, code invalide.
+`node tests/test_defi.js` (19 vérifications) : reproductibilité du tirage, règles de tirage sur 90 000 paliers, variété, vérification des sélections, classement, records et badges, aucune XP. `node tests/test_defi_parcours.js` (iPhone 13 et SE, plusieurs téléphones en même temps) : partie solo (paliers, chrono unique, erreur −2 s, groupe +2 s, annonce des changements de format, temps écoulé, record), nouveau tirage à chaque partie, création de groupe, ami non participant qui rejoint (pseudo déjà pris refusé, non inscrit au test), arrivée en direct dans la salle d'attente, lancement par l'hôte, compte à rebours et départ automatique communs, même tirage, points du petit bac, classement général avec égalités, retardataire renvoyé à la manche suivante, rechargement en pleine manche, absent et clôture par l'hôte, visite `retour_defi`, mesures du test non contaminées, mode démo, code invalide.
+
+`node tests/test_jeux.js` (iPhone 13 et SE) : barre du bas (5 onglets), onglet Jeux (3 sections, 5 cartes avec durée et bouton, états réels sans faux score, rappel de la grille du jour), série complète du mot intrus (pas d'enchaînement automatique, retour immédiat ✓/✗, critère et explication, 4/5, explications, rejouer), partage (copie, sans lien pour un participant, lien démo en démo), événements `minijeu` séparés et aucun événement du test, aucune XP, records sur l'accueil, l'onglet Jeux, les stats et la progression, bouton retour du téléphone (mot intrus → Jeux → accueil → sortie ; exercice → parcours avec sauvegarde ; Défi en cours non interrompu), fin du Défi (partage, autres jeux), démo sans événement, iPhone SE (pas de débordement, libellés de la barre entiers, zones tactiles ≥ 44 px, mots dans leur case), aucune erreur JavaScript. `node tests/test_intrus.js` : banque (taille, aucun mot du calendrier), tirage (composition 2/2/1, sans doublon, reproductible, mots mélangés, intrus à toutes les places, questions vues évitées), records et trophées, aucune XP.
 
 `node tests/test_entrainement.js` (71 vérifications, iPhone 13 et iPhone SE) couvre le mode entraînement : accueil avec les deux modes, grille du jour inchangée, ouverture du parcours, réussite et « Exercice suivant », échec après 4 erreurs, « Réessayer » (remise à zéro de la tentative, chronomètre, progression intacte), échec avec un groupe trouvé (seul ce groupe rappelé, solution cachée, puis réussite avec XP), « Passer » sans XP, reprise après rechargement (groupes, erreurs, sélection, temps actif), absence de double crédit, statistiques séparées, mode démo indépendant, données du test non contaminées (seuls les événements de la grille du jour, visites non comptées comme retours, traces `entrainement` séparées), petits écrans (pas de défilement horizontal, zones tactiles ≥ 44 px, bouton Valider visible).
 

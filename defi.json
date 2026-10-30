@@ -924,7 +924,6 @@
     "OMÉGA",
     "SIGMA",
     "LAMBDA",
-    "DELTA",
     "PI"
    ]
   },
@@ -938,7 +937,7 @@
     "ŒIL",
     "OREILLE",
     "JOUE",
-    "MENTON",
+    "PAUPIÈRE",
     "FRONT",
     "SOURCIL"
    ]
@@ -1377,10 +1376,6 @@
   [
    "formes",
    "europe"
-  ],
-  [
-   "grec",
-   "fleuves"
   ],
   [
    "ferme",

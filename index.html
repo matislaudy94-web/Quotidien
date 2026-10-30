@@ -247,10 +247,11 @@
   main.avec-nav { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
   .nav-bas { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: grid; grid-template-columns: repeat(5, 1fr);
     background: var(--plate); box-shadow: 0 -4px 0 var(--plate-edge), 0 -8px 24px rgba(0,0,0,.35); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
-  .nav-bas button { background: none; border: 0; color: var(--muted); font-family: var(--title); font-weight: 600; font-size: 11px; letter-spacing: .02em;
+  .nav-bas button { background: none; border: 0; color: var(--muted); font-family: var(--title); font-weight: 600; font-size: 11px; letter-spacing: 0; min-height: 48px; min-width: 0;
     display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; border-radius: 12px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .nav-bas button .ico { font-size: 20px; line-height: 1; filter: grayscale(1) opacity(.6); transition: transform .12s, filter .12s; }
-  .nav-bas button.on { color: #fff; } .nav-bas button.on .ico { filter: none; transform: translateY(-2px); }
+  .nav-bas button.on { color: #fff; }
+  @media (max-width: 350px) { .nav-bas button { font-size: 10px; } } .nav-bas button.on .ico { filter: none; transform: translateY(-2px); }
   .nav-bas button:active .ico { transform: scale(.9); }
   .pill-niveau { display: inline-flex; align-items: center; gap: 6px; background: var(--c0); color: var(--ink); border-radius: var(--pill); padding: 6px 10px 7px;
     font-family: var(--title); font-weight: 700; font-size: 13px; box-shadow: inset 0 -3px 0 var(--c0e); white-space: nowrap; cursor: pointer; border: 0; }
@@ -315,30 +316,87 @@
   .debloque { text-align: center; font-weight: 800; font-size: 14px; color: var(--ok-edge, #1f8a3a); margin: 10px 0 0; animation: pop-xp .5s cubic-bezier(.2,.9,.3,1.4) .3s both; }
   @media (prefers-reduced-motion: reduce) { .cta-collant { transition: none; } }
 
-  /* ---------- Mini-jeux de l'accueil (entraînement et Défi express) ---------- */
+  /* ---------- Accueil : tuiles des jeux (Défi, mot intrus, entraînement) ---------- */
   .mini-jeux { margin-top: 18px; }
-  .mini-titre { font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; margin: 0 2px 10px; display: flex; align-items: baseline; gap: 8px; }
+  .mini-titre { font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; margin: 0 2px 10px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .mini-titre span { font-size: 13px; color: var(--muted); font-weight: 600; }
-  .mini-rang { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .mini-rang.seul { grid-template-columns: 1fr; }
-  .mini-jeu { border-radius: var(--r-l); padding: 14px 12px 12px; color: var(--ink); position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px;
-    cursor: pointer; -webkit-tap-highlight-color: transparent; transition: transform .12s; animation: mini-arrivee .45s cubic-bezier(.2,.9,.3,1.3) both; }
-  .mini-jeu:active { transform: translateY(3px); }
+  .lien-titre { margin-left: auto; background: none; border: 0; color: var(--c0); font-family: var(--title); font-weight: 600; font-size: 14px; cursor: pointer; padding: 6px 2px; min-height: 36px; }
+  .mini-rang { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .mini-jeu { border-radius: var(--r-l); color: var(--ink); position: relative; overflow: hidden; animation: mini-arrivee .45s cubic-bezier(.2,.9,.3,1.3) both; }
   .mini-jeu.bleu { background: var(--c2); box-shadow: 0 5px 0 var(--c2e); }
-  .mini-jeu.rose { background: var(--c3); box-shadow: 0 5px 0 var(--c3e); animation-delay: .08s; }
-  .mini-jeu::before { content: ""; position: absolute; top: -34px; right: -34px; width: 104px; height: 104px; border-radius: 50%; background: #fff; opacity: .18; }
-  .mini-jeu > * { position: relative; }
-  .mini-jeu .ico { width: 46px; height: 46px; border-radius: 14px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 26px;
-    box-shadow: 0 3px 0 rgba(0,0,0,.18); animation: mini-ico 2.8s ease-in-out 1s infinite; }
-  .mini-jeu h3 { font-family: var(--title); font-weight: 700; font-size: 19px; line-height: 1.1; margin: 4px 0 0; }
-  .mini-jeu .desc { font-size: 12.5px; font-weight: 800; line-height: 1.3; margin: 0; color: rgba(34,24,79,.82); flex: 1; }
-  .mini-jeu .chiffre { align-self: flex-start; background: rgba(255,255,255,.55); border-radius: var(--pill); padding: 3px 9px; font-size: 12px; font-weight: 800; }
-  .mini-jeu .btn { width: 100%; min-height: 46px; padding: 8px 6px; font-size: 15.5px; background: var(--cream); color: var(--ink); margin-top: 2px; }
-  .mini-jeu.bleu .btn { box-shadow: 0 var(--depth) 0 var(--c2e); } .mini-jeu.rose .btn { box-shadow: 0 var(--depth) 0 var(--c3e); }
+  .mini-jeu.rose { background: var(--c3); box-shadow: 0 5px 0 var(--c3e); animation-delay: .05s; }
+  .mini-jeu.jaune { background: var(--c0); box-shadow: 0 5px 0 var(--c0e); animation-delay: .1s; }
+  .mini-jeu::before { content: ""; position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; border-radius: 50%; background: #fff; opacity: .2; pointer-events: none; }
+  .mini-zone { all: unset; box-sizing: border-box; width: 100%; height: 100%; padding: 12px 10px 11px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; cursor: pointer; position: relative; -webkit-tap-highlight-color: transparent; }
+  .mini-zone:focus-visible { outline: 3px solid #fff; outline-offset: -3px; border-radius: var(--r-l); }
+  .mini-jeu:active { transform: translateY(3px); }
+  .mini-jeu .ico { width: 40px; height: 40px; border-radius: 12px; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 3px 0 rgba(0,0,0,.18); animation: mini-ico 2.8s ease-in-out 1s infinite; }
+  .mini-jeu h3 { font-family: var(--title); font-weight: 700; font-size: 15.5px; line-height: 1.1; margin: 6px 0 0; }
+  .mini-jeu .chiffre { font-size: 11.5px; font-weight: 800; line-height: 1.2; color: rgba(34,24,79,.85); }
   @keyframes mini-arrivee { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
   @keyframes mini-ico { 0%, 86%, 100% { transform: none; } 90% { transform: rotate(-10deg) scale(1.08); } 95% { transform: rotate(8deg) scale(1.08); } }
-  @media (prefers-reduced-motion: reduce) { .mini-jeu, .mini-jeu .ico { animation: none; } }
-  @media (max-width: 340px) { .mini-rang { grid-template-columns: 1fr; } }
+  @media (max-width: 350px) { .mini-jeu h3 { font-size: 14px; } .mini-zone { padding: 10px 8px; } .mini-jeu .ico { width: 34px; height: 34px; font-size: 19px; } }
+  .recents { list-style: none; padding: 0; margin: 6px 0 4px; display: grid; gap: 6px; }
+  .recents li { display: flex; align-items: center; gap: 10px; background: #f3eefe; border-radius: var(--r-s); padding: 8px 10px; font-size: 14px; font-weight: 700; }
+  .recents li .ico { font-size: 18px; } .recents li .t { flex: 1; min-width: 0; } .recents li .q { font-size: 12px; color: var(--ink-soft); white-space: nowrap; }
+
+  /* ---------- Onglet Jeux ---------- */
+  .jeux-section { margin-top: 22px; }
+  .rappel-jour { display: flex; align-items: center; gap: 10px; background: var(--plate); color: #fff; border-radius: var(--r-l); padding: 10px 10px 10px 14px; margin: 4px 0 6px; box-shadow: 0 4px 0 var(--plate-edge); font-weight: 800; font-size: 14px; }
+  .rappel-jour span { flex: 1; } .rappel-jour .btn { flex: none; min-height: 44px; padding-left: 18px; padding-right: 18px; }
+  .carte-jeu { background: var(--cream); color: var(--ink); border-radius: var(--r-l); padding: 14px 14px 14px; margin-top: 12px; box-shadow: 0 5px 0 var(--cream-edge); position: relative; overflow: hidden; border-top: 6px solid var(--accent, var(--c2)); animation: mini-arrivee .4s cubic-bezier(.2,.9,.3,1.2) both; }
+  .carte-jeu.bleu { --accent: var(--c2); --accent-e: var(--c2e); } .carte-jeu.rose { --accent: var(--c3); --accent-e: var(--c3e); }
+  .carte-jeu.jaune { --accent: var(--c0); --accent-e: var(--c0e); } .carte-jeu.vert { --accent: var(--c1); --accent-e: var(--c1e); } .carte-jeu.violet { --accent: #b9a6f5; --accent-e: #7d68c9; }
+  .cj-tete { display: flex; gap: 12px; align-items: flex-start; }
+  .cj-tete .ico { flex: none; width: 50px; height: 50px; border-radius: 15px; background: var(--accent); box-shadow: 0 4px 0 var(--accent-e); display: flex; align-items: center; justify-content: center; font-size: 26px; }
+  .cj-tete h3 { font-family: var(--title); font-weight: 700; font-size: 20px; margin: 2px 0 2px; line-height: 1.1; }
+  .cj-phrase { margin: 0; font-size: 14px; font-weight: 700; color: var(--ink-soft); line-height: 1.35; }
+  .cj-infos { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .cj-infos li { background: #ece5ff; border-radius: var(--pill); padding: 4px 10px; font-size: 12.5px; font-weight: 800; }
+  .cj-etat { margin: 10px 0 0; font-size: 14px; font-weight: 700; }
+  .carte-jeu .btn { margin-top: 12px; }
+  /* Boutons des jeux à la couleur du jeu : le vert reste réservé à la grille du jour (action principale du produit). */
+  .carte-jeu .btn-jeu { background: var(--accent); color: var(--ink); box-shadow: 0 var(--depth) 0 var(--accent-e); font-weight: 700; }
+  .carte-jeu .btn-jeu:active:not(:disabled) { box-shadow: 0 1px 0 var(--accent-e); }
+  .cj-chapitres { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .cj-chapitres li { text-align: center; font-size: 10.5px; font-weight: 800; line-height: 1.15; color: var(--ink-soft); hyphens: auto; -webkit-hyphens: auto; overflow-wrap: normal; word-break: normal; }
+  .cj-chapitres b { display: flex; margin: 0 auto 3px; width: 30px; height: 30px; border-radius: 50%; align-items: center; justify-content: center; background: #ece5ff; font-family: var(--title); font-size: 14px; color: var(--ink); }
+  .cj-chapitres li.fait b { background: var(--c1); box-shadow: 0 2px 0 var(--c1e); } .cj-chapitres li.encours b { background: var(--c2); box-shadow: 0 2px 0 var(--c2e); }
+  .cj-records { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+  .cj-records li { display: flex; justify-content: space-between; gap: 10px; background: #f3eefe; border-radius: var(--r-s); padding: 8px 10px; font-size: 14px; font-weight: 700; }
+  .cj-records b { font-family: var(--title); }
+
+  /* ---------- Onglet Progression ---------- */
+  .sommaire { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); gap: 8px; margin-top: 14px; }
+  .sommaire a { background: var(--light); color: var(--ink); text-decoration: none; border-radius: var(--r-m); padding: 8px 4px 9px; text-align: center; font-family: var(--title); font-weight: 600; font-size: 12.5px; box-shadow: 0 4px 0 #b4a9df; min-height: 44px; }
+  .sommaire a b { display: block; font-size: 17px; }
+  .sommaire a:active { transform: translateY(3px); box-shadow: 0 1px 0 #b4a9df; }
+
+  /* ---------- Mini-jeu « Le mot intrus » ---------- */
+  .mode-badge.intrus { background: var(--c0); box-shadow: 0 2px 0 var(--c0e); }
+  .pastilles { list-style: none; padding: 0; margin: 10px 0 4px; display: flex; gap: 8px; justify-content: center; }
+  .pastilles li { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--title); font-weight: 700; font-size: 15px; background: rgba(255,255,255,.12); color: var(--muted); }
+  .panel .pastilles li { background: #ece5ff; color: var(--ink-soft); }
+  .pastilles li.courant { background: #fff; color: var(--ink); box-shadow: 0 3px 0 #b4a9df; }
+  .pastilles li.juste { background: var(--c1) !important; color: var(--ink) !important; box-shadow: 0 3px 0 var(--c1e); }
+  .pastilles li.faux { background: #ff8a8a !important; color: var(--ink) !important; box-shadow: 0 3px 0 #c94b4b; }
+  .intrus-consigne { color: #fff; font-family: var(--title); font-weight: 600; font-size: 19px; text-align: center; margin: 14px 4px 12px; }
+  .intrus-mots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tile.im { height: auto; min-height: 76px; font-size: 17px; white-space: normal; overflow-wrap: anywhere; line-height: 1.15; padding: 8px 6px; }
+  .tile.im.l2 { font-size: 14.5px; }
+  .tile.im.juste { background: var(--c1); box-shadow: 0 var(--depth) 0 var(--c1e); color: var(--ink); animation: pop-xp .35s cubic-bezier(.2,.9,.3,1.4); }
+  .tile.im.faux { background: #ff8a8a; box-shadow: 0 var(--depth) 0 #c94b4b; color: var(--ink); animation: secoue .35s; }
+  .tile.im.eteint { opacity: .55; }
+  .tile.im:disabled { cursor: default; }
+  @keyframes secoue { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+  .retour-intrus { margin-top: 14px; animation: mini-arrivee .3s ease-out both; }
+  .retour-intrus.bon { border-top: 6px solid var(--c1); } .retour-intrus.rate { border-top: 6px solid #ff8a8a; }
+  .retour-intrus .verdict { font-family: var(--title); font-weight: 700; font-size: 19px; margin: 0 0 6px; }
+  .retour-intrus .critere { font-weight: 800; margin: 0 0 4px; }
+  .expl-intrus { border-left: 5px solid var(--c1); padding: 6px 0 6px 10px; margin: 10px 0; }
+  .expl-intrus.faux { border-left-color: #ff8a8a; }
+  .expl-intrus .t { margin: 0; font-weight: 800; }
+  .expl-intrus .t b { background: var(--c0); border-radius: 5px; padding: 0 5px; box-shadow: 0 2px 0 var(--c0e); }
 
   /* ---------- Défi express ---------- */
   .carte-defi::before { background: var(--c3); }
@@ -492,27 +550,24 @@
     <div class="carte-xp" id="carte-xp"></div>
     <div class="carte-jour" id="carte-jour"></div>
     <div class="mini-jeux hidden" id="mini-jeux">
-      <h2 class="mini-titre">Mini-jeux <span>pour jouer plus</span></h2>
+      <h2 class="mini-titre">Jeux <span>en plus de la grille</span><button class="lien-titre" data-ecran="jeux">Tous les jeux →</button></h2>
       <div class="mini-rang">
-        <div class="mini-jeu bleu hidden" id="carte-entr"></div>
         <div class="mini-jeu rose hidden" id="carte-defi"></div>
+        <div class="mini-jeu jaune hidden" id="carte-intrus"></div>
+        <div class="mini-jeu bleu hidden" id="carte-entr"></div>
       </div>
     </div>
     <div class="panel hidden" id="carte-grilles"></div>
+    <div class="panel hidden" id="accueil-recents"></div>
     <div class="panel" id="accueil-objectifs"></div>
-    <div class="panel" id="accueil-parcours"></div>
-    <div class="raccourcis">
-      <button data-ecran="stats"><span>📊</span>Mes stats</button>
-      <button data-ecran="badges"><span>🏅</span>Mes badges</button>
-      <button data-ecran="badges" data-cible="objectifs"><span>🎯</span>Objectifs</button>
-    </div>
   </section>
 
-  <section id="ecran-parcours" class="ecran hidden" aria-label="Mon parcours"></section>
+  <section id="ecran-jeux" class="ecran hidden" aria-label="Jeux"></section>
+  <section id="ecran-intrus" class="ecran hidden" aria-label="Le mot intrus"></section>
+  <section id="ecran-progression" class="ecran hidden" aria-label="Ma progression"></section>
   <section id="ecran-entrainement" class="ecran hidden" aria-label="Mode entraînement"></section>
   <section id="ecran-defi" class="ecran hidden" aria-label="Défi express"></section>
   <section id="ecran-defi-jeu" class="ecran hidden" aria-label="Défi express, partie en cours"></section>
-  <section id="ecran-badges" class="ecran hidden" aria-label="Mes badges et objectifs"></section>
   <section id="ecran-stats" class="ecran hidden" aria-label="Mes statistiques"></section>
 
   <section id="ecran-jeu" class="ecran hidden">
@@ -592,9 +647,9 @@
 <div class="cta-collant" id="cta-collant" aria-hidden="true"></div>
 <nav class="nav-bas hidden" id="nav-bas" aria-label="Navigation">
   <button data-ecran="accueil"><span class="ico">🏠</span>Accueil</button>
-  <button data-ecran="jeu"><span class="ico">🧩</span>Jouer</button>
-  <button data-ecran="defi"><span class="ico">⚡</span>Défi</button>
-  <button data-ecran="badges"><span class="ico">🏅</span>Badges</button>
+  <button data-ecran="jeu"><span class="ico">📅</span>Quotidien</button>
+  <button data-ecran="jeux"><span class="ico">🎮</span>Jeux</button>
+  <button data-ecran="progression"><span class="ico">🏆</span>Progression</button>
   <button data-ecran="stats"><span class="ico">📊</span>Stats</button>
 </nav>
 
@@ -658,6 +713,8 @@
 <script src="variantes.js"></script>
 <script src="defi_banque.js"></script>
 <script src="defi.js"></script>
+<script src="intrus_banque.js"></script>
+<script src="intrus.js"></script>
 <script src="progression.js"></script>
 <script>
 (function () {
@@ -901,8 +958,11 @@
     ecranCourant = nom;
     if (nom !== "jeu" && typeof cacherCta === "function") cacherCta();
     if (nom !== "defi" && typeof arreterSondeGroupe === "function" && nom !== "defi-jeu") { arreterSondeGroupe(); groupeOuvert = null; }
-    ["accueil", "jeu", "parcours", "badges", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
-    document.querySelectorAll("#nav-bas button").forEach(b => b.classList.toggle("on", b.dataset.ecran === nom));
+    ["accueil", "jeu", "jeux", "intrus", "progression", "stats", "entrainement", "defi", "defi-jeu"].forEach(n => $("ecran-" + n).classList.toggle("hidden", n !== nom));
+    // Onglet allumé : les écrans des jeux (Défi, entraînement, mot intrus) appartiennent à l'onglet « Jeux ».
+    const onglet = { defi: "jeux", "defi-jeu": "jeux", entrainement: "jeux", intrus: "jeux" }[nom] || (nom === "jeu" && mode === "entr" ? "jeux" : nom);
+    document.querySelectorAll("#nav-bas button").forEach(b => { const on = b.dataset.ecran === onglet; b.classList.toggle("on", on); if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+    synchroHistorique(nom);
     // La barre de navigation s'efface pendant une partie en cours (le jeu a sa propre barre), pas sur l'écran de fin.
     const partieEnCours = nom === "jeu" && !$("jeu").classList.contains("hidden");
     $("nav-bas").classList.toggle("hidden", partieEnCours || nom === "defi-jeu" || visiteurDefi);
@@ -916,6 +976,28 @@
   function ouvrirAccueil() {
     revenirJour(); rendreEntete(); rendreAccueil(); afficherEcran("accueil");
   }
+
+  // ---------- Bouton « retour » du téléphone ----------
+  // Les écrans ne changent pas l'adresse. Pour que le geste « retour » (iPhone) ou le bouton retour (Android) ramène
+  // à l'écran parent au lieu de fermer Quotidien, on garde UNE entrée d'historique tant qu'on n'est pas sur l'accueil.
+  let entreeHistorique = false, ignorerPop = false;
+  function synchroHistorique(nom) {
+    if (nom === "accueil") { if (entreeHistorique) { entreeHistorique = false; ignorerPop = true; history.back(); } }
+    else if (!entreeHistorique) { history.pushState({ quotidien: 1 }, "", location.href); entreeHistorique = true; }
+  }
+  function parentDe(nom) {
+    return { jeu: mode === "entr" ? "entrainement" : "accueil", entrainement: "jeux", defi: "jeux", intrus: "jeux" }[nom] || "accueil";
+  }
+  window.addEventListener("popstate", () => {
+    if (ignorerPop) { ignorerPop = false; return; }
+    entreeHistorique = false;
+    const dlg = document.querySelector("dialog[open]");
+    if (dlg) { dlg.close(); if (ecranCourant !== "accueil") synchroHistorique(ecranCourant); return; }
+    if (ecranCourant === "accueil") return;
+    if (ecranCourant === "defi-jeu" && partieDefi && !partieDefi.fin) { synchroHistorique("defi-jeu"); toastNav("Pour quitter la partie, touche « Abandonner »."); return; }
+    if (ecranCourant === "jeu" && etat && !etat.fin && !$("jeu").classList.contains("hidden")) { chronoPause(); sauver(); }
+    naviguer(parentDe(ecranCourant));
+  });
 
   // ---------- Défi express ----------
   // Jeu chronométré à part : aucune XP, aucun événement du test (seulement des traces « defi »), records et badges locaux.
@@ -958,7 +1040,7 @@
       ${ed.salons.length ? `<div class="panel"><h2>Mes groupes</h2>${ed.salons.slice(0, 6).map(x => `<div class="actions" style="justify-content:space-between;align-items:center;margin:6px 0;flex-wrap:nowrap"><span><strong>${esc(x.titre || x.code)}</strong> <span class="small">· ${esc(x.code)}</span></span><button class="btn" data-groupe="${esc(x.code)}">Ouvrir</button></div>`).join("")}</div>` : ""}
       <h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">Des trophées, sans XP.</p>
       <div class="grille-badges">${DF.BADGES.map(b => `<div class="badge ${ed.badges[b.id] ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p></div>`).join("")}</div>
-      ${visiteurDefi ? "" : `<div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="accueil">Retour à l'accueil</button></div>`}`;
+      ${visiteurDefi ? "" : `<div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="jeux">Retour aux jeux</button></div>`}`;
     $("defi-solo").addEventListener("click", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
     $("defi-creer").addEventListener("click", () => formulaireGroupe("creer"));
     $("defi-rejoindre").addEventListener("click", () => formulaireGroupe("rejoindre"));
@@ -1309,7 +1391,8 @@
         ${res.badges.length ? `<div class="recompenses" style="margin-top:10px"><ul>${res.badges.map(b => `<li><span class="ico">${b.icone}</span>Badge : ${b.nom}</li>`).join("")}</ul></div>` : ""}
         <div class="actions-fin">${P.groupe ? `<button class="btn primary btn-large" id="fin-classement">Voir les résultats du groupe</button>`
           : `<button class="btn primary btn-large" id="fin-rejouer">Rejouer (nouveau tirage)</button><button class="btn btn-large" id="fin-defier">Jouer avec des amis (créer un groupe)</button>`}
-          <div class="rang"><button class="btn" id="fin-defi">Retour au Défi</button>${visiteurDefi ? `<button class="btn" id="fin-solo">Jouer en solo</button>` : `<button class="btn" data-ecran="accueil">Accueil</button>`}</div></div>
+          <div class="rang"><button class="btn" id="fin-partager">Partager mon score</button>${visiteurDefi ? `<button class="btn" id="fin-solo">Jouer en solo</button>` : `<button class="btn" data-ecran="jeux">Autres jeux</button>`}</div>
+          <button class="lien-discret" id="fin-defi">Retour au Défi</button></div>
         <p class="small lien-partage hidden" id="defi-copie">Lien copié : colle-le dans une conversation.</p></div>
       <div id="defi-form"></div>`;
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
@@ -1317,8 +1400,205 @@
     on("fin-rejouer", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
     on("fin-defier", () => formulaireGroupe("creer"));
     on("fin-defi", ouvrirDefi); on("fin-solo", () => lancerDefi({ graine: DF.nouvelleGraine(), groupe: null }));
+    on("fin-partager", async () => {
+      const m = await partagerScore(`QUOTIDIEN · Défi express : ${paliers} palier${paliers > 1 ? "s" : ""}${ed.record ? ` (mon record : ${ed.record.paliers})` : ""}\n${"🟩".repeat(Math.min(paliers, 15))}${paliers > 15 ? "+" : ""}\n30 s au chrono, +2 s par groupe trouvé, −2 s par erreur.`, $("defi-copie"));
+      journalDefi("partage", { methode: m, paliers }); });
     brancherNav($("ecran-defi"));
     afficherEcran("defi");
+  }
+
+  // ---------- Partage volontaire d'un score de jeu (Défi, mot intrus) ----------
+  // Pas de lien d'invitation : un lien vers le site inscrirait un ami au test sans passer par l'invitation mesurée.
+  // En démo seulement, le lien de la démo est ajouté (il n'inscrit personne).
+  async function partagerScore(texte, retour) {
+    const t = texte + (DEMO ? `\n${location.origin + location.pathname}?demo=1` : "");
+    const ok = (m) => { if (retour) { retour.textContent = m; retour.classList.remove("hidden"); } };
+    try {
+      if (navigator.share) { await navigator.share({ text: t }); ok("Partagé !"); return "partage_natif"; }
+      await navigator.clipboard.writeText(t); ok("Score copié : colle-le dans une conversation."); return "copie";
+    } catch (e) {
+      if (e && e.name === "AbortError") return "annule";
+      try { await navigator.clipboard.writeText(t); ok("Score copié : colle-le dans une conversation."); return "copie"; } catch (e2) { ok("Copie impossible sur ce navigateur."); return "echec"; }
+    }
+  }
+  // Traces des mini-jeux : type d'événement « minijeu » (champ « jeu » : intrus…), jamais compté dans les indicateurs du test.
+  function journalMini(jeu, action, donnees) { if (DEMO || !participant) return; envoyer("minijeu", null, Object.assign({ jeu, action }, donnees || {})); }
+
+  // Derniers résultats réellement enregistrés sur cet appareil (grilles, Défi, mot intrus), du plus récent au plus ancien.
+  function derniersResultats() {
+    const r = [];
+    PROG.lireJournal(profil()).forEach(e => { if (!e.t) return;
+      const entr = e.mode === "entrainement";
+      const num = entr ? -1 : indexGrille(e.grille);
+      r.push({ t: e.t, ico: entr ? "🎯" : "📅", titre: entr ? `Exercice ${e.grille.replace("e", "").replace(/^0/, "")}` : (DEMO ? `Grille ${num + 1}` : "Grille du jour"),
+        detail: e.gagne ? ` · résolue${e.erreurs ? `, ${e.erreurs} erreur${e.erreurs > 1 ? "s" : ""}` : " sans erreur"}` : ` · ${e.groupes}/4 groupes` }); });
+    if (defiActif()) DF.lire(profilDefi()).dernieres.forEach(d => r.push({ t: Date.parse(d.date), ico: "⚡", titre: "Défi express", detail: ` · ${d.paliers} palier${d.paliers > 1 ? "s" : ""}` }));
+    if (intrusActif()) IN.lire(profilDefi()).dernieres.forEach(d => r.push({ t: Date.parse(d.date), ico: "🔎", titre: "Le mot intrus", detail: ` · ${d.score}/${d.total}` }));
+    return r.filter(x => x.t).sort((a, b) => b.t - a.t);
+  }
+  function quand(t) {
+    const j = (d) => jourParis(new Date(d)), auj = jourParis(), hier = jourParis(new Date(Date.now() - 864e5));
+    return j(t) === auj ? "aujourd'hui" : j(t) === hier ? "hier" : new Date(t).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+  }
+
+  // ---------- Onglet Jeux ----------
+  // Chaque carte ne montre que des données réellement enregistrées ; un jeu non développé n'apparaît pas comme jouable.
+  function ouvrirJeux() { quitterJeuPrincipal(); revenirJour(); rendreJeux(); afficherEcran("jeux"); }
+  function carteJeu(o) {
+    return `<article class="carte-jeu ${o.couleur}" id="jeu-${o.id}">
+      <div class="cj-tete"><span class="ico" aria-hidden="true">${o.ico}</span><div><h3>${o.nom}</h3><p class="cj-phrase">${o.phrase}</p></div></div>
+      <ul class="cj-infos">${o.infos.map(x => `<li>${x}</li>`).join("")}</ul>
+      ${o.etat ? `<p class="cj-etat">${o.etat}</p>` : ""}
+      ${o.extra || ""}
+      <button class="btn btn-large btn-jeu" id="jeu-${o.id}-btn">${o.bouton}</button></article>`;
+  }
+  function rendreJeux() {
+    const el = $("ecran-jeux"), p = progression();
+    const ed = defiActif() ? DF.lire(profilDefi()) : null, ei = intrusActif() ? IN.lire(profilDefi()) : null;
+    const avecEntr = entrainementActif() && ENTR.grilles.length > 0;
+    const stE = avecEntr ? statutsEntr() : [], iE = avecEntr ? prochainEntr(stE) : -1, reussisE = stE.filter(x => x === "reussi").length;
+    const journalE = PROG.lireJournal(profil()).filter(e => e.mode === "entrainement");
+    const sansErreur = journalE.filter(e => e.gagne && !e.erreurs && !e.indices && (e.tentative || 1) <= 1).length;
+    // Rappel de la grille du jour si elle n'est pas encore jouée : elle reste l'activité centrale.
+    const jourFait = !grille || (DEMO ? reussiesDemo().has(grille.id) : !!(store.get("quotidien_etat_" + (participant ? participant.id : "") + "_" + grille.id) || {}).fin);
+    const cartes = { rapides: [], progresser: [], challenger: [] };
+    if (ed) cartes.rapides.push({ id: "defi", couleur: "rose", ico: "⚡", nom: "Défi express",
+      phrase: "Regroupe les mots par catégorie avant la fin du chrono. Les paliers grandissent.",
+      infos: ["⏱ 1 à 3 min", "🧠 Rapidité · catégories", "👥 Seul ou en groupe (2 à 6)"],
+      etat: ed.record ? `Ton record : <b>${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}</b> · ${ed.parties} partie${ed.parties > 1 ? "s" : ""}` : "Pas encore de record : à toi de le poser.",
+      bouton: ed.parties ? "Rejouer" : "Jouer maintenant", principal: true, action: ouvrirDefi });
+    if (ei) cartes.rapides.push({ id: "intrus", couleur: "jaune", ico: "🔎", nom: "Le mot intrus",
+      phrase: "Quatre mots, trois vont ensemble : touche celui qui n'a rien à faire là.",
+      infos: [`⏱ 2 min · ${IN.TAILLE_SERIE} questions`, "🧠 Logique · vocabulaire", "📖 Une explication à chaque réponse"],
+      etat: ei.meilleur != null ? `Ton meilleur score : <b>${ei.meilleur}/${IN.TAILLE_SERIE}</b> · ${ei.series} série${ei.series > 1 ? "s" : ""}` : `${IN.BANQUE.questions.length} questions vérifiées, tirées au hasard.`,
+      bouton: ei.series ? "Rejouer" : "Jouer maintenant", principal: true, action: ouvrirIntrus });
+    if (avecEntr) {
+      const chap = ENTR.chapitres.map(c => { const ids = ENTR.grilles.map((g, k) => [g, k]).filter(([g]) => g.chapitre === c.n); const ok = ids.filter(([, k]) => stE[k] === "reussi").length;
+        return `<li class="${ok === ids.length ? "fait" : ok ? "encours" : ""}" title="${c.titre}"><b>${ok === ids.length ? "✓" : c.n}</b>${c.titre}</li>`; }).join("");
+      cartes.progresser.push({ id: "entr", couleur: "bleu", ico: "🎯", nom: "Mode entraînement",
+        phrase: `Un parcours de ${ENTR.grilles.length} grilles complètes en ${ENTR.chapitres.length} chapitres, avec une astuce par chapitre.`,
+        infos: ["⏱ 3 à 5 min par exercice", "🧠 Associations · stratégie", "⭐ XP à la première réussite"],
+        etat: `<b>${reussisE}/${ENTR.grilles.length}</b> exercices réussis${iE >= 0 ? ` · prochain : exercice ${iE + 1}` : " · parcours terminé"}`,
+        extra: `<ol class="cj-chapitres" aria-label="Chapitres">${chap}</ol>`,
+        bouton: iE < 0 ? "Revoir le parcours" : stE[iE] === "en_cours" ? "Reprendre mon parcours" : reussisE ? "Continuer le parcours" : "Commencer le parcours", principal: true, action: ouvrirEntrainement });
+      cartes.challenger.push({ id: "sans-erreur", couleur: "vert", ico: "💎", nom: "Défi sans erreur",
+        phrase: "Réussis un exercice d'entraînement du premier coup, sans aucune erreur ni indice.",
+        infos: ["⏱ 3 à 5 min", "🧠 Précision", "⭐ Bonus sans faute de +25 XP"],
+        etat: `<b>${sansErreur}/${ENTR.grilles.length}</b> exercices réussis sans erreur${sansErreur ? "" : " pour l'instant"}.`,
+        bouton: iE >= 0 ? "Relever le défi" : "Voir les exercices", action: () => { if (iE >= 0) ouvrirExercice(ENTR.grilles[iE].id); else ouvrirEntrainement(); } });
+    }
+    const m = p.stats.meilleure;
+    const lignes = [];
+    if (ed) lignes.push(`<li><span>⚡ Défi express</span><b>${ed.record ? `${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "–"}</b></li>`);
+    if (ei) lignes.push(`<li><span>🔎 Le mot intrus</span><b>${ei.meilleur != null ? `${ei.meilleur}/${IN.TAILLE_SERIE}` : "–"}</b></li>`);
+    lignes.push(`<li><span>📅 ${DEMO ? "Grilles de démo" : "Grille du jour"}</span><b>${m ? `${m.erreurs} erreur${m.erreurs > 1 ? "s" : ""}${m.duree_s != null ? ` · ${fmtDuree(m.duree_s * 1000)}` : ""}` : "–"}</b></li>`);
+    if (avecEntr) lignes.push(`<li><span>💎 Sans erreur</span><b>${sansErreur}/${ENTR.grilles.length}</b></li>`);
+    cartes.challenger.push({ id: "records", couleur: "violet", ico: "🏅", nom: "Mes records", phrase: "Tes meilleurs résultats, enregistrés sur cet appareil.",
+      infos: ["📱 Sur cet appareil", "🔒 Sans compte"], extra: `<ul class="cj-records">${lignes.join("")}</ul>`,
+      bouton: "Voir toutes mes stats", action: () => naviguer("stats") });
+    const section = (cle, titre, sous) => cartes[cle].length ? `<h2 class="titre-ecran jeux-section">${titre}</h2><p class="sous-ecran">${sous}</p>${cartes[cle].map(carteJeu).join("")}` : "";
+    el.innerHTML = `<h2 class="titre-ecran">Jeux</h2>
+      <p class="sous-ecran">Choisis selon ton envie et le temps que tu as. ${DEMO ? "" : "Ces jeux ne remplacent pas la grille du jour et ne comptent pas dans le test."}</p>
+      ${grille && !jourFait ? `<div class="rappel-jour"><span>📅 ${DEMO ? `La grille ${indexGrille(grille.id) + 1} t'attend.` : "La grille du jour t'attend."}</span><button class="btn primary" id="jeux-jour">Jouer</button></div>` : ""}
+      ${section("rapides", "Défis rapides", "Une partie en quelques minutes.")}
+      ${section("progresser", "Pour progresser", "Des grilles complètes, à ton rythme.")}
+      ${section("challenger", "Pour se challenger", "Viser la perfection et battre tes records.")}`;
+    Object.values(cartes).flat().forEach(o => $(`jeu-${o.id}-btn`).addEventListener("click", o.action));
+    const bj = $("jeux-jour"); if (bj) bj.addEventListener("click", allerJouer);
+  }
+
+  // ---------- Mini-jeu « Le mot intrus » ----------
+  const IN = window.QuotidienIntrus;
+  const intrusActif = () => !!IN && IN.BANQUE.questions.length >= IN.TAILLE_SERIE && ((CFG.intrus || "tous") === "tous" || (CFG.intrus === "demo" && DEMO));
+  let partieIntrus = null, intrusOuvertTrace = false;
+  const LIB_NIV_INTRUS = { facile: "Facile", moyen: "Moyen", difficile: "Difficile" };
+  function ouvrirIntrus() {
+    quitterJeuPrincipal(); revenirJour();
+    if (!intrusOuvertTrace) { intrusOuvertTrace = true; journalMini("intrus", "ouverture"); }
+    partieIntrus = null; rendreIntrusAccueil(); afficherEcran("intrus");
+  }
+  function rendreIntrusAccueil() {
+    const ei = IN.lire(profilDefi());
+    $("ecran-intrus").innerHTML = `<span class="mode-badge intrus">Le mot intrus</span><h2 class="titre-ecran" style="margin-top:4px">Trouve le mot qui ne va pas</h2>
+      <div class="panel" style="margin-top:8px"><ul class="regles-defi">
+        <li>Chaque question montre <strong>4 mots</strong> : trois partagent un point commun, le quatrième est l'<strong>intrus</strong>.</li>
+        <li>Touche l'intrus. Tu vois tout de suite si c'est juste, avec l'explication.</li>
+        <li>Une série = <strong>${IN.TAILLE_SERIE} questions</strong>, de plus en plus difficiles. Pas de chrono.</li>
+        <li>Pas d'XP : un score sur ${IN.TAILLE_SERIE}, ton record et des trophées.</li></ul>
+        <div class="actions-fin"><button class="btn primary btn-large" id="intrus-go">Commencer la série</button>
+        <button class="btn" data-ecran="jeux">Retour aux jeux</button></div></div>
+      <div class="carte-xp"><div class="ligne"><div class="niv">${ei.meilleur != null ? `${ei.meilleur}<small>/${IN.TAILLE_SERIE}</small>` : "– <small>pas encore de score</small>"}</div><div class="xp-txt">Meilleur score</div></div>
+        <div class="sous">${ei.series} série${ei.series > 1 ? "s" : ""} jouée${ei.series > 1 ? "s" : ""}${ei.repondues ? ` · ${Math.round(100 * ei.bonnes / ei.repondues)} % de bonnes réponses` : ""} · ${IN.BANQUE.questions.length} questions dans la banque</div></div>`;
+    $("intrus-go").addEventListener("click", lancerIntrus);
+    brancherNav($("ecran-intrus"));
+  }
+  function lancerIntrus() {
+    const ei = IN.lire(profilDefi());
+    partieIntrus = { serie: IN.tirerSerie(ei.vues), i: 0, reponses: [], debut: Date.now() };
+    journalMini("intrus", "debut", { questions: partieIntrus.serie.map(q => q.id) });
+    rendreIntrusQuestion();
+  }
+  function pastillesIntrus(P) {
+    return `<ol class="pastilles" aria-label="Avancement de la série">${P.serie.map((q, k) => { const r = P.reponses[k];
+      return `<li class="${r ? (r.juste ? "juste" : "faux") : k === P.i ? "courant" : ""}" aria-label="Question ${k + 1} : ${r ? (r.juste ? "juste" : "fausse") : k === P.i ? "en cours" : "à venir"}">${r ? (r.juste ? "✓" : "✗") : k + 1}</li>`; }).join("")}</ol>`;
+  }
+  function rendreIntrusQuestion() {
+    const P = partieIntrus, q = P.serie[P.i];
+    $("ecran-intrus").innerHTML = `<div class="defi-tete"><div><span class="mode-badge intrus">Le mot intrus</span><div class="palier">Question ${P.i + 1} <small>/ ${P.serie.length}</small></div></div>
+        <span class="tag ${q.difficulte === "facile" ? "facile" : q.difficulte === "moyen" ? "intermediaire" : "difficile"}">${LIB_NIV_INTRUS[q.difficulte]}</span></div>
+      ${pastillesIntrus(P)}
+      <p class="intrus-consigne">${esc(q.consigne)}</p>
+      <div class="intrus-mots" role="group" aria-label="Les 4 mots">${q.ordre.map(m => `<button class="tile im ${m.length > 11 ? "l2" : ""}" data-mot="${esc(m)}"><span>${esc(m)}</span></button>`).join("")}</div>
+      <div id="intrus-retour" aria-live="polite"></div>
+      <div class="actions" style="margin-top:14px"><button class="lien-discret" data-ecran="jeux">Quitter la série</button></div>`;
+    $("ecran-intrus").querySelectorAll("[data-mot]").forEach(b => b.addEventListener("click", () => repondreIntrus(b.dataset.mot)));
+    brancherNav($("ecran-intrus"));
+    window.scrollTo(0, 0);
+  }
+  function repondreIntrus(mot) {
+    const P = partieIntrus; if (!P || P.reponses[P.i]) return;
+    const q = P.serie[P.i], juste = mot === q.intrus;
+    P.reponses[P.i] = { id: q.id, choix: mot, juste };
+    vibrer(juste ? 25 : [40, 30, 40]);
+    $("ecran-intrus").querySelectorAll("[data-mot]").forEach(b => {
+      b.disabled = true; const m = b.dataset.mot;
+      if (m === q.intrus) { b.classList.add("juste"); b.querySelector("span").textContent = "✓ " + m; }
+      else if (m === mot) { b.classList.add("faux"); b.querySelector("span").textContent = "✗ " + m; }
+      else b.classList.add("eteint");
+    });
+    const derniere = P.i === P.serie.length - 1;
+    $("intrus-retour").innerHTML = `<div class="panel retour-intrus ${juste ? "bon" : "rate"}">
+      <p class="verdict">${juste ? "✅ Bien vu !" : `❌ Pas tout à fait : l'intrus était <b>${esc(q.intrus)}</b>.`}</p>
+      <p class="critere">${esc(q.critere)}</p><p class="small" style="margin:0">${esc(q.explication)}</p>
+      <button class="btn primary btn-large" id="intrus-suite" style="margin-top:12px">${derniere ? "Voir mon résultat" : "Question suivante →"}</button></div>`;
+    document.querySelector("#ecran-intrus .pastilles").outerHTML = pastillesIntrus(P);
+    const bs = $("intrus-suite"); bs.addEventListener("click", () => { if (derniere) finIntrus(); else { P.i++; rendreIntrusQuestion(); } });
+    setTimeout(() => { bs.scrollIntoView({ behavior: "smooth", block: "nearest" }); bs.focus({ preventScroll: true }); }, 120);
+  }
+  function finIntrus() {
+    const P = partieIntrus; if (!P || P.fini) return; P.fini = true;
+    const score = P.reponses.filter(r => r.juste).length, total = P.serie.length;
+    const res = IN.enregistrerSerie(profilDefi(), { score, total, ids: P.serie.map(q => q.id) });
+    journalMini("intrus", "fin", { score, total, questions: P.reponses.map(r => ({ id: r.id, juste: r.juste })), duree_s: Math.round((Date.now() - P.debut) / 1000) });
+    const msg = score === total ? "Parfait, aucun intrus ne t'a échappé !" : score >= total - 1 ? "Très bien joué !" : score >= Math.ceil(total / 2) ? "Pas mal ! Les explications t'aideront pour la suite." : "Pas facile ! Relis les explications : la prochaine série sera différente.";
+    $("ecran-intrus").innerHTML = `<span class="mode-badge intrus">Le mot intrus</span>
+      <div class="panel" style="text-align:center"><h2 class="titre-victoire ${score >= Math.ceil(total / 2) ? "gagne" : ""}" style="margin:4px 0">${score}/${total}</h2>
+        <p>${msg}</p>${pastillesIntrus(P)}
+        ${res.nouveauRecord && P ? `<p style="font-family:var(--title);font-weight:700;font-size:20px;color:var(--c3e);margin:8px 0 0">Nouveau record !</p>` : ""}
+        ${res.badges.length ? `<div class="recompenses" style="margin-top:10px"><ul>${res.badges.map(b => `<li><span class="ico">${b.icone}</span>Trophée : ${b.nom}</li>`).join("")}</ul></div>` : ""}
+        <div class="actions-fin"><button class="btn primary btn-large" id="intrus-rejouer">Rejouer (${total} nouvelles questions)</button>
+          <div class="rang"><button class="btn" id="intrus-partager">Partager mon score</button><button class="btn" data-ecran="jeux">Autres jeux</button></div></div>
+        <p class="small lien-partage hidden" id="intrus-partage-ok"></p></div>
+      <div class="panel"><h2>Les explications</h2>${P.serie.map((q, k) => { const r = P.reponses[k];
+        return `<div class="expl-intrus ${r.juste ? "juste" : "faux"}"><p class="t">${r.juste ? "✓" : "✗"} ${q.ordre.map(m => m === q.intrus ? `<b>${esc(m)}</b>` : esc(m)).join(" · ")}</p>
+          ${r.juste ? "" : `<p class="small" style="margin:2px 0">Ta réponse : ${esc(r.choix)}</p>`}<p class="small" style="margin:2px 0"><strong>${esc(q.critere)}</strong> ${esc(q.explication)}</p></div>`; }).join("")}</div>`;
+    if (score === total) confettis();
+    $("intrus-rejouer").addEventListener("click", lancerIntrus);
+    $("intrus-partager").addEventListener("click", async () => {
+      const m = await partagerScore(`QUOTIDIEN · Le mot intrus : ${score}/${total}\n${P.reponses.map(r => r.juste ? "✅" : "❌").join("")}`, $("intrus-partage-ok"));
+      journalMini("intrus", "partage", { methode: m }); });
+    brancherNav($("ecran-intrus"));
+    window.scrollTo(0, 0);
   }
 
   // ---------- Mode entraînement ----------
@@ -1390,12 +1670,12 @@
       ${tout ? `<div class="panel" style="text-align:center"><h2 style="margin-top:0">Parcours terminé, bravo !</h2>
           <p class="small">Tu as réussi les ${G.length} exercices. Tu peux en rejouer un (sans XP), revoir tes résultats ou revenir à l'accueil.</p>
           <div class="actions-fin"><button class="btn primary btn-large" data-ecran="stats">Revoir mes résultats</button>
-          <button class="btn btn-large" data-ecran="accueil">Retour à l'accueil</button></div></div>`
+          <button class="btn btn-large" data-ecran="jeux">Découvrir les autres jeux</button></div></div>`
         : `<div class="actions" style="margin-top:14px"><button class="btn primary btn-large" id="btn-entr-continuer">${st[i] === "en_cours" ? "Reprendre" : st[i] === "passe" ? "Reprendre" : "Jouer"} l'exercice ${i + 1}</button></div>`}
       ${ENTR.chapitres.map(c => `<div class="chapitre"><h3>Chapitre ${c.n} — ${c.titre}</h3><p class="astuce">💡 ${c.astuce}</p>
         <div class="exos">${G.map((g, k) => ({ g, k })).filter(x => x.g.chapitre === c.n).map(({ g, k }) =>
           `<button class="exo ${st[k]}${k === i ? " prochain" : ""}" data-exo="${g.id}" ${st[k] === "verrouille" ? "disabled" : ""} aria-label="Exercice ${k + 1} ${lib[st[k]]}">${st[k] === "reussi" ? "✓" : k + 1}<small>${st[k] === "reussi" ? k + 1 : lib[st[k]]}</small></button>`).join("")}</div></div>`).join("")}
-      <div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="accueil">Retour à l'accueil</button></div>`;
+      <div class="actions" style="margin-top:16px"><button class="lien-discret" data-ecran="jeux">Retour aux jeux</button></div>`;
     el.querySelectorAll("[data-exo]").forEach(b => b.addEventListener("click", () => ouvrirExercice(b.dataset.exo)));
     const bc = $("btn-entr-continuer"); if (bc) bc.addEventListener("click", () => ouvrirExercice(G[i].id));
     brancherNav(el);
@@ -1440,7 +1720,7 @@
     revenirJour();
     grille = g; etat = null; selection = []; fini = false; viderPlateau();
     // L'adresse reste « ?demo=1 » : au prochain chargement, l'accueil propose la première grille ouverte non réussie.
-    history.replaceState(null, "", "?demo=1");
+    history.replaceState(history.state, "", "?demo=1");
     if (jouer) lancerGrille(); else ouvrirAccueil();
   }
   // Carte des grilles de démo : réussies (✓), ouvertes, verrouillées (🔒). Toucher une grille ouverte la lance.
@@ -1479,7 +1759,7 @@
     $("carte-xp").innerHTML = `
       <div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
       <div class="barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${b.pct}"><i style="width:0"></i></div>
-      <div class="ligne"><div class="sous">${b.txt}</div><button class="pill-niveau" data-ecran="badges" style="padding:4px 10px 5px;font-size:12px">🏅 ${p.badges.filter(x => x.obtenu).length}/${p.badges.length} badges</button></div>`;
+      <div class="ligne"><div class="sous">${b.txt}</div><button class="pill-niveau" data-ecran="progression" style="padding:4px 10px 5px;font-size:12px">🏆 Ma progression</button></div>`;
     requestAnimationFrame(() => requestAnimationFrame(() => { const i = $("carte-xp").querySelector(".barre i"); if (i) i.style.width = b.pct + "%"; }));
 
     // Carte du jour
@@ -1511,49 +1791,29 @@
       if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
     }
 
-    // Carte « Mode entraînement » : bouton principal quand la grille du jour est déjà jouée.
-    const ce = $("carte-entr");
-    if (entrainementActif() && ENTR.grilles.length) {
-      const st = statutsEntr(), reussis = st.filter(x => x === "reussi").length, i = prochainEntr(st);
-      const ch = i >= 0 ? chapitreDe(ENTR.grilles[i]) : null;
-      ce.classList.remove("hidden");
-      ce.innerHTML = `<div class="ico" aria-hidden="true">🎯</div>
-        <h3>Entraînement</h3>
-        <p class="desc">${i >= 0 ? (st[i] === "en_cours" ? `Exercice ${i + 1} en cours : reprends où tu en étais.` : `${ENTR.grilles.length} exercices à enchaîner, à ton rythme.`) : "Parcours terminé : rejoue un exercice, sans XP."}</p>
-        <span class="chiffre">${reussis}/${ENTR.grilles.length} réussis${ch ? ` · chap. ${ch.n}` : " ✓"}</span>
-        <button class="btn" id="btn-entr">${i >= 0 ? (st[i] === "en_cours" ? "Reprendre" : reussis ? "Continuer" : "S'entraîner") : "Voir le parcours"}</button>`;
-      $("btn-entr").addEventListener("click", e => { e.stopPropagation(); ouvrirEntrainement(); });
-      ce.onclick = ouvrirEntrainement;
-    } else ce.classList.add("hidden");
-
-    // Carte « Défi express »
-    const cd = $("carte-defi");
-    if (defiActif()) {
-      const ed = DF.lire(profilDefi());
-      cd.classList.remove("hidden");
-      cd.innerHTML = `<div class="ico" aria-hidden="true">⚡</div>
-        <h3>Défi express</h3>
-        <p class="desc">30 s au chrono, +2 s par groupe trouvé. Seul ou entre amis.</p>
-        <span class="chiffre">${ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "Pas encore de record"}</span>
-        <button class="btn" id="btn-defi">Jouer au Défi</button>`;
-      $("btn-defi").addEventListener("click", e => { e.stopPropagation(); ouvrirDefi(); });
-      cd.onclick = ouvrirDefi;
-    } else cd.classList.add("hidden");
-    const nbMini = [ce, cd].filter(x => !x.classList.contains("hidden")).length;
+    // Jeux en plus de la grille : trois tuiles compactes (le détail est dans l'onglet Jeux).
+    const tuile = (id, ico, nom, chiffre, action, actif) => {
+      const el = $("carte-" + id); el.classList.toggle("hidden", !actif); if (!actif) return 0;
+      el.innerHTML = `<button class="mini-zone" id="btn-${id}" aria-label="${nom} : ${chiffre}"><span class="ico" aria-hidden="true">${ico}</span><h3>${nom}</h3><span class="chiffre">${chiffre}</span></button>`;
+      $("btn-" + id).addEventListener("click", action); return 1;
+    };
+    const ed = defiActif() ? DF.lire(profilDefi()) : null, ei = intrusActif() ? IN.lire(profilDefi()) : null;
+    const stE = entrainementActif() && ENTR.grilles.length ? statutsEntr() : [];
+    const nbMini = tuile("defi", "⚡", "Défi express", ed && ed.record ? `Record : ${ed.record.paliers} palier${ed.record.paliers > 1 ? "s" : ""}` : "30 s au chrono", ouvrirDefi, !!ed)
+      + tuile("intrus", "🔎", "Le mot intrus", ei && ei.meilleur != null ? `Meilleur : ${ei.meilleur}/${IN.TAILLE_SERIE}` : `${IN.TAILLE_SERIE} questions`, ouvrirIntrus, !!ei)
+      + tuile("entr", "🎯", "Entraînement", `${stE.filter(x => x === "reussi").length}/${ENTR.grilles.length} réussis`, ouvrirEntrainement, stE.length > 0);
     $("mini-jeux").classList.toggle("hidden", !nbMini);
-    $("mini-jeux").querySelector(".mini-rang").classList.toggle("seul", nbMini === 1);
 
-    // Objectifs (3 au plus : ceux qui restent à faire, dans l'ordre)
-    const restants = p.objectifs.filter(o => !o.termine).slice(0, 3);
+    // Derniers résultats (seulement s'il y en a) : tirés des données réellement enregistrées sur cet appareil.
+    const recents = derniersResultats().slice(0, 3), zr = $("accueil-recents");
+    zr.classList.toggle("hidden", !recents.length);
+    zr.innerHTML = recents.length ? `<h2>Tes derniers résultats</h2><ul class="recents">${recents.map(r => `<li><span class="ico" aria-hidden="true">${r.ico}</span><span class="t"><b>${r.titre}</b>${r.detail}</span><span class="q">${quand(r.t)}</span></li>`).join("")}</ul>
+      <button class="lien-texte" data-ecran="stats">Toutes mes statistiques</button>` : "";
+
+    // Objectifs (2 au plus : ceux qui restent à faire, dans l'ordre)
+    const restants = p.objectifs.filter(o => !o.termine).slice(0, 2);
     $("accueil-objectifs").innerHTML = `<h2>Objectifs en cours</h2>` + (restants.length ? restants.map(htmlObjectif).join("") :
-      `<p class="small">Tous les objectifs sont réalisés. Bravo !</p>`) + `<button class="lien-texte" data-ecran="badges" data-cible="objectifs">Tous mes objectifs (${p.objectifs.filter(o => o.termine).length}/${p.objectifs.length} réalisés)</button>`;
-
-    // Parcours
-    const suiv = p.suivant;
-    $("accueil-parcours").innerHTML = `<h2>Mon parcours</h2>
-      <p><strong>Niveau ${p.niveau.n} — ${p.niveau.nom}.</strong> ${p.niveau.description}</p>
-      ${suiv ? `<p class="small"><strong>Prochaine étape :</strong> niveau ${suiv.n} — ${suiv.nom}. Il te manque <strong>${suiv.xp - p.xp} XP</strong>. ${suiv.cible}</p>` : `<p class="small">Tu as atteint le dernier niveau disponible.</p>`}
-      <button class="btn btn-large" data-ecran="parcours">Voir mon parcours</button>`;
+      `<p class="small">Tous les objectifs sont réalisés. Bravo !</p>`) + `<button class="lien-texte" data-ecran="progression" data-cible="objectifs">Toute ma progression (${p.objectifs.filter(o => o.termine).length}/${p.objectifs.length} objectifs réalisés)</button>`;
     brancherNav(document.querySelector("main"));
     rendreSelecteurDemo();
   }
@@ -1566,14 +1826,37 @@
       <div class="p">${o.termine ? "Terminé" : o.actuel > 0 ? `En cours · ${o.actuel}/${o.cible}` : `À commencer · 0/${o.cible}`}</div></div>`;
   }
 
-  function rendreParcours() {
-    const p = progression();
+  // ---------- Onglet Progression : niveau, objectifs, badges (grille du jour + entraînement), trophées des jeux ----------
+  function htmlBadge(b, obtenu) {
+    return `<div class="badge ${obtenu ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${obtenu ? "✓ Obtenu" : "🔒 À débloquer"}</span></div>`;
+  }
+  function rendreProgression(cible) {
+    const p = progression(), b = barreXp(p);
     const lib = { termine: "Terminé", en_cours: "En cours", accessible: "Prochain", verrouille: "Verrouillé" };
-    $("ecran-parcours").innerHTML = `<h2 class="titre-ecran">Mon parcours</h2>
-      <p class="sous-ecran">Chaque grille du jour terminée rapporte de l'XP, et chaque exercice d'entraînement réussi pour la première fois aussi. Les niveaux se débloquent avec l'XP, sans condition de jours consécutifs. La grille du jour reste toujours accessible.</p>
+    const obtenus = p.badges.filter(x => x.obtenu).length, faits = p.objectifs.filter(o => o.termine).length;
+    const ed = defiActif() ? DF.lire(profilDefi()) : null, ei = intrusActif() ? IN.lire(profilDefi()) : null;
+    const trophees = (ed ? DF.BADGES.filter(x => ed.badges[x.id]).length : 0) + (ei ? IN.BADGES.filter(x => ei.badges[x.id]).length : 0);
+    const nbTrophees = (ed ? DF.BADGES.length : 0) + (ei ? IN.BADGES.length : 0);
+    const el = $("ecran-progression");
+    el.innerHTML = `<h2 class="titre-ecran">Progression</h2>
+      <p class="sous-ecran">L'XP vient de la grille ${DEMO ? "de démo" : "du jour"} et de l'entraînement. Les mini-jeux donnent des records et des trophées, sans XP.</p>
       <div class="carte-xp" style="margin-top:0"><div class="ligne"><div class="niv">Niveau ${p.niveau.n} <small>— ${p.niveau.nom}</small></div><div class="xp-txt">${p.xp} XP</div></div>
-        <div class="barre"><i style="width:${barreXp(p).pct}%"></i></div><div class="sous">${barreXp(p).txt}</div></div>
-      <div class="parcours" style="margin-top:16px">${p.niveaux.map(n => `<div class="etape ${n.etat}"><div class="rond">${n.etat === "termine" ? "✓" : n.etat === "verrouille" ? "🔒" : n.n}</div>
+        <div class="barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${b.pct}"><i style="width:${b.pct}%"></i></div><div class="sous">${b.txt}</div></div>
+      <nav class="sommaire" aria-label="Sections de la progression">
+        <a href="#prog-objectifs" data-saut="prog-objectifs"><b>${faits}/${p.objectifs.length}</b>Objectifs</a>
+        <a href="#prog-badges" data-saut="prog-badges"><b>${obtenus}/${p.badges.length}</b>Badges</a>
+        ${nbTrophees ? `<a href="#prog-trophees" data-saut="prog-trophees"><b>${trophees}/${nbTrophees}</b>Trophées</a>` : ""}
+        <a href="#prog-niveaux" data-saut="prog-niveaux"><b>${p.niveau.n}/${p.niveaux.length}</b>Niveaux</a></nav>
+      <h2 class="titre-ecran" id="prog-objectifs">Objectifs</h2><p class="sous-ecran">${faits} sur ${p.objectifs.length} réalisés. Chaque objectif rapporte son XP une seule fois.</p>
+      <div class="panel" style="margin-top:0" id="objectifs">${p.objectifs.map(htmlObjectif).join("")}</div>
+      <h2 class="titre-ecran" id="prog-badges">Badges</h2><p class="sous-ecran">${obtenus} sur ${p.badges.length} obtenus, avec la grille ${DEMO ? "de démo" : "du jour"} et l'entraînement (+${PROG.BAREME.badge} XP chacun).</p>
+      <div class="grille-badges">${p.badges.map(x => htmlBadge(x, x.obtenu)).join("")}</div>
+      ${nbTrophees ? `<h2 class="titre-ecran" id="prog-trophees">Trophées des jeux</h2><p class="sous-ecran">Gagnés dans le Défi express et le mot intrus. Ils ne rapportent pas d'XP.</p>
+        ${ed ? `<h3 class="titre-stats"><span class="mode-badge defi">Défi express</span></h3><div class="grille-badges">${DF.BADGES.map(x => htmlBadge(x, ed.badges[x.id])).join("")}</div>` : ""}
+        ${ei ? `<h3 class="titre-stats"><span class="mode-badge intrus">Le mot intrus</span></h3><div class="grille-badges">${IN.BADGES.map(x => htmlBadge(x, ei.badges[x.id])).join("")}</div>` : ""}` : ""}
+      <h2 class="titre-ecran" id="prog-niveaux">Niveaux</h2>
+      <p class="sous-ecran">Les niveaux se débloquent avec l'XP, sans condition de jours consécutifs. La grille du jour reste toujours accessible.</p>
+      <div class="parcours">${p.niveaux.map(n => `<div class="etape ${n.etat}"><div class="rond">${n.etat === "termine" ? "✓" : n.etat === "verrouille" ? "🔒" : n.n}</div>
         <div class="corps"><h3>${n.nom} <span class="tag ${n.etat === "termine" ? "ok" : ""}">${lib[n.etat]}</span></h3><p>${n.description}</p>
         <div class="cond">${n.xp === 0 ? "Niveau de départ." : `Se débloque à ${n.xp} XP${n.etat === "accessible" || n.etat === "verrouille" ? ` · il te manque ${n.xp - p.xp} XP` : ""}.`}</div>
         <p>${n.cible}</p></div></div>`).join("")}</div>
@@ -1582,28 +1865,17 @@
         <p>Résolue sans erreur : <strong>+${PROG.BAREME.sansFaute}</strong> XP. Partie terminée sans résoudre : <strong>${PROG.BAREME.terminee}</strong> XP.</p>
         <p>Objectif réalisé : de 30 à 250 XP. Badge débloqué : <strong>+${PROG.BAREME.badge}</strong> XP.</p>
         <p class="small">Chaque grille ne compte qu'une fois, à la première partie terminée. Rejouer une grille ne rapporte rien.</p>
-        <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec ou un exercice passé ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p></div>`;
-  }
-
-  function rendreBadges(cible) {
-    const p = progression();
-    const obtenus = p.badges.filter(b => b.obtenu).length;
-    $("ecran-badges").innerHTML = `<h2 class="titre-ecran">Mes badges</h2><p class="sous-ecran">${obtenus} sur ${p.badges.length} obtenus.</p>
-      <div class="grille-badges">${p.badges.map(b => `<div class="badge ${b.obtenu ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${b.obtenu ? "Obtenu" : "À débloquer"}</span></div>`).join("")}</div>
-      <h2 class="titre-ecran" id="objectifs">Mes objectifs</h2><p class="sous-ecran">${p.objectifs.filter(o => o.termine).length} sur ${p.objectifs.length} réalisés. Chaque objectif rapporte son XP une seule fois.</p>
-      <div class="panel" style="margin-top:0">${p.objectifs.map(htmlObjectif).join("")}</div>`;
-    if (defiActif()) {
-      const ed = DF.lire(profilDefi());
-      $("ecran-badges").insertAdjacentHTML("beforeend", `<h2 class="titre-ecran">Badges du Défi</h2><p class="sous-ecran">${DF.BADGES.filter(b => ed.badges[b.id]).length} sur ${DF.BADGES.length} obtenus. Ils ne rapportent pas d'XP : ce sont des trophées.</p>
-        <div class="grille-badges">${DF.BADGES.map(b => `<div class="badge ${ed.badges[b.id] ? "obtenu" : "verrouille"}"><div class="ico">${b.icone}</div><h3>${b.nom}</h3><p>${b.description}</p><span class="etat">${ed.badges[b.id] ? "Obtenu" : "À débloquer"}</span></div>`).join("")}</div>`);
-    }
-    if (cible === "objectifs") setTimeout(() => { const el = $("objectifs"); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
+        <p class="small"><strong>Entraînement :</strong> même barème, mais seulement à la première réussite d'un exercice. Un échec ou un exercice passé ne rapportent rien. Réussir après un échec ne donne pas le bonus sans erreur.</p>
+        <p class="small"><strong>Défi express et mot intrus :</strong> pas d'XP, seulement des records et des trophées, pour ne pas mélanger ces jeux avec la grille ${DEMO ? "de démo" : "du jour"}.</p></div>`;
+    el.querySelectorAll("[data-saut]").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const c = $(a.dataset.saut); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); }));
+    const ancre = { objectifs: "prog-objectifs", badges: "prog-badges", niveaux: "prog-niveaux", trophees: "prog-trophees" }[cible];
+    if (ancre) setTimeout(() => { const c = $(ancre); if (c) c.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
   }
 
   function rendreStats() {
     const p = progression(), s = p.stats;
     const el = $("ecran-stats");
-    if (!s.terminees && !(defiActif() && DF.lire(profilDefi()).parties)) {
+    if (!s.terminees && !(defiActif() && DF.lire(profilDefi()).parties) && !(intrusActif() && IN.lire(profilDefi()).series)) {
       el.innerHTML = `<h2 class="titre-ecran">Mes statistiques</h2><div class="vide"><div class="ico">📊</div>Tes statistiques apparaîtront après ta première partie.</div>${DEMO ? boutonReinit() : ""}`;
       brancherReinit(); return;
     }
@@ -1629,6 +1901,11 @@
         <div class="stat-c"><div class="v">${ed.record ? ed.record.paliers : "–"}</div><div class="l">Record de paliers</div><div class="note">${ed.record ? "en " + fmtDuree(ed.record.temps_ms) : "aucune partie"}</div></div>
         <div class="stat-c"><div class="v">${ed.parties}</div><div class="l">Parties de Défi</div><div class="note">${DF.BADGES.filter(b => ed.badges[b.id]).length}/${DF.BADGES.length} badges du Défi</div></div>
       </div>`; })() : ""}
+      ${intrusActif() ? (() => { const ei = IN.lire(profilDefi()); return `<h3 class="titre-stats"><span class="mode-badge intrus">Le mot intrus</span></h3>
+      <div class="stats-grille">
+        <div class="stat-c"><div class="v">${ei.meilleur != null ? ei.meilleur + "/" + IN.TAILLE_SERIE : "–"}</div><div class="l">Meilleur score</div><div class="note">${ei.parfaites} série${ei.parfaites > 1 ? "s" : ""} parfaite${ei.parfaites > 1 ? "s" : ""}</div></div>
+        <div class="stat-c"><div class="v">${ei.repondues ? Math.round(100 * ei.bonnes / ei.repondues) + " %" : "–"}</div><div class="l">Bonnes réponses</div><div class="note">${ei.series} série${ei.series > 1 ? "s" : ""} · ${ei.bonnes}/${ei.repondues} questions</div></div>
+      </div>`; })() : ""}
       <h3 class="titre-stats"><span class="mode-badge" style="background:var(--c3);box-shadow:0 2px 0 var(--c3e)">Progression</span></h3>
       <div class="stats-grille">
         <div class="stat-c"><div class="v">${p.xp}</div><div class="l">XP</div><div class="note">Niveau ${p.niveau.n} — ${p.niveau.nom}</div></div>
@@ -1652,9 +1929,11 @@
     if (nom === "jeu") { allerJouer(); return; }
     if (nom === "entrainement") { ouvrirEntrainement(); return; }
     if (nom === "defi") { ouvrirDefi(); return; }
+    if (nom === "jeux") { ouvrirJeux(); return; }
+    if (nom === "intrus") { ouvrirIntrus(); return; }
+    // Anciennes entrées « parcours » et « badges » : regroupées dans l'onglet Progression.
+    if (nom === "parcours" || nom === "badges" || nom === "progression") { cible = cible || (nom === "parcours" ? "niveaux" : nom === "badges" ? "badges" : null); nom = "progression"; rendreProgression(cible); }
     if (nom === "accueil") { revenirJour(); rendreAccueil(); }
-    if (nom === "parcours") rendreParcours();
-    if (nom === "badges") rendreBadges(cible);
     if (nom === "stats") rendreStats();
     rendreEntete();
     afficherEcran(nom);

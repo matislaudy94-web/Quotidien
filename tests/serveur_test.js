@@ -41,7 +41,7 @@ const F = {
     db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: "visite", donnees: { entree: p_entree, classe, token: !!p_token, appareil: p_appareil || null }, created_at: now.toISOString() });
     return { ok: true, classe }; },
   q_evenement({ p_id, p_visite, p_grille, p_type, p_donnees }) { const p = db.participants.find(x => x.id === p_id); if (!p) return false;
-    if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles","recompense","indice","entrainement","defi"].includes(p_type)) return false;
+    if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles","recompense","indice","entrainement","defi","minijeu"].includes(p_type)) return false;
     db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: p_type, donnees: p_donnees || {}, created_at: maintenant().toISOString() }); return true; },
   // ---- Défi express (reproduit les fonctions SQL d_*) ----
   d_creer_salon({ p_joueur, p_pseudo, p_graine }) { const pseudo = String(p_pseudo || "").trim().replace(/[<>"&]/g, "").slice(0, 16);

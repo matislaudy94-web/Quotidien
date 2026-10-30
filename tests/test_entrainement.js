@@ -56,7 +56,7 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     console.log("1. Accueil : grille du jour ET mode entraînement visibles");
     await page.goto(`${BASE}/?p=${A}`); await page.waitForSelector("#btn-jouer");
     ok(await page.locator("#carte-jour").isVisible() && await page.locator("#carte-entr").isVisible(), "deux cartes : « La grille du jour » et « Mode entraînement »");
-    ok(/Une nouvelle grille chaque jour/.test(await page.locator("#carte-jour").innerText()) && /Entraînement/.test(await page.locator("#carte-entr").innerText()) && /exercices à enchaîner/.test(await page.locator("#carte-entr").innerText()), "les deux modes sont expliqués en une phrase");
+    ok(/Une nouvelle grille chaque jour/.test(await page.locator("#carte-jour").innerText()) && /Entraînement/.test(await page.locator("#carte-entr").innerText()) && /0\/20 réussis/.test(await page.locator("#carte-entr").innerText()), "la grille du jour est expliquée, l'entraînement montre sa progression réelle");
     ok(await page.locator("#mini-jeux").isVisible() && await page.evaluate(() => document.getElementById("mini-jeux").getBoundingClientRect().top > document.getElementById("carte-jour").getBoundingClientRect().top), "les mini-jeux sont mis en avant juste sous la grille du jour");
     ok(await page.locator("#btn-jouer.primary").count() === 1 && await page.locator("#btn-entr.primary").count() === 0, "tant que la grille du jour n'est pas jouée, elle reste le bouton principal");
 

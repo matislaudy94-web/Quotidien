@@ -28,3 +28,10 @@ open("variantes.js", "w").write(
     "// Versions de rechange des grilles de démo (2 par grille), vérifiées par verifier_variantes.py.\n"
     "window.QUOTIDIEN_VARIANTES = " + json.dumps(v, ensure_ascii=False, indent=1) + ";\n")
 print("variantes.js régénéré :", sum(len(x) for x in v.values()), "versions de rechange")
+# Mini-jeu « Le mot intrus » (intrus.json) : banque éditoriale vérifiée par verifier_intrus.py.
+it = json.load(open("intrus.json")) if os.path.exists("intrus.json") else {"version": 0, "questions": []}
+open("intrus_banque.js", "w").write(
+    "// Fichier généré depuis intrus.json par : python3 generer_grilles_js.py\n"
+    "// Banque du mini-jeu « Le mot intrus » (vérifiée par verifier_intrus.py, relue avant publication).\n"
+    "window.QUOTIDIEN_INTRUS = " + json.dumps(it, ensure_ascii=False, indent=1) + ";\n")
+print("intrus_banque.js régénéré :", len(it["questions"]), "questions (version", str(it.get("version")) + ")")

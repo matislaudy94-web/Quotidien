@@ -80,7 +80,7 @@
       <p class="muted">Une personne compte une seule fois par ligne. « Revenu sans rappel » exclut tout retour dans les 24 h suivant un lien de rappel envoyé à cette personne.</p>
       <div class="scroll"><table id="tab-entonnoir"></table></div>
       <h3 style="margin:18px 0 4px">Entraînement et Défi express <span class="muted" style="font-weight:400">(hors mesures du test)</span></h3>
-      <p class="muted" style="margin:0 0 6px;font-size:13px">Exercices supplémentaires, distincts du calendrier. Ces parties n'entrent dans aucune ligne de l'entonnoir ci-dessus (événements de type « entrainement » et « defi » uniquement). Les amis non participants qui jouent un défi n'apparaissent nulle part ici.</p>
+      <p class="muted" style="margin:0 0 6px;font-size:13px">Exercices supplémentaires, distincts du calendrier. Ces parties n'entrent dans aucune ligne de l'entonnoir ci-dessus (événements de type « entrainement », « defi » et « minijeu » uniquement). Les amis non participants qui jouent un défi n'apparaissent nulle part ici.</p>
       <div class="scroll"><table id="tab-entrainement"></table></div>
       <div class="note">Lecture : <strong>R</strong> = reçoit un lien de rappel s'il le demande, <strong>S</strong> = aucun rappel, doit revenir seul ; <strong>invité</strong> = arrivé par le lien de partage d'un joueur ; <strong>organique</strong> = arrivé sur la page sans lien personnel ni invitation. Une ouverture de page n'est pas une preuve d'intérêt : regardez d'abord « a commencé », « a terminé » et « revenu sans rappel ».</div>
     </section>
@@ -292,6 +292,10 @@
       ["Défi express : a créé un groupe", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "groupe_cree")],
       ["Défi express : a rejoint le groupe d'un ami", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "groupe_rejoint")],
       ["Défi express : a joué une manche de groupe", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "fin" && e.donnees.groupe)],
+      ["Défi express : a partagé son score", x => x.ev.some(e => e.type === "defi" && e.donnees.action === "partage")],
+      ["Mot intrus : a ouvert le jeu", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "ouverture")],
+      ["Mot intrus : a terminé au moins une série", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "fin")],
+      ["Mot intrus : a fait 5/5 au moins une fois", x => x.ev.some(e => e.type === "minijeu" && e.donnees.jeu === "intrus" && e.donnees.action === "fin" && e.donnees.score === e.donnees.total)],
     ];
     let h = `<tr><th>Étape</th>${cols.map(c => `<th class="num">${c[1]}</th>`).join("")}</tr>`;
     for (const [lib, f] of lignes) h += `<tr><td>${lib}</td>${cols.map(([g]) => { const s = sous(g); const n = s.filter(f).length; return `<td class="num">${n} <span class="muted">(${pct(n, s.length)})</span></td>`; }).join("")}</tr>`;

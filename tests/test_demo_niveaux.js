@@ -41,10 +41,10 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     ok(await p.locator('#carte-grilles [data-grille="g1"]:not([disabled])').count() === 1 && await p.locator('#carte-grilles [data-grille="g2"][disabled]').count() === 1, "grille 1 ouverte, grille 2 verrouillée");
     await p.screenshot({ path: path.join(CAPT, "demo_1_accueil.png"), fullPage: true });
     const ordre = await p.evaluate(() => ["carte-jour", "mini-jeux", "carte-grilles"].map(id => document.getElementById(id).getBoundingClientRect().top));
-    ok(await p.locator("#mini-jeux").isVisible() && await p.locator("#carte-entr").isVisible() && await p.locator("#carte-defi").isVisible(), "accueil : les deux mini-jeux (Entraînement, Défi express) sont visibles");
+    ok(await p.locator("#mini-jeux").isVisible() && await p.locator("#carte-entr").isVisible() && await p.locator("#carte-defi").isVisible() && await p.locator("#carte-intrus").isVisible(), "accueil : les trois jeux (Défi express, mot intrus, entraînement) sont visibles");
     ok(ordre[0] < ordre[1] && ordre[1] < ordre[2], "les mini-jeux sont placés juste sous la grille, avant la carte des grilles");
-    const hauts = await p.evaluate(() => ["carte-entr", "carte-defi"].map(id => Math.round(document.getElementById(id).getBoundingClientRect().top)));
-    ok(hauts[0] === hauts[1], "les deux mini-jeux sont côte à côte");
+    const hauts = await p.evaluate(() => ["carte-entr", "carte-defi", "carte-intrus"].map(id => document.getElementById(id).offsetTop));
+    ok(hauts[0] === hauts[1] && hauts[1] === hauts[2], "les trois tuiles de jeux sont sur une même ligne");
 
     console.log("2. Réussir la grille 1 : la grille 2 est débloquée et proposée tout de suite");
     await p.click('#carte-grilles [data-grille="g1"]'); await p.waitForSelector(".tile");

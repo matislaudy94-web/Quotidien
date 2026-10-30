@@ -9,4 +9,6 @@ window.QUOTIDIEN_CONFIG = {
   entrainement: "tous",
   // Défi express (jeu chronométré, salons entre amis) : "tous", "demo" ou "aucun". Même remarque.
   defi: "tous",
+  // Mini-jeu « Le mot intrus » : "tous", "demo" ou "aucun". Hors mesures du test (événements « minijeu » séparés).
+  intrus: "tous",
 };

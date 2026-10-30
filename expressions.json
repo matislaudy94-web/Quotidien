@@ -1,5 +1,5 @@
 {
- "version": 1,
+ "version": 2,
  "expressions": [
   {
    "id": "x001",
@@ -250,7 +250,7 @@
    "complete": "Toucher du bois",
    "indice": "Formule superstitieuse dite après avoir évoqué quelque chose de positif.",
    "leurres": [
-    "FER",
+    "LIÈGE",
     "VERRE",
     "MARBRE"
    ],

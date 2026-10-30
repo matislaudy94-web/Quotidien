@@ -1,0 +1,158 @@
+{
+ "bloquants": [
+  {
+   "id": "i044",
+   "probleme": "Deux réponses défendables : HUMÉRUS est le seul os du bras alors que MOLLET, FÉMUR et TIBIA appartiennent tous au membre inférieur. Un joueur qui choisit HUMÉRUS (« seul hors de la jambe ») a raisonnablement raison.",
+   "proposition": {
+    "id": "i044",
+    "difficulte": "moyen",
+    "theme": "corps",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "MOLLET",
+     "FÉMUR",
+     "TIBIA",
+     "PÉRONÉ"
+    ],
+    "intrus": "MOLLET",
+    "critere": "FÉMUR, TIBIA et PÉRONÉ sont des os.",
+    "explication": "Le MOLLET est formé de muscles, à l'arrière du membre inférieur ; FÉMUR, TIBIA et PÉRONÉ sont des os du squelette."
+   }
+  },
+  {
+   "id": "i045",
+   "probleme": "Deux réponses défendables : TARTIFLETTE est le seul plat de montagne, non méditerranéen (BOUILLABAISSE, PAELLA, RATATOUILLE sont tous des plats du littoral méditerranéen). Par ailleurs la tartiflette est une recette récente (années 1980), ce qui rend « plat régional » discutable.",
+   "proposition": {
+    "id": "i045",
+    "difficulte": "moyen",
+    "theme": "cuisine",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "BOUILLABAISSE",
+     "PAELLA",
+     "PISSALADIÈRE",
+     "RATATOUILLE"
+    ],
+    "intrus": "PAELLA",
+    "critere": "BOUILLABAISSE, PISSALADIÈRE et RATATOUILLE sont des spécialités du sud-est de la France.",
+    "explication": "La PAELLA est un plat espagnol, originaire de la région de Valence ; la BOUILLABAISSE vient de Marseille, la PISSALADIÈRE de Nice et la RATATOUILLE de Provence."
+   }
+  },
+  {
+   "id": "i050",
+   "probleme": "Le critère est faux deux fois : MONTAGNE ne contient pas PAGNE (pas de P : M-O-N-T-A-G-N-E) et ESCAPADE ne contient pas CAPE (on y lit C-A-P-A). Seul POLOCHON cache un vêtement, donc MONTAGNE, ESCAPADE et TOBOGGAN sont tous des intrus.",
+   "proposition": {
+    "id": "i050",
+    "difficulte": "difficile",
+    "theme": "lettres",
+    "consigne": "Trouve l'intrus : trois de ces mots cachent un vêtement dans leurs lettres (sans compter les accents).",
+    "mots": [
+     "COMPAGNE",
+     "CHALEUR",
+     "TOBOGGAN",
+     "POLOCHON"
+    ],
+    "intrus": "TOBOGGAN",
+    "critere": "COMPAGNE cache PAGNE, CHALEUR cache CHÂLE et POLOCHON cache POLO.",
+    "explication": "TOBOGGAN ne cache aucun vêtement, alors qu'on trouve PAGNE dans COMPAGNE, CHÂLE dans CHALEUR et POLO dans POLOCHON."
+   }
+  }
+ ],
+ "mineurs": [
+  {
+   "id": "i003",
+   "probleme": "Même piège que l'exemple BANANE des consignes : TUBA est le seul cuivre face à deux bois (HAUTBOIS, BASSON), classification d'orchestre connue. La réponse MANDOLINE reste nettement la meilleure, mais on gagne à homogénéiser les trois instruments à vent.",
+   "proposition": {
+    "id": "i003",
+    "difficulte": "facile",
+    "theme": "musique",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "PICCOLO",
+     "MANDOLINE",
+     "HAUTBOIS",
+     "BASSON"
+    ],
+    "intrus": "MANDOLINE",
+    "critere": "PICCOLO, HAUTBOIS et BASSON sont des instruments à vent classés parmi les bois de l'orchestre.",
+    "explication": "La MANDOLINE est un instrument à cordes ; pour le PICCOLO, le HAUTBOIS et le BASSON, le musicien produit le son en soufflant."
+   }
+  },
+  {
+   "id": "i007",
+   "probleme": "NORVÈGE est le seul des quatre pays hors de l'Union européenne, fait assez connu ; un joueur peut le défendre. L'écart géographique de la GRÈCE domine, mais la consigne doit orienter vers la géographie.",
+   "proposition": {
+    "id": "i007",
+    "difficulte": "facile",
+    "theme": "géographie",
+    "consigne": "Trouve l'intrus : pense à la situation géographique de ces pays.",
+    "mots": [
+     "SUÈDE",
+     "GRÈCE",
+     "NORVÈGE",
+     "FINLANDE"
+    ],
+    "intrus": "GRÈCE",
+    "critere": "SUÈDE, NORVÈGE et FINLANDE sont des pays nordiques.",
+    "explication": "La GRÈCE est un pays méditerranéen, au sud-est de l'Europe ; SUÈDE, NORVÈGE et FINLANDE sont des pays nordiques."
+   }
+  },
+  {
+   "id": "i011",
+   "probleme": "CHIRURGIEN est le seul médecin face à deux professions paramédicales (OPTICIEN, ORTHOPHONISTE) : sous-catégorie défendable, comme l'exemple BANANE. On homogénéise avec une autre profession paramédicale.",
+   "proposition": {
+    "id": "i011",
+    "difficulte": "facile",
+    "theme": "métiers",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "PODOLOGUE",
+     "OPTICIEN",
+     "NOTAIRE",
+     "ORTHOPHONISTE"
+    ],
+    "intrus": "NOTAIRE",
+    "critere": "PODOLOGUE, OPTICIEN et ORTHOPHONISTE sont des professions paramédicales.",
+    "explication": "Le NOTAIRE est un juriste qui rédige des actes officiels (vente, succession) ; PODOLOGUE, OPTICIEN et ORTHOPHONISTE sont des professions de santé."
+   }
+  },
+  {
+   "id": "i026",
+   "probleme": "DIAMANT est la seule « pierre précieuse » au sens français (avec rubis, saphir, émeraude) ; AMÉTHYSTE et TOPAZE sont des pierres fines. Sous-catégorie connue, défendable. On met trois pierres fines.",
+   "proposition": {
+    "id": "i026",
+    "difficulte": "moyen",
+    "theme": "nature",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "GRENAT",
+     "AMÉTHYSTE",
+     "MARBRE",
+     "TOPAZE"
+    ],
+    "intrus": "MARBRE",
+    "critere": "GRENAT, AMÉTHYSTE et TOPAZE sont des pierres fines utilisées en bijouterie.",
+    "explication": "Le MARBRE est une roche qu'on taille pour les sols, les cheminées ou les statues ; GRENAT, AMÉTHYSTE et TOPAZE sont des pierres de bijouterie."
+   }
+  },
+  {
+   "id": "i043",
+   "probleme": "SAMBA est la seule danse non européenne (Brésil) face à POLKA et MAZURKA (Europe centrale) : exactement le cas BANANE « seul fruit exotique » cité dans les consignes. On homogénéise avec une danse européenne.",
+   "proposition": {
+    "id": "i043",
+    "difficulte": "moyen",
+    "theme": "musique",
+    "consigne": "Trouve l'intrus.",
+    "mots": [
+     "FARANDOLE",
+     "POLKA",
+     "MAZURKA",
+     "SONATE"
+    ],
+    "intrus": "SONATE",
+    "critere": "FARANDOLE, POLKA et MAZURKA sont des danses traditionnelles européennes.",
+    "explication": "La SONATE est une œuvre musicale pour un ou plusieurs instruments, pas une danse ; FARANDOLE, POLKA et MAZURKA se dansent."
+   }
+  }
+ ]
+}

@@ -16,7 +16,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "CÉLERI",
    "critere": "ABRICOT, NECTARINE et MIRABELLE sont des fruits à noyau.",
-   "explication": "Le CÉLERI est un légume qu'on mange cru ou cuit, en branches ou en rave ; ABRICOT, NECTARINE et MIRABELLE sont des fruits à noyau."
+   "explication": "Le CÉLERI est un légume qu'on mange cru ou cuit, en branches ou en rave."
   },
   {
    "id": "i002",
@@ -39,14 +39,14 @@ window.QUOTIDIEN_INTRUS = {
    "theme": "musique",
    "consigne": "Trouve l'intrus.",
    "mots": [
-    "TUBA",
+    "PICCOLO",
     "MANDOLINE",
     "HAUTBOIS",
     "BASSON"
    ],
    "intrus": "MANDOLINE",
-   "critere": "TUBA, HAUTBOIS et BASSON sont des instruments à vent.",
-   "explication": "La MANDOLINE est un instrument à cordes ; pour le TUBA, le HAUTBOIS et le BASSON, le musicien produit le son en soufflant."
+   "critere": "PICCOLO, HAUTBOIS et BASSON sont des instruments à vent classés parmi les bois de l'orchestre.",
+   "explication": "La MANDOLINE est un instrument à cordes ; pour le PICCOLO, le HAUTBOIS et le BASSON, le musicien produit le son en soufflant."
   },
   {
    "id": "i004",
@@ -97,7 +97,7 @@ window.QUOTIDIEN_INTRUS = {
    "id": "i007",
    "difficulte": "facile",
    "theme": "géographie",
-   "consigne": "Trouve l'intrus.",
+   "consigne": "Trouve l'intrus : pense à la situation géographique de ces pays.",
    "mots": [
     "SUÈDE",
     "GRÈCE",
@@ -106,7 +106,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "GRÈCE",
    "critere": "SUÈDE, NORVÈGE et FINLANDE sont des pays nordiques.",
-   "explication": "La GRÈCE est un pays méditerranéen, au sud-est de l'Europe ; SUÈDE, NORVÈGE et FINLANDE sont des pays nordiques."
+   "explication": "La GRÈCE est un pays méditerranéen, au sud-est de l'Europe, bordé par la mer Égée."
   },
   {
    "id": "i008",
@@ -121,7 +121,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "BRIOCHE",
    "critere": "BRIE, CANTAL et MUNSTER sont des fromages.",
-   "explication": "La BRIOCHE est une viennoiserie à la pâte levée et sucrée ; BRIE, CANTAL et MUNSTER sont des fromages français."
+   "explication": "La BRIOCHE est une viennoiserie à la pâte levée, enrichie en beurre et en œufs."
   },
   {
    "id": "i009",
@@ -136,7 +136,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "TIRAMISU",
    "critere": "FUSILLI, FARFALLE et TAGLIATELLE sont des pâtes.",
-   "explication": "Le TIRAMISU est un dessert italien au mascarpone ; FUSILLI, FARFALLE et TAGLIATELLE sont des sortes de pâtes."
+   "explication": "Le TIRAMISU est un dessert italien au mascarpone, au café et aux biscuits."
   },
   {
    "id": "i010",
@@ -159,14 +159,14 @@ window.QUOTIDIEN_INTRUS = {
    "theme": "métiers",
    "consigne": "Trouve l'intrus.",
    "mots": [
-    "CHIRURGIEN",
+    "PODOLOGUE",
     "OPTICIEN",
     "NOTAIRE",
     "ORTHOPHONISTE"
    ],
    "intrus": "NOTAIRE",
-   "critere": "CHIRURGIEN, OPTICIEN et ORTHOPHONISTE sont des professions de santé.",
-   "explication": "Le NOTAIRE est un juriste qui rédige des actes officiels (vente, succession) ; CHIRURGIEN, OPTICIEN et ORTHOPHONISTE sont des professions de santé."
+   "critere": "PODOLOGUE, OPTICIEN et ORTHOPHONISTE sont des professions paramédicales.",
+   "explication": "Le NOTAIRE est un juriste qui rédige des actes officiels (vente, succession)."
   },
   {
    "id": "i012",
@@ -211,7 +211,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "MUGUET",
    "critere": "ÉRABLE, SAULE et FRÊNE sont des arbres.",
-   "explication": "Le MUGUET est une petite plante à clochettes parfumées qu'on offre le 1er mai ; ÉRABLE, SAULE et FRÊNE sont des arbres."
+   "explication": "Le MUGUET est une petite plante à clochettes parfumées qu'on offre le 1er mai."
   },
   {
    "id": "i015",
@@ -256,7 +256,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "GILET",
    "critere": "ESPADRILLE, BOTTINE et BABOUCHE sont des chaussures.",
-   "explication": "Le GILET est un vêtement qui couvre le haut du corps ; ESPADRILLE, BOTTINE et BABOUCHE sont des chaussures."
+   "explication": "Le GILET est un vêtement qui couvre le haut du corps : il ne se porte pas aux pieds."
   },
   {
    "id": "i018",
@@ -301,7 +301,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "OXYGÈNE",
    "critere": "ZINC, NICKEL et ALUMINIUM sont des métaux.",
-   "explication": "L'OXYGÈNE est un gaz, celui qu'on respire ; ZINC, NICKEL et ALUMINIUM sont des métaux solides."
+   "explication": "L'OXYGÈNE est un gaz, celui qu'on respire : ce n'est pas un métal."
   },
   {
    "id": "i021",
@@ -361,7 +361,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "LIMONADE",
    "critere": "RHUM, VODKA et WHISKY sont des alcools forts.",
-   "explication": "La LIMONADE est une boisson gazeuse sans alcool ; RHUM, VODKA et WHISKY sont des spiritueux."
+   "explication": "La LIMONADE est une boisson gazeuse et sucrée, qui ne contient pas d'alcool."
   },
   {
    "id": "i025",
@@ -376,7 +376,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "HÉRON",
    "critere": "AIGLE, FAUCON et VAUTOUR sont des rapaces.",
-   "explication": "Le HÉRON est un échassier qui attrape des poissons dans les marais avec son long bec droit ; AIGLE, FAUCON et VAUTOUR sont des rapaces au bec crochu."
+   "explication": "Le HÉRON est un échassier qui attrape des poissons dans les marais avec son long bec droit."
   },
   {
    "id": "i026",
@@ -384,14 +384,14 @@ window.QUOTIDIEN_INTRUS = {
    "theme": "nature",
    "consigne": "Trouve l'intrus.",
    "mots": [
-    "DIAMANT",
+    "GRENAT",
     "AMÉTHYSTE",
     "MARBRE",
     "TOPAZE"
    ],
    "intrus": "MARBRE",
-   "critere": "DIAMANT, AMÉTHYSTE et TOPAZE sont des gemmes utilisées en bijouterie.",
-   "explication": "Le MARBRE est une roche qu'on taille pour les sols, les cheminées ou les statues ; DIAMANT, AMÉTHYSTE et TOPAZE sont des gemmes de bijouterie."
+   "critere": "GRENAT, AMÉTHYSTE et TOPAZE sont des pierres fines utilisées en bijouterie.",
+   "explication": "Le MARBRE est une roche qu'on taille pour les sols, les cheminées ou les statues."
   },
   {
    "id": "i027",
@@ -406,7 +406,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "TILLEUL",
    "critere": "CÈDRE, MÉLÈZE et CYPRÈS sont des conifères.",
-   "explication": "Le TILLEUL est un feuillu dont les fleurs servent à faire des infusions ; CÈDRE, MÉLÈZE et CYPRÈS sont des conifères, qui portent des cônes."
+   "explication": "Le TILLEUL est un feuillu dont les fleurs servent à faire des infusions."
   },
   {
    "id": "i028",
@@ -436,7 +436,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "NOVEMBRE",
    "critere": "MAI, AOÛT et DÉCEMBRE comptent 31 jours.",
-   "explication": "NOVEMBRE n'a que 30 jours, comme avril et septembre ; MAI, AOÛT et DÉCEMBRE en ont 31."
+   "explication": "NOVEMBRE n'a que 30 jours, comme les mois d'avril, de juin et de septembre."
   },
   {
    "id": "i030",
@@ -451,7 +451,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "VENT",
    "critere": "Être dans le PÉTRIN, la MOUISE ou la PANADE, c'est avoir de gros ennuis.",
-   "explication": "Être dans le VENT, c'est être à la mode ; être dans le PÉTRIN, la MOUISE ou la PANADE, c'est être dans une situation difficile."
+   "explication": "Être dans le VENT, c'est être à la mode : rien à voir avec les ennuis."
   },
   {
    "id": "i031",
@@ -466,7 +466,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "FRINGALE",
    "critere": "TROUILLE, FROUSSE et PÉTOCHE veulent dire « peur ».",
-   "explication": "La FRINGALE est une faim soudaine et pressante ; TROUILLE, FROUSSE et PÉTOCHE sont des mots familiers pour dire la peur."
+   "explication": "La FRINGALE est une faim soudaine et pressante : rien à voir avec la peur."
   },
   {
    "id": "i032",
@@ -481,7 +481,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "PIAULE",
    "critere": "BAGNOLE, GUIMBARDE et CAISSE désignent familièrement une voiture.",
-   "explication": "La PIAULE désigne familièrement un logement, l'endroit où l'on dort ; BAGNOLE, GUIMBARDE et CAISSE désignent une voiture."
+   "explication": "La PIAULE désigne familièrement un logement, l'endroit où l'on dort."
   },
   {
    "id": "i033",
@@ -511,7 +511,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "PAPRIKA",
    "critere": "KARAOKÉ, TSUNAMI et ORIGAMI viennent du japonais.",
-   "explication": "PAPRIKA est un mot venu du hongrois, qui désigne un piment en poudre ; KARAOKÉ, TSUNAMI et ORIGAMI sont des mots japonais."
+   "explication": "PAPRIKA est un mot venu du hongrois, qui désigne un piment en poudre."
   },
   {
    "id": "i035",
@@ -526,7 +526,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "CYRANO",
    "critere": "ATHOS, PORTHOS et ARAMIS sont les trois mousquetaires d'Alexandre Dumas.",
-   "explication": "CYRANO est le héros de Cyrano de Bergerac, la pièce d'Edmond Rostand ; ATHOS, PORTHOS et ARAMIS sont les mousquetaires de Dumas."
+   "explication": "CYRANO est le héros de Cyrano de Bergerac, la pièce d'Edmond Rostand."
   },
   {
    "id": "i036",
@@ -541,7 +541,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "FIGARO",
    "critere": "HARPAGON, TARTUFFE et ALCESTE sont des personnages de Molière.",
-   "explication": "FIGARO est le héros de pièces de Beaumarchais, comme Le Barbier de Séville ; HARPAGON, TARTUFFE et ALCESTE viennent de Molière."
+   "explication": "FIGARO est le héros de pièces de Beaumarchais, comme Le Barbier de Séville."
   },
   {
    "id": "i037",
@@ -556,7 +556,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "PICASSO",
    "critere": "MONET, RENOIR et PISSARRO sont des peintres impressionnistes.",
-   "explication": "PICASSO, peintre espagnol du XXe siècle, est l'un des inventeurs du cubisme ; MONET, RENOIR et PISSARRO font partie des impressionnistes."
+   "explication": "PICASSO, peintre espagnol du XXe siècle, est l'un des inventeurs du cubisme."
   },
   {
    "id": "i038",
@@ -571,7 +571,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "PENALTY",
    "critere": "ACE, LOB et SMASH sont des coups des sports de raquette.",
-   "explication": "Le PENALTY est une sanction qui accorde un tir contre le seul gardien ; ACE, LOB et SMASH sont des coups joués avec une raquette."
+   "explication": "Le PENALTY est une sanction qui accorde un tir contre le seul gardien."
   },
   {
    "id": "i039",
@@ -631,7 +631,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "MADÈRE",
    "critere": "CORSE, SICILE et SARDAIGNE sont des îles de la Méditerranée.",
-   "explication": "MADÈRE est une île portugaise située dans l'océan Atlantique ; CORSE, SICILE et SARDAIGNE sont des îles de la Méditerranée."
+   "explication": "MADÈRE est une île portugaise située dans l'océan Atlantique."
   },
   {
    "id": "i043",
@@ -639,14 +639,14 @@ window.QUOTIDIEN_INTRUS = {
    "theme": "musique",
    "consigne": "Trouve l'intrus.",
    "mots": [
-    "SAMBA",
+    "FARANDOLE",
     "POLKA",
     "MAZURKA",
     "SONATE"
    ],
    "intrus": "SONATE",
-   "critere": "SAMBA, POLKA et MAZURKA sont des danses.",
-   "explication": "La SONATE est une œuvre musicale pour un ou plusieurs instruments, pas une danse ; SAMBA, POLKA et MAZURKA se dansent."
+   "critere": "FARANDOLE, POLKA et MAZURKA sont des danses traditionnelles européennes.",
+   "explication": "La SONATE est une œuvre musicale pour un ou plusieurs instruments, pas une danse ; FARANDOLE, POLKA et MAZURKA se dansent."
   },
   {
    "id": "i044",
@@ -657,11 +657,11 @@ window.QUOTIDIEN_INTRUS = {
     "MOLLET",
     "FÉMUR",
     "TIBIA",
-    "HUMÉRUS"
+    "PÉRONÉ"
    ],
    "intrus": "MOLLET",
-   "critere": "FÉMUR, TIBIA et HUMÉRUS sont des os.",
-   "explication": "Le MOLLET est formé de muscles, à l'arrière du membre inférieur ; FÉMUR, TIBIA et HUMÉRUS sont des os du squelette."
+   "critere": "FÉMUR, TIBIA et PÉRONÉ sont des os.",
+   "explication": "Le MOLLET est formé de muscles, à l'arrière du membre inférieur."
   },
   {
    "id": "i045",
@@ -671,12 +671,12 @@ window.QUOTIDIEN_INTRUS = {
    "mots": [
     "BOUILLABAISSE",
     "PAELLA",
-    "TARTIFLETTE",
+    "PISSALADIÈRE",
     "RATATOUILLE"
    ],
    "intrus": "PAELLA",
-   "critere": "BOUILLABAISSE, TARTIFLETTE et RATATOUILLE sont des plats régionaux français.",
-   "explication": "La PAELLA est un plat espagnol, originaire de la région de Valence ; la BOUILLABAISSE et la RATATOUILLE viennent de Provence, la TARTIFLETTE de Savoie."
+   "critere": "BOUILLABAISSE, PISSALADIÈRE et RATATOUILLE sont des spécialités du sud-est de la France.",
+   "explication": "La PAELLA est un plat espagnol, originaire de la région de Valence ; la BOUILLABAISSE vient de Marseille, la PISSALADIÈRE de Nice et la RATATOUILLE de Provence."
   },
   {
    "id": "i046",
@@ -706,7 +706,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "VERDUN",
    "critere": "AUSTERLITZ, IÉNA et WAGRAM sont des succès militaires de Napoléon.",
-   "explication": "VERDUN évoque surtout l'affrontement de 1916, pendant la Première Guerre mondiale ; AUSTERLITZ, IÉNA et WAGRAM sont des succès de Napoléon Ier."
+   "explication": "VERDUN évoque surtout l'affrontement de 1916, pendant la Première Guerre mondiale."
   },
   {
    "id": "i048",
@@ -721,7 +721,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "JUNON",
    "critere": "ZEUS, POSÉIDON et ARÈS sont des dieux grecs.",
-   "explication": "JUNON est une déesse de la mythologie romaine, l'équivalent de la grecque Héra ; ZEUS, POSÉIDON et ARÈS sont des dieux grecs."
+   "explication": "JUNON est une déesse de la mythologie romaine, l'équivalent de la grecque Héra."
   },
   {
    "id": "i049",
@@ -742,16 +742,16 @@ window.QUOTIDIEN_INTRUS = {
    "id": "i050",
    "difficulte": "difficile",
    "theme": "lettres",
-   "consigne": "Trouve l'intrus : trois de ces mots cachent un vêtement dans leurs lettres.",
+   "consigne": "Trouve l'intrus : trois de ces mots cachent un vêtement dans leurs lettres (sans compter les accents).",
    "mots": [
-    "MONTAGNE",
-    "ESCAPADE",
+    "COMPAGNE",
+    "CHALEUR",
     "TOBOGGAN",
     "POLOCHON"
    ],
    "intrus": "TOBOGGAN",
-   "critere": "MONTAGNE cache PAGNE, ESCAPADE cache CAPE et POLOCHON cache POLO.",
-   "explication": "TOBOGGAN ne cache aucun vêtement, alors qu'on trouve PAGNE dans MONTAGNE, CAPE dans ESCAPADE et POLO dans POLOCHON."
+   "critere": "COMPAGNE cache PAGNE, CHALEUR cache CHÂLE et POLOCHON cache POLO.",
+   "explication": "TOBOGGAN ne cache aucun vêtement, alors qu'on trouve PAGNE dans COMPAGNE, CHÂLE dans CHALEUR et POLO dans POLOCHON."
   },
   {
    "id": "i051",
@@ -811,7 +811,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "SEAU",
    "critere": "SIGNE se prononce comme CYGNE, TON comme THON et PAN comme PAON.",
-   "explication": "SEAU se prononce comme sot, saut ou sceau, mais comme aucun animal ; SIGNE sonne comme CYGNE, TON comme THON et PAN comme PAON."
+   "explication": "SEAU se prononce comme sot, saut ou sceau, mais comme aucun animal."
   },
   {
    "id": "i055",
@@ -826,7 +826,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "CRAYON",
    "critere": "PERCHE, RAIE et LIEU sont aussi des noms de poissons.",
-   "explication": "Le CRAYON ne désigne aucun poisson ; la PERCHE, la RAIE et le LIEU sont des poissons vendus chez le poissonnier."
+   "explication": "Le CRAYON ne désigne aucun poisson : il sert à écrire ou à dessiner."
   },
   {
    "id": "i056",

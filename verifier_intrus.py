@@ -6,12 +6,16 @@ Contrôles bloquants :
 - consigne, critère et explication présents (explication de 60 à 200 caractères) ;
 - aucun mot réutilisé d'une question à l'autre ;
 - aucun mot du calendrier du test (grilles.json) : le mini-jeu ne doit pas aider à résoudre une grille future ;
+- mots cachés : chaque « X cache Y » annoncé est vérifié lettre par lettre (accents ignorés) ;
 - de quoi composer une série (2 faciles, 2 moyennes, 1 difficile) ; au moins 10 questions par difficulté conseillées.
 Le contrôle automatique ne remplace pas la relecture humaine : une seule réponse doit être raisonnablement défendable.
 
 Usage : python3 verifier_intrus.py [fichier]   (par défaut intrus.json)"""
-import json, sys, os, re
+import json, sys, os, re, unicodedata
 from collections import Counter
+
+def sans_accents(t):
+    return "".join(c for c in unicodedata.normalize("NFD", t) if unicodedata.category(c) != "Mn").upper()
 
 def main():
     chemin = sys.argv[1] if len(sys.argv) > 1 else "intrus.json"
@@ -38,6 +42,11 @@ def main():
             if not str(q.get(champ, "")).strip(): err.append(f"{i} : champ « {champ} » vide")
         e = q.get("explication", "")
         if not (60 <= len(e) <= 200): err.append(f"{i} : explication de {len(e)} caractères (60 à 200)")
+        # Mots cachés : chaque « X cache Y » du critère ou de l'explication est vérifié lettre par lettre (accents ignorés).
+        for a, b in re.findall(r"([A-ZÀ-ÖØ-Þ]{3,}) cache (?:l'|le |la |les |un |une )?([A-ZÀ-ÖØ-Þ]{2,})", q.get("critere", "") + " " + e):
+            if sans_accents(b) not in sans_accents(a): err.append(f"{i} : {a} ne contient pas {b}")
+        for b, a in re.findall(r"on trouve (?:l'|le |la |les )?([A-ZÀ-ÖØ-Þ]{2,}) dans ([A-ZÀ-ÖØ-Þ]{3,})", e):
+            if sans_accents(b) not in sans_accents(a): err.append(f"{i} : {a} ne contient pas {b}")
         for w in m:
             if w in vus: err.append(f"{i} : {w} déjà utilisé dans {vus[w]}")
             vus.setdefault(w, i)

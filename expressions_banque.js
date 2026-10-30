@@ -52,7 +52,9 @@ window.QUOTIDIEN_EXPRESSIONS = {
    ],
    "sens": "Il pleut très fort, à verse : la pluie tombe dense, drue et sans interruption.",
    "exemple": "Prends un parapluie, il pleut des cordes depuis ce matin.",
-   "variantes": []
+   "variantes": [
+    "HALLEBARDES"
+   ]
   },
   {
    "id": "x004",
@@ -324,7 +326,9 @@ window.QUOTIDIEN_EXPRESSIONS = {
    ],
    "sens": "Être en retard sur les autres : ne pas connaître les dernières nouvelles ou comprendre une situation après tout le monde.",
    "exemple": "Tu ne savais pas qu'ils avaient déménagé ? Tu as un train de retard !",
-   "variantes": []
+   "variantes": [
+    "MÉTRO"
+   ]
   },
   {
    "id": "x020",
@@ -370,12 +374,14 @@ window.QUOTIDIEN_EXPRESSIONS = {
    "indice": "Se dit quand on est très nombreux dans un espace trop petit.",
    "leurres": [
     "ANCHOIS",
-    "HARENGS",
+    "MAQUEREAUX",
     "THONS"
    ],
    "sens": "Être entassés à plusieurs dans un espace trop étroit, collés les uns aux autres, comme dans un métro bondé.",
    "exemple": "À l'heure de pointe, on est serrés comme des sardines dans le RER.",
-   "variantes": []
+   "variantes": [
+    "HARENGS"
+   ]
   },
   {
    "id": "x023",
@@ -392,7 +398,9 @@ window.QUOTIDIEN_EXPRESSIONS = {
    ],
    "sens": "Exagérer l'importance d'un détail, faire toute une histoire pour une chose sans gravité.",
    "exemple": "Ce n'est qu'une petite rayure sur la voiture, pas la peine d'en faire tout un fromage.",
-   "variantes": []
+   "variantes": [
+    "PLAT"
+   ]
   },
   {
    "id": "x024",
@@ -420,7 +428,7 @@ window.QUOTIDIEN_EXPRESSIONS = {
    "complete": "Être né sous une bonne étoile",
    "indice": "Se dit d'une personne qui a toujours été favorisée par le sort.",
    "leurres": [
-    "PLANÈTE",
+    "GALAXIE",
     "COMÈTE",
     "CONSTELLATION"
    ],
@@ -562,7 +570,9 @@ window.QUOTIDIEN_EXPRESSIONS = {
    ],
    "sens": "Être épuisé, à bout de forces, après un gros effort ou une longue période de fatigue. Expression familière.",
    "exemple": "Après ce déménagement, je suis sur les rotules.",
-   "variantes": []
+   "variantes": [
+    "GENOUX"
+   ]
   },
   {
    "id": "x034",

@@ -1,0 +1,142 @@
+{
+ "bloquants": [
+  {
+   "id": "x022",
+   "probleme": "Le leurre HARENGS forme une expression réelle de même sens : « être serrés comme des harengs (en caque) », attestée par le Dictionnaire de l'Académie (« serrés comme harengs en caque, être à l'étroit »). Un joueur qui la connaît peut hésiter à juste titre. Remplacé par MAQUEREAUX (aucune expression) ; HARENGS passe en variante pour la future saisie libre.",
+   "proposition": {
+    "id": "x022",
+    "difficulte": "intermediaire",
+    "categorie": "quotidien",
+    "texte": "Être serrés comme des ___",
+    "mot": "SARDINES",
+    "complete": "Être serrés comme des sardines",
+    "indice": "Se dit quand on est très nombreux dans un espace trop petit.",
+    "leurres": [
+     "ANCHOIS",
+     "MAQUEREAUX",
+     "THONS"
+    ],
+    "sens": "Être entassés à plusieurs dans un espace trop étroit, collés les uns aux autres, comme dans un métro bondé.",
+    "exemple": "À l'heure de pointe, on est serrés comme des sardines dans le RER.",
+    "variantes": [
+     "HARENGS"
+    ]
+   }
+  }
+ ],
+ "mineurs": [
+  {
+   "id": "x025",
+   "probleme": "Le leurre PLANÈTE frôle une locution réelle de même sens : « être né sous une heureuse planète » (Larousse, Académie), vieillie mais encore au dictionnaire. Le cadre diffère (heureuse / bonne) et ÉTOILE l'emporte nettement, d'où mineur ; remplacé par GALAXIE pour lever le doute.",
+   "proposition": {
+    "id": "x025",
+    "difficulte": "intermediaire",
+    "categorie": "chance",
+    "texte": "Être né sous une bonne ___",
+    "mot": "ÉTOILE",
+    "complete": "Être né sous une bonne étoile",
+    "indice": "Se dit d'une personne qui a toujours été favorisée par le sort.",
+    "leurres": [
+     "GALAXIE",
+     "COMÈTE",
+     "CONSTELLATION"
+    ],
+    "sens": "Avoir de la chance dans la vie, être favorisé par le sort comme si un destin heureux veillait sur soi.",
+    "exemple": "Il gagne à presque toutes les tombolas : il est vraiment né sous une bonne étoile.",
+    "variantes": []
+   }
+  },
+  {
+   "id": "x003",
+   "probleme": "« Il pleut des hallebardes » est une forme admise avec le même cadre et le même sens : HALLEBARDES devrait figurer dans les variantes (à juste titre absent des leurres).",
+   "proposition": {
+    "id": "x003",
+    "difficulte": "facile",
+    "categorie": "quotidien",
+    "texte": "Il pleut des ___",
+    "mot": "CORDES",
+    "complete": "Il pleut des cordes",
+    "indice": "Se dit quand la pluie tombe très fort.",
+    "leurres": [
+     "FICELLES",
+     "RUBANS",
+     "CHAÎNES"
+    ],
+    "sens": "Il pleut très fort, à verse : la pluie tombe dense, drue et sans interruption.",
+    "exemple": "Prends un parapluie, il pleut des cordes depuis ce matin.",
+    "variantes": [
+     "HALLEBARDES"
+    ]
+   }
+  },
+  {
+   "id": "x019",
+   "probleme": "« Avoir un métro de retard » est une variante courante et admise de même sens : MÉTRO devrait figurer dans les variantes (absent des leurres, c'est bien).",
+   "proposition": {
+    "id": "x019",
+    "difficulte": "facile",
+    "categorie": "quotidien",
+    "texte": "Avoir un ___ de retard",
+    "mot": "TRAIN",
+    "complete": "Avoir un train de retard",
+    "indice": "Se dit de quelqu'un qui n'est pas au courant ou comprend après les autres.",
+    "leurres": [
+     "BATEAU",
+     "VÉLO",
+     "TAXI"
+    ],
+    "sens": "Être en retard sur les autres : ne pas connaître les dernières nouvelles ou comprendre une situation après tout le monde.",
+    "exemple": "Tu ne savais pas qu'ils avaient déménagé ? Tu as un train de retard !",
+    "variantes": [
+     "MÉTRO"
+    ]
+   }
+  },
+  {
+   "id": "x023",
+   "probleme": "« En faire tout un plat » est tout aussi courant, même cadre, même sens : PLAT devrait figurer dans les variantes (absent des leurres, c'est bien).",
+   "proposition": {
+    "id": "x023",
+    "difficulte": "intermediaire",
+    "categorie": "nourriture",
+    "texte": "En faire tout un ___",
+    "mot": "FROMAGE",
+    "complete": "En faire tout un fromage",
+    "indice": "Se dit quand quelqu'un exagère l'importance d'une petite chose.",
+    "leurres": [
+     "YAOURT",
+     "DESSERT",
+     "GRATIN"
+    ],
+    "sens": "Exagérer l'importance d'un détail, faire toute une histoire pour une chose sans gravité.",
+    "exemple": "Ce n'est qu'une petite rayure sur la voiture, pas la peine d'en faire tout un fromage.",
+    "variantes": [
+     "PLAT"
+    ]
+   }
+  },
+  {
+   "id": "x033",
+   "probleme": "« Être sur les genoux » est une forme admise de même cadre et même sens : GENOUX devrait figurer dans les variantes (absent des leurres, c'est bien).",
+   "proposition": {
+    "id": "x033",
+    "difficulte": "intermediaire",
+    "categorie": "corps",
+    "texte": "Être sur les ___",
+    "mot": "ROTULES",
+    "complete": "Être sur les rotules",
+    "indice": "Se dit quand on est épuisé.",
+    "leurres": [
+     "CHEVILLES",
+     "HANCHES",
+     "CLAVICULES"
+    ],
+    "sens": "Être épuisé, à bout de forces, après un gros effort ou une longue période de fatigue. Expression familière.",
+    "exemple": "Après ce déménagement, je suis sur les rotules.",
+    "variantes": [
+     "GENOUX"
+    ]
+   }
+  }
+ ]
+}

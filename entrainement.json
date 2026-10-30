@@ -8,22 +8,22 @@
   {
    "n": 2,
    "titre": "Expressions à trou",
-   "astuce": "Quand quatre mots n'ont rien en commun, essaie de les compléter avec un même début : « Tête de ___ », « Faux ___ »…"
+   "astuce": "Quand quatre mots n'ont rien en commun, essaie de les compléter avec un même début : « Bout de ___ », « Poser ___ »…"
   },
   {
    "n": 3,
    "titre": "Doubles sens",
-   "astuce": "Si tu vois cinq mots pour un même groupe, l'un d'eux appartient ailleurs. Cherche lequel a un deuxième sens."
+   "astuce": "Si tu vois cinq mots pour un même groupe, l'un d'eux appartient ailleurs : cherche lequel a un deuxième sens. Parfois, c'est le point commun lui-même qui se lit de deux façons."
   },
   {
    "n": 4,
    "titre": "Mots cachés",
-   "astuce": "Regarde à l'intérieur des mots : un nombre, un animal, un fruit ou un sport peut s'y cacher. Le mot qui ne va nulle part est souvent la clé."
+   "astuce": "Regarde à l'intérieur des mots : un mot plus court peut s'y cacher. Quand un mot ne va dans aucun groupe, c'est souvent lui la clé."
   },
   {
    "n": 5,
    "titre": "Expert",
-   "astuce": "Ici, les catégories jouent avec la langue elle-même : le genre des mots, le verlan, les petites prépositions, les mots-valises."
+   "astuce": "Ici, les catégories jouent avec la langue elle-même : ne regarde pas seulement ce que les mots veulent dire, mais aussi leur forme, leur origine et les petits mots qui les accompagnent."
   }
  ],
  "grilles": [
@@ -211,7 +211,7 @@
    "groupes": [
     {
      "categorie": "___ de fer",
-     "difficulte": "facile",
+     "difficulte": "intermediaire",
      "mots": [
       "CHEMIN",
       "RIDEAU",
@@ -737,7 +737,7 @@
      "explication": "BRONZE cache ONZE, CAMILLE cache MILLE, ACCENT cache CENT, et NEUFCHÂTEL, un fromage normand, commence par NEUF."
     },
     {
-     "categorie": "Alliages et métaux travaillés",
+     "categorie": "Alliages",
      "difficulte": "intermediaire",
      "mots": [
       "LAITON",
@@ -772,7 +772,7 @@
    ],
    "rattachements_plausibles": {
     "BRONZE": [
-     "Alliages et métaux travaillés"
+     "Alliages"
     ],
     "CAMILLE": [
      "Prénoms mixtes"
@@ -982,70 +982,6 @@
    "chapitre": 5,
    "titre": "Exercice 17",
    "niveau": "difficile",
-   "intention": "Mots qui changent de sens avec le genre (le vase / la vase). VASE, CRÊPE et SOMME ont chacun un groupe tentant.",
-   "groupes": [
-    {
-     "categorie": "Changent de sens selon le genre",
-     "difficulte": "difficile",
-     "mots": [
-      "VASE",
-      "CRÊPE",
-      "SOMME",
-      "MODE"
-     ],
-     "explication": "Au masculin puis au féminin : le VASE / la vase (boue), le CRÊPE (tissu) / la crêpe, le SOMME (sieste) / la somme, le MODE (manière) / la mode."
-    },
-    {
-     "categorie": "Récipients",
-     "difficulte": "facile",
-     "mots": [
-      "CARAFE",
-      "JARRE",
-      "AMPHORE",
-      "POT"
-     ],
-     "explication": "L'AMPHORE est un vase antique à deux anses, la JARRE une grande poterie pour l'huile ou l'eau. Piège : le VASE est un récipient, mais la vase est de la boue."
-    },
-    {
-     "categorie": "Spécialités bretonnes",
-     "difficulte": "intermediaire",
-     "mots": [
-      "GALETTE",
-      "KOUIGN-AMANN",
-      "CIDRE",
-      "FAR"
-     ],
-     "explication": "KOUIGN-AMANN signifie « gâteau au beurre » en breton, et le FAR breton se fait souvent aux pruneaux. Piège : la CRÊPE est bretonne, mais le crêpe est un tissu."
-    },
-    {
-     "categorie": "Résultats d'opérations",
-     "difficulte": "intermediaire",
-     "mots": [
-      "PRODUIT",
-      "QUOTIENT",
-      "DIFFÉRENCE",
-      "RESTE"
-     ],
-     "explication": "Le PRODUIT vient d'une multiplication, la DIFFÉRENCE d'une soustraction, le QUOTIENT et le RESTE d'une division. Piège : la SOMME, au masculin, est une sieste."
-    }
-   ],
-   "rattachements_plausibles": {
-    "VASE": [
-     "Récipients"
-    ],
-    "CRÊPE": [
-     "Spécialités bretonnes"
-    ],
-    "SOMME": [
-     "Résultats d'opérations"
-    ]
-   }
-  },
-  {
-   "id": "e18",
-   "chapitre": 5,
-   "titre": "Exercice 18",
-   "niveau": "difficile",
    "intention": "Le verlan : ZARBI veut dire bizarre, OUF est aussi une interjection.",
    "groupes": [
     {
@@ -1102,6 +1038,70 @@
     ],
     "CHELOU": [
      "Bizarre"
+    ]
+   }
+  },
+  {
+   "id": "e18",
+   "chapitre": 5,
+   "titre": "Exercice 18",
+   "niveau": "difficile",
+   "intention": "Mots qui changent de sens avec le genre (le vase / la vase). VASE, CRÊPE et SOMME ont chacun un groupe tentant.",
+   "groupes": [
+    {
+     "categorie": "Changent de sens selon le genre",
+     "difficulte": "difficile",
+     "mots": [
+      "VASE",
+      "CRÊPE",
+      "SOMME",
+      "MODE"
+     ],
+     "explication": "Au masculin puis au féminin : le VASE / la vase (boue), le CRÊPE (tissu) / la crêpe, le SOMME (sieste) / la somme, le MODE (manière) / la mode."
+    },
+    {
+     "categorie": "Récipients",
+     "difficulte": "facile",
+     "mots": [
+      "CARAFE",
+      "JARRE",
+      "AMPHORE",
+      "POT"
+     ],
+     "explication": "L'AMPHORE est un vase antique à deux anses, la JARRE une grande poterie pour l'huile ou l'eau. Piège : le VASE est un récipient, mais la vase est de la boue."
+    },
+    {
+     "categorie": "Spécialités bretonnes",
+     "difficulte": "intermediaire",
+     "mots": [
+      "GALETTE",
+      "KOUIGN-AMANN",
+      "CIDRE",
+      "FAR"
+     ],
+     "explication": "KOUIGN-AMANN signifie « gâteau au beurre » en breton, et le FAR breton se fait souvent aux pruneaux. Piège : la CRÊPE est bretonne, mais le crêpe est un tissu."
+    },
+    {
+     "categorie": "Résultats d'opérations",
+     "difficulte": "intermediaire",
+     "mots": [
+      "PRODUIT",
+      "QUOTIENT",
+      "DIFFÉRENCE",
+      "RESTE"
+     ],
+     "explication": "Le PRODUIT vient d'une multiplication, la DIFFÉRENCE d'une soustraction, le QUOTIENT et le RESTE d'une division. Piège : la SOMME vient d'une addition, mais elle change de sens au masculin (un somme, une sieste)."
+    }
+   ],
+   "rattachements_plausibles": {
+    "VASE": [
+     "Récipients"
+    ],
+    "CRÊPE": [
+     "Spécialités bretonnes"
+    ],
+    "SOMME": [
+     "Résultats d'opérations"
     ]
    }
   },

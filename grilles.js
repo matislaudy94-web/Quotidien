@@ -75,7 +75,7 @@ window.QUOTIDIEN_GRILLES = [
      "SATURNE",
      "JUPITER"
     ],
-    "explication": "Toutes portent le nom d'un dieu romain : JUPITER, la plus grosse planète, SATURNE et ses anneaux, MARS la rouge et VÉNUS, la plus brillante des planètes."
+    "explication": "Toutes portent le nom d'une divinité romaine : JUPITER, la plus grosse planète, SATURNE et ses anneaux, MARS la rouge et VÉNUS, la plus brillante dans notre ciel."
    },
    {
     "categorie": "Danses",
@@ -149,10 +149,10 @@ window.QUOTIDIEN_GRILLES = [
      "BONHEUR",
      "AVION"
     ],
-    "explication": "Un porte-AVIONS est un navire d'où décollent des avions, un porte-BONHEUR un objet censé porter chance ; porte-MONNAIE et porte-CLÉ vont dans la poche."
+    "explication": "Un porte-AVION (on écrit aussi porte-avions) est un navire d'où décollent des avions, un porte-BONHEUR un objet censé porter chance ; porte-MONNAIE et porte-CLÉ vont dans la poche."
    },
    {
-    "categorie": "Pierres qui sont aussi des couleurs",
+    "categorie": "Pierres précieuses et fines",
     "difficulte": "intermediaire",
     "mots": [
      "RUBIS",
@@ -160,7 +160,7 @@ window.QUOTIDIEN_GRILLES = [
      "ÉMERAUDE",
      "TURQUOISE"
     ],
-    "explication": "Le RUBIS est rouge, le SAPHIR bleu, l'ÉMERAUDE verte et la TURQUOISE bleu-vert. RUBIS et SAPHIR sont en fait le même minéral, le corindon."
+    "explication": "Le RUBIS est rouge, le SAPHIR bleu, l'ÉMERAUDE verte et la TURQUOISE bleu-vert : leurs noms servent aussi de couleurs. RUBIS et SAPHIR sont en fait le même minéral, le corindon."
    },
    {
     "categorie": "Fruits qui sont aussi des couleurs",
@@ -291,7 +291,7 @@ window.QUOTIDIEN_GRILLES = [
      "NOMBRE",
      "CŒUR"
     ],
-    "explication": "Le NOMBRE d'or vaut environ 1,618, un CŒUR d'or est très généreux, l'ÂGE d'or une époque faste. Piège : le BALLON n'a rien à voir avec la raquette."
+    "explication": "Le BALLON d'or récompense le meilleur footballeur de l'année, le NOMBRE d'or vaut environ 1,618, un CŒUR d'or est très généreux et l'ÂGE d'or désigne une époque faste."
    }
   ],
   "rattachements_plausibles": {
@@ -677,10 +677,14 @@ window.QUOTIDIEN_GRILLES = [
      "BULLETIN",
      "EXAMEN"
     ],
-    "explication": "Un MARIAGE blanc est fictif, un BULLETIN blanc ne désigne aucun candidat, un EXAMEN blanc sert d'entraînement avant le vrai."
+    "explication": "Un MARIAGE blanc est fictif, un BULLETIN blanc ne désigne aucun candidat, un EXAMEN blanc sert d'entraînement avant le vrai. Piège : on parle aussi du TIGRE blanc, mais il fallait le tigre pour compléter les félins."
    }
   ],
-  "rattachements_plausibles": {}
+  "rattachements_plausibles": {
+   "TIGRE": [
+    "___ blanc"
+   ]
+  }
  },
  {
   "id": "g13",
@@ -818,10 +822,10 @@ window.QUOTIDIEN_GRILLES = [
     "mots": [
      "LAMPE",
      "VERRE",
-     "BICHE",
+     "ESCALIER",
      "VIGNE"
     ],
-    "explication": "Le pied-de-BICHE est un levier pour arracher les clous ; un pied de VIGNE est un cep, et le pied d'un VERRE est sa base."
+    "explication": "Le pied d'une LAMPE ou d'un VERRE est sa base, un pied de VIGNE est un cep, et le pied de l'ESCALIER est le bas des marches."
    },
    {
     "categorie": "Ils ont une tête",
@@ -1108,7 +1112,7 @@ window.QUOTIDIEN_GRILLES = [
      "CONSTANCE",
      "BLANCHE"
     ],
-    "explication": "Une PIERRE est un caillou, la VICTOIRE un succès, la CONSTANCE une persévérance, BLANCHE une couleur : chacun de ces prénoms est aussi un mot."
+    "explication": "Une PIERRE est un caillou, une VICTOIRE un succès, la CONSTANCE de la persévérance, et BLANCHE le féminin de blanc. Piège : LOUIS est aussi un mot (une pièce d'or), mais aucun de ces quatre prénoms n'a été porté par un roi de France."
    },
    {
     "categorie": "Anciennes monnaies",
@@ -1135,7 +1139,8 @@ window.QUOTIDIEN_GRILLES = [
   ],
   "rattachements_plausibles": {
    "LOUIS": [
-    "Anciennes monnaies"
+    "Anciennes monnaies",
+    "Prénoms qui sont des mots"
    ]
   }
  },
@@ -1392,7 +1397,7 @@ window.QUOTIDIEN_GRILLES = [
   "id": "g25",
   "titre": "Grille 25",
   "niveau": "difficile",
-  "intention": "Trois pièges : CISEAUX, FIANÇAILLES, FUNÉRAILLES et MŒURS attirent ailleurs, mais ils partagent une particularité grammaticale.",
+  "intention": "Quatre pièges : CISEAUX, FIANÇAILLES, FUNÉRAILLES et MŒURS attirent ailleurs, mais ils partagent une particularité grammaticale.",
   "groupes": [
    {
     "categorie": "Ne s'emploient qu'au pluriel",
@@ -1458,7 +1463,7 @@ window.QUOTIDIEN_GRILLES = [
   "id": "g26",
   "titre": "Grille 26",
   "niveau": "difficile",
-  "intention": "Quatre pays se cachent dans des mots ordinaires, et chacun attire vers un autre groupe.",
+  "intention": "Quatre pays se cachent dans des mots ordinaires ; DINDE, ROMAN et MALICE attirent vers un autre groupe.",
   "groupes": [
    {
     "categorie": "Un pays caché dans le mot",
@@ -1521,7 +1526,7 @@ window.QUOTIDIEN_GRILLES = [
   "id": "g27",
   "titre": "Grille 27",
   "niveau": "difficile",
-  "intention": "Grille à thème : quatre verbes. SOUFFLE, ROUTE et COMPTE vont avec deux verbes.",
+  "intention": "Grille à thème : quatre verbes. SOUFFLE, ROUTE et COMPTE vont chacun avec trois des verbes, ÂME avec deux.",
   "groupes": [
    {
     "categorie": "Tenir ___",
@@ -1719,7 +1724,7 @@ window.QUOTIDIEN_GRILLES = [
   "id": "g30",
   "titre": "Grille 30",
   "niveau": "difficile",
-  "intention": "Quatre mots ordinaires commencent par un prénom, et chacun attire vers un autre groupe.",
+  "intention": "Quatre mots ordinaires commencent par un prénom ; LUCARNE, MAXIMUM et ÉVALUER attirent vers un autre groupe.",
   "groupes": [
    {
     "categorie": "Commencent par un prénom",
@@ -2061,7 +2066,7 @@ window.QUOTIDIEN_GRILLES = [
     "explication": "Avoir la FRITE ou la BANANE, c'est être en forme et de bonne humeur ; avoir la DALLE, avoir faim ; avoir la FLEMME, n'avoir envie de rien faire."
    },
    {
-    "categorie": "Ils ont un manche",
+    "categorie": "Ils ont un manche… ou des manches",
     "difficulte": "intermediaire",
     "mots": [
      "COUTEAU",
@@ -2357,7 +2362,7 @@ window.QUOTIDIEN_GRILLES = [
      "BOLIVIE",
      "COLOMBIE"
     ],
-    "explication": "La BOLIVIE porte le nom de Simón Bolívar et la COLOMBIE celui de Christophe Colomb. Piège : l'ARGENTINE aussi, mais elle cache de l'ARGENT."
+    "explication": "La BOLIVIE porte le nom de Simón Bolívar et la COLOMBIE celui de Christophe Colomb. Piège : l'ARGENTINE est aussi en Amérique du Sud, mais elle cache l'ARGENT, le métal qui lui a d'ailleurs donné son nom."
    },
    {
     "categorie": "Vents violents",
@@ -2398,10 +2403,10 @@ window.QUOTIDIEN_GRILLES = [
   "id": "g42",
   "titre": "Grille 42",
   "niveau": "difficile",
-  "intention": "Un groupe fondé sur les lettres (les cinq voyelles), dont chaque mot semble appartenir à une catégorie évidente.",
+  "intention": "Un groupe fondé sur les lettres (A, E, I, O et U), dont chaque mot semble appartenir à une catégorie évidente.",
   "groupes": [
    {
-    "categorie": "Contiennent les cinq voyelles A E I O U",
+    "categorie": "Contiennent A, E, I, O et U",
     "difficulte": "difficile",
     "mots": [
      "OISEAU",
@@ -2409,7 +2414,7 @@ window.QUOTIDIEN_GRILLES = [
      "AUTOMOBILE",
      "MOUSTIQUAIRE"
     ],
-    "explication": "OISEAU réunit A, E, I, O et U en six lettres seulement ; BOULANGERIE, AUTOMOBILE et MOUSTIQUAIRE contiennent aussi les cinq voyelles."
+    "explication": "OISEAU réunit A, E, I, O et U en six lettres seulement ; BOULANGERIE, AUTOMOBILE et MOUSTIQUAIRE contiennent aussi ces cinq voyelles."
    },
    {
     "categorie": "Commerces",
@@ -2420,7 +2425,7 @@ window.QUOTIDIEN_GRILLES = [
      "MERCERIE",
      "ÉPICERIE"
     ],
-    "explication": "La MERCERIE vend fils, boutons et rubans ; la LIBRAIRIE vend les livres que la bibliothèque prête. Piège : la BOULANGERIE contient les cinq voyelles."
+    "explication": "La MERCERIE vend fils, boutons et rubans ; la LIBRAIRIE vend les livres que la bibliothèque prête. Piège : la BOULANGERIE contient A, E, I, O et U."
    },
    {
     "categorie": "Ils volent",
@@ -2431,7 +2436,7 @@ window.QUOTIDIEN_GRILLES = [
      "DRONE",
      "MONTGOLFIÈRE"
     ],
-    "explication": "La MONTGOLFIÈRE doit son nom aux frères Montgolfier, pionniers du ballon en 1783 ; le DRONE vole sans pilote à bord. Piège : l'OISEAU a les cinq voyelles."
+    "explication": "La MONTGOLFIÈRE doit son nom aux frères Montgolfier, pionniers du ballon en 1783 ; le DRONE vole sans pilote à bord. Piège : l'OISEAU a A, E, I, O et U."
    },
    {
     "categorie": "Pour dormir",
@@ -2442,7 +2447,7 @@ window.QUOTIDIEN_GRILLES = [
      "MATELAS",
      "DRAP"
     ],
-    "explication": "Le DRAP couvre le MATELAS, la COUETTE nous tient chaud et l'OREILLER soutient la tête. Piège : la MOUSTIQUAIRE protège le sommeil, mais elle a les cinq voyelles."
+    "explication": "Le DRAP couvre le MATELAS, la COUETTE nous tient chaud et l'OREILLER soutient la tête. Piège : la MOUSTIQUAIRE protège le sommeil, mais elle a A, E, I, O et U."
    }
   ],
   "rattachements_plausibles": {

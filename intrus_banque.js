@@ -1,7 +1,7 @@
 // Fichier généré depuis intrus.json par : python3 generer_grilles_js.py
 // Banque du mini-jeu « Le mot intrus » (vérifiée par verifier_intrus.py, relue avant publication).
 window.QUOTIDIEN_INTRUS = {
- "version": 1,
+ "version": 2,
  "questions": [
   {
    "id": "i001",
@@ -270,8 +270,8 @@ window.QUOTIDIEN_INTRUS = {
     "AÏKIDO"
    ],
    "intrus": "CYCLISME",
-   "critere": "TAEKWONDO, SUMO et AÏKIDO sont des sports de combat venus d'Asie.",
-   "explication": "Le CYCLISME se pratique à bicyclette, sans combat ; TAEKWONDO (né en Corée), SUMO et AÏKIDO (nés au Japon) sont des sports de combat."
+   "critere": "TAEKWONDO, SUMO et AÏKIDO sont des arts martiaux venus d'Asie.",
+   "explication": "Le CYCLISME se pratique à bicyclette, sans combat ; le TAEKWONDO est né en Corée, le SUMO et l'AÏKIDO au Japon."
   },
   {
    "id": "i019",
@@ -625,12 +625,12 @@ window.QUOTIDIEN_INTRUS = {
    "consigne": "Trouve l'intrus.",
    "mots": [
     "MADÈRE",
-    "CORSE",
+    "CRÈTE",
     "SICILE",
     "SARDAIGNE"
    ],
    "intrus": "MADÈRE",
-   "critere": "CORSE, SICILE et SARDAIGNE sont des îles de la Méditerranée.",
+   "critere": "CRÈTE, SICILE et SARDAIGNE sont des îles de la Méditerranée.",
    "explication": "MADÈRE est une île portugaise située dans l'océan Atlantique."
   },
   {
@@ -654,14 +654,14 @@ window.QUOTIDIEN_INTRUS = {
    "theme": "corps",
    "consigne": "Trouve l'intrus.",
    "mots": [
-    "MOLLET",
+    "QUADRICEPS",
     "FÉMUR",
     "TIBIA",
     "PÉRONÉ"
    ],
-   "intrus": "MOLLET",
+   "intrus": "QUADRICEPS",
    "critere": "FÉMUR, TIBIA et PÉRONÉ sont des os.",
-   "explication": "Le MOLLET est formé de muscles, à l'arrière du membre inférieur."
+   "explication": "Le QUADRICEPS est un muscle, à l'avant de la cuisse ; FÉMUR, TIBIA et PÉRONÉ sont des os du squelette."
   },
   {
    "id": "i045",
@@ -680,7 +680,7 @@ window.QUOTIDIEN_INTRUS = {
   },
   {
    "id": "i046",
-   "difficulte": "moyen",
+   "difficulte": "facile",
    "theme": "jeux",
    "consigne": "Trouve l'intrus : pense au jeu de cartes.",
    "mots": [
@@ -901,7 +901,7 @@ window.QUOTIDIEN_INTRUS = {
    ],
    "intrus": "BISON",
    "critere": "Dans BIPÈDE, BISCUIT et BICEPS, « bi » veut dire « deux ».",
-   "explication": "BISON est un mot d'origine germanique, sans préfixe « bi » ; un BIPÈDE marche sur deux pattes, le BISCUIT était cuit deux fois, le BICEPS a deux chefs."
+   "explication": "BISON est un mot d'origine germanique, sans préfixe « bi » ; un BIPÈDE marche sur deux pattes, le BISCUIT était cuit deux fois, le BICEPS a deux têtes."
   }
  ]
 };

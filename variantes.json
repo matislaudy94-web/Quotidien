@@ -170,7 +170,7 @@
       "FRONT",
       "BORD"
      ],
-     "explication": "Le LOUP de mer est un marin aguerri, l'ARAIGNÉE de mer un crabe aux longues pattes. Piège : LOUP et FRONT semblaient aller avec les animaux et le corps."
+     "explication": "Le LOUP de mer est un marin aguerri, l'ARAIGNÉE de mer un crabe aux longues pattes, le FRONT de mer la promenade qui longe la plage. Piège : LOUP et FRONT semblaient aller avec les animaux et le corps."
     }
    ],
    "rattachements_plausibles": {
@@ -343,7 +343,7 @@
      "difficulte": "intermediaire",
      "mots": [
       "GÉRANIUM",
-      "PÉTUNIA",
+      "GLYCINE",
       "TOURNESOL",
       "BÉGONIA"
      ],
@@ -1359,7 +1359,7 @@
    "id": "g13b",
    "titre": "Grille 13 · version 2",
    "niveau": "intermediaire",
-   "intention": "Une expression, des petits mots de grammaire, un gâteau et des techniques de dessin. Deux pièges : OR est une conjonction et FARINE entre dans le gâteau, mais l'expression a besoin des deux.",
+   "intention": "Une expression, des petits mots de grammaire, un gâteau et des techniques de dessin. Trois pièges : OR est une conjonction et FARINE entre dans le gâteau, mais l'expression a besoin des deux ; l'HUILE est aussi une peinture, mais le gâteau a besoin d'elle.",
    "groupes": [
     {
      "categorie": "Rouler ___",
@@ -1403,7 +1403,7 @@
       "PASTEL",
       "FUSAIN"
      ],
-     "explication": "L'AQUARELLE et la GOUACHE se diluent à l'eau, la gouache étant plus couvrante ; le PASTEL est un bâtonnet de pigment, le FUSAIN un charbon de bois."
+     "explication": "L'AQUARELLE et la GOUACHE se diluent à l'eau, le PASTEL est un bâtonnet de pigment, le FUSAIN un charbon de bois. Piège : la peinture à l'HUILE en est une aussi, mais l'huile va dans le gâteau."
     }
    ],
    "rattachements_plausibles": {
@@ -1412,6 +1412,9 @@
     ],
     "FARINE": [
      "Dans le gâteau au yaourt"
+    ],
+    "HUILE": [
+     "Techniques de dessin et de peinture"
     ]
    }
   },
@@ -1528,7 +1531,7 @@
       "OPERCULE",
       "CAPUCHON"
      ],
-     "explication": "Le COUVERCLE d'une casserole, la CAPSULE d'une bouteille, l'OPERCULE d'un yaourt, le CAPUCHON d'un stylo. Piège : le BOUCHON, on le pousse trop loin."
+     "explication": "Le COUVERCLE d'une casserole, la CAPSULE d'une bouteille, l'OPERCULE d'un pot de yaourt, le CAPUCHON d'un tube de dentifrice. Piège : le BOUCHON, on le pousse trop loin."
     }
    ],
    "rattachements_plausibles": {
@@ -1653,7 +1656,7 @@
       "PELUCHE",
       "PINCEAU"
      ],
-     "explication": "La BROSSE, le PINCEAU, la MOQUETTE et la PELUCHE ont tous des poils. Piège : la peluche a souvent des bras, mais il faut ses poils."
+     "explication": "On parle des poils d'une BROSSE ou d'un PINCEAU, et d'une MOQUETTE à poils ras ou longs ; la PELUCHE tire son nom d'un tissu à longs poils. Piège : la peluche a souvent des bras, mais il faut ses poils."
     }
    ],
    "rattachements_plausibles": {
@@ -1688,10 +1691,10 @@
      "mots": [
       "RIRE",
       "LARMES",
-      "QUARANTAINE",
+      "ADOLESCENCE",
       "ANGOISSE"
      ],
-     "explication": "La crise de la QUARANTAINE, ce sont les doutes sur sa vie vers 40 ans ; une crise de RIRE ou de LARMES, c'est quand on ne peut plus s'arrêter."
+     "explication": "Une crise de RIRE ou de LARMES, c'est quand on ne peut plus s'arrêter ; la crise d'ADOLESCENCE, ce sont les révoltes du passage à l'âge adulte, et la crise d'ANGOISSE une peur soudaine et intense."
     },
     {
      "categorie": "Bouche de ___",
@@ -2067,10 +2070,10 @@
      "mots": [
       "LÉOPARD",
       "SALAMANDRE",
-      "GENETTE",
+      "ROUQUIN",
       "FAON"
      ],
-     "explication": "Le LÉOPARD a des rosettes, la SALAMANDRE des taches jaunes sur fond noir, la GENETTE un pelage tacheté, le FAON des taches blanches qui partent en grandissant."
+     "explication": "Le LÉOPARD a des rosettes, la SALAMANDRE des taches jaunes sur fond noir, le FAON des taches blanches qui partent en grandissant, et le ROUQUIN des taches de rousseur."
     },
     {
      "categorie": "Ils ont des pédales",
@@ -2191,7 +2194,7 @@
       "ALBANIE",
       "BULGARIE"
      ],
-     "explication": "Quatre pays de la péninsule des Balkans. La SUISSE est un pays aussi, mais pas des Balkans : on boit en Suisse."
+     "explication": "La SERBIE, la CROATIE, l'ALBANIE et la BULGARIE sont dans la péninsule des Balkans. Piège : la SUISSE est un pays, mais pas des Balkans ; « boire en suisse », c'est boire seul."
     },
     {
      "categorie": "Sauces",
@@ -3122,7 +3125,7 @@
    "id": "g27b",
    "titre": "Grille 27 · version 2",
    "niveau": "difficile",
-   "intention": "Grille à thème : quatre verbes. SECOURS va avec deux d'entre eux.",
+   "intention": "Grille à thème : quatre verbes. SECOURS et CHAPEAU vont chacun avec deux d'entre eux.",
    "groupes": [
     {
      "categorie": "Passer ___",
@@ -3133,7 +3136,7 @@
       "COMMANDE",
       "AVEUX"
      ],
-     "explication": "Passer à la TRAPPE, c'est être oublié ou supprimé ; passer aux AVEUX, avouer. On passe aussi son PERMIS et COMMANDE."
+     "explication": "Passer à la TRAPPE, c'est être oublié ; passer aux AVEUX, avouer ; on passe aussi son PERMIS et on passe COMMANDE. Piège : on passe le CHAPEAU pour faire la quête, mais ici on le porte."
     },
     {
      "categorie": "Porter ___",
@@ -3142,9 +3145,9 @@
       "PLAINTE",
       "SECOURS",
       "ATTEINTE",
-      "FRUITS"
+      "CHAPEAU"
      ],
-     "explication": "Porter ses FRUITS, c'est donner de bons résultats ; porter ATTEINTE, nuire. Piège : on peut aussi prêter SECOURS, mais ici on le porte."
+     "explication": "Porter le CHAPEAU, c'est être tenu pour responsable ; porter ATTEINTE, nuire ; porter PLAINTE, saisir la justice. Piège : on prête aussi SECOURS, mais ici on le porte."
     },
     {
      "categorie": "Prêter ___",
@@ -3172,6 +3175,9 @@
    "rattachements_plausibles": {
     "SECOURS": [
      "Prêter ___"
+    ],
+    "CHAPEAU": [
+     "Passer ___"
     ]
    }
   },
@@ -3190,7 +3196,7 @@
       "BÂTON",
       "EMBUSCADE"
      ],
-     "explication": "Tendre la PERCHE, c'est offrir une chance de s'en sortir ; tendre le BÂTON pour se faire battre, s'exposer soi-même. Piège : on monte aussi une EMBUSCADE."
+     "explication": "Tendre la PERCHE, c'est offrir une chance de s'en sortir ; tendre le BÂTON pour se faire battre, s'exposer soi-même. Piège : on monte ou on mène aussi une EMBUSCADE."
     },
     {
      "categorie": "Brûler ___",
@@ -3228,7 +3234,8 @@
    ],
    "rattachements_plausibles": {
     "EMBUSCADE": [
-     "Monter ___"
+     "Monter ___",
+     "Mener ___"
     ],
     "BATEAU": [
      "Monter ___"
@@ -3332,7 +3339,7 @@
       "SORGHO",
       "SARRASIN"
      ],
-     "explication": "Le SARRASIN, ou blé noir, sert aux galettes bretonnes mais n'est pas une vraie céréale. Piège : le MILLET en est une aussi, mais c'est ici un peintre."
+     "explication": "Le SARRASIN, ou blé noir, donne la farine des galettes bretonnes ; l'ÉPEAUTRE est un blé ancien. Piège : le MILLET est aussi une céréale, mais c'est ici le peintre de L'Angélus."
     },
     {
      "categorie": "Un peu fou",
@@ -4313,7 +4320,7 @@
       "BARYTON",
       "ALTO"
      ],
-     "explication": "La SOPRANO est la voix féminine la plus aiguë, le TÉNOR la voix d'homme aiguë, le BARYTON une voix d'homme médiane. Piège : ALTO est aussi un instrument."
+     "explication": "Le SOPRANO est la voix féminine la plus aiguë, le TÉNOR la voix d'homme aiguë, le BARYTON une voix d'homme médiane. Piège : ALTO est aussi un instrument."
     },
     {
      "categorie": "Instruments à cordes",
@@ -4324,7 +4331,7 @@
       "BALALAÏKA",
       "BOUZOUKI"
      ],
-     "explication": "La BALALAÏKA russe a une caisse triangulaire, le BOUZOUKI vient de Grèce, le UKULÉLÉ d'Hawaï. Piège : MANDOLINE est aussi un ustensile de cuisine."
+     "explication": "La BALALAÏKA russe a une caisse triangulaire, le BOUZOUKI vient de Grèce, l'UKULÉLÉ d'Hawaï. Piège : MANDOLINE est aussi un ustensile de cuisine."
     },
     {
      "categorie": "Ustensiles du cuisinier",
@@ -4584,7 +4591,7 @@
       "COURANT",
       "REGRET"
      ],
-     "explication": "Être au PARFUM, c'est être dans la confidence ; au TAQUET, donner tout ; au REGRET, désolé ; au COURANT, informé."
+     "explication": "Être au PARFUM, c'est être dans la confidence ; au TAQUET, être à fond ; au REGRET, désolé ; au COURANT, informé."
     }
    ],
    "rattachements_plausibles": {
@@ -5341,7 +5348,7 @@
      "difficulte": "intermediaire",
      "mots": [
       "CROTTIN",
-      "PÉLARDON",
+      "SAINTE-MAURE",
       "VALENÇAY",
       "CHABICHOU"
      ],

@@ -59,7 +59,7 @@ async function jouerIntrus(page, fautes = []) {
     console.log("1. Navigation : 5 onglets");
     await page.goto(`${BASE}/?p=${A}`); await page.waitForSelector("#carte-jour");
     const libs = await page.$$eval("#nav-bas button", b => b.map(x => x.textContent.replace(/\s+/g, " ").trim()));
-    ok(libs.join("|") === "🏠Accueil|📅Quotidien|🎮Jeux|🏆Progression|📊Stats", "barre du bas : " + libs.join(" · "));
+    ok(libs.join("|") === "🏠Accueil|🧩Quotidien|🎮Jeux|🏆Progression|📊Stats", "barre du bas : " + libs.join(" · "));
     await page.screenshot({ path: path.join(CAPT, "jeux_0_accueil.png"), fullPage: true });
 
     console.log("2. Onglet Jeux");

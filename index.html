@@ -138,6 +138,7 @@
   .chrono { font-family: var(--title); font-weight: 600; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .btn-indice { border: 0; background: var(--c0); color: var(--ink); border-radius: var(--pill); font-family: var(--title); font-weight: 700; font-size: 14px;
     padding: 7px 12px 8px; box-shadow: 0 3px 0 var(--c0e); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; -webkit-tap-highlight-color: transparent; transition: transform .08s, box-shadow .08s; }
+  .btn-indice { min-height: 44px; margin: -4px 0; } /* zone tactile de 44 px sans agrandir la barre */
   .btn-indice b { background: var(--ink); color: var(--c0); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
   .btn-indice:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--c0e); }
   .btn-indice:disabled { background: rgba(255,255,255,.1); color: rgba(255,255,255,.45); box-shadow: 0 3px 0 rgba(0,0,0,.2); cursor: default; }
@@ -155,7 +156,7 @@
   .btn.primary { background: var(--ok); color: var(--ink); box-shadow: 0 var(--depth) 0 var(--ok-edge); text-shadow: none; } /* texte foncé : 7,3:1 sur le vert (le blanc faisait 2,2:1) */
   @media (hover: hover) { .btn.primary:hover:not(:disabled) { box-shadow: 0 calc(var(--depth) + 1px) 0 var(--ok-edge); } }
   .btn.primary:active:not(:disabled) { box-shadow: 0 1px 0 var(--ok-edge); }
-  .btn:disabled { background: rgba(255,255,255,.1); color: rgba(255,255,255,.4); box-shadow: 0 var(--depth) 0 rgba(0,0,0,.2); text-shadow: none; cursor: default; }
+  .btn:disabled { background: rgba(255,255,255,.1); color: rgba(255,255,255,.62); box-shadow: 0 var(--depth) 0 rgba(0,0,0,.2); text-shadow: none; cursor: default; }
   .btn.pret { animation: pret .3s ease-out; }
   @keyframes pret { 50% { transform: scale(1.06); } }
   .actions-jeu { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 8px; }
@@ -395,7 +396,7 @@
   .tile.ep.sel { outline: 3px solid #fff; outline-offset: 2px; }
   .tile.ep.juste { background: var(--c1); box-shadow: 0 var(--depth) 0 var(--c1e); color: var(--ink); }
   .tile.ep.faux { background: #ff8a8a; box-shadow: 0 var(--depth) 0 #c94b4b; color: var(--ink); animation: secoue .35s; }
-  .tile.ep.eteint { opacity: .55; } .tile.ep:disabled { cursor: default; }
+  .tile.ep.eteint { opacity: .72; } .tile.ep:disabled { cursor: default; }
   .panel .recompenses { text-align: left; }
   .insecable { white-space: nowrap; }
   .expr-complete { font-family: var(--title); font-weight: 700; font-size: 18px; margin: 4px 0 0; }
@@ -415,7 +416,7 @@
   .tile.im.l2 { font-size: 14.5px; }
   .tile.im.juste { background: var(--c1); box-shadow: 0 var(--depth) 0 var(--c1e); color: var(--ink); animation: pop-xp .35s cubic-bezier(.2,.9,.3,1.4); }
   .tile.im.faux { background: #ff8a8a; box-shadow: 0 var(--depth) 0 #c94b4b; color: var(--ink); animation: secoue .35s; }
-  .tile.im.eteint { opacity: .55; }
+  .tile.im.eteint { opacity: .72; }
   .tile.im:disabled { cursor: default; }
   @keyframes secoue { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
   .retour-intrus { margin-top: 14px; animation: mini-arrivee .3s ease-out both; }
@@ -501,7 +502,7 @@
     box-shadow: 0 var(--depth) 0 #b4a9df; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
   .raccourcis button span { font-size: 22px; }
   .raccourcis button:active { transform: translateY(3px); box-shadow: 0 1px 0 #b4a9df; }
-  .lien-texte { background: none; border: 0; color: var(--ink-soft); font: inherit; font-weight: 800; font-size: 13.5px; text-decoration: underline; cursor: pointer; padding: 0; margin-top: 8px; }
+  .lien-texte { background: none; border: 0; color: var(--ink-soft); font: inherit; font-weight: 800; font-size: 13.5px; text-decoration: underline; cursor: pointer; padding: 12px 6px; margin: 2px -6px -6px; min-height: 44px; }
 
   /* ---------- Parcours ---------- */
   .parcours { display: grid; gap: 0; margin-top: 8px; }
@@ -555,7 +556,7 @@
   .montee { text-align: center; margin: 10px 0 2px; font-family: var(--title); font-weight: 700; font-size: 20px; color: #fff; animation: pop-xp .6s cubic-bezier(.2,.9,.3,1.4) .2s both; }
   .montee b { color: var(--c0); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; font-size: 24px; }
   footer { margin-top: 26px; font-size: 12px; color: var(--muted); text-align: center; line-height: 1.5; font-weight: 600; }
-  footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 0; font-family: inherit; font-weight: 800; }
+  footer button { background: none; border: 0; color: inherit; text-decoration: underline; font-size: 12px; cursor: pointer; padding: 14px 8px; margin: -8px 0; min-height: 44px; font-family: inherit; font-weight: 800; }
   .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 5; }
   .confetti i { position: absolute; top: -14px; width: 9px; height: 13px; border-radius: 3px; animation: tombe 1.6s ease-in forwards; }
   @keyframes tombe { to { transform: translateY(105vh) rotate(540deg); } }
@@ -679,7 +680,7 @@
 <div class="cta-collant" id="cta-collant" aria-hidden="true"></div>
 <nav class="nav-bas hidden" id="nav-bas" aria-label="Navigation">
   <button data-ecran="accueil"><span class="ico">🏠</span>Accueil</button>
-  <button data-ecran="jeu"><span class="ico">📅</span>Quotidien</button>
+  <button data-ecran="jeu"><span class="ico">🧩</span>Quotidien</button>
   <button data-ecran="jeux"><span class="ico">🎮</span>Jeux</button>
   <button data-ecran="progression"><span class="ico">🏆</span>Progression</button>
   <button data-ecran="stats"><span class="ico">📊</span>Stats</button>
@@ -2482,6 +2483,15 @@
     return etat.essais.map(e => e.signature.split("|").map(m => EMOJI[couleurDe(groupeDe(m))]).join("")).join("\n");
   }
 
+  // Carte de résultat en texte : jamais de mot ni de catégorie, seulement la date, le résultat, la série et les couleurs.
+  function texteResultat() {
+    const tp = (etat.trouvesParJoueur || etat.trouves).length;
+    const n = DEMO ? 0 : progression().stats.serie.actuelle;
+    return `QUOTIDIEN · ${DEMO ? "démo" : formatDate(jourParis())}\n`
+      + (etat.gagne ? `✅ Résolue${etat.erreurs ? ` avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}` : " sans erreur"}` : `❌ ${tp}/4 groupe${tp > 1 ? "s" : ""}`)
+      + (n > 1 ? `\n🔥 Série : ${n} jours` : "") + `\n${grilleEmoji()}`;
+  }
+
   function lienPersonnel() { return location.origin + location.pathname + "?p=" + (participant ? participant.id : ""); }
   function lienInvitation() { return location.origin + location.pathname + "?inv=" + (participant ? participant.id : ""); }
 
@@ -2495,7 +2505,7 @@
     racine.querySelectorAll("[data-copie]").forEach(b => b.addEventListener("click", async () => {
       const input = b.parentElement.querySelector("input");
       try { await navigator.clipboard.writeText(input.value); b.textContent = "Copié"; }
-      catch (e) { input.select(); document.execCommand && document.execCommand("copy"); b.textContent = "Copié"; }
+      catch (e) { input.select(); const ok = !!(document.execCommand && document.execCommand("copy")); b.textContent = ok ? "Copié" : "Appuie longtemps sur le lien"; }
     }));
   }
 
@@ -2503,6 +2513,7 @@
     $("jeu").classList.add("hidden");
     $("fin").classList.remove("hidden");
     if (mode === "entr") return afficherFinEntr();
+    $("tagline").textContent = etat.gagne ? "Grille résolue." : "Grille terminée.";
     ["questionnaire-panel", "retour-accueil-fin", "solution", "suite"].forEach(id => $(id).classList.remove("hidden"));
     // En démo, rien n'est envoyé : pas de questionnaire, et la suite est proposée tout de suite sous le résultat.
     if (DEMO) ["questionnaire-panel", "suite", "actions-demo"].forEach(id => $(id).classList.add("hidden"));
@@ -2531,7 +2542,7 @@
     const fp = $("fin-partage"); fp.classList.remove("hidden");
     fp.innerHTML = `<h2>Tes essais</h2>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
-      <button class="btn btn-large" id="btn-partager">Inviter quelqu'un à jouer</button>
+      <button class="btn btn-large" id="btn-partager">Partager mon résultat</button>
       <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
     rendreSolution(etat.gagne, tp);
     $("btn-partager").addEventListener("click", partager);
@@ -2692,14 +2703,15 @@
   }
 
   async function partager() {
-    const texte = `QUOTIDIEN — ${etat.gagne ? "résolue" : "pas résolue"} avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}\n${grilleEmoji()}\nÀ toi : ${DEMO ? location.origin + location.pathname : lienInvitation()}`;
+    const texte = `${texteResultat()}\nÀ toi : ${DEMO ? location.origin + location.pathname : lienInvitation()}`;
     let methode = "copie";
     try {
       if (navigator.share) { await navigator.share({ text: texte }); methode = "partage_natif"; }
       else { await navigator.clipboard.writeText(texte); $("partage-ok").classList.remove("hidden"); }
     } catch (e) {
       if (e && e.name === "AbortError") { journal("partage", { methode: "annule" }); return; }
-      try { await navigator.clipboard.writeText(texte); $("partage-ok").classList.remove("hidden"); } catch (e2) { methode = "echec"; }
+      try { await navigator.clipboard.writeText(texte); $("partage-ok").classList.remove("hidden"); }
+      catch (e2) { methode = "echec"; const m = $("partage-ok"); m.textContent = "Copie impossible sur ce navigateur : fais une capture d'écran de tes essais."; m.classList.remove("hidden"); }
     }
     journal("partage", { methode });
   }

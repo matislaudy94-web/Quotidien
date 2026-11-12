@@ -264,7 +264,7 @@ async function jouer(page, groupesAJouer, faux = 0) {
     ok(await pa.locator("#mini-jeux").isVisible() && await pa.locator("#carte-intrus").isVisible(), "accueil : accès direct aux jeux (dont le mot intrus)");
     ok(await pa.locator(".raccourcis").count() === 0, "accueil : plus de raccourcis en double avec la barre du bas");
     const libs = await pa.$$eval("#nav-bas button", b => b.map(x => x.textContent.replace(/\s+/g, " ").trim()));
-    ok(libs.join("|") === "🏠Accueil|📅Quotidien|🎮Jeux|🏆Progression|📊Stats", "barre du bas : Accueil, Quotidien, Jeux, Progression, Stats → " + libs.join(" | "));
+    ok(libs.join("|") === "🏠Accueil|🧩Quotidien|🎮Jeux|🏆Progression|📊Stats", "barre du bas : Accueil, Quotidien, Jeux, Progression, Stats → " + libs.join(" | "));
     const navVisible = await pa.locator("#nav-bas:not(.hidden)").count() === 1;
     ok(navVisible, "navigation basse visible sur l'accueil");
     await pa.click('#nav-bas [data-ecran="progression"]'); await pa.waitForSelector("#ecran-progression:not(.hidden)");

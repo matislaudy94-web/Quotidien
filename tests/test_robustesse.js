@@ -499,7 +499,7 @@ const mesures = (page) => page.evaluate(() => ({
       if (m === "annule") def((d) => { window.__partages.push(d); return Promise.reject(new DOMException("Share canceled", "AbortError")); });
       if (m === "refuse") def((d) => { window.__partages.push(d); return Promise.reject(new DOMException("Permission denied", "NotAllowedError")); });
       if (m === "natif") def((d) => { window.__partages.push(d); return Promise.resolve(); }); }, mode);
-    const etatPartage = async () => ({ copies: await page.evaluate(() => window.__copies.slice()), natifs: await page.evaluate(() => window.__partages.map(d => d.text || "")), copieAffiche: await page.locator("#partage-ok:not(.hidden)").count() === 1 });
+    const etatPartage = async () => ({ copies: await page.evaluate(() => window.__copies.slice()), natifs: await page.evaluate(() => window.__partages.map(d => d.text || "")), copieAffiche: await page.locator("#partage-ok:not(.hidden)").filter({ hasText: "Message copié" }).count() === 1 });
     const dernierPartage = async () => { const e = evts(await db(), P, "partage"); return e.length ? e[e.length - 1].donnees.methode : null; };
     const nbPartages = async () => evts(await db(), P, "partage").length;
     const cliquer = async (n) => { await page.click("#btn-partager"); await attendre(async () => await nbPartages() === n, 3000); await page.waitForTimeout(150); };
@@ -535,14 +535,14 @@ const mesures = (page) => page.evaluate(() => ({
     // DÉFAUT D7 (index.html, partager() : en cas d'échec de la copie, methode = "echec" est journalisé mais
     // RIEN n'est affiché, contrairement à partagerScore() « Copie impossible sur ce navigateur ») : le bouton
     // « Inviter quelqu'un à jouer » ne fait rien de visible.
-    connu(retourVisible, "D7", "ni partage ni presse-papiers : le joueur devrait voir un message (ou le texte à copier à la main) ; le bouton « Inviter quelqu'un à jouer » ne produit aucun retour visible");
+    ok(retourVisible, "[D7 corrigé le 12/11/2026] " + "ni partage ni presse-papiers : le joueur devrait voir un message (ou le texte à copier à la main) ; le bouton « Inviter quelqu'un à jouer » ne produit aucun retour visible");
     // f) bouton « Copier » du lien personnel quand la copie échoue
     if (await page.locator("#btn-demande:not([disabled])").count()) await page.click("#btn-demande");
     await page.click("#apres-demande [data-copie]"); await page.waitForTimeout(200);
     const lib = await texte(page, "#apres-demande [data-copie]");
     // DÉFAUT D8 (index.html, brancherCopie() : dans le catch, « Copié » est affiché sans regarder le
     // résultat de document.execCommand("copy")) : faux « Copié » sur le lien personnel, celui qui sert à revenir.
-    connu(lib !== "Copié", "D8", `copie du lien personnel impossible (presse-papiers refusé, execCommand → false) : le bouton ne devrait pas annoncer « Copié » ; il affiche « ${lib} »`);
+    ok(lib !== "Copié", "[D8 corrigé le 12/11/2026] " + `copie du lien personnel impossible (presse-papiers refusé, execCommand → false) : le bouton ne devrait pas annoncer « Copié » ; il affiche « ${lib} »`);
     await page.evaluate(() => { window.__clipKO = false; });
 
     // g) Partage d'un score de jeu (Défi express) : aucun lien pour un participant.

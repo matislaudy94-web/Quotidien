@@ -173,6 +173,14 @@
     const calComplet = entrees.length ? ` (${entrees.length} jours, du ${entrees[0][0]} au ${entrees[entrees.length - 1][0]})` : "";
     $("info-session").innerHTML = `${s.active ? "<strong>Session active</strong> (les visiteurs sans lien et les invités y sont rattachés)." : "Session inactive."} Calendrier (heure de Paris)${calComplet} : ${esc(cal)}. Aujourd'hui : ${jourParis()}.`;
     D = await API.rpc("a_donnees", { code: CODE, p_session: sessionId });
+    // Défense : les événements viennent du navigateur des joueurs (clé publique). Avant tout affichage,
+    // un identifiant de grille inattendu est neutralisé et les champs attendus sont remis en forme.
+    for (const e of (D.evenements || [])) {
+      if (e.grille != null && !/^[A-Za-z0-9_-]{1,10}$/.test(String(e.grille))) e.grille = "?";
+      if (!e.donnees || typeof e.donnees !== "object") e.donnees = {};
+      if (e.type === "essai" && !Array.isArray(e.donnees.mots)) e.donnees.mots = [];
+      if (e.type === "fin" && e.donnees.groupes_trouves != null && !Array.isArray(e.donnees.groupes_trouves)) e.donnees.groupes_trouves = [];
+    }
     rendreTout();
   }
 
@@ -408,7 +416,7 @@
 
   // ---------- Export CSV ----------
   function csv(lignes) {
-    const cell = (v) => { const s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); return /[;"\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    const cell = (v) => { let s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); if (typeof v === "string" && /^[=+\-@\t\r]/.test(s)) s = "'" + s; /* pas de formule dans un tableur */ return /[;"\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
     return "﻿" + lignes.map(l => l.map(cell).join(";")).join("\r\n");
   }
   function telecharger(nom, contenu) {

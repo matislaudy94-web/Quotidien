@@ -204,6 +204,7 @@
   .compte-chiffres { font-family: var(--title); font-weight: 700; font-size: 30px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--c0); }
   .compte-chiffres small { font-size: 14px; font-weight: 600; color: var(--muted); margin-left: 1px; }
   .compte .btn { margin: 0; }
+  .serie { text-align: center; font-family: var(--title); font-weight: 700; font-size: 18px; margin: 4px 0 8px; } .serie small { font-family: inherit; font-weight: 700; font-size: 13px; color: var(--ink-soft); }
   fieldset { border: 0; padding: 0; margin: 16px 0 0; }
   legend { font-weight: 800; font-size: 15px; margin-bottom: 8px; padding: 0; }
   .choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -628,14 +629,14 @@
   </section>
 
   <section id="fin" class="hidden">
-    <!-- Ordre de l'écran de fin : résultat, puis tout de suite la solution (sans avoir à descendre), puis la suite,
-         l'XP gagnée et le partage. -->
+    <!-- Ordre de l'écran de fin : résultat, puis le rendez-vous du lendemain (série, compte à rebours, seul bouton
+         vert de l'écran), puis la solution, l'XP gagnée, le partage et l'avis. -->
     <div class="panel" id="resume"></div>
+    <div class="panel" id="suite"></div>
     <div class="panel" id="solution"></div>
     <div id="fin-actions"></div>
     <div id="recompenses"></div>
     <div class="panel hidden" id="fin-partage"></div>
-    <div class="panel" id="suite"></div>
     <div class="panel" id="questionnaire-panel">
       <h2>Ton avis</h2><p class="sous-titre">Facultatif · 20 secondes</p>
       <form id="questionnaire">
@@ -659,7 +660,7 @@
           </div></fieldset>
         <fieldset><legend>Qu'est-ce qui t'a le plus gêné ? (facultatif)</legend>
           <textarea name="gene" maxlength="600" placeholder="Un groupe injuste, un mot inconnu, l'interface…"></textarea></fieldset>
-        <div class="actions" style="margin-top:14px"><button class="btn primary btn-large" type="submit">Envoyer mon avis</button></div>
+        <div class="actions" style="margin-top:14px"><button class="btn btn-large" type="submit">Envoyer mon avis</button></div>
       </form>
       <p class="merci hidden" id="merci">Merci, c'est noté !</p>
     </div>
@@ -1974,7 +1975,7 @@
         <h2>${DEMO ? grille.titre : formatDate(jourParis())}</h2>
         <div class="meta">${DEMO ? `<span class="tag ${grille.niveau}">${LIB_NIV[grille.niveau] || ""}</span>${grille.nbVersions > 1 && grille.version > 1 ? `<span class="tag">Version ${grille.version}/${grille.nbVersions}</span>` : ""}` : ""}
           <span class="tag ${reussieDemo ? "ok" : ""}">${reussieDemo ? "Réussie ✓" : DEMO && terminee ? "À réussir" : terminee ? "Terminée" : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "En cours" : "À jouer"}</span>
-          <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span></div>
+          <span class="tag">${dejaComptee && gainJournal ? `+${gainJournal.xp} XP gagnés` : DEMO ? `Jusqu'à ${xpMax} XP` : "XP à gagner"}</span>${htmlSerie(false)}</div>
         <p>${reussieDemo ? (suivDemo ? `Bravo, grille réussie ! La grille ${indexGrille(suivDemo) + 1} est débloquée.` : "Bravo, tu as réussi la dernière grille !") : DEMO && terminee ? `Pas encore réussie : retente ta chance pour débloquer la grille suivante${grille.nbVersions > 1 ? ", avec d'autres mots" : ""}.` : terminee ? "Tu as déjà joué cette grille." : `${DEMO ? "" : "Une nouvelle grille chaque jour. "}16 mots, 4 groupes à retrouver, 4 erreurs permises. Un mot peut sembler aller dans deux groupes : une seule solution utilise les 16.`}</p>
         ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${indexGrille(suivDemo) + 1} →</button>` : ""}
         <button class="btn ${suivDemo || (terminee && !DEMO) ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
@@ -2530,7 +2531,7 @@
     const fp = $("fin-partage"); fp.classList.remove("hidden");
     fp.innerHTML = `<h2>Tes essais</h2>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
-      <button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-partager">Inviter quelqu'un à jouer</button>
+      <button class="btn btn-large" id="btn-partager">Inviter quelqu'un à jouer</button>
       <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
     rendreSolution(etat.gagne, tp);
     $("btn-partager").addEventListener("click", partager);
@@ -2540,7 +2541,8 @@
     const suite = $("suite");
     if (DEMO) suite.innerHTML = `<h2>Prochaine grille</h2><p class="small">En mode démo, rien n'est enregistré.</p>`;
     else if (!prochaine) suite.innerHTML = `<h2>C'était la dernière grille du test</h2><p>Merci d'avoir joué !</p>`;
-    else suite.innerHTML = `<h2>Une autre grille ?</h2>
+    else suite.innerHTML = `<h2>Rendez-vous demain</h2>
+      ${htmlSerie(true)}
       <div class="compte" id="compte-a-rebours"></div>
       <p class="small" style="text-align:center">Le <strong>${formatDate(prochaine)}</strong> à minuit, à la même adresse.</p>
       <div class="actions"><button class="btn primary btn-large" id="btn-demande" ${etat.demande ? "disabled" : ""}>${etat.demande ? "C'est noté !" : "Oui, je veux jouer la prochaine"}</button></div>
@@ -2559,9 +2561,19 @@
     if (entrainementActif() && ENTR.grilles.length) {
       ce.classList.remove("hidden");
       ce.innerHTML = `<h2>Envie de continuer maintenant ?</h2><p class="small">Le mode entraînement propose ${ENTR.grilles.length} exercices à enchaîner, en dehors de la grille du jour.</p>
-        <div class="actions"><button class="btn ${DEMO ? "" : "primary"} btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
+        <div class="actions"><button class="btn btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
       $("btn-fin-entr").addEventListener("click", ouvrirEntrainement);
     } else ce.classList.add("hidden");
+  }
+
+  // Série de jours consécutifs avec une grille du jour terminée. Affichée (écran de fin, accueil), jamais récompensée.
+  function htmlSerie(finDePartie) {
+    if (DEMO) return "";
+    const se = progression().stats.serie, n = se.actuelle;
+    if (!n) return "";
+    const jours = `${n} jour${n > 1 ? "s" : ""}`;
+    if (finDePartie) return `<p class="serie"><span aria-hidden="true">🔥</span> Série : <b>${jours}</b>${n > 1 && n >= se.record ? " · ton record" : ""}<br><small>Joue la grille de demain pour la prolonger.</small></p>`;
+    return `<span class="tag serie-tag"><span aria-hidden="true">🔥</span> Série : ${jours}</span>`;
   }
 
   // Panneau de fin : la solution complète seulement après une réussite ; après un échec, uniquement les groupes

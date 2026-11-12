@@ -63,7 +63,7 @@
         <form class="row" id="form-session" style="margin-top:8px">
           <input id="s-nom" placeholder="Nom (ex. Test novembre)" required>
           <label>Premier jour <input type="date" id="s-debut" required></label>
-          <span class="muted">Une grille par jour dans l'ordre (grille 1 le premier jour, etc.), soit autant de jours que de grilles (<span id="nb-grilles"></span>). Le calendrier reste modifiable ensuite. La nouvelle session devient la session active.</span>
+          <span class="muted">Une grille par jour (<span id="nb-grilles"></span> jours), en alternant les niveaux : première semaine plus douce, puis jamais deux faciles ni plus de deux difficiles de suite. Le calendrier reste modifiable ensuite. La nouvelle session devient la session active.</span>
           <button>Créer</button>
         </form>
       </details>
@@ -191,10 +191,24 @@
   $("choix-session").addEventListener("change", (e) => { sessionId = e.target.value; charger(); });
   $("btn-actualiser").addEventListener("click", () => charger());
 
+  // Ordre des grilles dans le calendrier d'une nouvelle session : un rythme plutôt que l'ordre du fichier, pour éviter
+  // de longues suites de grilles du même niveau. F = facile, I = intermédiaire, D = difficile. Première semaine plus
+  // douce (4 faciles), jamais deux faciles de suite ensuite, jamais plus de deux difficiles de suite, final difficile.
+  // À l'intérieur d'un niveau, les grilles gardent l'ordre du fichier. Si la banque ne correspond plus au rythme
+  // (autre nombre de grilles par niveau), on revient à l'ordre du fichier.
+  const RYTHME = "FIFFIDF" + "IFDIFID" + "FIDIFDI" + "FIDFIDI" + "FDIFDID" + "FIDFDID" + "DFD";
+  function ordreCalendrier() {
+    const files = { F: GRILLES.filter(g => g.niveau === "facile"), I: GRILLES.filter(g => g.niveau === "intermediaire"), D: GRILLES.filter(g => g.niveau === "difficile") };
+    const besoin = { F: 0, I: 0, D: 0 }; for (const c of RYTHME) besoin[c]++;
+    if (RYTHME.length !== GRILLES.length || ["F", "I", "D"].some(c => besoin[c] !== files[c].length)) return GRILLES.slice();
+    const k = { F: 0, I: 0, D: 0 };
+    return [...RYTHME].map(c => files[c][k[c]++]);
+  }
+
   $("form-session").addEventListener("submit", async (e) => {
     e.preventDefault();
     const debut = $("s-debut").value; if (!debut) return;
-    const cal = {}; GRILLES.forEach((g, i) => { const d = new Date(debut + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + i); cal[d.toISOString().slice(0, 10)] = g.id; });
+    const cal = {}; ordreCalendrier().forEach((g, i) => { const d = new Date(debut + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + i); cal[d.toISOString().slice(0, 10)] = g.id; });
     const r = await API.rpc("a_creer_session", { code: CODE, p_nom: $("s-nom").value.trim(), p_calendrier: cal });
     sessionId = r.id; charger();
   });

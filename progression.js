@@ -19,7 +19,7 @@
 
   // ---------- Niveaux ----------
   const NIVEAUX = [
-    { n: 1, nom: "Débutant", xp: 0, description: "Tu découvres le jeu : 16 mots, 4 groupes, 4 erreurs.", cible: "Les premières grilles du calendrier sont les plus accessibles." },
+    { n: 1, nom: "Débutant", xp: 0, description: "Tu découvres le jeu : 16 mots, 4 groupes, 4 erreurs.", cible: "Chaque grille terminée te rapproche du niveau suivant." },
     { n: 2, nom: "Curieux", xp: 120, description: "Tu as pris le pli. Les expressions à trou ne te font plus peur.", cible: "Une grille résolue sans faute suffit souvent à y arriver." },
     { n: 3, nom: "Explorateur", xp: 350, description: "Tu repères les pièges : un mot qui semble aller dans deux groupes.", cible: "Environ cinq grilles résolues." },
     { n: 4, nom: "Stratège", xp: 700, description: "Tu gardes tes erreurs pour la fin et tu utilises les « presque ».", cible: "Une dizaine de grilles, dont des intermédiaires." },

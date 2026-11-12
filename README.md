@@ -8,7 +8,7 @@ Jeu de mots quotidien : 16 mots à répartir en 4 groupes de 4. Ce prototype ser
 |---|---|
 | `index.html` | Le jeu (mobile et ordinateur, sans téléchargement). |
 | `admin.html` | Tableau de bord administrateur (protégé par un code). |
-| `grilles.json` | Les 45 grilles (source), 15 faciles / 15 intermédiaires / 15 difficiles, chacune avec un champ `niveau`. `nouvelles_grilles.json` est une ancienne copie de travail des grilles 31 à 45 (avant réécriture des explications) : elle n'est plus tenue à jour, la seule source est `grilles.json`. Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
+| `grilles.json` | Les 45 grilles (source), 15 faciles / 15 intermédiaires / 15 difficiles, chacune avec un champ `niveau`. `nouvelles_grilles.json` est une ancienne copie de travail des grilles 31 à 45 (avant réécriture des explications) : elle n'est plus tenue à jour, la seule source est `grilles.json`. `grilles_proposees.json` est aussi une ancienne copie de travail (propositions d'avant intégration, différentes des grilles publiées) : ne pas la modifier ni s'en servir. Après modification : `python3 verifier_grilles.py` puis `python3 generer_grilles_js.py`. |
 | `grilles.js` | Les grilles, générées depuis `grilles.json` (ne pas modifier à la main). |
 | `defi.json` | La banque du **Défi express** : 86 catégories simples réparties en 19 familles, et la liste des paires de catégories à ne jamais tirer ensemble. `defi_banque.js` est généré à partir d'elle. Vérification : `python3 verifier_defi.py`. |
 | `defi.js` | Moteur du Défi : tirage reproductible à partir d'une graine, paliers, classement, records et badges (sans XP). |
@@ -84,7 +84,7 @@ Les versions de rechange ne servent qu'en démo : les participants jouent toujou
 ## Navigation (depuis le 30/10/2026)
 
 Barre du bas : **Accueil · Quotidien · Jeux · Progression · Stats**.
-- **Accueil** : niveau et XP, grille du jour (action principale, bouton vert), trois tuiles de jeux, derniers résultats (seulement s'il y en a), 2 objectifs en cours.
+- **Accueil** : niveau et XP, grille du jour (action principale, bouton vert), quatre tuiles de jeux (Défi express, Expression mystère, mot intrus, entraînement), derniers résultats (seulement s'il y en a), 2 objectifs en cours.
 - **Quotidien** : ouvre directement la grille du jour (en démo : la grille de démo en cours). Aucun accès aux grilles futures.
 - **Jeux** : tous les modes en cartes, en 3 sections (voir plus bas). Les écrans du Défi, de l'entraînement et du mot intrus allument cet onglet.
 - **Progression** : niveau, objectifs, badges (grille + entraînement), trophées des jeux et liste des niveaux, avec un sommaire en haut.
@@ -173,7 +173,7 @@ Architecture prévue : une banque JSON par jeu (contenu séparé du moteur), un 
 | 4 | Stratège | 700 |
 | 5 | Maître des mots | 1 200 |
 
-**Objectifs** (une seule fois chacun) : Premier défi (terminer 1 grille, 30 XP) · Esprit logique (résoudre 1 grille sans erreur, 50) · Fin limier (résoudre 3 grilles, 60) · Explorateur (terminer 5 grilles différentes, 80) · Trois sans-faute (résoudre 3 grilles sans erreur, 120) · Marathon (terminer 15 grilles, 150) · Grand chelem (résoudre 25 grilles, 250). L'accueil montre au plus 3 objectifs non réalisés.
+**Objectifs** (11 au total, une seule fois chacun ; 7 pour les grilles ci-dessous, 4 pour Expression mystère décrits dans sa section) : Premier défi (terminer 1 grille, 30 XP) · Esprit logique (résoudre 1 grille sans erreur, 50) · Fin limier (résoudre 3 grilles, 60) · Explorateur (terminer 5 grilles différentes, 80) · Trois sans-faute (résoudre 3 grilles sans erreur, 120) · Marathon (terminer 15 grilles, 150) · Grand chelem (résoudre 25 grilles, 250). L'accueil montre au plus 2 objectifs non réalisés.
 
 **Badges** (+10 XP chacun) : Première grille (terminer une partie) · Sans-faute (résoudre sans erreur) · Tête froide (résoudre après 3 erreurs) · Éclair (résoudre en moins de 90 s) · Costaud (résoudre une grille difficile) · Persévérant (terminer 10 grilles) · Collectionneur (résoudre 20 grilles) · Maître des mots (atteindre le niveau 5).
 
@@ -189,7 +189,7 @@ Architecture prévue : une banque JSON par jeu (contenu séparé du moteur), un 
 
 **Limites de la progression**
 - Stockage local (navigateur) : pas de synchronisation entre appareils ou navigateurs, pas de compte. Un joueur qui change d'appareil repart de zéro côté progression (ses parties restent dans la base de test). Effacer les données du navigateur efface la progression.
-- Le parcours ne propose pas de grilles supplémentaires : les 45 grilles sont réservées au calendrier quotidien (jours 1 à 45). Pour ajouter un mode « entraînement », il faudra une **seconde banque de grilles** distincte du calendrier (même format `grilles.json`, vérifiée de la même façon), sinon les joueurs découvriraient la grille de demain en avance.
+- Les 45 grilles sont réservées au calendrier quotidien (jours 1 à 45) : le mode entraînement utilise sa propre banque (voir « Le mode entraînement »), sinon les joueurs découvriraient la grille de demain en avance.
 - Le mode démo a sa propre progression (profil `demo`), réinitialisable depuis « Mes stats » ; elle ne touche jamais celle d'un participant.
 - La progression modifie l'expérience testée : à partir du 28/10, on teste « Quotidien avec progression », pas le jeu nu.
 - **La difficulté n'est pas montrée aux participants** (ni l'étiquette de la grille, ni le maximum d'XP avant de jouer, ni le niveau de chaque groupe dans la solution), pour ne pas suggérer la réponse « difficulté ressentie » du questionnaire. Elle reste visible en mode démo et dans le tableau de bord. Après la partie, l'XP gagnée (50 / 75 / 100) permet à un joueur qui connaît le barème de déduire le niveau : c'est accepté.
@@ -199,7 +199,7 @@ Architecture prévue : une banque JSON par jeu (contenu séparé du moteur), un 
 - **Pages web statiques**, sans dépendance. Hébergement gratuit (GitHub Pages).
 - **Base de données** : projet Supabase gratuit `quotidien` (Paris), distinct du projet de l'appli sport.
   - Les tables ne sont **pas lisibles** avec la clé publique.
-  - Les joueurs ne peuvent qu'appeler 4 fonctions d'enregistrement.
+  - Les joueurs ne peuvent qu'appeler des fonctions : `q_*` (identification, visite, événements de la grille du jour) et `g_*` (groupes du Défi).
   - Les fonctions d'administration exigent le code administrateur.
 - Les résultats de **tous** les testeurs sont centralisés dans cette base. Ce n'est vrai **que** pour la version hébergée connectée à Supabase. Ouvrir `index.html` directement depuis un ordinateur ne fonctionne pas (le navigateur bloque les appels) : utiliser l'adresse en ligne.
 
@@ -207,7 +207,7 @@ Architecture prévue : une banque JSON par jeu (contenu séparé du moteur), un 
 
 1. Ouvrir `admin.html` (adresse en ligne) et entrer le code administrateur.
 2. **Créer une session** : nom et premier jour.
-   - Le calendrier se remplit tout seul : une grille par jour dans l'ordre du fichier (grille 1 le premier jour, … grille 30 le trentième). Il reste modifiable dans « Modifier le calendrier ».
+   - Le calendrier se remplit tout seul : une grille par jour dans l'ordre du fichier (grille 1 le premier jour, … grille 45 le quarante-cinquième). Il reste modifiable dans « Modifier le calendrier ».
    - L'ordre des 45 grilles alterne volontairement les niveaux sur les premiers jours (1 facile, 2 intermédiaire, 3 difficile) ; le protocole de décision à 14 jours reste inchangé.
    - Le changement de jour se fait à minuit, heure de Paris.
 3. **Créer les participants** (par exemple 30). Ils sont répartis automatiquement en groupe R et groupe S, en alternance.
@@ -355,7 +355,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 
 `node tests/test_jeux.js` (iPhone 13 et SE) : barre du bas (5 onglets), onglet Jeux (3 sections, 5 cartes avec durée et bouton, états réels sans faux score, rappel de la grille du jour), série complète du mot intrus (pas d'enchaînement automatique, retour immédiat ✓/✗, critère et explication, 4/5, explications, rejouer), partage (copie, sans lien pour un participant, lien démo en démo), événements `minijeu` séparés et aucun événement du test, aucune XP, records sur l'accueil, l'onglet Jeux, les stats et la progression, bouton retour du téléphone (mot intrus → Jeux → accueil → sortie ; exercice → parcours avec sauvegarde ; Défi en cours non interrompu), fin du Défi (partage, autres jeux), démo sans événement, iPhone SE (pas de débordement, libellés de la barre entiers, zones tactiles ≥ 44 px, mots dans leur case), aucune erreur JavaScript. `node tests/test_intrus.js` : banque (taille, aucun mot du calendrier), tirage (composition 2/2/1, sans doublon, reproductible, mots mélangés, intrus à toutes les places, questions vues évitées), records et trophées, aucune XP.
 
-`node tests/test_entrainement.js` (71 vérifications, iPhone 13 et iPhone SE) couvre le mode entraînement : accueil avec les deux modes, grille du jour inchangée, ouverture du parcours, réussite et « Exercice suivant », échec après 4 erreurs, « Réessayer » (remise à zéro de la tentative, chronomètre, progression intacte), échec avec un groupe trouvé (seul ce groupe rappelé, solution cachée, puis réussite avec XP), « Passer » sans XP, reprise après rechargement (groupes, erreurs, sélection, temps actif), absence de double crédit, statistiques séparées, mode démo indépendant, données du test non contaminées (seuls les événements de la grille du jour, visites non comptées comme retours, traces `entrainement` séparées), petits écrans (pas de défilement horizontal, zones tactiles ≥ 44 px, bouton Valider visible).
+`node tests/test_entrainement.js` (73 vérifications, iPhone 13 et iPhone SE) couvre le mode entraînement : accueil avec les deux modes, grille du jour inchangée, ouverture du parcours, réussite et « Exercice suivant », échec après 4 erreurs, « Réessayer » (remise à zéro de la tentative, chronomètre, progression intacte), échec avec un groupe trouvé (seul ce groupe rappelé, solution cachée, puis réussite avec XP), « Passer » sans XP, reprise après rechargement (groupes, erreurs, sélection, temps actif), absence de double crédit, statistiques séparées, mode démo indépendant, données du test non contaminées (seuls les événements de la grille du jour, visites non comptées comme retours, traces `entrainement` séparées), petits écrans (pas de défilement horizontal, zones tactiles ≥ 44 px, bouton Valider visible).
 
 `node tests/test_parcours.js` lance un serveur local avec une base **simulée**, puis un navigateur Chromium en émulation iPhone. Ces tests vérifient :
 - la création de la session et des participants (alternance R/S) ;
@@ -374,7 +374,7 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 - le chargement lent : message après 8 s, bouton « Réessayer » sans seconde requête ;
 - l'identifiant d'appareil enregistré, et le signalement d'un lien ouvert sur 2 appareils ;
 - l'avertissement « lien personnel » affiché au joueur ;
-- la progression : XP crédités une seule fois par grille (rechargement et rejouer sans effet), objectifs et badges attribués, montée de niveau, persistance après rechargement, carte du jour au changement de jour, séparation démo / participant, cohérence des statistiques, navigation entre les écrans, événement `recompense` tracé côté serveur. Le module `progression.js` a aussi 15 tests unitaires (`node tests/test_progression.js`).
+- la progression : XP crédités une seule fois par grille (rechargement et rejouer sans effet), objectifs et badges attribués, montée de niveau, persistance après rechargement, carte du jour au changement de jour, séparation démo / participant, cohérence des statistiques, navigation entre les écrans, événement `recompense` tracé côté serveur. Le module `progression.js` a aussi 23 vérifications unitaires (`node tests/test_progression.js`).
 
 Le classement des visites et les droits d'accès ont été testés **directement sur la vraie base** :
 - spontané, après rappel et rappel probable ;

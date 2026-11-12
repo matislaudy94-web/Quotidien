@@ -941,7 +941,9 @@
   }
 
   function prochaineDate() {
-    const auj = jourParis();
+    // Si minuit est passé depuis le chargement, la « prochaine » grille est celle d'aujourd'hui : le compte à rebours
+    // tombe à zéro et propose de la jouer, au lieu d'annoncer celle du surlendemain.
+    const auj = (typeof jourCharge === "string" && jourCharge < jourParis()) ? jourCharge : jourParis();
     return Object.keys(participant.calendrier || {}).filter(d => d > auj).sort()[0] || null;
   }
 
@@ -1977,7 +1979,7 @@
         ${suivDemo ? `<button class="btn primary btn-large" id="btn-suivante" style="margin-bottom:10px">Jouer la grille ${indexGrille(suivDemo) + 1} →</button>` : ""}
         <button class="btn ${suivDemo || (terminee && !DEMO) ? "" : "primary"}" id="btn-jouer">${terminee ? (DEMO ? (reussieDemo ? "Rejouer (sans XP)" : "Réessayer (sans XP)") : "Voir mon résultat") : (etatLocal && etatLocal.debut) || (DEMO && etat && etat.grilleId === grille.id && etat.debut && !etat.fin) ? "Reprendre la partie" : "Jouer maintenant"}</button>
         ${terminee && !DEMO && prochaine ? `<div class="compte" id="compte-accueil" style="margin:12px 0 0"></div>` : ""}`;
-      $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; viderPlateau(); lancerGrille(); } else allerJouer(); });
+      $("btn-jouer").addEventListener("click", () => { if (DEMO && terminee) { etat = null; viderPlateau(); lancerGrille(); } else if (!verifierJour()) allerJouer(); });
       if (suivDemo) $("btn-suivante").addEventListener("click", () => choisirGrilleDemo(suivDemo.id, true));
       if (terminee && !DEMO && prochaine) compteARebours($("compte-accueil"), prochaine);
     }
@@ -2126,7 +2128,7 @@
       b.addEventListener("click", () => naviguer(b.dataset.ecran, b.dataset.cible)); });
   }
   function naviguer(nom, cible) {
-    if (nom === "jeu") { allerJouer(); return; }
+    if (nom === "jeu") { if (verifierJour()) return; allerJouer(); return; }
     if (nom === "entrainement") { ouvrirEntrainement(); return; }
     if (nom === "defi") { ouvrirDefi(); return; }
     if (nom === "jeux") { ouvrirJeux(); return; }
@@ -2134,7 +2136,7 @@
     if (nom === "expression") { ouvrirExpression(); return; }
     // Anciennes entrées « parcours » et « badges » : regroupées dans l'onglet Progression.
     if (nom === "parcours" || nom === "badges" || nom === "progression") { cible = cible || (nom === "parcours" ? "niveaux" : nom === "badges" ? "badges" : null); nom = "progression"; rendreProgression(cible); }
-    if (nom === "accueil") { revenirJour(); rendreAccueil(); }
+    if (nom === "accueil") { if (verifierJour()) return; revenirJour(); rendreAccueil(); }
     if (nom === "stats") rendreStats();
     rendreEntete();
     afficherEcran(nom);

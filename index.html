@@ -41,14 +41,15 @@
   /* ---------- En-tête ---------- */
   header { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; }
   .logo { display: flex; gap: 3px; margin: 0; font-family: var(--title); font-weight: 700; font-size: 20px; line-height: 1; }
-  .logo span { display: inline-flex; align-items: center; justify-content: center; width: 27px; height: 31px; border-radius: 8px;
+  .logo { min-width: 0; }
+  .logo span { display: inline-flex; align-items: center; justify-content: center; width: min(27px, calc((100vw - 160px) / 9)); height: 31px; border-radius: 8px;
     color: var(--ink); box-shadow: inset 0 -4px 0 rgba(0,0,0,.18); }
   .logo span:nth-child(4n+1) { background: var(--c2); } .logo span:nth-child(4n+2) { background: var(--c1); }
   .logo span:nth-child(4n+3) { background: var(--c0); } .logo span:nth-child(4n) { background: var(--c3); }
   .logo span:nth-child(odd) { transform: translateY(-1px); }
-  @media (max-width: 360px) { .logo { gap: 2px; font-size: 17px; } .logo span { width: 23px; height: 27px; border-radius: 7px; } }
+  @media (max-width: 360px) { .logo { gap: 2px; font-size: 17px; } .logo span { width: min(23px, calc((100vw - 156px) / 9)); height: 27px; border-radius: 7px; } }
   .icon-btn { border: 0; background: rgba(255,255,255,.12); color: var(--light); border-radius: var(--pill); font-family: var(--title); font-weight: 700;
-    width: 42px; height: 42px; font-size: 20px; cursor: pointer; box-shadow: inset 0 -3px 0 rgba(0,0,0,.25); flex: none;
+    width: 44px; height: 44px; font-size: 20px; cursor: pointer; box-shadow: inset 0 -3px 0 rgba(0,0,0,.25); flex: none;
     transition: background-color .12s, transform .08s; }
   .icon-btn:active { transform: translateY(2px); }
   .date-grille { text-align: center; margin: 12px 0 0; font-family: var(--title); font-weight: 600; font-size: 16px; color: #fff; }
@@ -110,7 +111,7 @@
   .retour { height: 38px; display: flex; align-items: center; justify-content: center; margin: 0 0 6px; }
   .bulle { font-family: var(--title); font-weight: 700; font-size: 16px; padding: 7px 16px; border-radius: var(--pill); white-space: nowrap;
     background: #fff; color: var(--ink); box-shadow: 0 3px 0 rgba(0,0,0,.25); animation: bulle .22s cubic-bezier(.2,.9,.3,1.4); }
-  .bulle.bon { background: var(--ok); color: #fff; box-shadow: 0 3px 0 var(--ok-edge); }
+  .bulle.bon { background: var(--ok); color: var(--ink); box-shadow: 0 3px 0 var(--ok-edge); }
   .bulle.presque { background: var(--warn); color: #3a2300; box-shadow: 0 3px 0 #c27d12; }
   .bulle.faux { background: #fff; color: #b0244f; }
   .bulle.sort { opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
@@ -122,8 +123,8 @@
   .prog { display: inline-flex; gap: 4px; }
   .prog i { width: 18px; height: 10px; border-radius: var(--pill); background: rgba(255,255,255,.14); }
   .prog i.c0 { background: var(--c0); } .prog i.c1 { background: var(--c1); } .prog i.c2 { background: var(--c2); } .prog i.c3 { background: var(--c3); }
-  .prog i[class] { position: relative; }
-  .prog i[class]::after { content: ""; position: absolute; left: 6px; top: 1px; width: 4px; height: 6px; border: solid var(--ink); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .prog i[class]:not([class=""]) { position: relative; }
+  .prog i[class]:not([class=""])::after { content: ""; position: absolute; left: 6px; top: 1px; width: 4px; height: 6px; border: solid var(--ink); border-width: 0 2px 2px 0; transform: rotate(45deg); }
   .dots { display: inline-flex; gap: 3px; align-items: center; }
   .coeur { width: 20px; height: 20px; display: block; }
   .coeur path { fill: var(--life); }
@@ -151,7 +152,7 @@
     transition: transform .08s ease, box-shadow .08s ease, filter .12s, background-color .12s; -webkit-tap-highlight-color: transparent; }
   @media (hover: hover) { .btn:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 calc(var(--depth) + 1px) 0 #b4a9df; } }
   .btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #b4a9df; }
-  .btn.primary { background: var(--ok); color: #fff; box-shadow: 0 var(--depth) 0 var(--ok-edge); text-shadow: 0 1px 1px rgba(0,0,0,.2); }
+  .btn.primary { background: var(--ok); color: var(--ink); box-shadow: 0 var(--depth) 0 var(--ok-edge); text-shadow: none; } /* texte foncé : 7,3:1 sur le vert (le blanc faisait 2,2:1) */
   @media (hover: hover) { .btn.primary:hover:not(:disabled) { box-shadow: 0 calc(var(--depth) + 1px) 0 var(--ok-edge); } }
   .btn.primary:active:not(:disabled) { box-shadow: 0 1px 0 var(--ok-edge); }
   .btn:disabled { background: rgba(255,255,255,.1); color: rgba(255,255,255,.4); box-shadow: 0 var(--depth) 0 rgba(0,0,0,.2); text-shadow: none; cursor: default; }
@@ -162,7 +163,7 @@
   .barre-bas { position: sticky; bottom: 0; z-index: 4; margin: 8px -14px 0; padding: 6px 14px calc(6px + env(safe-area-inset-bottom));
     background: linear-gradient(to top, var(--bg2) 75%, rgba(20,15,58,0)); }
   .actions-jeu .btn { padding: 10px 6px; white-space: nowrap; }
-  .compteur { font-size: 13px; opacity: .85; margin-left: 5px; }
+  .compteur { font-size: 13px; margin-left: 5px; }
   .btn-large { width: 100%; }
 
   /* ---------- Panneaux (fin de partie, questionnaire) ---------- */
@@ -219,6 +220,7 @@
 
   .regle-ligne { text-align: center; font-size: 16px !important; margin: 0 0 12px !important; }
   .exemple { background: var(--plate); border-radius: var(--r-m); padding: 12px 10px; text-align: center; box-shadow: inset 0 3px 8px rgba(0,0,0,.4); }
+  .exemple .regle-ligne { color: var(--light); } /* fond sombre : le texte foncé des dialogues y était invisible */
   .exemple-tuiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
   .exemple-tuiles span { background: var(--cream); color: var(--ink); border-radius: 10px; height: 44px; display: flex; align-items: center; justify-content: center;
     font-family: var(--title); font-weight: 600; font-size: 12.5px; box-shadow: 0 3px 0 var(--cream-edge); }
@@ -481,12 +483,13 @@
   .regles-defi { margin: 6px 0 10px; padding-left: 18px; font-size: 14px; font-weight: 700; color: var(--ink-soft); }
   .regles-defi li { margin: 3px 0; }
   .visiteur-defi { font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; margin: 0 0 8px; }
-  .lien-discret { background: none; border: 0; color: var(--ink-soft); font-weight: 800; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 10px; min-height: 44px; }
+  .panel .lien-discret, dialog .lien-discret { color: var(--ink-soft); }
+  .lien-discret { background: none; border: 0; color: var(--muted); font-weight: 800; font-size: 14px; text-decoration: underline; cursor: pointer; padding: 10px; min-height: 44px; }
   .carte-jour .btn { width: 100%; }
   .objectif { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid #e9e1d0; }
   .objectif:last-child { border-bottom: 0; }
   .objectif .t { font-weight: 800; font-size: 15px; grid-column: 1; grid-row: 1; } .objectif .d { font-size: 13px; color: var(--ink-soft); font-weight: 700; grid-column: 1; }
-  .objectif .r { font-family: var(--title); font-weight: 700; color: var(--c0e); font-size: 14px; white-space: nowrap; grid-column: 2; grid-row: 1 / span 4; align-self: center; text-align: right; }
+  .objectif .r { font-family: var(--title); font-weight: 700; color: #8a6400; font-size: 14px; white-space: nowrap; grid-column: 2; grid-row: 1 / span 4; align-self: center; text-align: right; }
   .objectif .r.fait { color: var(--ok-edge); }
   .objectif .mini-barre { grid-column: 1; height: 8px; background: #e9e1d0; border-radius: var(--pill); overflow: hidden; margin-top: 2px; }
   .objectif .mini-barre i { display: block; height: 100%; background: var(--c1); border-radius: var(--pill); }
@@ -912,7 +915,8 @@
       store.set("quotidien_pid", pid);
       // L'adresse affichée devient le lien personnel (sans jeton de rappel) : c'est celui à mettre en favori.
       history.replaceState(null, "", location.pathname + "?p=" + pid);
-      const gid = participant.grille_forcee || participant.calendrier[jourParis()];
+      jourCharge = jourParis();
+      const gid = participant.grille_forcee || participant.calendrier[jourCharge];
       grille = GRILLES.find(g => g.id === gid) || null;
       API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null, p_appareil: appareilId }).catch(() => {});
       viderFile();
@@ -971,9 +975,10 @@
       const h = Math.floor(reste / 3600000), mn = Math.floor(reste / 60000) % 60, sec = Math.floor(reste / 1000) % 60;
       el.innerHTML = `<span class="compte-lib">Prochaine grille dans</span><span class="compte-chiffres">${String(h).padStart(2, "0")}<small>h</small> ${String(mn).padStart(2, "0")}<small>min</small> ${String(sec).padStart(2, "0")}<small>s</small></span>`;
     };
-    tic(); minuterieCompte = setInterval(tic, 1000);
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) tic(); });
+    ticCompte = tic; tic(); minuterieCompte = setInterval(tic, 1000);
   }
+  let ticCompte = null;
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && ticCompte && minuterieCompte) ticCompte(); });
 
   function formatDate(iso) {
     const [a, m, j] = iso.split("-").map(Number);
@@ -1003,7 +1008,22 @@
     window.scrollTo(0, 0);
   }
 
+  // Page restée ouverte après minuit (heure de Paris) : la grille chargée est celle de la veille. On recharge pour
+  // servir la grille du jour et enregistrer la visite du nouveau jour, sauf si une partie de la veille est en cours
+  // (elle peut être finie ; le rechargement se fera au retour sur l'accueil).
+  let jourCharge = null;
+  function verifierJour() {
+    if (DEMO || visiteurDefi || !participant || !jourCharge || jourParis() === jourCharge) return false;
+    const partieJourEnCours = ecranCourant === "jeu" && mode === "jour" && etat && !etat.fin && etat.debut;
+    const jeuAnnexeEnCours = ["defi-jeu", "intrus", "expression"].includes(ecranCourant) || (ecranCourant === "jeu" && mode === "entr");
+    if (partieJourEnCours || jeuAnnexeEnCours) return false;
+    jourCharge = null; location.replace(lienPersonnel()); return true;
+  }
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) verifierJour(); });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) verifierJour(); });
+
   function ouvrirAccueil() {
+    if (verifierJour()) return;
     revenirJour(); rendreEntete(); rendreAccueil(); afficherEcran("accueil");
   }
 
@@ -1016,6 +1036,7 @@
     else if (!entreeHistorique) { history.pushState({ quotidien: 1 }, "", location.href); entreeHistorique = true; }
   }
   function parentDe(nom) {
+    if (visiteurDefi) return "defi";
     return { jeu: mode === "entr" ? "entrainement" : "accueil", entrainement: "jeux", defi: "jeux", intrus: "jeux", expression: "jeux" }[nom] || "accueil";
   }
   window.addEventListener("popstate", () => {
@@ -2202,6 +2223,8 @@
     selection = (etatRepris ? selection : (mode === "entr" && etat.selection) || []).filter(m => !etat.trouves.includes(groupeDe(m)));
     fini = false; tuilesFausses = [];
     if (!etatRepris) viderPlateau();
+    // Partie complète mais jamais terminée (page rechargée pendant l'animation finale) : on la termine maintenant.
+    if (!etat.fin && (etat.trouves.length === 4 || etat.erreurs >= MAX_ERREURS)) { afficherEcran("jeu"); terminer(etat.trouves.length === 4); return; }
     if (etat.fin) { afficherFin(); afficherEcran("jeu"); return; }
     const cleRegles = DEMO ? "quotidien_regles_vues_demo" : "quotidien_regles_vues";
     if (!store.get(cleRegles)) { store.set(cleRegles, true); montrerEtape(1); $("dlg-regles").showModal(); journal("regles", { auto: true }); }

@@ -314,7 +314,7 @@ Après 8 s sans réponse : message + bouton « Réessayer » (qui attend la requ
 ## Mettre en ligne (GitHub Pages)
 
 1. Vérifier : `python3 verifier_grilles.py`, `python3 verifier_grilles.py entrainement.json`, `python3 verifier_variantes.py`, `python3 verifier_defi.py`, `python3 verifier_intrus.py`, `python3 verifier_expressions.py`, puis `python3 generer_grilles_js.py`.
-2. Tester : `node tests/test_progression.js`, `node tests/test_defi.js`, `node tests/test_intrus.js`, `node tests/test_expression.js`, puis `node tests/test_parcours.js`, `node tests/test_entrainement.js`, `node tests/test_defi_parcours.js`, `node tests/test_demo_niveaux.js`, `node tests/test_jeux.js`, `node tests/test_expression_parcours.js` (Playwright requis).
+2. Tester : `node tests/test_progression.js`, `node tests/test_defi.js`, `node tests/test_intrus.js`, `node tests/test_expression.js`, puis `node tests/test_parcours.js`, `node tests/test_entrainement.js`, `node tests/test_defi_parcours.js`, `node tests/test_demo_niveaux.js`, `node tests/test_jeux.js`, `node tests/test_expression_parcours.js` `node tests/test_robustesse.js` (Playwright requis), puis `python3 tests/test_analyse.py`.
 3. Publier : `git push` sur la branche `main` du dépôt `matislaudy94-web/Quotidien`. GitHub Pages republie le site en 1 à 2 minutes (onglet *Actions* du dépôt pour suivre). Adresse : https://matislaudy94-web.github.io/Quotidien/ (Q majuscule).
 4. Côté base : le type d'événement `minijeu` a été ajouté à la fonction `q_evenement` le 30/10/2026 (migration `evenement_type_minijeu`). Rien d'autre à faire.
 
@@ -347,6 +347,8 @@ Règle : aucune règle de comptabilisation ne change pendant un test. Tout chang
 | 28/10/2026 (avant tout test) | Écran d'accueil avant la grille (carte du jour + bouton « Jouer maintenant »), progression locale (XP, niveaux, objectifs, badges), nouvel événement `recompense`. | « A ouvert la page » = visite de l'accueil ; « a commencé » = premier mot touché (inchangé). Le produit testé inclut désormais la progression ; aucune récompense n'est liée au retour quotidien. |
 
 ## Tests effectués
+
+`node tests/test_robustesse.js` (ajoutée le 12/11/2026, iPhone 13 et SE, environ 4 minutes) : passage à minuit heure de Paris (partie à cheval sur minuit, onglet resté ouvert, compte à rebours à zéro), hors-ligne en cours de partie et retour en ligne, stockage du navigateur plein, interdit ou corrompu, retour arrière et double onglet, paramètres d'adresse hostiles, partage (annulation, absence de presse-papiers), paysage, texte agrandi à 130 %. Les lignes « À CORRIGER » sont des **défauts connus du jeu, pas encore corrigés** (elles ne font pas échouer la suite) : essai enregistré deux fois quand la réponse du serveur se perd ; partie non enregistrée quand le stockage du navigateur est plein ou interdit ; stockage de forme inattendue qui bloque un écran ; deux onglets ouverts sur la même grille (état écrasé, deux événements `fin`) ; lien personnel tronqué qui crée un participant en double ; « Inviter » sans retour visible quand ni partage ni presse-papiers ne marchent ; « Copié » affiché alors que la copie a échoué. `python3 tests/test_analyse.py` : script d'analyse des exports (`analyse/`), sur données fictives.
 
 `node tests/test_demo_niveaux.js` : démo, rotation des 3 versions (aucun mot déjà vu au réessai, retour à la version 1 après la 3), carte des grilles, déblocage après réussite (y compris réussite après un échec), grille suivante proposée et lancée en un clic, bouton collant, rechargement, XP comptée une seule fois.
 

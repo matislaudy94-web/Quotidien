@@ -539,7 +539,7 @@ const mesures = (page) => page.evaluate(() => ({
     await partage("absent"); await page.evaluate(() => { window.__clipKO = true; }); await cliquer(5);
     e = await etatPartage();
     ok(!e.copieAffiche && e.copies.length === 0 && await dernierPartage() === "echec" && errJs(page).length === 0, "ni partage ni presse-papiers : pas de faux « copié », trace « echec », aucune erreur");
-    const retourVisible = await page.evaluate(() => { const fp = document.querySelector("#fin-partage"); return /impossible|copie manuelle|sélectionne|appuie longuement/i.test(fp.innerText) || !!fp.querySelector("textarea, input"); });
+    const retourVisible = await page.evaluate(() => { const fp = document.querySelector("#resume"); /* le bouton de partage et son message sont dans le résumé depuis le 13/11/2026 */ return /impossible|copie manuelle|sélectionne|appuie longuement/i.test(fp.innerText) || !!fp.querySelector("textarea, input"); });
     // DÉFAUT D7 (index.html, partager() : en cas d'échec de la copie, methode = "echec" est journalisé mais
     // RIEN n'est affiché, contrairement à partagerScore() « Copie impossible sur ce navigateur ») : le bouton
     // « Inviter quelqu'un à jouer » ne fait rien de visible.

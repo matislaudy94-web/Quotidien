@@ -110,6 +110,9 @@ async function jouer(page, groupesAJouer, faux = 0) {
     await pa.click("#btn-partager"); await pa.waitForSelector("#partage-ok:not(.hidden)");
     const presse = await pa.evaluate(() => navigator.clipboard.readText());
     ok(presse.includes("?inv=" + A) && presse.includes("🟨"), "texte de partage avec lien d'invitation et grille d'émojis");
+    // Écran de fin simplifié (13/11/2026) : le questionnaire s'ouvre par le bouton « Donner mon avis ».
+    ok(await pa.locator("#questionnaire-panel").isHidden() && await pa.locator("#plus-avis").isVisible(), "écran de fin : le questionnaire est replié derrière « Donner mon avis »");
+    await pa.click("#plus-avis");
     await pa.click("label:has-text('Oui, toutes')"); await pa.click("label:has-text('Bien dosée')"); await pa.click("label:has-text('Peut-être')");
     await pa.fill("textarea[name=gene]", "Le groupe coup de était facile");
     await pa.click("#questionnaire button"); await pa.waitForSelector("#merci:not(.hidden)");
@@ -281,14 +284,14 @@ async function jouer(page, groupesAJouer, faux = 0) {
     // Démo dans le même navigateur : progression séparée
     await aller(pa, `${BASE}/?demo=1&g=g1`); await pa.waitForSelector(".tile");
     if (await pa.locator("#dlg-regles[open]").count()) { await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv"); await pa.click("#tuto-suiv"); }
-    await jouer(pa, [0, 1, 2, 3], 0); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
+    await jouer(pa, [0, 1, 2, 3], 0); await pa.click("#plus-xp", { timeout: 10000 }); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
     const rec = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
     ok(/\+185 XP/.test(rec) && /Niveau supérieur/.test(rec) && /Curieux/.test(rec), "démo g1 sans faute et rapide : +185 XP (75 + 30 + 50 + 3 badges) et passage au niveau 2 → " + rec.slice(0, 120));
     // Démo g2 avec un indice, sans erreur : 75 − 15 = 60, pas de bonus sans-faute, objectif Fin limier non atteint (2 résolues)
     await aller(pa, `${BASE}/?demo=1&g=g2`); await pa.waitForSelector(".tile");
     await pa.click("#btn-indice"); await pa.waitForTimeout(200);
     for (const gi of [0, 1, 2, 3]) { for (const m of G[1].groupes[gi].mots) await pa.getByRole("button", { name: m, exact: true }).click(); await pa.getByRole("button", { name: "Valider" }).click(); await pa.waitForTimeout(100); }
-    await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
+    await pa.click("#plus-xp", { timeout: 10000 }); await pa.waitForSelector("#bloc-recompenses", { timeout: 10000 });
     const rec2 = (await pa.locator("#bloc-recompenses").innerText()).replace(/\s+/g, " ");
     ok(/1 indice \(−15\)/.test(rec2) && /\+60 XP/.test(rec2) && !/sans faute/.test(rec2), "démo g2 avec indice : 75 − 15 = 60 XP, pas de bonus sans-faute → " + rec2.slice(0, 140));
     ok(/Objectif : Premier défi/.test(rec) && /Objectif : Esprit logique/.test(rec) && /Badge : Sans-faute/.test(rec), "récompenses détaillées : 2 objectifs, badges");

@@ -197,6 +197,15 @@
   #fin-partage h2 { margin-bottom: 8px; }
   .summary-grid { font-size: 20px; line-height: 1.15; letter-spacing: 2px; margin: 4px 0 14px; text-align: center; }
   .found.solution { gap: 10px; }
+  /* Écran de fin simplifié : le détail (XP, essais, avis, explications) ne s'ouvre que si le joueur le demande. */
+  .replie { display: none !important; }
+  .found.solution.sans-expl .expl { display: none; }
+  .fin-plus { display: grid; gap: 8px; margin-top: 14px; }
+  .fin-plus:empty { display: none; }
+  .fin-plus button { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 48px; padding: 10px 16px; border: 0; border-radius: var(--r-m);
+    background: rgba(255,255,255,.1); color: var(--light); font-family: var(--title); font-weight: 700; font-size: 15px; cursor: pointer; text-align: left; }
+  .fin-plus button::after { content: "›"; font-size: 22px; line-height: 1; opacity: .8; }
+  .btn-expl { margin-top: 10px; }
   .small { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
   .lien-partage { text-align: center; margin-top: 8px !important; }
 
@@ -636,6 +645,7 @@
     <div class="panel" id="suite"></div>
     <div class="panel" id="solution"></div>
     <div id="fin-actions"></div>
+    <div class="fin-plus" id="fin-plus"></div>
     <div id="recompenses"></div>
     <div class="panel hidden" id="fin-partage"></div>
     <div class="panel" id="questionnaire-panel">
@@ -2556,20 +2566,20 @@
     $("resume").innerHTML = `
       <div class="heros">
         <h2 class="titre-victoire ${etat.gagne ? "gagne" : ""}">${etat.gagne ? "Bravo !" : "Partie terminée"}</h2>
-        <p>${etat.gagne ? `Grille résolue${etat.erreurs ? ` avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}` : " sans aucune erreur"} ! Voici les explications.` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : elle ne s'affiche que sur une grille réussie.`}</p>
+        <p>${etat.gagne ? `Grille résolue${etat.erreurs ? ` avec ${etat.erreurs} erreur${etat.erreurs > 1 ? "s" : ""}` : " sans aucune erreur"} !` : `${tp.length} groupe${tp.length > 1 ? "s" : ""} trouvé${tp.length > 1 ? "s" : ""} sur 4. La solution reste cachée : elle ne s'affiche que sur une grille réussie.`}</p>
       </div>
       <div class="stats">
         <div class="stat"><div class="v">${tp.length}/4</div><div class="l">Groupes</div></div>
         <div class="stat"><div class="v">${etat.erreurs}</div><div class="l">Erreur${etat.erreurs > 1 ? "s" : ""}</div></div>
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
       </div>
-      ${gainHeros}`;
+      ${gainHeros}
+      <div class="actions" style="margin-top:12px"><button class="btn btn-large" id="btn-partager">Partager mon résultat</button></div>
+      <p class="small lien-partage hidden" id="partage-ok" style="text-align:center">Message copié : colle-le dans une conversation.</p>`;
     $("fin-actions").innerHTML = DEMO ? `<div class="panel" id="suite-demo"></div>` : "";
     const fp = $("fin-partage"); fp.classList.remove("hidden");
     fp.innerHTML = `<h2>Tes essais</h2>
-      <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>
-      <button class="btn btn-large" id="btn-partager">Partager mon résultat</button>
-      <p class="small lien-partage hidden" id="partage-ok">Message copié : colle-le dans une conversation.</p>`;
+      <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>`;
     rendreSolution(etat.gagne, tp);
     $("btn-partager").addEventListener("click", partager);
 
@@ -2601,7 +2611,39 @@
         <div class="actions"><button class="btn btn-large" id="btn-fin-entr">S'entraîner</button></div>`;
       $("btn-fin-entr").addEventListener("click", ouvrirEntrainement);
     } else ce.classList.add("hidden");
+    simplifierFin();
   }
+
+  // Écran de fin de la grille du jour : trois blocs seulement (résultat, rendez-vous de demain, solution). Le détail de
+  // l'XP, les essais, l'avis et les explications sont repliés derrière un bouton ; rien n'est supprimé.
+  function simplifierFin() {
+    const replis = [["recompenses", "plus-xp", "⭐ Détail de l'XP gagnée", () => !!$("recompenses").innerHTML.trim()],
+                    ["fin-partage", "plus-essais", "🟨 Revoir mes essais", () => etat.essais.length > 0],
+                    ["questionnaire-panel", "plus-avis", "💬 Donner mon avis (20 secondes)", () => !DEMO && !etat.questionnaire]];
+    const zone = $("fin-plus"); zone.innerHTML = "";
+    replis.forEach(([id, bid, libelle, utile]) => {
+      const el = $(id); el.classList.add("replie");
+      if (!utile() || el.classList.contains("hidden")) return;
+      const b = document.createElement("button"); b.type = "button"; b.id = bid; b.textContent = libelle;
+      b.addEventListener("click", () => { el.classList.remove("replie"); b.remove(); el.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      zone.appendChild(b);
+    });
+    // La proposition de s'entraîner devient un simple bouton de la liste (même identifiant qu'avant).
+    const ce = $("continuer-entr");
+    if (!ce.classList.contains("hidden")) {
+      ce.classList.add("hidden"); ce.innerHTML = "";
+      const b = document.createElement("button"); b.type = "button"; b.id = "btn-fin-entr"; b.textContent = "🎯 Continuer avec l'entraînement";
+      b.addEventListener("click", ouvrirEntrainement); zone.appendChild(b);
+    }
+    const sol = document.querySelector("#solution .found.solution");
+    if (sol && sol.querySelector(".expl")) {
+      sol.classList.add("sans-expl");
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn btn-large btn-expl"; b.id = "btn-expl"; b.textContent = "Voir les explications";
+      b.addEventListener("click", () => { sol.classList.remove("sans-expl"); b.remove(); });
+      $("solution").appendChild(b);
+    }
+  }
+  function deplierFin() { ["recompenses", "fin-partage", "questionnaire-panel"].forEach(id => $(id).classList.remove("replie")); $("fin-plus").innerHTML = ""; }
 
   // Série de jours consécutifs avec une grille du jour terminée. Affichée (écran de fin, accueil), jamais récompensée.
   function htmlSerie(finDePartie) {
@@ -2678,6 +2720,7 @@
   function afficherFinEntr() {
     const G = ENTR.grilles, k = G.indexOf(grille), suivant = G[k + 1] || null;
     const meta = metaEntr()[grille.id] || {}, gagne = !!etat.gagne;
+    deplierFin();
     ["questionnaire-panel", "retour-accueil-fin", "actions-demo", "continuer-entr"].forEach(id => $(id).classList.add("hidden"));
     $("nav-bas").classList.remove("hidden"); document.querySelector("main").classList.add("avec-nav");
     // Récompenses (affichées une seule fois, juste après la réussite)

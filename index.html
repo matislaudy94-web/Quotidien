@@ -768,10 +768,14 @@
   const $ = (id) => document.getElementById(id);
 
   // ---------- Stockage local (protégé : peut être indisponible) ----------
+  // Stockage local avec repli en mémoire : si le navigateur le refuse (cookies bloqués, navigation privée stricte,
+  // stockage plein), la partie continue et ses événements partent quand même ; seul le souvenir entre deux
+  // ouvertures de la page est perdu.
+  const memoire = {};
   const store = {
-    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
-    del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+    get(k) { if (k in memoire) return JSON.parse(memoire[k]); try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { const t = JSON.stringify(v); try { localStorage.setItem(k, t); delete memoire[k]; } catch (e) { memoire[k] = t; } },
+    del(k) { delete memoire[k]; try { localStorage.removeItem(k); } catch (e) {} },
   };
 
   // ---------- Paramètres d'URL ----------
@@ -822,19 +826,24 @@
     envoyer("entrainement", mode === "entr" && grille ? grille.id : null, Object.assign({ action }, donnees || {}));
   }
   function envoyer(type, idGrille, donnees) {
-    const ev = { p_id: participant.id, p_visite: visiteId, p_grille: idGrille, p_type: type, p_donnees: Object.assign({ t_client: new Date().toISOString() }, donnees || {}) };
-    const file = store.get(FILE) || [];
+    // « u » : identifiant unique de l'événement. Si la réponse du serveur se perd, l'événement est renvoyé et peut être
+    // enregistré deux fois : l'admin et le script d'analyse écartent les doublons grâce à lui.
+    const u = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    const ev = { p_id: participant.id, p_visite: visiteId, p_grille: idGrille, p_type: type, p_donnees: Object.assign({ t_client: new Date().toISOString(), u }, donnees || {}) };
+    const file = lireFile();
     file.push(ev); store.set(FILE, file.slice(-200));
     viderFile();
   }
+  // File d'attente lue avec prudence : un contenu inattendu (autre chose qu'une liste d'événements) est ignoré.
+  function lireFile() { const f = store.get(FILE); return Array.isArray(f) ? f.filter(e => e && typeof e === "object" && e.p_type) : []; }
   let envoiEnCours = false;
   async function viderFile() {
     if (envoiEnCours) return; envoiEnCours = true;
     try {
-      let file = store.get(FILE) || [];
+      let file = lireFile();
       while (file.length) {
         await API.rpc("q_evenement", file[0]);
-        file = (store.get(FILE) || []).slice(1); store.set(FILE, file);
+        file = lireFile().slice(1); store.set(FILE, file);
       }
     } catch (e) { /* réessai à la prochaine action ou visite */ }
     envoiEnCours = false;
@@ -906,9 +915,15 @@
         pid = r.id;
       }
       let info = await API.rpc("q_identifier", { p_id: pid });
+      if (!info.existe && pParam) {
+        // Lien personnel inconnu (souvent tronqué en le copiant) : si ce navigateur connaît déjà un participant valide,
+        // on le garde, au lieu de l'oublier et de créer un participant en double à la visite suivante.
+        const connu = store.get("quotidien_pid");
+        if (typeof connu === "string" && connu !== pParam) { const i2 = await API.rpc("q_identifier", { p_id: connu }); if (i2 && i2.existe) { pid = connu; info = i2; } }
+        if (!info.existe) return erreur("Ce lien n'est pas valide. Vérifie que tu l'as copié en entier.");
+      }
       if (!info.existe) {
         store.del("quotidien_pid");
-        if (pParam) return erreur("Ce lien n'est pas valide. Vérifie que tu l'as copié en entier.");
         const r = await API.rpc("q_rejoindre", { p_invite_par: invParam });
         if (!r || !r.ok) return erreur("Le test n'est pas ouvert en ce moment. Merci de ta visite !");
         pid = r.id; info = await API.rpc("q_identifier", { p_id: pid });
@@ -2212,7 +2227,7 @@
     } else {
       $("date-grille").innerHTML = DEMO ? `Démo · <b>Grille n° ${num}</b>${grille.nbVersions > 1 ? ` · version ${grille.version}/${grille.nbVersions}` : ""}` : `Grille du <b>${formatDate(jourParis())}</b>`;
       $("tagline").textContent = "Retrouve les 4 groupes de 4 mots.";
-      etat = (!DEMO && store.get(cle())) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
+      etat = (!DEMO && etatValide(store.get(cle()))) || (DEMO && etat && etat.grilleId === grille.id && !etat.fin ? etat : null);
     }
     const etatRepris = !!(etat && etatAvant && etatAvant.grilleId === grille.id && !etat.fin);
     if (!etat) {
@@ -2238,7 +2253,18 @@
     chronoDemarrer();
   }
 
-  function sauver() { if (!DEMO || mode === "entr") store.set(cle(), etat); }
+  // Une sauvegarde de partie n'est reprise que si elle a la forme attendue ; sinon on repart d'une partie neuve.
+  function etatValide(e) { return e && typeof e === "object" && Array.isArray(e.ordre) && e.ordre.length === 16 && Array.isArray(e.trouves) && Array.isArray(e.essais) && typeof e.erreurs === "number" ? e : null; }
+  // Deux onglets sur la même grille : une partie terminée dans l'autre onglet n'est jamais écrasée par celle-ci.
+  function finieAilleurs() { if (DEMO || mode !== "jour" || !etat || etat.fin || !grille) return null; const s = etatValide(store.get(cle())); return s && s.fin ? s : null; }
+  function sauver() { if (finieAilleurs()) return; if (!DEMO || mode === "entr") store.set(cle(), etat); }
+  function resynchroniserOnglet() {
+    const s = finieAilleurs(); if (!s) return;
+    etat = s; selection = []; fini = true; chronoPause();
+    if (ecranCourant === "jeu") { afficherFin(); afficherEcran("jeu"); } else if (ecranCourant === "accueil") rendreAccueil();
+  }
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) resynchroniserOnglet(); });
+  window.addEventListener("storage", resynchroniserOnglet);
 
   function groupeDe(mot) { return grille.groupes.findIndex(g => g.mots.includes(mot)); }
 

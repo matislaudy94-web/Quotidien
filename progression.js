@@ -56,16 +56,18 @@
   ];
 
   // ---------- Stockage ----------
+  // Repli en mémoire si le navigateur refuse le stockage : la progression vaut alors pour la durée de la page.
+  const memoire = {};
   const store = {
-    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
-    del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+    get(k) { if (k in memoire) return JSON.parse(memoire[k]); try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+    set(k, v) { const t = JSON.stringify(v); try { localStorage.setItem(k, t); delete memoire[k]; } catch (e) { memoire[k] = t; } },
+    del(k) { delete memoire[k]; try { localStorage.removeItem(k); } catch (e) {} },
   };
   const cleJournal = (profil) => "quotidien_journal_" + profil;
 
   function lireJournal(profil) {
     const j = store.get(cleJournal(profil));
-    return Array.isArray(j) ? j : [];
+    return Array.isArray(j) ? j.filter(e => e && typeof e === "object" && e.grille) : [];
   }
 
   // ---------- Calculs ----------

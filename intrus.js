@@ -41,7 +41,8 @@
   };
   const cle = (profil) => "quotidien_intrus_" + profil;
   function lire(profil) {
-    const e = store.get(cle(profil)) || {};
+    let e = store.get(cle(profil)); if (!e || typeof e !== "object" || Array.isArray(e)) e = {}; // contenu inattendu : on repart de zéro
+    if (!e.badges || typeof e.badges !== "object") e.badges = {};
     return { series: e.series | 0, meilleur: e.meilleur == null ? null : e.meilleur | 0, parfaites: e.parfaites | 0,
       bonnes: e.bonnes | 0, repondues: e.repondues | 0, vues: Array.isArray(e.vues) ? e.vues : [], badges: e.badges || {},
       dernieres: Array.isArray(e.dernieres) ? e.dernieres : [] };

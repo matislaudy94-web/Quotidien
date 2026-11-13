@@ -175,6 +175,8 @@
     D = await API.rpc("a_donnees", { code: CODE, p_session: sessionId });
     // Défense : les événements viennent du navigateur des joueurs (clé publique). Avant tout affichage,
     // un identifiant de grille inattendu est neutralisé et les champs attendus sont remis en forme.
+    // Un événement renvoyé après une réponse perdue porte le même identifiant « u » : on ne garde que le premier.
+    { const vus = new Set(); D.evenements = (D.evenements || []).filter(e => { const u = e && e.donnees && typeof e.donnees === "object" ? e.donnees.u : null; if (!u) return true; const k = e.participant_id + "|" + u; if (vus.has(k)) return false; vus.add(k); return true; }); }
     for (const e of (D.evenements || [])) {
       if (e.grille != null && !/^[A-Za-z0-9_-]{1,10}$/.test(String(e.grille))) e.grille = "?";
       if (!e.donnees || typeof e.donnees !== "object") e.donnees = {};

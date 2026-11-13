@@ -275,6 +275,7 @@ def normaliser_evenements(cols, lignes, avert, qual):
     a = set(cols)
     cpt = Counter()
     evs, json_ko, sans_date, ecart_jour = [], 0, 0, 0
+    deja_vus, renvois = set(), 0
     for i, l in enumerate(lignes):
         d = {}
         brut = l.get("donnees_json", "")
@@ -285,6 +286,13 @@ def normaliser_evenements(cols, lignes, avert, qual):
                     d = {}
             except ValueError:
                 json_ko += 1
+        # Un événement renvoyé après une réponse perdue porte le même identifiant « u » : on ne garde que le premier.
+        if d.get("u"):
+            cle_u = (l.get("participant", ""), str(d["u"]))
+            if cle_u in deja_vus:
+                renvois += 1
+                continue
+            deja_vus.add(cle_u)
         dt = lire_date(l.get("date_heure_utc", ""), cpt)
         jcol = lire_jour(l.get("jour_paris", ""))
         j = jour_paris(dt) or jcol
@@ -309,6 +317,8 @@ def normaliser_evenements(cols, lignes, avert, qual):
             "gagne": champ("gagne", "gagne", booleen), "duree_s": champ("duree_s", "duree_s", nombre),
             "d": d,
         })
+    if renvois:
+        avert.append(f"{renvois} événement(s) enregistré(s) deux fois (renvoi après une réponse perdue, même identifiant `u`) : le doublon est écarté.")
     if json_ko:
         avert.append(f"{json_ko} cellule(s) `donnees_json` illisibles (JSON abîmé) : leurs détails sont ignorés.")
     if cpt["sans_fuseau"]:

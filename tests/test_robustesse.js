@@ -331,7 +331,7 @@ const mesures = (page) => page.evaluate(() => ({
       // DÉFAUT D2 (index.html, envoyer() / viderFile() : la file d'attente n'existe QUE dans localStorage ; store.set échoue en
       // silence, puis viderFile() relit une file vide) : sans stockage, AUCUN événement de jeu n'est
       // envoyé, alors que le réseau fonctionne. Seule la visite (envoi direct dans _demarrer) arrive.
-      connu(types.includes("fin") && types.filter(x => x === "essai").length === 5, "D2", `localStorage ${nom} : la partie jouée en ligne devrait être enregistrée (1 début, 5 essais, 1 fin) ; reçu par le serveur : ${types.join(", ") || "rien"}`);
+      ok(types.includes("fin") && types.filter(x => x === "essai").length === 5, "[D2 corrigé le 13/11/2026] " + `localStorage ${nom} : la partie jouée en ligne devrait être enregistrée (1 début, 5 essais, 1 fin) ; reçu par le serveur : ${types.join(", ") || "rien"}`);
     }
     // c) Valeurs corrompues dans toutes les clés quotidien_* (indépendant de l'appareil : fait une seule fois).
     if (!avecCorruption) return null;
@@ -403,15 +403,21 @@ const mesures = (page) => page.evaluate(() => ({
     await attendre(async () => evts(await db(), P, "recompense").length === 1);
     const xpA = await a.evaluate((c) => localStorage.getItem(c), "quotidien_journal_" + P);
     // Onglet B (resté sur le plateau de départ) : le joueur y revient et quitte vers l'accueil.
-    await b.locator("#plateau .tile").first().click(); await b.click("#btn-quitter"); await b.waitForSelector("#ecran-accueil:not(.hidden)");
+    // Depuis le correctif du 13/11/2026 : l'onglet B apprend que la partie est terminée (événement « storage » ou retour
+    // au premier plan) et affiche l'écran de fin au lieu de laisser rejouer.
+    await b.waitForSelector("#fin:not(.hidden)", { timeout: 5000 }).catch(() => {});
+    ok(await b.locator("#fin:not(.hidden)").count() === 1, "partie terminée dans l'onglet A : l'onglet B affiche l'écran de fin sans action du joueur");
+    if (await b.locator("#jeu:not(.hidden)").count()) { await b.locator("#plateau .tile").first().click(); await b.click("#btn-quitter"); }
+    else await b.click('#nav-bas [data-ecran="accueil"]');
+    await b.waitForSelector("#ecran-accueil:not(.hidden)");
     const etatApres = await b.evaluate((c) => JSON.parse(localStorage.getItem(c)), `quotidien_etat_${P}_g1`);
     // DÉFAUT D4 (index.html, sauver() écrit l'état en mémoire de l'onglet sans relire celui du stockage ;
     // appelé par le bouton « ← », par chronoPause() à chaque passage en arrière-plan, par basculer()) :
     // l'onglet resté ouvert écrase la partie TERMINÉE par son vieil état « en cours ».
-    connu(!!(etatApres && etatApres.fin), "D4", `partie terminée dans l'onglet A, puis simple « ← Accueil » dans l'onglet B : l'état sauvegardé devrait rester « terminé » ; il est redevenu ${etatApres && etatApres.fin ? "terminé" : `« en cours » (${(etatApres && etatApres.trouves || []).length} groupe trouvé, ${etatApres ? etatApres.erreurs : "?"} erreur)`}`);
+    ok(!!(etatApres && etatApres.fin), "[D4 corrigé le 13/11/2026] " + `partie terminée dans l'onglet A, puis simple « ← Accueil » dans l'onglet B : l'état sauvegardé devrait rester « terminé » ; il est redevenu ${etatApres && etatApres.fin ? "terminé" : `« en cours » (${(etatApres && etatApres.trouves || []).length} groupe trouvé, ${etatApres ? etatApres.erreurs : "?"} erreur)`}`);
     const carteB = await texte(b, "#carte-jour");
     // L'onglet B rejoue alors la grille en entier (cette fois sans erreur).
-    await b.click("#btn-jouer"); await b.waitForSelector("#plateau .tile, #fin:not(.hidden)");
+    await b.click("#btn-jouer"); await b.waitForSelector("#jeu:not(.hidden) #plateau .tile, #fin:not(.hidden)");
     const rejouable = await b.locator("#jeu:not(.hidden)").count() === 1;
     if (rejouable) { if (await b.locator("#btn-effacer:not([disabled])").count()) await b.click("#btn-effacer"); await jouerGroupes(b, G[0], [0, 1, 2, 3]); await b.waitForSelector("#fin:not(.hidden)"); await b.waitForTimeout(700); }
     await b.click('#nav-bas [data-ecran="accueil"]'); await b.waitForTimeout(300);
@@ -421,7 +427,7 @@ const mesures = (page) => page.evaluate(() => ({
     const fins = evts(d, P, "fin");
     // DÉFAUT D5 (index.html, lancerGrille() reprend l'état écrasé ; terminer()
     // journalise « fin » sans vérifier qu'une fin existe déjà pour cette grille) : deuxième événement « fin ».
-    connu(fins.length === 1, "D5", `pas de double événement « fin » : attendu 1 ; le serveur en a ${fins.length} pour g1 (${fins.map(f => f.donnees.erreurs + " erreur" + (f.donnees.erreurs > 1 ? "s" : "") + ", " + f.donnees.nb_essais + " essais").join(" puis ")}), ${evts(d, P, "essai").length} essais et ${evts(d, P, "debut").length} début ; accueil de B avant de rejouer : « ${carteB.slice(0, 60)} »`);
+    ok(fins.length === 1, "[D5 corrigé le 13/11/2026] " + `pas de double événement « fin » : attendu 1 ; le serveur en a ${fins.length} pour g1 (${fins.map(f => f.donnees.erreurs + " erreur" + (f.donnees.erreurs > 1 ? "s" : "") + ", " + f.donnees.nb_essais + " essais").join(" puis ")}), ${evts(d, P, "essai").length} essais et ${evts(d, P, "debut").length} début ; accueil de B avant de rejouer : « ${carteB.slice(0, 60)} »`);
     ok(errJs(a).length === 0 && errJs(b).length === 0, "aucune erreur JavaScript dans les deux onglets " + errJs(a).concat(errJs(b)).join(" | "));
   }
 
@@ -465,14 +471,16 @@ const mesures = (page) => page.evaluate(() => ({
     // e) un participant connu de ce téléphone ouvre un lien ?p= erroné (faute de frappe, lien tronqué par une messagerie)
     { const Q = participant(); const { page } = await nouveau(appareil);
       await accueil(page, `${BASE}/?p=${Q}`);
-      await page.goto(`${BASE}/?p=${Q.slice(0, 5)}`); await page.waitForSelector("#erreur:not(.hidden)");
+      // Depuis le correctif du 13/11/2026 : le lien tronqué n'efface plus le participant connu de ce navigateur, qui est repris.
+      await page.goto(`${BASE}/?p=${Q.slice(0, 5)}`); await page.waitForSelector("#btn-jouer, #erreur:not(.hidden)");
+      ok(page.url().endsWith("?p=" + Q), `lien ?p= tronqué sur un téléphone déjà connu : le participant ${Q} est repris (adresse : ${page.url().split("?")[1] || ""})`);
       const avant = await nbP();
       await page.goto(`${BASE}/`); await page.waitForSelector("#btn-jouer, #erreur:not(.hidden)");
       const d = await db();
       // DÉFAUT D6 (index.html, _demarrer(), branche « !info.existe » : store.del("quotidien_pid") est exécuté même quand l'identifiant refusé vient
       // de l'adresse et non du stockage) : un lien ?p= invalide efface l'identifiant enregistré sur le téléphone ; à la
       // visite suivante sans lien, le joueur devient un NOUVEAU participant « organique » (progression à zéro).
-      connu(page.url().endsWith("?p=" + Q) && d.participants.length === avant, "D6", `participant ${Q} : après un lien ?p= tronqué (${Q.slice(0, 5)}), revenir sur l'adresse nue devrait le reconnaître ; reconnu comme ${page.url().split("?p=")[1] || "?"}, ${d.participants.length - avant} participant « ${(d.participants[d.participants.length - 1] || {}).groupe} » créé en plus`); }
+      ok(page.url().endsWith("?p=" + Q) && d.participants.length === avant, "[D6 corrigé le 13/11/2026] " + `participant ${Q} : après un lien ?p= tronqué (${Q.slice(0, 5)}), revenir sur l'adresse nue devrait le reconnaître ; reconnu comme ${page.url().split("?p=")[1] || "?"}, ${d.participants.length - avant} participant « ${(d.participants[d.participants.length - 1] || {}).groupe} » créé en plus`); }
     // f) démo : ?g= hostile
     { const { page } = await nouveau(appareil);
       await accueil(page, `${BASE}/?demo=1&g=${encodeURIComponent(charge)}`);
@@ -649,7 +657,7 @@ const mesures = (page) => page.evaluate(() => ({
       //  - quotidien_etat_<id>_<grille> (index.html, lancerGrille() : etat.trouves / etat.essais supposés présents) → la grille ne s'ouvre pas ;
       //  - quotidien_journal_<id> (progression.js, serie() et calculer() : entrées supposées être des objets) → accueil bloqué ;
       //  - quotidien_defi_<id> (defi.js, lire() sans contrôle de forme ; appelé par rendreAccueil()) → accueil bloqué.
-      connu(casses.length === 0, "D3", `clé quotidien_* au contenu JSON valide mais de forme inattendue (8 clés essayées une par une) : le jeu devrait repartir d'un état neuf ; ${casses.length} clés bloquent le joueur : ${casses.join(" || ")}`);
+      ok(casses.length === 0, "[D3 corrigé le 13/11/2026] " + `clé quotidien_* au contenu JSON valide mais de forme inattendue (8 clés essayées une par une) : le jeu devrait repartir d'un état neuf ; ${casses.length} clés bloquent le joueur : ${casses.join(" || ")}`);
     });
     for (const a of [I13, SE]) await section(`4. Retour arrière et double onglet (${a})`, async () => { await scenarioRetour(a); await scenarioDoubleOnglet(a); });
     for (const a of [I13, SE]) await section(`5. Paramètres d'URL hostiles (${a})`, () => scenarioUrl(a));

@@ -103,7 +103,8 @@
   };
   const cle = (profil) => "quotidien_defi_" + profil;
   function lire(profil) {
-    const e = store.get(cle(profil)) || {};
+    let e = store.get(cle(profil)); if (!e || typeof e !== "object" || Array.isArray(e)) e = {}; // contenu inattendu : on repart de zéro
+    if (!e.badges || typeof e.badges !== "object") e.badges = {};
     // Records obtenus avec les anciennes règles (30 s par palier) : pas comparables, on les met de côté. Les badges restent.
     if (e.parties && e.regles !== REGLES) { e.ancienRecord = e.record || null; e.record = null; e.dernieres = []; }
     e.regles = REGLES;

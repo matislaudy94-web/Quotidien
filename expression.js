@@ -40,7 +40,8 @@
   };
   const cle = (profil) => "quotidien_expression_" + profil;
   function lire(profil) {
-    const e = store.get(cle(profil)) || {};
+    let e = store.get(cle(profil)); if (!e || typeof e !== "object" || Array.isArray(e)) e = {}; // contenu inattendu : on repart de zéro
+    if (!e.badges || typeof e.badges !== "object") e.badges = {};
     return { parties: e.parties | 0, meilleur: e.meilleur == null ? null : e.meilleur | 0, parfaites: e.parfaites | 0,
       bonnes: e.bonnes | 0, repondues: e.repondues | 0, vues: Array.isArray(e.vues) ? e.vues : [],
       trouvees: Array.isArray(e.trouvees) ? e.trouvees : [], dernieres: Array.isArray(e.dernieres) ? e.dernieres : [], ids: Array.isArray(e.ids) ? e.ids : [] };

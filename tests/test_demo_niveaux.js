@@ -52,10 +52,11 @@ const ok = (c, m) => { console.log((c ? "  OK   " : "  ÉCHEC ") + m); if (!c) e
     ok(/Grille 2 débloquée/.test(await p.locator("#suite-demo").innerText()), "« 🔓 Grille 2 débloquée ! » sous le résultat");
     // Écran de fin simplifié (13/11/2026) : explications et détail de l'XP repliés ; on les ouvre pour vérifier l'ordre.
     ok(await p.locator("#solution .expl").first().isHidden() && await p.locator("#bloc-recompenses").isHidden(), "écran de fin : explications et détail de l'XP repliés par défaut");
-    await p.click("#btn-expl"); await p.click("#plus-xp"); await p.click("#plus-essais"); await p.waitForTimeout(500);
-    const pos = await p.evaluate(() => { window.scrollTo(0, 0); return [document.getElementById("solution").getBoundingClientRect().top, window.innerHeight, document.getElementById("demo-suivante").getBoundingClientRect().top, document.getElementById("bloc-recompenses").getBoundingClientRect().top]; });
-    ok(pos[0] < pos[1] * 0.75, `la solution commence dans le premier écran, sans descendre (à ${Math.round(pos[0])} px sur ${pos[1]})`);
-    ok(pos[0] < pos[2] && pos[2] < pos[3], "ordre : résultat, solution, « Jouer la grille 2 », puis le détail de l'XP");
+    await p.click("#btn-expl"); await p.click("#plus-details"); await p.waitForTimeout(500);
+    const pos = await p.evaluate(() => { window.scrollTo(0, 0); return [document.getElementById("solution").getBoundingClientRect().top, window.innerHeight, document.getElementById("demo-suivante").getBoundingClientRect().top, document.getElementById("bloc-recompenses").getBoundingClientRect().top, document.getElementById("btn-partager").getBoundingClientRect().top]; });
+    // Depuis le 14/11/2026 : « Jouer la grille 2 » est dans le résultat, juste au-dessus du partage, avant la solution.
+    ok(pos[2] < pos[1], `« Jouer la grille 2 » est visible dans le premier écran, sans descendre (à ${Math.round(pos[2])} px sur ${pos[1]})`);
+    ok(pos[2] < pos[4] && pos[4] < pos[0] && pos[0] < pos[3], "ordre : résultat avec « Jouer la grille 2 » puis le partage, solution, puis le détail de l'XP");
     ok(/\+\d+ XP/.test(await p.locator("#resume .gain-heros").innerText()), "l'XP gagnée reste annoncée dans le résultat");
     await p.waitForTimeout(400);
     ok(await p.locator("#cta-collant.visible").count() === 0, "au premier écran, aucun bandeau ne recouvre la solution");

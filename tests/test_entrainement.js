@@ -68,9 +68,8 @@ const xpDe = (page, pid, id) => page.evaluate(([pid, id]) => { const P = window.
     await page.waitForSelector("#fin:not(.hidden)", { timeout: 5000 });
     // Écran de fin simplifié (13/11/2026) : l'avis et l'entraînement sont deux boutons d'une liste, dans cet ordre.
     ok(await page.locator("#plus-avis").isVisible() && await page.locator("#btn-partager").isVisible(), "écran de fin du jour : questionnaire et invitation présents");
-    ok(await page.locator("#btn-fin-entr").isVisible() && /entraînement/.test(await page.locator("#btn-fin-entr").innerText()), "proposition « S'entraîner » placée après le questionnaire");
-    const pos = await page.evaluate(() => [document.getElementById("plus-avis").getBoundingClientRect().top, document.getElementById("btn-fin-entr").getBoundingClientRect().top]);
-    ok(pos[0] < pos[1], "le questionnaire vient avant la proposition d'entraînement");
+    // Depuis le 14/11/2026 : l'entraînement n'est plus proposé sur l'écran de fin (il reste dans l'onglet Jeux).
+    ok(await page.locator("#btn-fin-entr").count() === 0 && await page.locator("#continuer-entr").isHidden(), "écran de fin du jour : plus de proposition d'entraînement (onglet Jeux)");
     const xpJour = (await xpDe(page, A, "g1")).partie;
     ok(xpJour === 50, "grille du jour facile résolue avec 1 erreur : 50 XP (barème inchangé) → " + xpJour);
 

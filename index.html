@@ -2574,9 +2574,10 @@
         <div class="stat"><div class="v">${tempsCourt}</div><div class="l">Temps</div></div>
       </div>
       ${gainHeros}
+      ${DEMO ? `<div id="suite-demo"></div>` : ""}
       <div class="actions" style="margin-top:12px"><button class="btn btn-large" id="btn-partager">Partager mon résultat</button></div>
       <p class="small lien-partage hidden" id="partage-ok" style="text-align:center">Message copié : colle-le dans une conversation.</p>`;
-    $("fin-actions").innerHTML = DEMO ? `<div class="panel" id="suite-demo"></div>` : "";
+    $("fin-actions").innerHTML = "";
     const fp = $("fin-partage"); fp.classList.remove("hidden");
     fp.innerHTML = `<h2>Tes essais</h2>
       <div class="summary-grid" aria-label="Résumé de tes essais">${grilleEmoji().replace(/\n/g, "<br>")}</div>`;
@@ -2617,24 +2618,18 @@
   // Écran de fin de la grille du jour : trois blocs seulement (résultat, rendez-vous de demain, solution). Le détail de
   // l'XP, les essais, l'avis et les explications sont repliés derrière un bouton ; rien n'est supprimé.
   function simplifierFin() {
-    const replis = [["recompenses", "plus-xp", "⭐ Détail de l'XP gagnée", () => !!$("recompenses").innerHTML.trim()],
-                    ["fin-partage", "plus-essais", "🟨 Revoir mes essais", () => etat.essais.length > 0],
-                    ["questionnaire-panel", "plus-avis", "💬 Donner mon avis (20 secondes)", () => !DEMO && !etat.questionnaire]];
     const zone = $("fin-plus"); zone.innerHTML = "";
-    replis.forEach(([id, bid, libelle, utile]) => {
-      const el = $(id); el.classList.add("replie");
-      if (!utile() || el.classList.contains("hidden")) return;
+    const ligne = (bid, libelle, ids) => {
       const b = document.createElement("button"); b.type = "button"; b.id = bid; b.textContent = libelle;
-      b.addEventListener("click", () => { el.classList.remove("replie"); b.remove(); el.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      b.addEventListener("click", () => { ids.forEach(id => $(id).classList.remove("replie")); b.remove(); $(ids[0]).scrollIntoView({ behavior: "smooth", block: "start" }); });
       zone.appendChild(b);
-    });
-    // La proposition de s'entraîner devient un simple bouton de la liste (même identifiant qu'avant).
-    const ce = $("continuer-entr");
-    if (!ce.classList.contains("hidden")) {
-      ce.classList.add("hidden"); ce.innerHTML = "";
-      const b = document.createElement("button"); b.type = "button"; b.id = "btn-fin-entr"; b.textContent = "🎯 Continuer avec l'entraînement";
-      b.addEventListener("click", ouvrirEntrainement); zone.appendChild(b);
-    }
+    };
+    ["recompenses", "fin-partage", "questionnaire-panel"].forEach(id => $(id).classList.add("replie"));
+    const details = [$("recompenses").innerHTML.trim() ? "recompenses" : null, etat.essais.length ? "fin-partage" : null].filter(Boolean);
+    if (details.length) ligne("plus-details", "Plus de détails", details);
+    if (!DEMO && !etat.questionnaire && !$("questionnaire-panel").classList.contains("hidden")) ligne("plus-avis", "💬 Donner mon avis (20 secondes)", ["questionnaire-panel"]);
+    // L'entraînement reste accessible par l'onglet Jeux : il n'est plus proposé sur l'écran de fin.
+    $("continuer-entr").classList.add("hidden"); $("continuer-entr").innerHTML = "";
     const sol = document.querySelector("#solution .found.solution");
     if (sol && sol.querySelector(".expl")) {
       sol.classList.add("sans-expl");
@@ -2697,12 +2692,10 @@
     const prochaineVersion = (grille.version % (grille.nbVersions || 1)) + 1;
     if (etat.gagne) {
       z.innerHTML = `${suiv ? `<p class="debloque">🔓 Grille ${n} débloquée !</p>` : `<p class="debloque">🏁 Tu as réussi la dernière grille de la démo !</p>`}
-        <div class="suite-rapide">${suiv ? `<button class="btn primary btn-large" id="demo-suivante">Jouer la grille ${n} →</button>` : ""}
-          <div class="rang"><button class="btn" id="demo-rejouer">${grille.nbVersions > 1 ? "Rejouer (autres mots)" : "Rejouer"}</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+        <div class="suite-rapide">${suiv ? `<button class="btn primary btn-large" id="demo-suivante">Jouer la grille ${n} →</button>` : `<button class="btn btn-large" id="demo-carte">Toutes les grilles</button>`}</div>`;
     } else {
       z.innerHTML = `<p class="small" style="text-align:center;margin:10px 0 0">Réussis cette grille pour débloquer la suivante.${grille.nbVersions > 1 ? ` Nouvel essai avec d'autres mots et d'autres groupes (version ${prochaineVersion}/${grille.nbVersions}).` : ""}</p>
-        <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">${grille.nbVersions > 1 ? "Réessayer avec d'autres mots" : "Réessayer la grille"}</button>
-          <div class="rang"><button class="btn" data-ecran="accueil">Accueil</button><button class="btn" id="demo-carte">Toutes les grilles</button></div></div>`;
+        <div class="suite-rapide"><button class="btn primary btn-large" id="demo-reessayer">${grille.nbVersions > 1 ? "Réessayer avec d'autres mots" : "Réessayer la grille"}</button></div>`;
     }
     const on = (id, f) => { const b = $(id); if (b) b.addEventListener("click", f); };
     on("demo-suivante", () => choisirGrilleDemo(suiv.id, true));

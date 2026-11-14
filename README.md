@@ -221,7 +221,7 @@ Avec `grilleServeur: true`, pour un participant (jamais en démo, ni pour un vis
 - Écart assumé : `q_grille`, `q_essai` et `q_indice` acceptent un paramètre facultatif `p_grille`, pour finir une partie commencée avant minuit (seulement si une partie **non terminée** existe déjà sur cette grille pour ce participant).
 
 **Mise en service, par étapes réversibles.**
-1. Relire puis appliquer `sql/2026-11-14_grille_serveur.sql` (d'abord sur une branche ou une copie ; points à vérifier listés en tête du fichier). Il ne modifie aucune table ni fonction existante ; sans effet tant que `grilleServeur` vaut `false`. Retour arrière : les `drop` listés en tête du fichier.
+1. ~~Appliquer `sql/2026-11-14_grille_serveur.sql`~~ **Fait le 14/11/2026** (migration « grille_serveur », après un essai à blanc sur la vraie base, annulé : partie complète, droits et code admin vérifiés). Les tables `grilles_serveur` et `parties` existent et sont vides ; tant que l'interrupteur est éteint, le jeu ne les appelle pas.
 2. Charger les grilles depuis `admin.html` (« Charger des grilles ») et vérifier la liste. Toujours sans effet pour les joueurs.
 3. Mettre `grilleServeur: true` dans `config.js` et publier. Tant que le calendrier ne pointe que sur des grilles de `grilles.js`, le jeu se comporte comme avant (repli local), avec un appel de plus au démarrage. Retour arrière : remettre `false` et publier.
 4. Faire pointer le calendrier (ou une grille forcée, pour un essai sur soi-même) sur une grille du serveur. Retour arrière : remettre une grille locale dans le calendrier.

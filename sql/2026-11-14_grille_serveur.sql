@@ -1,9 +1,11 @@
 -- =====================================================================================================
 -- Quotidien — grille servie par le serveur (interrupteur « grilleServeur » de config.js)
 --
---   *** NON EXÉCUTÉ ***  Ce fichier n'a été lancé sur aucune base, pas même une base locale :
---   il a été écrit à la main en miroir de tests/serveur_test.js (qui, lui, est testé).
---   À relire, puis à appliquer d'abord sur une branche ou une copie de la base.
+--   *** APPLIQUÉ LE 14/11/2026 *** sur le projet Supabase « quotidien » (migration « grille_serveur »), après
+--   un essai à blanc sur la vraie base dans une transaction annulée : partie complète (« presque », essai
+--   répété sans coût, groupe trouvé, indice, défaite après 4 erreurs sans solution, essai refusé après la fin,
+--   aucune catégorie non trouvée dans les réponses), droits (anon : les 5 fonctions seulement, ni les tables ni
+--   les fonctions internes), code admin faux refusé. Les vérifications 1 à 5 ci-dessous ont été faites.
 --
 -- CE QU'IL CRÉE
 --   Tables (RLS activée, aucune politique, aucun droit pour anon / authenticated) :

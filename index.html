@@ -945,6 +945,14 @@
       jourCharge = jourParis();
       const gid = participant.grille_forcee || participant.calendrier[jourCharge];
       grille = GRILLES.find(g => g.id === gid) || null;
+      // Mode « grille servie par le serveur » (interrupteur grilleServeur de config.js, éteint par défaut) : le serveur dit
+      // quelle est la grille du jour. S'il la possède, il n'envoie que ses 16 mots et l'état de la partie, jamais ses
+      // groupes : la grille devient « distante ». Sinon (serveur:false), on garde la grille locale, comme avant.
+      if (CFG.grilleServeur) {
+        const rg = await API.rpc("q_grille", { p_id: pid });
+        if (rg && rg.ok && rg.serveur) { grille = grilleDistante(rg); adopterPartieServeur(rg, false); }
+        else if (rg && rg.ok) { const locale = GRILLES.find(g => g.id === rg.id); if (locale) grille = locale; }
+      }
       API.rpc("q_visite", { p_id: pid, p_visite: visiteId, p_entree: entree, p_token: token, p_grille: grille ? grille.id : null, p_appareil: appareilId }).catch(() => {});
       viderFile();
       $("chargement").classList.add("hidden");
@@ -1075,6 +1083,7 @@
     if (dlg) { dlg.close(); if (ecranCourant !== "accueil") synchroHistorique(ecranCourant); return; }
     if (ecranCourant === "accueil") return;
     if (ecranCourant === "defi-jeu" && partieDefi && !partieDefi.fin) { synchroHistorique("defi-jeu"); toastNav("Pour quitter la partie, touche « Abandonner »."); return; }
+    if (ecranCourant === "jeu" && essaiEnCours) { synchroHistorique("jeu"); return; } // réponse du serveur attendue (grille distante)
     if (ecranCourant === "jeu" && etat && !etat.fin && !$("jeu").classList.contains("hidden")) { chronoPause(); sauver(); }
     naviguer(parentDe(ecranCourant));
   });
@@ -2225,7 +2234,7 @@
     $("chargement").classList.add("hidden");
     cacherCta();
     const num = indexGrille(grille) + 1;
-    const tous = grille.groupes.flatMap(g => g.mots);
+    const tous = grille.distante ? grille.mots.slice() : grille.groupes.flatMap(g => g.mots);
     const etatAvant = etat;
     if (mode === "entr") {
       const k = ENTR.grilles.indexOf(grille), ch = chapitreDe(grille);
@@ -2270,16 +2279,18 @@
   function sauver() { if (finieAilleurs()) return; if (!DEMO || mode === "entr") store.set(cle(), etat); }
   function resynchroniserOnglet() {
     const s = finieAilleurs(); if (!s) return;
+    if (grille.distante) { location.replace(lienPersonnel()); return; } // grille distante : ses groupes ne sont connus que du serveur
     etat = s; selection = []; fini = true; chronoPause();
     if (ecranCourant === "jeu") { afficherFin(); afficherEcran("jeu"); } else if (ecranCourant === "accueil") rendreAccueil();
   }
   document.addEventListener("visibilitychange", () => { if (!document.hidden) resynchroniserOnglet(); });
   window.addEventListener("storage", resynchroniserOnglet);
 
-  function groupeDe(mot) { return grille.groupes.findIndex(g => g.mots.includes(mot)); }
+  function groupeDe(mot) { return grille.groupes.findIndex(g => g && g.mots.includes(mot)); } // -1 : groupe inconnu (grille distante)
 
   function htmlGroupe(gi, couleurIndex) {
     const g = grille.groupes[gi];
+    if (!g) return ""; // grille distante : groupe pas encore révélé par le serveur
     return `<div class="group c${couleurIndex}${gi === groupeAnime ? " nouveau" : ""}">
       ${DEMO || mode === "entr" ? `<div class="lvl">${LIB_DIFF[g.difficulte]}</div>` : ""}
       <div class="cat">${g.categorie}</div>
@@ -2289,6 +2300,8 @@
 
   function couleurDe(gi) {
     // couleur stable par niveau de difficulté puis par ordre dans la grille
+    // (grille distante : le serveur applique la même règle et donne la couleur avec chaque groupe révélé)
+    if (grille.distante) return grille.groupes[gi] ? grille.groupes[gi].couleur : -1;
     const tri = grille.groupes.map((g, i) => i).sort((a, b) => ORDRE_DIFF[grille.groupes[a].difficulte] - ORDRE_DIFF[grille.groupes[b].difficulte] || a - b);
     return tri.indexOf(gi);
   }
@@ -2355,10 +2368,10 @@
   }
   function rendreBoutons() {
     const etaitPret = !$("btn-valider").disabled;
-    $("btn-valider").disabled = selection.length !== 4;
-    if (selection.length === 4 && !etaitPret) { const b = $("btn-valider"); b.classList.remove("pret"); void b.offsetWidth; b.classList.add("pret"); }
-    $("btn-valider").innerHTML = `Valider<span class="compteur">${selection.length}/4</span>`;
-    $("btn-effacer").disabled = selection.length === 0;
+    $("btn-valider").disabled = selection.length !== 4 || essaiEnCours;
+    if (selection.length === 4 && !etaitPret && !essaiEnCours) { const b = $("btn-valider"); b.classList.remove("pret"); void b.offsetWidth; b.classList.add("pret"); }
+    $("btn-valider").innerHTML = essaiEnCours ? "Vérification…" : `Valider<span class="compteur">${selection.length}/4</span>`;
+    $("btn-effacer").disabled = selection.length === 0 || essaiEnCours;
   }
 
   // Taille du texte par paliers (16 / 13,5 / 12 / 10,5 px) : le mot tient toujours sur une ligne, sans être coupé,
@@ -2398,18 +2411,21 @@
   const INDICES_BASE = 1, INDICES_BONUS_APRES_ERREURS = 2, INDICES_MAX = 2;
   function indicesDisponibles() { return Math.min(INDICES_MAX, INDICES_BASE + (etat.erreurs >= INDICES_BONUS_APRES_ERREURS ? 1 : 0)) - (etat.indices || []).length; }
   function motsIndices() {
-    return (etat.indices || []).filter(i => !etat.trouves.includes(i.groupe)).flatMap(i => i.mots);
+    // Grille distante : le serveur ne dit pas de quel groupe vient l'indice (groupe = null) ; on le retrouve par ses mots.
+    return (etat.indices || []).filter(i => !etat.trouves.includes(i.groupe == null ? groupeDe(i.mots[0]) : i.groupe)).flatMap(i => i.mots);
   }
   function rendreIndice() {
     const b = $("btn-indice"); if (!b) return;
     const dispo = indicesDisponibles();
     $("indice-restant").textContent = dispo;
-    const plusDeGroupes = grille.groupes.every((g, i) => etat.trouves.includes(i) || (etat.indices || []).some(x => x.groupe === i));
-    b.disabled = dispo <= 0 || plusDeGroupes || !!etat.fin;
+    const plusDeGroupes = grille.distante ? 4 - etat.trouves.length <= motsIndices().length / 2
+      : grille.groupes.every((g, i) => etat.trouves.includes(i) || (etat.indices || []).some(x => x.groupe === i));
+    b.disabled = dispo <= 0 || plusDeGroupes || !!etat.fin || essaiEnCours;
     b.title = dispo > 0 ? "Met en évidence deux mots qui vont ensemble (−15 XP)" : etat.erreurs < INDICES_BONUS_APRES_ERREURS && (etat.indices || []).length < INDICES_MAX ? "Un autre indice se débloque après 2 erreurs" : "Plus d'indice disponible";
   }
   function donnerIndice() {
-    if (indicesDisponibles() <= 0 || etat.fin) return;
+    if (indicesDisponibles() <= 0 || etat.fin || essaiEnCours) return;
+    if (grille.distante) return indiceDistant(); // le serveur choisit les deux mots (même règle) et enregistre l'indice
     if (!etat.debut) { etat.debut = Date.now(); journal("debut", {}); if (mode === "entr") journalEntr("debut", { tentative: etat.tentative }); }
     const candidats = grille.groupes.map((g, i) => i).filter(i => !etat.trouves.includes(i) && !(etat.indices || []).some(x => x.groupe === i))
       .sort((a, b) => ORDRE_DIFF[grille.groupes[a].difficulte] - ORDRE_DIFF[grille.groupes[b].difficulte] || a - b);
@@ -2443,7 +2459,7 @@
   }
 
   function basculer(mot) {
-    if (etat.fin || etat.trouves.includes(groupeDe(mot))) return;
+    if (etat.fin || essaiEnCours || etat.trouves.includes(groupeDe(mot))) return;
     if (!etat.debut) { etat.debut = Date.now(); sauver(); journal("debut", {}); if (mode === "entr") journalEntr("debut", { tentative: etat.tentative }); }
     if (selection.includes(mot)) selection = selection.filter(m => m !== mot);
     else if (selection.length < 4) selection.push(mot);
@@ -2453,18 +2469,24 @@
   }
 
   function valider() {
-    if (selection.length !== 4 || etat.fin || fini) return;
+    if (selection.length !== 4 || etat.fin || fini || essaiEnCours) return;
     const signature = selection.slice().sort().join("|");
     if (etat.essais.some(e => e.signature === signature)) { toast("Déjà essayé !", "presque"); return; }
+    if (grille.distante) return validerDistant(signature); // grille distante : c'est le serveur qui juge l'essai
     const groupes = selection.map(groupeDe);
     const compte = {}; groupes.forEach(g => compte[g] = (compte[g] || 0) + 1);
     const max = Math.max(...Object.values(compte));
     const correct = max === 4;
     const unDeMoins = max === 3;
+    appliquerEssai(signature, correct, unDeMoins, groupes[0]);
+  }
+  // Effets d'un essai jugé (messages, cœurs, envol, fin de partie, événement « essai ») : identiques que le jugement
+  // vienne du calcul local ou du serveur. « gi » : index du groupe trouvé quand l'essai est juste.
+  function appliquerEssai(signature, correct, unDeMoins, gi) {
     etat.essais.push({ signature, correct });
     journal("essai", { mots: selection.slice(), correct, un_de_moins: unDeMoins, numero: etat.essais.length });
     if (correct) {
-      etat.trouves.push(groupes[0]);
+      etat.trouves.push(gi);
       const envol = selection.slice();
       selection = []; if (mode === "entr") etat.selection = [];
       toast(["Bien vu !", "Bravo !", "Excellent !", "Parfait !"][etat.trouves.length - 1] || "Bien vu !", "bon"); vibrer(30);
@@ -2472,7 +2494,7 @@
       const complet = etat.trouves.length === 4;
       if (complet) fini = true;
       // Les 4 cartes s'envolent, puis le groupe apparaît en haut du plateau.
-      envoler(envol, () => { groupeAnime = groupes[0]; rendre(); if (complet) setTimeout(() => terminer(true), 800); });
+      envoler(envol, () => { groupeAnime = gi; rendre(); if (complet) setTimeout(() => terminer(true), 800); });
       return;
     } else {
       etat.erreurs++;
@@ -2482,6 +2504,127 @@
       if (etat.erreurs >= MAX_ERREURS) { sauver(); return terminer(false); }
     }
     sauver(); rendre();
+  }
+
+  // ---------- Grille servie par le serveur (interrupteur grilleServeur, voir README) ----------
+  // Une grille « distante » est une grille dont le navigateur ne reçoit que l'identifiant et les 16 mots. Ses groupes
+  // arrivent un par un, quand le joueur les trouve ; la solution complète n'arrive qu'après une réussite, et le niveau
+  // (barème d'XP) à la fin seulement. C'est le serveur qui juge chaque essai (q_essai), choisit les indices (q_indice)
+  // et garde la partie : il est la source de vérité. Le navigateur garde en plus ce que le serveur ignore (ordre après
+  // « Mélanger », temps actif, questionnaire, demande de la prochaine grille).
+  // Les événements de mesure (debut, essai, fin, indice, recompense) partent comme pour une grille locale.
+  let essaiEnCours = false;  // un appel q_essai / q_indice attend sa réponse : boutons verrouillés, pas de double envoi
+  let douteServeur = false;  // un appel a échoué : il a pu atteindre le serveur. On relit la partie avant tout nouvel envoi.
+  const signatureDe = (mots) => mots.slice().sort().join("|");
+  function connaitreGroupes(g, liste) { (liste || []).forEach(x => { if (x && x.index >= 0 && x.index < 4) g.groupes[x.index] = x; }); }
+  function grilleDistante(r) {
+    const g = { id: r.id, distante: true, titre: "Grille du jour", mots: r.mots.slice(), groupes: [null, null, null, null], niveau: r.niveau || null };
+    connaitreGroupes(g, r.partie && r.partie.trouves); connaitreGroupes(g, r.solution);
+    return g;
+  }
+  // Aligne la partie sur ce que dit le serveur (réponse de q_grille). Au démarrage (enDirect = false), on part de la
+  // sauvegarde locale ; en cours de partie (enDirect = true), de la partie affichée, et les essais ou indices que le
+  // serveur a enregistrés sans que cette page le sache (réponse perdue) sont rattrapés, événement de mesure compris
+  // (champ « rattrape: true »). Renvoie les essais rattrapés.
+  function adopterPartieServeur(r, enDirect) {
+    const P = r.partie || {};
+    connaitreGroupes(grille, P.trouves); connaitreGroupes(grille, r.solution); if (r.niveau) grille.niveau = r.niveau;
+    const base = enDirect ? etat : etatValide(store.get(cle()));
+    const e = base && base.grilleId === grille.id ? base
+      : { ordre: [], trouves: [], erreurs: 0, essais: [], debut: null, fin: null, gagne: null, questionnaire: false, demande: false, indices: [], tempsActif: 0, grilleId: grille.id };
+    if (e.ordre.length !== 16 || !grille.mots.every(m => e.ordre.includes(m))) e.ordre = grille.mots.slice();
+    const connus = new Set(e.essais.map(x => x.signature)), essaisServeur = P.essais || [], indicesServeur = P.indices || [];
+    const nouveaux = essaisServeur.filter(x => !connus.has(signatureDe(x.mots)));
+    const nbIndicesAvant = (e.indices || []).length;
+    if ((essaisServeur.length || indicesServeur.length || P.terminee) && !e.debut) { e.debut = Date.now(); if (enDirect) journal("debut", {}); }
+    if (enDirect) {
+      essaisServeur.forEach((x, i) => { if (nouveaux.includes(x)) journal("essai", { mots: x.mots.slice(), correct: !!x.juste, un_de_moins: !!x.presque, numero: i + 1, rattrape: true }); });
+      indicesServeur.slice(nbIndicesAvant).forEach((x, i) => journal("indice", { numero: nbIndicesAvant + i + 1, mots: x.mots, erreurs_au_moment: P.erreurs | 0, rattrape: true }));
+    }
+    e.trouves = (P.trouves || []).map(x => x.index);
+    e.erreurs = P.erreurs | 0;
+    e.essais = essaisServeur.map(x => ({ signature: signatureDe(x.mots), correct: !!x.juste }));
+    e.indices = indicesServeur.map(x => ({ groupe: null, mots: x.mots }));
+    // Partie terminée pour le serveur mais pas pour ce navigateur : lancerGrille() la terminera (événement « fin », XP).
+    if (!P.terminee) { e.fin = null; e.gagne = null; delete e.trouvesParJoueur; } else if (e.fin) e.gagne = !!P.gagnee;
+    store.set(cle(), e);
+    return nouveaux;
+  }
+  // Appel au serveur pour la partie distante. Une panne (réseau, délai) est marquée : l'appelant affiche un message,
+  // rien n'est compté côté navigateur, et la partie sera relue avant le prochain envoi.
+  async function rpcPartie(nom, params) {
+    try { return await API.rpc(nom, Object.assign({ p_id: participant.id, p_grille: grille.id }, params || {})); }
+    catch (e) { douteServeur = true; e.panneServeur = true; throw e; }
+  }
+  // Relit la partie sur le serveur et met l'écran à jour (après une panne, un refus, ou un essai joué dans un autre onglet).
+  async function rattraperServeur() {
+    const g = grille, r = await rpcPartie("q_grille");
+    if (grille !== g || mode !== "jour" || !etat) return;
+    // La grille n'est plus servie à ce participant (calendrier modifié, partie inconnue) : on repart du début.
+    if (!r || !r.ok || !r.serveur || r.id !== g.id) { location.replace(lienPersonnel()); return; }
+    douteServeur = false;
+    const nouveaux = adopterPartieServeur(r, true);
+    selection = selection.filter(m => !etat.trouves.includes(groupeDe(m)));
+    tuilesFausses = [];
+    if (r.partie.terminee && !etat.fin) { fini = true; terminer(!!r.partie.gagnee); return; }
+    rendre();
+    const d = nouveaux[nouveaux.length - 1];
+    if (d) toast(d.juste ? "Bien vu !" : d.presque ? "Presque ! Il en manque un." : "Ce n'est pas un groupe.", d.juste ? "bon" : d.presque ? "presque" : "faux");
+  }
+  // Enveloppe commune : verrouille les boutons pendant l'appel et affiche un message clair si le serveur est injoignable.
+  async function avecServeur(action) {
+    if (essaiEnCours) return;
+    essaiEnCours = true; rendreBoutons(); rendreIndice();
+    const g = grille, e0 = etat;
+    try { await action(() => grille !== g || etat !== e0 || mode !== "jour"); }
+    catch (e) {
+      if (!e.panneServeur) throw e;
+      if (grille === g && etat === e0 && !etat.fin) toast("Connexion impossible : rien n'a été compté. Réessaie.", "faux");
+    } finally {
+      essaiEnCours = false;
+      if (grille === g && etat === e0 && mode === "jour" && !etat.fin) { rendreBoutons(); rendreIndice(); }
+    }
+  }
+  function validerDistant(signature) {
+    const mots = selection.slice();
+    return avecServeur(async (ailleurs) => {
+      if (douteServeur) {
+        await rattraperServeur();
+        // L'essai précédent avait atteint le serveur : son résultat vient d'être affiché, on ne le renvoie pas.
+        if (ailleurs() || etat.fin || selection.length !== 4 || etat.essais.some(x => x.signature === signature)) return;
+      }
+      const r = await rpcPartie("q_essai", { p_mots: mots });
+      if (ailleurs()) { douteServeur = true; return; }
+      const attendu = r && r.ok && !r.deja && r.erreurs === etat.erreurs + (r.juste ? 0 : 1) && (!r.juste || (etat.trouves.length === 3) === !!r.gagnee);
+      if (!attendu) {
+        // Refus (partie terminée, mots d'un groupe déjà trouvé, essai déjà enregistré) ou partie avancée ailleurs :
+        // on s'aligne sur le serveur plutôt que de deviner.
+        await rattraperServeur();
+        if (!ailleurs() && !etat.fin && r && (r.deja || !r.ok)) toast(r.deja ? "Déjà essayé !" : "Essai refusé : la partie a été mise à jour.", "presque");
+        return;
+      }
+      if (r.juste) connaitreGroupes(grille, [r.groupe]);
+      if (r.terminee) { connaitreGroupes(grille, r.solution); if (r.niveau) grille.niveau = r.niveau; }
+      appliquerEssai(signature, !!r.juste, !!r.presque, r.juste ? r.groupe.index : -1);
+    });
+  }
+  function indiceDistant() {
+    return avecServeur(async (ailleurs) => {
+      if (douteServeur) {
+        const n = etat.indices.length;
+        await rattraperServeur();
+        if (ailleurs() || etat.fin || etat.indices.length > n || indicesDisponibles() <= 0) return;
+      }
+      const r = await rpcPartie("q_indice");
+      if (ailleurs()) { douteServeur = true; return; }
+      if (!r || !r.ok || !Array.isArray(r.mots)) { await rattraperServeur(); return; }
+      if (!etat.debut) { etat.debut = Date.now(); journal("debut", {}); }
+      etat.indices = (etat.indices || []).concat([{ groupe: null, mots: r.mots }]);
+      sauver();
+      journal("indice", { numero: etat.indices.length, mots: r.mots, erreurs_au_moment: etat.erreurs });
+      toast("Ces deux mots vont ensemble", "presque"); vibrer(15);
+      rendre();
+    });
   }
 
   function terminer(gagne) {
@@ -2516,7 +2659,9 @@
 
   function grilleEmoji() {
     // une ligne par essai, couleur du groupe de chaque mot
-    return etat.essais.map(e => e.signature.split("|").map(m => EMOJI[couleurDe(groupeDe(m))]).join("")).join("\n");
+    // Grille distante perdue : le client ne connaît que les groupes trouvés. Un mot dont le groupe est resté secret
+    // est représenté par un carré neutre (⬜) : le partage reste possible sans rien révéler.
+    return etat.essais.map(e => e.signature.split("|").map(m => EMOJI[couleurDe(groupeDe(m))] || "⬜").join("")).join("\n");
   }
 
   // Carte de résultat en texte : jamais de mot ni de catégorie, seulement la date, le résultat, la série et les couleurs.
@@ -2654,7 +2799,7 @@
   // que le joueur a lui-même trouvés (rien de ce qu'il n'a pas trouvé n'est montré).
   function rendreSolution(gagne, trouvesJoueur, astuce) {
     const el = $("solution");
-    const idx = (gagne ? grille.groupes.map((g, i) => i) : trouvesJoueur.slice()).sort((a, b) => couleurDe(a) - couleurDe(b));
+    const idx = (gagne ? grille.groupes.map((g, i) => g ? i : -1).filter(i => i >= 0) : trouvesJoueur.slice()).sort((a, b) => couleurDe(a) - couleurDe(b));
     el.classList.toggle("hidden", !idx.length);
     if (!idx.length) { el.innerHTML = ""; return; }
     el.innerHTML = `<h2>${gagne ? (mode === "entr" ? "Les explications" : "La solution") : `Tes groupes trouvés`}</h2>
@@ -2790,8 +2935,9 @@
 
   // ---------- Boutons ----------
   $("btn-valider").addEventListener("click", valider);
-  $("btn-effacer").addEventListener("click", () => { selection = []; if (mode === "entr" && etat) { etat.selection = []; sauver(); } rendre(); });
+  $("btn-effacer").addEventListener("click", () => { if (essaiEnCours) return; selection = []; if (mode === "entr" && etat) { etat.selection = []; sauver(); } rendre(); });
   $("btn-melanger").addEventListener("click", () => {
+    if (essaiEnCours) return;
     const fixes = etat.ordre.filter(m => etat.trouves.includes(groupeDe(m)));
     const autres = etat.ordre.filter(m => !etat.trouves.includes(groupeDe(m)));
     for (let i = autres.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [autres[i], autres[j]] = [autres[j], autres[i]]; }
@@ -2810,7 +2956,7 @@
   $("tuto-suiv").addEventListener("click", () => { if (etapeTuto === 3) $("dlg-regles").close(); else montrerEtape(etapeTuto + 1); });
   $("dlg-regles").addEventListener("close", () => montrerEtape(1));
   montrerEtape(1);
-  $("btn-quitter").addEventListener("click", () => { chronoPause(); sauver(); if (mode === "entr") ouvrirEntrainement(); else ouvrirAccueil(); });
+  $("btn-quitter").addEventListener("click", () => { if (essaiEnCours) return; chronoPause(); sauver(); if (mode === "entr") ouvrirEntrainement(); else ouvrirAccueil(); });
   $("btn-indice").addEventListener("click", donnerIndice);
   $("btn-regles").addEventListener("click", () => { $("dlg-regles").showModal(); journal("regles", {}); });
   $("btn-vie-privee").addEventListener("click", () => $("dlg-vie-privee").showModal());

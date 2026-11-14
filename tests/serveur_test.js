@@ -24,6 +24,35 @@ let decalageJours = 0; // pour simuler « le lendemain »
 const maintenant = () => new Date(Date.now() + decalageJours * 86400000);
 const jour = (d) => new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }).format(new Date(d));
 const nid = () => Math.random().toString(36).slice(2, 8).toUpperCase();
+// ---- Grille servie par le serveur (reproduit sql/2026-11-14_grille_serveur.sql, fonction par fonction) ----
+db.grilles_serveur = []; db.parties = [];
+const md5 = (s) => require("crypto").createHash("md5").update(s, "utf8").digest("hex");
+const GS_DIFF = { facile: 0, intermediaire: 1, difficile: 2 };
+let grilleServeur = process.env.GRILLE_SERVEUR === "1"; // interrupteur servi dans config.js (éteint par défaut)
+const gsParticipant = (id) => db.participants.find(x => x.id === String(id || "").toUpperCase());
+// Grille du jour d'un participant : grille forcée, sinon calendrier de sa session à la date du jour (heure de Paris).
+function gsIdDuJour(p) { const s = db.sessions.find(x => x.id === p.session_id); return p.grille_forcee || (s && s.calendrier && s.calendrier[jour(maintenant())]) || null; }
+// Grille en jeu : celle du jour ; ou celle que le client nomme, s'il y a déjà une partie non terminée dessus (partie à cheval sur minuit).
+function gsIdEnJeu(p, demandee) { const j = gsIdDuJour(p); return demandee && demandee !== j && db.parties.some(x => x.participant_id === p.id && x.grille_id === demandee && !x.terminee) ? demandee : j; }
+// Groupes tels qu'on peut les montrer : index dans la grille et couleur (rang par difficulté puis par index, comme couleurDe() du client).
+function gsPublics(groupes) { const tri = groupes.map((g, i) => i).sort((a, b) => GS_DIFF[groupes[a].difficulte] - GS_DIFF[groupes[b].difficulte] || a - b);
+  return groupes.map((g, i) => ({ index: i, couleur: tri.indexOf(i), categorie: g.categorie, difficulte: g.difficulte, mots: g.mots, explication: g.explication })); }
+// Ordre des 16 mots : stable par participant et par grille (tri sur md5), jamais l'ordre des groupes.
+function gsOrdre(pid, gid, groupes) { const naturel = groupes.flatMap(g => g.mots), k = (m) => md5(pid + ":" + gid + ":" + m);
+  const o = naturel.slice().sort((a, b) => k(a) < k(b) ? -1 : k(a) > k(b) ? 1 : 0); if (o.join("|") === naturel.join("|")) o.push(o.shift()); return o; }
+const gsTri = (mots) => mots.slice().sort((a, b) => Buffer.compare(Buffer.from(a, "utf8"), Buffer.from(b, "utf8"))); // ordre des octets, comme collate "C"
+function gsPartie(p, gid, creer) { let x = db.parties.find(y => y.participant_id === p.id && y.grille_id === gid);
+  if (!x && creer) { x = { participant_id: p.id, grille_id: gid, trouves: [], essais: [], erreurs: 0, indices: [], terminee: false, gagnee: false, debut: maintenant().toISOString(), fin: null }; db.parties.push(x); } return x; }
+const gsNiveau = (v) => ["facile", "intermediaire", "difficile"].includes(v);
+function gsValider(g) { // renvoie la raison du refus, ou null si la grille est bien formée
+  if (!g || typeof g !== "object" || Array.isArray(g)) return "format";
+  if (typeof g.id !== "string" || !/^[A-Za-z0-9_-]{1,10}$/.test(g.id)) return "id";
+  if (!gsNiveau(g.niveau)) return "niveau";
+  if (!Array.isArray(g.groupes) || g.groupes.length !== 4) return "groupes";
+  for (const gr of g.groupes) { if (!gr || typeof gr !== "object" || typeof gr.categorie !== "string" || !gr.categorie.trim() || !gsNiveau(gr.difficulte)) return "groupe";
+    if (!Array.isArray(gr.mots) || gr.mots.length !== 4 || gr.mots.some(m => typeof m !== "string" || !m.trim())) return "mots"; }
+  if (new Set(g.groupes.flatMap(gr => gr.mots)).size !== 16) return "mots_distincts";
+  return null; }
 function admin(c) { if (c !== CODE) { const e = new Error("code administrateur invalide"); e.status = 401; throw e; } }
 const F = {
   q_identifier({ p_id }) { const p = db.participants.find(x => x.id === String(p_id).toUpperCase()); if (!p) return { existe: false };
@@ -43,6 +72,40 @@ const F = {
   q_evenement({ p_id, p_visite, p_grille, p_type, p_donnees }) { const p = db.participants.find(x => x.id === p_id); if (!p) return false;
     if (!["debut","essai","fin","demande_suivante","partage","questionnaire","regles","recompense","indice","entrainement","defi","minijeu"].includes(p_type)) return false;
     db.evenements.push({ id: db.evenements.length + 1, participant_id: p.id, session_id: p.session_id, visite_id: p_visite, grille: p_grille, type: p_type, donnees: p_donnees || {}, created_at: maintenant().toISOString() }); return true; },
+  q_grille({ p_id, p_grille }) { const p = gsParticipant(p_id); if (!p) return { ok: false };
+    const id = gsIdEnJeu(p, p_grille), g = db.grilles_serveur.find(x => x.id === id); if (!g) return { ok: true, serveur: false, id };
+    const x = gsPartie(p, id) || { trouves: [], essais: [], erreurs: 0, indices: [], terminee: false, gagnee: false }, pub = gsPublics(g.groupes);
+    const r = { ok: true, serveur: true, id, mots: gsOrdre(p.id, id, g.groupes),
+      partie: { trouves: x.trouves.map(i => pub[i]), erreurs: x.erreurs, essais: x.essais, terminee: x.terminee, gagnee: x.gagnee, indices: x.indices.map(i => ({ mots: i.mots })) } };
+    if (x.terminee) { r.niveau = g.niveau; if (x.gagnee) r.solution = pub; } // jamais de solution ni de niveau avant la fin, jamais de solution après un échec
+    return r; },
+  q_essai({ p_id, p_mots, p_grille }) { const p = gsParticipant(p_id); if (!p) return { ok: false, raison: "inconnu" };
+    const id = gsIdEnJeu(p, p_grille), g = db.grilles_serveur.find(x => x.id === id); if (!g) return { ok: false, raison: "grille" };
+    const tous = g.groupes.flatMap(gr => gr.mots);
+    if (!Array.isArray(p_mots) || p_mots.length !== 4 || new Set(p_mots).size !== 4 || p_mots.some(m => !tous.includes(m))) return { ok: false, raison: "mots" };
+    const x = gsPartie(p, id, true); if (x.terminee) return { ok: false, raison: "terminee" };
+    const tri = gsTri(p_mots); if (x.essais.some(e => e.mots.join("|") === tri.join("|"))) return { ok: true, deja: true }; // essai répété : ne coûte rien
+    if (x.essais.length >= 60) return { ok: false, raison: "limite" };
+    const compte = g.groupes.map((gr, i) => x.trouves.includes(i) ? 0 : gr.mots.filter(m => p_mots.includes(m)).length);
+    if (compte.reduce((a, b) => a + b, 0) !== 4) return { ok: false, raison: "mots" }; // un mot appartient à un groupe déjà trouvé
+    const max = Math.max(...compte), juste = max === 4, presque = max === 3, gi = compte.indexOf(4);
+    x.essais.push({ mots: tri, juste, presque });
+    if (juste) { x.trouves.push(gi); if (x.trouves.length === 4) { x.terminee = true; x.gagnee = true; } }
+    else { x.erreurs++; if (x.erreurs >= 4) x.terminee = true; }
+    if (x.terminee) x.fin = maintenant().toISOString();
+    const pub = gsPublics(g.groupes), r = { ok: true, juste, presque, erreurs: x.erreurs, terminee: x.terminee, gagnee: x.gagnee };
+    if (juste) r.groupe = pub[gi];
+    if (x.terminee) { r.niveau = g.niveau; if (x.gagnee) r.solution = pub; }
+    return r; },
+  q_indice({ p_id, p_grille }) { const p = gsParticipant(p_id); if (!p) return { ok: false };
+    const id = gsIdEnJeu(p, p_grille), g = db.grilles_serveur.find(x => x.id === id); if (!g) return { ok: false };
+    const x = gsPartie(p, id, true); if (x.terminee) return { ok: false };
+    if (Math.min(2, 1 + (x.erreurs >= 2 ? 1 : 0)) - x.indices.length <= 0) return { ok: false }; // 1 indice par grille, un second après 2 erreurs
+    const cand = g.groupes.map((gr, i) => i).filter(i => !x.trouves.includes(i) && !x.indices.some(n => n.groupe === i))
+      .sort((a, b) => GS_DIFF[g.groupes[a].difficulte] - GS_DIFF[g.groupes[b].difficulte] || a - b); if (!cand.length) return { ok: false };
+    const k = (m) => md5(p.id + ":" + id + ":indice:" + m);
+    const mots = g.groupes[cand[0]].mots.slice().sort((a, b) => k(a) < k(b) ? -1 : k(a) > k(b) ? 1 : 0).slice(0, 2);
+    x.indices.push({ groupe: cand[0], mots }); return { ok: true, mots }; },
   // ---- Défi express (reproduit les fonctions SQL d_*) ----
   d_creer_salon({ p_joueur, p_pseudo, p_graine }) { const pseudo = String(p_pseudo || "").trim().replace(/[<>"&]/g, "").slice(0, 16);
     if (String(p_joueur || "").length < 6 || !pseudo) return { ok: false, raison: "pseudo" };
@@ -119,6 +182,13 @@ const F = {
   a_lien_envoye({ code, p_id }) { admin(code); const p = db.participants.find(x => x.id === p_id); p.lien_envoye_le = p.lien_envoye_le || new Date().toISOString(); return null; },
   a_creer_rappel({ code, p_id, p_grille }) { admin(code); const t = Math.random().toString(16).slice(2, 14); db.rappels.push({ token: t, participant_id: p_id, grille: p_grille, created_at: maintenant().toISOString() }); return t; },
   a_forcer_grille({ code, p_id, p_grille }) { admin(code); db.participants.find(x => x.id === p_id).grille_forcee = p_grille || null; return null; },
+  a_grilles_serveur({ code }) { admin(code); return db.grilles_serveur.slice().sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0).map(g => ({ id: g.id, niveau: g.niveau, groupes: g.groupes })); },
+  a_charger_grilles({ code, p_grilles }) { admin(code); if (!Array.isArray(p_grilles)) return { ok: false, raison: "format" };
+    const r = { ok: true, recues: p_grilles.length, creees: [], mises_a_jour: [], refusees: [] };
+    for (const g of p_grilles) { const raison = gsValider(g); if (raison) { r.refusees.push({ id: g && !Array.isArray(g) && typeof g.id === "string" ? g.id : null, raison }); continue; }
+      const propre = { id: g.id, niveau: g.niveau, groupes: g.groupes.map(gr => ({ categorie: gr.categorie, difficulte: gr.difficulte, mots: gr.mots, explication: typeof gr.explication === "string" ? gr.explication : "" })) };
+      const i = db.grilles_serveur.findIndex(x => x.id === g.id); if (i >= 0) { db.grilles_serveur[i] = propre; r.mises_a_jour.push(g.id); } else { db.grilles_serveur.push(propre); r.creees.push(g.id); } }
+    return r; },
   a_donnees({ code, p_session }) { admin(code); const P = db.participants.filter(p => p.session_id === p_session);
     return { participants: P, rappels: db.rappels.filter(r => P.some(p => p.id === r.participant_id)), evenements: db.evenements.filter(e => e.session_id === p_session) }; },
 };
@@ -126,6 +196,8 @@ const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; ch
 const serveur = http.createServer((req, res) => {
   const url = new URL(req.url, "http://x");
   if (url.pathname === "/__test/decaler") { decalageJours = Number(url.searchParams.get("jours")); res.end("ok"); return; }
+  // Interrupteur « grille servie par le serveur » : /__test/config?grilleServeur=1 (ou variable GRILLE_SERVEUR=1 au lancement).
+  if (url.pathname === "/__test/config") { grilleServeur = url.searchParams.get("grilleServeur") === "1"; res.end("ok"); return; }
   if (url.pathname === "/__test/db") { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify(db)); return; }
   if (url.pathname.startsWith("/rest/v1/rpc/")) {
     let corps = ""; req.on("data", c => corps += c); req.on("end", () => {
@@ -135,7 +207,7 @@ const serveur = http.createServer((req, res) => {
     }); return;
   }
   let fichier = url.pathname === "/" ? "/index.html" : url.pathname;
-  if (fichier === "/config.js") { res.setHeader("Content-Type", types[".js"]); res.end(`window.QUOTIDIEN_CONFIG={supabaseUrl:"http://localhost:${PORT}",supabaseKey:"test"};`); return; }
+  if (fichier === "/config.js") { res.setHeader("Content-Type", types[".js"]); res.end(`window.QUOTIDIEN_CONFIG={supabaseUrl:"http://localhost:${PORT}",supabaseKey:"test"${grilleServeur ? ",grilleServeur:true" : ""}};`); return; }
   const chemin = path.join(RACINE, path.normalize(fichier));
   if (!chemin.startsWith(RACINE) || !fs.existsSync(chemin)) { res.statusCode = 404; res.end("404"); return; }
   res.setHeader("Content-Type", types[path.extname(chemin)] || "application/octet-stream"); res.end(fs.readFileSync(chemin));

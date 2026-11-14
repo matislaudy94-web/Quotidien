@@ -111,6 +111,18 @@
     </section>
 
     <section>
+      <h2>Grilles servies par le serveur</h2>
+      <p class="muted">Grilles gardées dans la base, jamais envoyées en entier au navigateur des joueurs (voir README, « Grille servie par le serveur »). Elles ne sont jouées que si le calendrier de la session les référence (« Modifier le calendrier ») <strong>et</strong> si <span class="k">grilleServeur</span> vaut <span class="k">true</span> dans config.js.</p>
+      <div id="gs-liste" class="note"></div>
+      <details style="margin-top:8px"><summary>Charger des grilles</summary>
+        <p class="muted">Collez le contenu d'un lot (tableau JSON : id, niveau, groupes de 4 mots avec catégorie, difficulté et explication). Une grille déjà présente est mise à jour ; une grille mal formée est refusée.</p>
+        <textarea id="gs-json" rows="5" style="width:100%" placeholder='[{"id":"b01","niveau":"facile","groupes":[…]}]'></textarea>
+        <div class="row" style="margin-top:6px"><button id="btn-gs-charger">Charger ces grilles</button></div>
+        <div id="gs-compte-rendu" class="note hidden"></div>
+      </details>
+    </section>
+
+    <section>
       <h2>Export</h2>
       <div class="row">
         <button id="btn-csv-participants">Participants (CSV)</button>
@@ -132,6 +144,11 @@
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const BASE = new URL("index.html", location.href).href.replace(/index\.html$/, "");
   let CODE = null, sessions = [], sessionId = null, D = null, grilleOnglet = GRILLES[0].id;
+  // Grilles servies par le serveur (table grilles_serveur) : absentes de grilles.js, lues par a_grilles_serveur.
+  // GS_OK = false tant que la fonction n'existe pas en base (SQL pas encore appliqué) : le reste de l'admin marche quand même.
+  let GS = [], GS_OK = false;
+  const grillesServeur = () => GS.filter(g => !GRILLES.some(x => x.id === g.id)).map(g => ({ id: g.id, titre: "Grille " + g.id, niveau: g.niveau, intention: "Grille servie par le serveur (absente de grilles.js).", groupes: g.groupes, serveur: true }));
+  const toutesGrilles = () => GRILLES.concat(grillesServeur());
 
   const jourParis = (d) => new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit" }).format(d ? new Date(d) : new Date());
   const heure = (d) => d ? new Date(d).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "";
@@ -165,11 +182,14 @@
     sessions = await API.rpc("a_sessions", { code: CODE });
     $("choix-session").innerHTML = sessions.length ? sessions.map(s => `<option value="${esc(s.id)}" ${s.id === sessionId ? "selected" : ""}>${esc(s.nom)} (${esc(s.id)})${s.active ? " · active" : ""}</option>`).join("")
       : `<option value="">Aucune session : créez-en une ci-dessous</option>`;
+    try { const r = await API.rpc("a_grilles_serveur", { code: CODE }); GS = Array.isArray(r) ? r.filter(g => g && typeof g.id === "string" && Array.isArray(g.groupes)) : []; GS_OK = true; }
+    catch (e) { GS = []; GS_OK = false; }
+    rendreGrillesServeur();
     const s = sessions.find(x => x.id === sessionId);
     if (!s) { $("info-session").textContent = "Créez une session pour commencer."; D = null; rendreTout(); return; }
     $("s-calendrier").value = JSON.stringify(s.calendrier);
     const entrees = Object.entries(s.calendrier).sort();
-    const cal = (entrees.length > 6 ? entrees.slice(0, 3).concat([["…", "…"]], entrees.slice(-2)) : entrees).map(([d, g]) => d === "…" ? "…" : `${d} → ${(GRILLES.find(x => x.id === g) || {}).titre || g}`).join(" · ") || "aucune date";
+    const cal = (entrees.length > 6 ? entrees.slice(0, 3).concat([["…", "…"]], entrees.slice(-2)) : entrees).map(([d, g]) => d === "…" ? "…" : `${d} → ${(toutesGrilles().find(x => x.id === g) || {}).titre || g}`).join(" · ") || "aucune date";
     const calComplet = entrees.length ? ` (${entrees.length} jours, du ${entrees[0][0]} au ${entrees[entrees.length - 1][0]})` : "";
     $("info-session").innerHTML = `${s.active ? "<strong>Session active</strong> (les visiteurs sans lien et les invités y sont rattachés)." : "Session inactive."} Calendrier (heure de Paris)${calComplet} : ${esc(cal)}. Aujourd'hui : ${jourParis()}.`;
     D = await API.rpc("a_donnees", { code: CODE, p_session: sessionId });
@@ -358,7 +378,7 @@
   function rendreParticipants(M) {
     const L = Object.values(M);
     if (!L.length) { $("tab-participants").innerHTML = `<tr><td class="muted">Aucun participant.</td></tr>`; return; }
-    const opts = (sel) => `<option value="">calendrier</option>` + GRILLES.map(g => `<option value="${g.id}" ${sel === g.id ? "selected" : ""}>${g.titre}</option>`).join("");
+    const opts = (sel) => `<option value="">calendrier</option>` + toutesGrilles().map(g => `<option value="${esc(g.id)}" ${sel === g.id ? "selected" : ""}>${esc(g.titre)}${g.serveur ? " (serveur)" : ""}</option>`).join("");
     $("tab-participants").innerHTML = `<tr><th>ID</th><th>Groupe</th><th>Lien personnel</th><th>Envoyé</th><th>Grille</th><th class="num">Visites</th><th>Commencées</th><th>Terminées</th><th>Demande</th><th class="num">Jours revenu sans rappel</th><th class="num">Retours après rappel</th><th class="num">Clics inviter</th><th class="num">Invités ayant joué</th><th class="num" title="Nombre de navigateurs différents ayant ouvert ce lien">Appareils</th><th>Dernière visite</th></tr>`
       + L.map(x => `<tr>
         <td class="k">${x.id}</td><td>${x.groupe}${x.invite_par ? ` <span class="muted">par ${x.invite_par}</span>` : ""}</td>
@@ -380,14 +400,17 @@
   }
 
   function rendreOnglets() {
-    $("tabs-grilles").innerHTML = GRILLES.map(g => `<button class="${g.id === grilleOnglet ? "on" : ""}" data-g="${g.id}" title="${esc(g.niveau || "")}">${g.titre.replace("Grille ", "")}<span class="muted" style="font-size:11px"> ${LIB_NIV[g.niveau] || ""}</span></button>`).join("");
+    // Onglets : les grilles de grilles.js, puis les grilles du serveur que cette session utilise (calendrier, grille forcée, événements).
+    const s = sessions.find(x => x.id === sessionId);
+    const utilisees = new Set(Object.values((s && s.calendrier) || {}).concat((D.participants || []).map(p => p.grille_forcee), (D.evenements || []).map(e => e.grille)));
+    $("tabs-grilles").innerHTML = GRILLES.concat(grillesServeur().filter(g => utilisees.has(g.id))).map(g => `<button class="${g.id === grilleOnglet ? "on" : ""}" data-g="${esc(g.id)}" title="${esc(g.niveau || "")}">${esc(g.titre.replace("Grille ", ""))}<span class="muted" style="font-size:11px"> ${LIB_NIV[g.niveau] || ""}</span></button>`).join("");
     $("tabs-grilles").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { grilleOnglet = b.dataset.g; rendreTout(); }));
   }
 
   function mediane(a) { if (!a.length) return null; const s = a.slice().sort((x, y) => x - y); const k = Math.floor(s.length / 2); return s.length % 2 ? s[k] : (s[k - 1] + s[k]) / 2; }
 
   function rendreGrille(M) {
-    const g = GRILLES.find(x => x.id === grilleOnglet);
+    const g = toutesGrilles().find(x => x.id === grilleOnglet) || GRILLES[0];
     const E = D.evenements.filter(e => e.grille === g.id);
     const qui = (t) => new Set(E.filter(e => e.type === t).map(e => e.participant_id));
     const fins = E.filter(e => e.type === "fin");
@@ -429,6 +452,31 @@
       <h3 style="font-size:15px;margin:12px 0 4px">Ce qui a gêné (réponses libres)</h3>
       ${commentaires ? `<ul class="comments">${commentaires}</ul>` : `<p class="muted">Aucune réponse pour l'instant.</p>`}`;
   }
+
+  // ---------- Grilles servies par le serveur ----------
+  function rendreGrillesServeur() {
+    const el = $("gs-liste");
+    if (!GS_OK) { el.textContent = "Fonctions du serveur absentes ou injoignables : appliquer d'abord sql/2026-11-14_grille_serveur.sql."; return; }
+    const doubles = GS.filter(g => GRILLES.some(x => x.id === g.id)).map(g => g.id);
+    el.innerHTML = (GS.length ? `<strong>${GS.length} grille${GS.length > 1 ? "s" : ""} sur le serveur :</strong> ${GS.map(g => `<span class="k">${esc(g.id)}</span> <span class="muted">${esc(LIB_NIV[g.niveau] || g.niveau || "")}</span>`).join(" · ")}` : "Aucune grille sur le serveur pour l'instant.")
+      + (doubles.length ? `<br><span class="err">⚠ Aussi présentes dans grilles.js (leur solution reste lisible dans le navigateur) : ${esc(doubles.join(", "))}</span>` : "");
+  }
+  $("btn-gs-charger").addEventListener("click", async () => {
+    const cr = $("gs-compte-rendu"); cr.classList.remove("hidden"); cr.classList.remove("err");
+    let lot; try { lot = JSON.parse($("gs-json").value); } catch (e) { cr.classList.add("err"); cr.textContent = "JSON illisible : vérifiez que le lot est collé en entier."; return; }
+    if (lot && !Array.isArray(lot) && typeof lot === "object") lot = [lot];
+    if (!Array.isArray(lot) || !lot.length) { cr.classList.add("err"); cr.textContent = "Rien à charger : il faut un tableau de grilles."; return; }
+    cr.textContent = "Chargement…";
+    try {
+      const r = await API.rpc("a_charger_grilles", { code: CODE, p_grilles: lot });
+      if (!r || !r.ok) { cr.classList.add("err"); cr.textContent = "Chargement refusé par le serveur."; return; }
+      const RAISONS = { format: "n'est pas un objet", id: "identifiant absent ou invalide (lettres, chiffres, 10 caractères au plus)", niveau: "niveau inconnu", groupes: "il faut 4 groupes", groupe: "groupe sans catégorie ou de difficulté inconnue", mots: "il faut 4 mots par groupe", mots_distincts: "les 16 mots doivent être tous différents" };
+      cr.innerHTML = `Reçues : ${r.recues} · créées : ${r.creees.length}${r.creees.length ? " (" + esc(r.creees.join(", ")) + ")" : ""} · mises à jour : ${r.mises_a_jour.length}${r.mises_a_jour.length ? " (" + esc(r.mises_a_jour.join(", ")) + ")" : ""} · refusées : ${r.refusees.length}`
+        + (r.refusees.length ? `<ul class="comments">${r.refusees.map(x => `<li class="err">${esc(x.id || "(sans identifiant)")} : ${esc(RAISONS[x.raison] || x.raison)}</li>`).join("")}</ul>` : "");
+      if (r.creees.length || r.mises_a_jour.length) $("gs-json").value = "";
+      await charger();
+    } catch (e) { cr.classList.add("err"); cr.textContent = /invalide/.test(e.message) ? "Code administrateur refusé." : "Serveur injoignable ou fonction absente : " + e.message; }
+  });
 
   // ---------- Export CSV ----------
   function csv(lignes) {

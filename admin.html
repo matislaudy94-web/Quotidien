@@ -136,6 +136,7 @@
 <script src="config.js"></script>
 <script src="api.js"></script>
 <script src="grilles.js"></script>
+<script src="ordre_serveur.js" onerror="window.ORDRE_SERVEUR=[]"></script>
 <script>
 (function () {
   "use strict";
@@ -184,6 +185,7 @@
       : `<option value="">Aucune session : créez-en une ci-dessous</option>`;
     try { const r = await API.rpc("a_grilles_serveur", { code: CODE }); GS = Array.isArray(r) ? r.filter(g => g && typeof g.id === "string" && Array.isArray(g.groupes)) : []; GS_OK = true; }
     catch (e) { GS = []; GS_OK = false; }
+    $("nb-grilles").textContent = GRILLES.length + suiteServeur().length;
     rendreGrillesServeur();
     const s = sessions.find(x => x.id === sessionId);
     if (!s) { $("info-session").textContent = "Créez une session pour commencer."; D = null; rendreTout(); return; }
@@ -227,10 +229,17 @@
     return [...RYTHME].map(c => files[c][k[c]++]);
   }
 
+  // Suite du calendrier après les grilles de grilles.js : les grilles du serveur, dans l'ordre de ordre_serveur.js
+  // (identifiants seuls, aucun contenu). Seules celles qui sont vraiment chargées dans la base sont programmées.
+  function suiteServeur() {
+    const ordre = Array.isArray(window.ORDRE_SERVEUR) ? window.ORDRE_SERVEUR : [];
+    return ordre.filter(id => GS.some(g => g.id === id) && !GRILLES.some(x => x.id === id));
+  }
+
   $("form-session").addEventListener("submit", async (e) => {
     e.preventDefault();
     const debut = $("s-debut").value; if (!debut) return;
-    const cal = {}; ordreCalendrier().forEach((g, i) => { const d = new Date(debut + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + i); cal[d.toISOString().slice(0, 10)] = g.id; });
+    const cal = {}; ordreCalendrier().map(g => g.id).concat(suiteServeur()).forEach((id, i) => { const d = new Date(debut + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + i); cal[d.toISOString().slice(0, 10)] = id; });
     const r = await API.rpc("a_creer_session", { code: CODE, p_nom: $("s-nom").value.trim(), p_calendrier: cal });
     sessionId = r.id; charger();
   });

@@ -409,6 +409,18 @@ const secrets = (g, indexGroupes) => indexGroupes.flatMap(i => [g.groupes[i].cat
     ok(!x.appels.includes("q_grille") && /Pas de grille aujourd'hui/.test(await x.page.locator("#carte-jour").innerText()), "interrupteur de nouveau éteint : q_grille n'est plus appelée (retour arrière immédiat)");
     await x.ctx.close();
 
+    console.log("10. Calendrier d'une nouvelle session : grilles locales puis grilles du serveur (ordre_serveur.js)");
+    // L'ordre nomme une grille absente de la base (zz9) et une grille locale (g1) : elles ne doivent pas être programmées.
+    await adm.page.evaluate(() => { window.ORDRE_SERVEUR = ["t02", "zz9", "t01", "g1"]; });
+    await adm.page.click("#btn-actualiser");
+    await adm.page.waitForFunction((n) => document.getElementById("nb-grilles").textContent === String(n), G.length + 2);
+    ok(await adm.page.locator("#nb-grilles").innerText() === String(G.length + 2), "admin : le nombre de jours annoncé compte les grilles du serveur chargées (" + (G.length + 2) + ")");
+    const avant = (await db()).sessions.length;
+    await adm.page.fill("#s-nom", "Test calendrier long"); await adm.page.fill("#s-debut", auj); await adm.page.click("#form-session button");
+    await adm.page.waitForFunction(async (n) => (await (await fetch("/__test/db")).json()).sessions.length > n, avant);
+    const calLong = Object.entries((await db()).sessions.slice(-1)[0].calendrier).sort().map(e => e[1]);
+    ok(calLong.length === G.length + 2 && calLong.slice(0, G.length).every(id => G.some(g => g.id === id)) && calLong.slice(-2).join() === "t02,t01", "admin : nouvelle session = " + G.length + " grilles locales, puis t02 et t01 dans l'ordre de ordre_serveur.js ; zz9 (absente) et g1 (locale) ignorées");
+
     ok(erreursConsole.length === 0, "aucune erreur JavaScript inattendue" + (erreursConsole.length ? " : " + erreursConsole.slice(0, 3).join(" | ") : ""));
   } catch (e) {
     console.log("  ÉCHEC exception : " + (e && e.stack || e)); echecs++;

@@ -18,6 +18,7 @@ window.QUOTIDIEN_CONFIG = {
   // dans le navigateur). true = le jeu demande la grille du jour au serveur (fonction q_grille) ; si elle est dans la table
   // grilles_serveur, seuls ses 16 mots sont envoyés et chaque essai est jugé par le serveur (q_essai, q_indice) : la
   // solution n'arrive qu'après une réussite. Une grille absente de cette table reste jouée en local.
-  // Ne passer à true qu'APRÈS avoir appliqué sql/2026-11-14_grille_serveur.sql (voir README, « Grille servie par le serveur »).
-  grilleServeur: false,
+  // Allumé le 16/11/2026 : le SQL est appliqué ; les grilles du dépôt de contenu sont servies depuis grilles_serveur.
+  // Retour arrière : remettre false et publier (les grilles du serveur ne sont alors plus jouables).
+  grilleServeur: true,
 };
